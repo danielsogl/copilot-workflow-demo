@@ -36,5 +36,13 @@
     {
       "file": ".github/guidelines/ngrx-signals-guidelines.md"
     }
-  ]
+  ],
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "editor.trimAutoWhitespace": true,
+  "prettier.configPath": ".prettierrc",
+  "prettier.requireConfig": true
 }
