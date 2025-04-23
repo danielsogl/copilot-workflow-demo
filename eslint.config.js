@@ -4,6 +4,7 @@ const tseslint = require("typescript-eslint");
 const angular = require("angular-eslint");
 const eslintConfigPrettier = require("eslint-config-prettier/flat");
 const sheriff = require("@softarc/eslint-plugin-sheriff");
+const ngrx = require("@ngrx/eslint-plugin/v9");
 
 module.exports = tseslint.config(
   {
@@ -13,6 +14,8 @@ module.exports = tseslint.config(
       ...tseslint.configs.recommended,
       ...tseslint.configs.stylistic,
       ...angular.configs.tsRecommended,
+      ...ngrx.configs.operators,
+      ...ngrx.configs.signals,
       eslintConfigPrettier,
     ],
     processor: angular.processInlineTemplates,
