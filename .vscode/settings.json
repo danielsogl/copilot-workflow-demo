@@ -1,3 +1,40 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "github.copilot.chat.commitMessageGeneration.instructions": [
+    {
+      "file": ".github/guidelines/commit-convention.md"
+    }
+  ],
+  "github.copilot.chat.codeGeneration.instructions": [
+    {
+      "file": ".github/guidelines/typescript-guidelines.md"
+    },
+    {
+      "file": ".github/guidelines/angular-guidelines.md"
+    },
+    {
+      "file": ".github/guidelines/ngrx-signals-guidelines.md"
+    }
+  ],
+  "github.copilot.chat.testGeneration.instructions": [
+    {
+      "file": ".github/guidelines/typescript-guidelines.md"
+    },
+    {
+      "file": ".github/guidelines/angular-testing-guidelines.md"
+    },
+    {
+      "file": ".github/guidelines/ngrx-signals-testing-guidelines.md"
+    }
+  ],
+  "github.copilot.chat.reviewSelection.instructions": [
+    {
+      "file": ".github/guidelines/typescript-guidelines.md"
+    },
+    {
+      "file": ".github/guidelines/angular-guidelines.md"
+    },
+    {
+      "file": ".github/guidelines/ngrx-signals-guidelines.md"
+    }
+  ]
 }
