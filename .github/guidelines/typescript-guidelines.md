@@ -43,7 +43,7 @@
 ## 2. Formatting
 
 - **Tab width:** 2 spaces
-- **Print width:** 100 characters
+- **Print width:** 80 characters
 - **Semicolons:** Always use semicolons
 - **Quotes:**
   - Single quotes for TypeScript

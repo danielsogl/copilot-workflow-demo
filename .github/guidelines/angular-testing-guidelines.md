@@ -66,7 +66,12 @@ describe("MyService", () => {
 ## 3. Component Testing Example
 
 ```typescript
-import { TestBed, ComponentFixture, fakeAsync, tick } from "@angular/core/testing";
+import {
+  TestBed,
+  ComponentFixture,
+  fakeAsync,
+  tick,
+} from "@angular/core/testing";
 import { MockBuilder, MockRender, ngMocks, MockInstance } from "ng-mocks";
 import { MyComponent } from "./my.component";
 import { MyService } from "./my.service";

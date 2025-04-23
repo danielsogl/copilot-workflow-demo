@@ -162,9 +162,11 @@ export const UserStore = signalStore(
     addUser: signalMethod<User>((user) => {
       patchState(store, addEntity(user));
     }),
-    updateUser: signalMethod<{ id: string; changes: Partial<User> }>(({ id, changes }) => {
-      patchState(store, updateEntity({ id, changes }));
-    }),
+    updateUser: signalMethod<{ id: string; changes: Partial<User> }>(
+      ({ id, changes }) => {
+        patchState(store, updateEntity({ id, changes }));
+      },
+    ),
     removeUser: signalMethod<string>((id) => {
       patchState(store, removeEntity(id));
     }),
@@ -330,7 +332,11 @@ export const UserStore = signalStore(
           return http.get<User[]>("/api/users").pipe(
             tapResponse({
               next: (users) => patchState(store, { users, loading: false }),
-              error: () => patchState(store, { loading: false, error: "Failed to load users" }),
+              error: () =>
+                patchState(store, {
+                  loading: false,
+                  error: "Failed to load users",
+                }),
             }),
           );
         }),

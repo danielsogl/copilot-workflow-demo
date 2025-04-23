@@ -11,4 +11,4 @@ import { RouterLink } from "@angular/router";
   standalone: true,
   imports: [MatToolbarModule, MatButtonModule, MatIconModule, RouterLink],
 })
-export class NavbarComponent { }
+export class NavbarComponent {}

@@ -8,5 +8,4 @@ import { NavbarComponent } from "./core/components/navbar/navbar.component";
   templateUrl: "./app.component.html",
   styleUrl: "./app.component.scss",
 })
-export class AppComponent {
-}
+export class AppComponent {}
