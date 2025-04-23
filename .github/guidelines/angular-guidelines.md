@@ -90,6 +90,21 @@ Use this guidelines when working with Angular related code.
 - **Accessibility:** Components follow a11y standards
 - **Dark Mode:** Components support dark mode where appropriate
 
+## 5a. Angular Material and Angular CDK Usage
+
+- **Standard UI Library:** Use Angular Material v3 for all standard UI components (buttons, forms, navigation, dialogs, etc.) to ensure consistency, accessibility, and alignment with Angular best practices.
+- **Component Development:** Build new UI components and features using Angular Material components as the foundation. Only create custom components when Material does not provide a suitable solution.
+- **Behavioral Primitives:** Use Angular CDK for advanced behaviors (drag-and-drop, overlays, accessibility, virtual scrolling, etc.) and for building custom components that require low-level primitives.
+- **Theming:** Leverage Angular Material's theming system for consistent color schemes, dark mode support, and branding. Define and use custom themes in `styles.scss` or feature-level styles as needed.
+- **Accessibility:** All UI components must meet accessibility (a11y) standards. Prefer Material components for built-in a11y support. When using CDK or custom components, follow WCAG and ARIA guidelines.
+- **Best Practices:**
+  - Prefer Material's layout and typography utilities for spacing and text.
+  - Use Material icons and fonts for visual consistency.
+  - Avoid mixing multiple UI libraries in the same project.
+  - Reference the [Angular Material documentation](https://material.angular.io) for usage patterns and updates.
+- **CDK Utilities:** Use Angular CDK utilities for custom behaviors, overlays, accessibility, and testing harnesses.
+- **Migration:** For legacy or custom components, migrate to Angular Material/CDK where feasible.
+
 ## 6. Service and DI Patterns
 
 - **Service Declaration:** Services use the `@Injectable()` decorator with `providedIn: 'root'` for singletons
