@@ -1,7 +1,3 @@
 {
-  "github.copilot.chat.commitMessageGeneration.instructions": [
-    {
-      "file": ".github/commit-convention.md"
-    }
-  ]
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
 }
