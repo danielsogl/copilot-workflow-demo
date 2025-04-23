@@ -1,0 +1,29 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.nav-items {
+  margin-left: 1rem;
+  display: flex;
+  gap: 1rem;
+
+  a {
+    margin-right: 8px;
+  }
+}
+
+.nav-icon {
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+}
