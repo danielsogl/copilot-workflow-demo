@@ -1,0 +1,3 @@
+- use the GitHub MCP server for GitHub related tasks
+- use the time mcp server for time related tasks to get the current system time
+- use the sequentialthinking mcp server to break down tasks

@@ -63,14 +63,29 @@
   "prettier.requireConfig": true,
   "chat.mcp.discovery.enabled": true,
   "mcp": {
+    "inputs": [
+      {
+        "type": "promptString",
+        "id": "github_token",
+        "description": "GitHub Personal Access Token",
+        "password": true
+      }
+    ],
     "servers": {
-      "sequential-thinking": {
-        "command": "npx",
-        "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+      "github": {
+        "command": "docker",
+        "args": ["run", "-i", "--rm", "mcp/github"],
+        "env": {
+          "GITHUB_PERSONAL_ACCESS_TOKEN": "${input:github_token}"
+        }
       },
-      "memory": {
-        "command": "npx",
-        "args": ["-y", "@modelcontextprotocol/server-memory"]
+      "time": {
+        "command": "docker",
+        "args": ["run", "-i", "--rm", "mcp/time"]
+      },
+      "sequentialthinking": {
+        "command": "docker",
+        "args": ["run", "--rm", "-i", "mcp/sequentialthinking"]
       }
     }
   }
