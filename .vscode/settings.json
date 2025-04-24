@@ -43,6 +43,7 @@
       "file": ".github/guidelines/ngrx-signals-guidelines.md"
     }
   ],
+  "chat.promptFiles": true,
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.tabSize": 2,
