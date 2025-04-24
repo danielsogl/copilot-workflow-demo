@@ -12,6 +12,8 @@ Use this guidelines when working with Angular related code.
 - **Dependency Injection:** Angular's DI system manages service instances
 - **Lazy Loading:** Deferrable Views and route-level lazy loading with `loadComponent` improve performance
 - **Directive Composition:** The Directive Composition API enables reusable component behavior
+- **Standalone APIs Only:** Do not use NgModules, CommonModule, or RouterModule. Import only required standalone features/components.
+- **No Legacy Modules:** Do not use or generate NgModules for new features. Migrate existing modules to standalone APIs when possible.
 
 ## 2. Angular Style Guide Patterns
 
@@ -22,6 +24,7 @@ Use this guidelines when working with Angular related code.
 - **File Separation:** Templates and styles exist in their own files for components
 - **Property Decoration:** Input and output properties have proper decoration
 - **Component Selectors:** Component selectors use custom prefixes and kebab-case (e.g., `app-feature-name`)
+- **No CommonModule or RouterModule Imports:** Do not import CommonModule or RouterModule in standalone components. Import only the required standalone components, directives, or pipes.
 
 ## 3. Input Signal Patterns
 
@@ -80,6 +83,7 @@ Use this guidelines when working with Angular related code.
 - **Modern Control Flow:** Templates use `@if`, `@for`, `@switch` instead of structural directives
 - **State Representation:** Components implement loading and error states
 - **Derived State:** The `computed()` function calculates derived state
+- **No NgModules:** Do not use or reference NgModules in new code.
 
 ## 5. Styling Patterns
 
@@ -104,6 +108,11 @@ Use this guidelines when working with Angular related code.
   - Reference the [Angular Material documentation](https://material.angular.io) for usage patterns and updates.
 - **CDK Utilities:** Use Angular CDK utilities for custom behaviors, overlays, accessibility, and testing harnesses.
 - **Migration:** For legacy or custom components, migrate to Angular Material/CDK where feasible.
+
+## 5b. Template Patterns
+
+- **Modern Control Flow:** Use the new Angular control flow syntax: `@if`, `@for`, `@switch` in templates. Do not use legacy structural directives such as `*ngIf`, `*ngFor`, or `*ngSwitch`.
+- **No Legacy Structural Directives:** Remove or migrate any usage of `*ngIf`, `*ngFor`, or `*ngSwitch` to the new control flow syntax in all new code. Legacy code should be migrated when touched.
 
 ## 6. Service and DI Patterns
 
