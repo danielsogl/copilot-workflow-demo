@@ -10,6 +10,18 @@ Use this guidelines when working with Angular related code.
 - **Rule of One:** Files focus on a single concept or functionality
 - **Reactive State:** Signals provide reactive and efficient state management
 - **Dependency Injection:** Angular's DI system manages service instances
+- **Function-Based DI:** Use function-based dependency injection with the inject() function instead of constructor-based injection in all new code. Example:
+
+  ```typescript
+  import { inject } from "@angular/core";
+  import { HttpClient } from "@angular/common/http";
+
+  export class MyService {
+    private readonly http = inject(HttpClient);
+    // ...
+  }
+  ```
+
 - **Lazy Loading:** Deferrable Views and route-level lazy loading with `loadComponent` improve performance
 - **Directive Composition:** The Directive Composition API enables reusable component behavior
 - **Standalone APIs Only:** Do not use NgModules, CommonModule, or RouterModule. Import only required standalone features/components.
