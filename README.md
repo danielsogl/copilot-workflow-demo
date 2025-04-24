@@ -1,59 +1,108 @@
 # CopilotWorkflowDemo
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.8.
+This demo app lets users manage tasks with a timer, todos, and status tracking. It is designed to showcase how GitHub Copilot can help you build and extend real-world Angular applications.
 
-## Development server
+## Project Structure & Architecture
 
-To start a local development server, run:
+- **Domain-Driven Design (DDD):**
+  - Code is organized by business domain under `src/app/<domain>/<type>` (e.g., `task/feature/`, `task/ui/`, `task/data/`, `task/util/`).
+  - Each domain/type exposes a public API via an `index.ts` file.
+  - Shared code lives in `src/app/shared/`.
+- **Module Boundaries:**
+  - Enforced with [Sheriff](https://github.com/softarc-consulting/sheriff) and configured in `sheriff.config.ts`.
+  - Only public APIs (`index.ts`) are accessible across modules.
+- **Tech Stack:**
+  - Angular v19+ (standalone components, modern control flow, no NgModules)
+  - TypeScript (strict mode, strong typing, ESLint, Prettier)
+  - NgRx Signals Store for state management
+  - Angular Material v3 for UI
+  - json-server for local API (see `db.json`)
+  - Unit testing with Jasmine, ng-mocks, Playwright (E2E)
+
+### Example Folder Structure
+
+```text
+src/app/
+  task/
+    feature/
+    ui/
+    data/
+    util/
+  shared/
+  core/
+    components/
+      navbar/
+```
+
+## Features
+
+- **Task Management:** Create, view, and manage tasks. Each task has a title, description, and a list of todos.
+- **Todos:** Each task contains multiple todos. Mark todos as done to track progress.
+- **Timer:** Set a timer for each task. Start, pause, or stop the timer. When the timer finishes, the task is marked as overdue.
+- **Overdue & Finished Logic:**
+  - If the timer runs out before the task is finished, the task is marked as overdue.
+  - If all todos are completed or the task is manually marked as finished, the timer stops and the task is marked as finished.
+- **Status Tracking:** Tasks can be in progress, overdue, or finished.
+
+## API & Mock Data
+
+- The app uses a local fake REST API powered by [json-server](https://github.com/typicode/json-server#readme).
+- Mock data is defined in `db.json`.
+- API runs at `http://localhost:3000`.
+
+## Development
+
+### Start the Angular App
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+App runs at [http://localhost:4200](http://localhost:4200).
 
-## Code scaffolding
+### Start the API Server
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+```bash
+npx json-server --watch db.json --port 3000
+```
+
+### Code Scaffolding
+
+Use Angular CLI to generate components, directives, or pipes:
 
 ```bash
 ng generate component component-name
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+### Building
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### Running Unit Tests
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+### Running End-to-End Tests
 
 ```bash
 ng e2e
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Linting & Formatting
+
+- Code must pass all ESLint and Prettier checks.
+- Run linting with:
+
+```bash
+npx eslint . --ext .ts
+```
 
 ## Additional Resources
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- [Angular CLI Documentation](https://angular.dev/tools/cli)
+- [Sheriff Documentation](https://sheriff.softarc.io/)
+- See `.github/guidelines/` for detailed coding and architecture guidelines.
