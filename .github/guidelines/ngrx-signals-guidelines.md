@@ -63,6 +63,7 @@ import {
   withComputed,
   withMethods,
   patchState,
+  type,
 } from "@ngrx/signals";
 import { withEntities, entityConfig } from "@ngrx/signals/entities";
 import { computed, inject } from "@angular/core";
