@@ -4,7 +4,7 @@ Use this guidelines when working with Angular related code.
 
 ## 1. Core Architecture
 
-- **Standalone Components:** Components, directives, and pipes are standalone by default (Angular v19+)
+- **Standalone Components:** Components, directives, and pipes are standalone by default. The `standalone: true` flag is no longer required and should be omitted in new code (Angular v17+ and above).
 - **Strong Typing:** TypeScript types, interfaces, and models provide type safety throughout the codebase
 - **Single Responsibility:** Each component and service has a single, well-defined responsibility
 - **Rule of One:** Files focus on a single concept or functionality
@@ -113,6 +113,7 @@ Use this guidelines when working with Angular related code.
 
 - **Modern Control Flow:** Use the new Angular control flow syntax: `@if`, `@for`, `@switch` in templates. Do not use legacy structural directives such as `*ngIf`, `*ngFor`, or `*ngSwitch`.
 - **No Legacy Structural Directives:** Remove or migrate any usage of `*ngIf`, `*ngFor`, or `*ngSwitch` to the new control flow syntax in all new code. Legacy code should be migrated when touched.
+- **Referencing Conditional Results:** When using `@if`, reference the result using the `as` keyword, e.g. `@if (user(); as u) { ... }`. This is the recommended pattern for accessing the value inside the block. See the [Angular documentation](https://angular.dev/guide/templates/control-flow#referencing-the-conditional-expressions-result) for details.
 
 ## 6. Service and DI Patterns
 
@@ -201,3 +202,10 @@ Use this guidelines when working with Angular related code.
 - **Screen Readers:** Components work with screen readers
 - **Focus Management:** Focus management guides user interaction
 - **Alternative Text:** Images include alt text
+
+## 3a. Typed Reactive Forms
+
+- **Typed Forms:** Always use strictly typed reactive forms by defining an interface for the form values and using `FormGroup<MyFormType>`, `FormBuilder.group<MyFormType>()`, and `FormControl<T>()`.
+- **Non-Nullable Controls:** Prefer `nonNullable: true` for controls to avoid null issues and improve type safety.
+- **Patch and Get Values:** Use `patchValue` and `getRawValue()` to work with typed form values.
+- **Reference:** See the [Angular Typed Forms documentation](https://angular.dev/guide/forms/typed-forms) for details and examples.

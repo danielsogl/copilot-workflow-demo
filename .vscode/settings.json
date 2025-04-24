@@ -44,5 +44,18 @@
   "editor.detectIndentation": false,
   "editor.trimAutoWhitespace": true,
   "prettier.configPath": ".prettierrc",
-  "prettier.requireConfig": true
+  "prettier.requireConfig": true,
+  "chat.mcp.discovery.enabled": true,
+  "mcp": {
+    "servers": {
+      "sequential-thinking": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+      },
+      "memory": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-memory"]
+      }
+    }
+  }
 }
