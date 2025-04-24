@@ -9,6 +9,9 @@
       "file": ".github/guidelines/typescript-guidelines.md"
     },
     {
+      "file": ".github/guidelines/architecture-guidelines.md"
+    },
+    {
       "file": ".github/guidelines/angular-guidelines.md"
     },
     {
@@ -29,6 +32,9 @@
   "github.copilot.chat.reviewSelection.instructions": [
     {
       "file": ".github/guidelines/typescript-guidelines.md"
+    },
+    {
+      "file": ".github/guidelines/architecture-guidelines.md"
     },
     {
       "file": ".github/guidelines/angular-guidelines.md"
