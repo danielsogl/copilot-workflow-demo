@@ -13,7 +13,7 @@ This document outlines the state management patterns used in our Angular applica
 - **Store Composition:** Stores compose using features and providers
 - **Reactivity:** UIs build on automatic change detection
 - **Signal Interoperability:** Signals integrate with existing RxJS-based systems
-- **SignalMethod & RxMethod:** Use `signalMethod` for lightweight, signal-driven side effects; use `rxMethod` for Observable-based side effects and RxJS integration.
+- **SignalMethod & RxMethod:** Use `signalMethod` for lightweight, signal-driven side effects; use `rxMethod` for Observable-based side effects and RxJS integration. When a service returns an Observable, always use `rxMethod` for side effects instead of converting to Promise or using async/await.
 
 ## 2. Signal Store Structure
 
@@ -36,6 +36,23 @@ This document outlines the state management patterns used in our Angular applica
 - **Member Integrity:** Store members have unique names across state, computed, and methods
 - **Initialization:** State initializes with meaningful defaults
 - **Collection Management:** The `withEntities` feature manages collections. Prefer atomic entity operations (`addEntity`, `updateEntity`, `removeEntity`, `setAllEntities`) over bulk state updates. Use `entityConfig` and `selectId` for entity identification.
+- **Entity Adapter Configuration:** Use `entityConfig` to configure the entity adapter for each store. Always specify the `entity` type, `collection` name, and a `selectId` function for unique entity identification. Pass the config to `withEntities<T>(entityConfig)` for strong typing and consistent entity management.
+
+```typescript
+const userEntityConfig = entityConfig({
+  entity: type<User>(),
+  collection: "users",
+  selectId: (user: User) => user.id,
+});
+
+export const UserStore = signalStore(
+  { providedIn: "root" },
+  withState(initialState),
+  withEntities(userEntityConfig),
+  // ...
+);
+```
+
 - **Custom Store Properties:** Use `withProps` to add static properties, observables, and dependencies. Expose observables with `toObservable`.
 
 ```typescript
@@ -46,14 +63,12 @@ import {
   withComputed,
   withMethods,
   patchState,
-  withEntities,
 } from "@ngrx/signals";
-import { entityConfig } from "@ngrx/signals/entities";
+import { withEntities, entityConfig } from "@ngrx/signals/entities";
 import { computed, inject } from "@angular/core";
 import { UserService } from "./user.service";
 import { User } from "./user.model";
 import { setAllEntities } from "@ngrx/signals/entities";
-import { firstValueFrom } from "rxjs";
 
 export interface UserState {
   selectedUserId: string | null;
@@ -67,27 +82,44 @@ const initialState: UserState = {
   error: null,
 };
 
+const userEntityConfig = entityConfig({
+  entity: type<User>(),
+  collection: "users",
+  selectId: (user: User) => user.id,
+});
+
 export const UserStore = signalStore(
   { providedIn: "root" },
   withState(initialState),
-  withEntities<User>(),
-  withComputed(({ entities, selectedUserId }) => ({
+  withEntities(userEntityConfig),
+  withComputed(({ usersEntities, usersEntityMap, selectedUserId }) => ({
     selectedUser: computed(() => {
       const id = selectedUserId();
-      return id ? entities()[id] : undefined;
+      return id ? usersEntityMap()[id] : undefined;
     }),
-    totalUserCount: computed(() => entities().length),
+    totalUserCount: computed(() => usersEntities().length),
   })),
   withMethods((store, userService = inject(UserService)) => ({
-    async loadUsers(): Promise<void> {
-      patchState(store, { loading: true, error: null });
-      try {
-        const users = await firstValueFrom(userService.getUsers());
-        patchState(store, setAllEntities(users), { loading: false });
-      } catch (e) {
-        patchState(store, { loading: false, error: "Failed to load users" });
-      }
-    },
+    loadUsers: rxMethod<void>(
+      pipe(
+        switchMap(() => {
+          patchState(store, { loading: true, error: null });
+          return userService.getUsers().pipe(
+            tapResponse({
+              next: (users) =>
+                patchState(store, setAllEntities(users, userEntityConfig), {
+                  loading: false,
+                }),
+              error: () =>
+                patchState(store, {
+                  loading: false,
+                  error: "Failed to load users",
+                }),
+            }),
+          );
+        }),
+      ),
+    ),
     selectUser(userId: string | null): void {
       patchState(store, { selectedUserId: userId });
     },
@@ -104,7 +136,7 @@ export const UserStore = signalStore(
 - **State Updates:** `patchState(store, newStateSlice)` or `patchState(store, (currentState) => newStateSlice)` updates state immutably
 - **Async Operations:** Methods handle async operations and update loading/error states
 - **Computed Properties:** `withComputed` defines derived state
-- **RxJS Integration:** `rxMethod` integrates RxJS streams
+- **RxJS Integration:** `rxMethod` integrates RxJS streams. Use `rxMethod` for all store methods that interact with Observable-based APIs or services. Avoid using async/await with Observables in store methods.
 
 ```typescript
 // Signal store method patterns
@@ -128,15 +160,19 @@ export const TodoStore = signalStore(
       }));
     },
 
-    async loadTodosSimple(): Promise<void> {
-      patchState(store, { loading: true });
-      try {
-        const todos = await firstValueFrom(todoService.getTodos());
-        patchState(store, { todos, loading: false });
-      } catch (error) {
-        patchState(store, { loading: false });
-      }
-    },
+    loadTodosSimple: rxMethod<void>(
+      pipe(
+        switchMap(() => {
+          patchState(store, { loading: true });
+          return todoService.getTodos().pipe(
+            tapResponse({
+              next: (todos) => patchState(store, { todos, loading: false }),
+              error: () => patchState(store, { loading: false }),
+            }),
+          );
+        }),
+      ),
+    ),
   })),
 );
 ```
@@ -160,18 +196,18 @@ export const UserStore = signalStore(
   withEntities(userEntityConfig),
   withMethods((store) => ({
     addUser: signalMethod<User>((user) => {
-      patchState(store, addEntity(user));
+      patchState(store, addEntity(user, userEntityConfig));
     }),
     updateUser: signalMethod<{ id: string; changes: Partial<User> }>(
       ({ id, changes }) => {
-        patchState(store, updateEntity({ id, changes }));
+        patchState(store, updateEntity({ id, changes }, userEntityConfig));
       },
     ),
     removeUser: signalMethod<string>((id) => {
-      patchState(store, removeEntity(id));
+      patchState(store, removeEntity(id, userEntityConfig));
     }),
     setUsers: signalMethod<User[]>((users) => {
-      patchState(store, setAllEntities(users));
+      patchState(store, setAllEntities(users, userEntityConfig));
     }),
   })),
 );
@@ -300,7 +336,7 @@ export const AppStore = signalStore(
 
 - **Signal Conversion:** `toSignal()` and `toObservable()` convert between Signals and Observables
 - **Effects:** Angular's `effect()` function reacts to signal changes
-- **RxJS Method:** `rxMethod<T>(pipeline)` handles Observable-based side effects
+- **RxJS Method:** `rxMethod<T>(pipeline)` handles Observable-based side effects. Always prefer `rxMethod` for Observable-based service calls in stores. Do not convert Observables to Promises for store logic.
   - Accepts input values, Observables, or Signals
   - Manages subscription lifecycle automatically
 - **Reactive Patterns:** Signals combine with RxJS for complex asynchronous operations
@@ -310,7 +346,7 @@ export const AppStore = signalStore(
 import { signalStore, withState, withMethods, patchState } from "@ngrx/signals";
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
 import { tapResponse } from "@ngrx/operators";
-import { pipe, switchMap } from "rxjs/operators";
+import { pipe, switchMap } from "rxjs";
 import { inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { User } from "./user.model";
@@ -357,35 +393,37 @@ The `signalMethod` function manages side effects driven by Angular Signals withi
 
 ```typescript
 // Signal method patterns
-import { signalStore, withState, withMethods, patchState } from "@ngrx/signals";
-import { signalMethod } from "@ngrx/signals";
-import { inject } from "@angular/core";
-import { Logger } from "./logger";
+import { signalStore, withState, withMethods, patchState } from '@ngrx/signals';
+import { signalMethod } from '@ngrx/signals';
+import { inject } from '@angular/core';
+import { Logger } from './logger';
 
 interface UserPreferencesState {
-  theme: "light" | "dark";
+  theme: 'light' | 'dark';
   sendNotifications: boolean;
-}
 
 const initialState: UserPreferencesState = {
-  theme: "light",
+  theme: 'light',
   sendNotifications: true,
 };
 
 export const PreferencesStore = signalStore(
-  { providedIn: "root" },
+  { providedIn: 'root' },
   withState(initialState),
-  withMethods((store, logger = inject(Logger)) => ({
+  withProps(() => ({
+    logger:  inject(Logger),
+  }));
+  withMethods((store) => ({
     setSendNotifications(enabled: boolean): void {
       patchState(store, { sendNotifications: enabled });
     },
 
     // Signal method reacts to theme changes
-    logThemeChange: signalMethod<"light" | "dark">((theme) => {
-      logger.log(`Theme changed to: ${theme}`);
+    logThemeChange: signalMethod<'light' | 'dark'>((theme) => {
+      store.logger.log(`Theme changed to: ${theme}`);
     }),
 
-    setTheme(newTheme: "light" | "dark"): void {
+    setTheme(newTheme: 'light' | 'dark'): void {
       patchState(store, { theme: newTheme });
     },
   })),
@@ -409,33 +447,7 @@ export const PreferencesStore = signalStore(
   }));
   ```
 
-## 8. Migration Patterns
-
-- **Incremental Migration:** Features migrate one at a time
-- **Parallel Usage:** NgRx Store and Signals Store run in parallel during migration
-- **Facade Pattern:** Facades abstract store implementation details
-- **Component-First Migration:** Component-specific state migrates first
-- **Testing Continuity:** Testing coverage continues during migration
-
-```typescript
-// Migration facade pattern
-@Injectable({ providedIn: "root" })
-export class UserFacade {
-  // Traditional NgRx Store selectors
-  readonly users$ = this.store.select(selectAllUsers);
-
-  // Signal Store state
-  private readonly signalStore = inject(UserSignalStore);
-  private readonly store = inject(Store);
-
-  loadUsers(): void {
-    this.store.dispatch(loadUsers());
-    this.signalStore.loadUsers();
-  }
-}
-```
-
-## 9. Project Organization
+## 8. Project Organization
 
 ### Store Organization
 
