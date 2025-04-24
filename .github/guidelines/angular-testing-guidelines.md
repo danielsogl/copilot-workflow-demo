@@ -25,6 +25,12 @@ These guidelines reflect Angular v19+ best practices, ng-mocks usage, and the of
 - Use spyOn and jasmine.createSpy for spies and mocks.
 - Use fakeAsync, tick, waitForAsync, and done for async code.
 - Use clear, descriptive test names and group related tests with describe.
+- **Use the latest ng-mocks APIs:**
+  - Use `MockBuilder` for test bed setup (standalone components: `await MockBuilder(MyComponent)`)
+  - Use `MockRender` to create the fixture (`fixture = MockRender(MyComponent)`)
+  - Use `ngMocks.findInstance` to get the component instance with strong typing
+  - Use `MockInstance.scope()` for test isolation if mocking services or component methods
+  - Use `ngMocks.autoSpy('jasmine')` in your test setup to auto-spy all mocks (optional)
 
 ## 2. Service Testing Example
 
@@ -66,12 +72,7 @@ describe("MyService", () => {
 ## 3. Component Testing Example
 
 ```typescript
-import {
-  TestBed,
-  ComponentFixture,
-  fakeAsync,
-  tick,
-} from "@angular/core/testing";
+import { ComponentFixture } from "@angular/core/testing";
 import { MockBuilder, MockRender, ngMocks, MockInstance } from "ng-mocks";
 import { MyComponent } from "./my.component";
 import { MyService } from "./my.service";
@@ -85,8 +86,8 @@ describe("MyComponent", () => {
   beforeEach(async () => {
     await MockBuilder(MyComponent).mock(MyService);
     fixture = MockRender(MyComponent);
-    component = fixture.point.componentInstance;
-    serviceMock = TestBed.inject(MyService);
+    component = ngMocks.findInstance(MyComponent);
+    serviceMock = ngMocks.findInstance(MyService);
   });
 
   afterEach(() => MockInstance(MyService, undefined));
@@ -183,4 +184,4 @@ describe("MyPipe", () => {
 
 ---
 
-Follow these patterns for all Angular tests. Use Jasmine, ng-mocks, and Angular’s latest APIs. Prefer strong typing, standalone components, and feature-based structure. For more, see the official Angular testing guides.
+**Follow these patterns for all Angular tests. Use Jasmine, ng-mocks, and Angular’s latest APIs. Prefer strong typing, standalone components, and feature-based structure. For more, see the official Angular testing guides.**

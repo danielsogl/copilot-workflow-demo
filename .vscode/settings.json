@@ -16,6 +16,12 @@
     },
     {
       "file": ".github/guidelines/ngrx-signals-guidelines.md"
+    },
+    {
+      "file": ".github/guidelines/angular-testing-guidelines.md"
+    },
+    {
+      "file": ".github/guidelines/ngrx-signals-testing-guidelines.md"
     }
   ],
   "github.copilot.chat.testGeneration.instructions": [
