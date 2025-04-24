@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "concurrently \"ng serve\" \"npx json-server db.json\"",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -24,6 +24,7 @@
     "@angular/router": "^19.2.8",
     "@ngrx/operators": "^19.1.0",
     "@ngrx/signals": "^19.1.0",
+    "json-server": "^1.0.0-beta.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
@@ -37,6 +38,7 @@
     "@softarc/sheriff-core": "^0.18.0",
     "@types/jasmine": "~5.1.0",
     "angular-eslint": "19.3.0",
+    "concurrently": "^9.1.2",
     "eslint": "^9.23.0",
     "eslint-config-prettier": "^10.1.2",
     "eslint-plugin-prettier": "^5.2.6",
