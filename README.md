@@ -106,3 +106,34 @@ npx eslint . --ext .ts
 - [Angular CLI Documentation](https://angular.dev/tools/cli)
 - [Sheriff Documentation](https://sheriff.softarc.io/)
 - See `.github/guidelines/` for detailed coding and architecture guidelines.
+
+---
+
+## GitHub Copilot Setup & Automation
+
+This project is enhanced with a custom GitHub Copilot configuration to streamline development, enforce standards, and automate repetitive tasks. The setup includes:
+
+- **Custom Copilot Instructions:**
+
+  - Enforces project-specific TypeScript, Angular, and DDD guidelines.
+  - Ensures strong typing, modularity, and best practices in all generated code.
+  - Integrates architectural and testing conventions directly into Copilot's code suggestions.
+
+- **Reusable Prompts:**
+
+  - Common coding, refactoring, and testing tasks are available as reusable prompts.
+  - Prompts are tailored to the project's tech stack and folder structure.
+  - Promotes consistency and speeds up onboarding for new contributors.
+
+- **MCP Servers Integration:**
+
+  - **GitHub MCP Server:** Automates GitHub-related workflows (issues, PRs, code reviews) directly from the IDE.
+  - **Time MCP Server:** Provides current system time for time-sensitive features and automations.
+  - **SequentialThinking MCP Server:** Breaks down complex tasks into actionable steps, improving planning and implementation.
+
+- **Developer Experience:**
+  - Copilot is context-aware of the project's boundaries, DDD structure, and Sheriff rules.
+  - All code suggestions and automations respect the public API boundaries and modularity enforced by Sheriff.
+  - Custom instructions and prompts are maintained in `.github/guidelines/` and integrated into the Copilot workflow.
+
+For more details on the Copilot setup, see the `.github/guidelines/` directory and the project documentation.

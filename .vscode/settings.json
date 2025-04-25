@@ -73,19 +73,19 @@
     ],
     "servers": {
       "github": {
-        "command": "docker",
-        "args": ["run", "-i", "--rm", "mcp/github"],
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-github"],
         "env": {
           "GITHUB_PERSONAL_ACCESS_TOKEN": "${input:github_token}"
         }
       },
-      "time": {
-        "command": "docker",
-        "args": ["run", "-i", "--rm", "mcp/time"]
+      "sequential-thinking": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
       },
-      "sequentialthinking": {
-        "command": "docker",
-        "args": ["run", "--rm", "-i", "mcp/sequentialthinking"]
+      "memory": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-memory"]
       }
     }
   }
