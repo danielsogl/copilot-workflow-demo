@@ -3,6 +3,7 @@
 @use "@angular/material" as mat;
 @use "./theme/_theme-colors" as tt-theme; // location of generated file
 
+// Light theme
 html {
   @include mat.theme(
     (
@@ -11,7 +12,22 @@ html {
         primary: tt-theme.$primary-palette,
         tertiary: tt-theme.$tertiary-palette,
       ),
-      typography: Roboto,
+      typography: tt-theme.$tt-typography,
+      density: 0,
+    )
+  );
+}
+
+// Dark theme
+.dark-theme {
+  @include mat.theme(
+    (
+      color: (
+        theme-type: dark,
+        primary: tt-theme.$primary-palette-dark,
+        tertiary: tt-theme.$tertiary-palette-dark,
+      ),
+      typography: tt-theme.$tt-typography,
       density: 0,
     )
   );

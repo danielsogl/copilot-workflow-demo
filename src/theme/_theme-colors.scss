@@ -135,3 +135,13 @@ $_rest: (
 
 $primary-palette: map.merge(map.get($_palettes, primary), $_rest);
 $tertiary-palette: map.merge(map.get($_palettes, tertiary), $_rest);
+
+// Dark theme palettes
+$primary-palette-dark: $primary-palette;
+$tertiary-palette-dark: $tertiary-palette;
+
+// Remove custom typography levels and config for Angular Material v3
+// Use only allowed config properties for typography
+$tt-typography: (
+  brand-family: 'Roboto, "Helvetica Neue", sans-serif',
+);
