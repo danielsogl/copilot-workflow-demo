@@ -1,5 +1,7 @@
 # Architecture
 
+> **Note:** The use of barrel files (index.ts files for re-exporting) is strictly prohibited in this project. Do not create, reference, or use barrel files in any part of the codebase or documentation.
+
 This project follows a Domain-Driven Design (DDD) approach for modularity, maintainability, and scalability, enforced with [Sheriff](https://github.com/softarc-consulting/sheriff) for strict module boundaries.
 
 ## 1. DDD Structure
@@ -44,28 +46,24 @@ src/app/
   user/
     feature/
       user-overview/
-        user-overview.feature.ts
+        user-overview.component.ts
         ...
       ...
-      index.ts
     ui/
       user-list/
-        user-list.ui.ts
+        user-list.component.ts
         ...
       ...
-      index.ts
     data/
       user-api/
         user-api.data.ts
         ...
       ...
-      index.ts
     util/
       user-helpers/
         user-helpers.util.ts
         ...
       ...
-      index.ts
   order/
     ...
   shared/
