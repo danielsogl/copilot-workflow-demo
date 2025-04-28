@@ -18,6 +18,9 @@
       "file": ".github/guidelines/angular-guidelines.md"
     },
     {
+      "file": ".github/guidelines/angular-theming.md"
+    },
+    {
       "file": ".github/guidelines/ngrx-signals-guidelines.md"
     },
     {
@@ -47,6 +50,9 @@
     },
     {
       "file": ".github/guidelines/angular-guidelines.md"
+    },
+    {
+      "file": ".github/guidelines/angular-theming.md"
     },
     {
       "file": ".github/guidelines/ngrx-signals-guidelines.md"
