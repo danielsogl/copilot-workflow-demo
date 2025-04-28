@@ -18,8 +18,9 @@ These guidelines reflect Angular v19+ best practices, ng-mocks usage, and the of
 
 - Use Jasmine for all test specs (`.spec.ts`), following the AAA pattern (Arrange, Act, Assert).
 - Use Angular's TestBed and ComponentFixture for setup and DOM interaction.
+- **Services should be tested using TestBed, not ng-mocks.**
 - Prefer standalone components, strong typing, and feature-based file structure.
-- Use ng-mocks for mocking Angular dependencies (services, components, directives, pipes).
+- Use ng-mocks for mocking Angular dependencies (components, directives, pipes) in component/directive/pipe tests.
 - Use Angular's input() and model() for signal-based inputs in tests.
 - Use DebugElement and By for DOM queries.
 - Use spyOn and jasmine.createSpy for spies and mocks.
@@ -32,44 +33,48 @@ These guidelines reflect Angular v19+ best practices, ng-mocks usage, and the of
   - Use `MockInstance.scope()` for test isolation if mocking services or component methods
   - Use `ngMocks.autoSpy('jasmine')` in your test setup to auto-spy all mocks (optional)
 
-## 2. Service Testing Example
+## 2. Service Testing Example (TestBed)
+
+Services should be tested using Angular's TestBed, not ng-mocks. Use provideHttpClientTesting for HTTP services.
 
 ```typescript
 import { TestBed } from "@angular/core/testing";
-import { MockService, MockInstance } from "ng-mocks";
 import { MyService } from "./my.service";
-import { DepService } from "./dep.service";
+import {
+  provideHttpClientTesting,
+  HttpTestingController,
+} from "@angular/common/http/testing";
 
 describe("MyService", () => {
   let service: MyService;
-  let depMock: DepService;
+  let httpMock: HttpTestingController;
 
   beforeEach(() => {
-    depMock = MockService(DepService);
     TestBed.configureTestingModule({
-      providers: [MyService, { provide: DepService, useValue: depMock }],
+      providers: [MyService, provideHttpClientTesting()],
     });
     service = TestBed.inject(MyService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
-  afterEach(() => MockInstance(DepService, undefined));
+  afterEach(() => {
+    httpMock.verify();
+  });
 
   it("should be created", () => {
     expect(service).toBeTruthy();
   });
 
-  it("should call dependency and return data", (done) => {
-    spyOn(depMock, "getData").and.returnValue(Promise.resolve("data"));
-    service.fetch().then((result) => {
-      expect(result).toBe("data");
-      expect(depMock.getData).toHaveBeenCalled();
-      done();
-    });
+  it("should call the API", () => {
+    service.someApiCall().subscribe();
+    const req = httpMock.expectOne("/api/endpoint");
+    expect(req.request.method).toBe("GET");
+    req.flush({});
   });
 });
 ```
 
-## 3. Component Testing Example
+## 3. Component Testing Example (ng-mocks)
 
 ```typescript
 import { ComponentFixture } from "@angular/core/testing";
@@ -181,6 +186,45 @@ describe("MyPipe", () => {
 - Use DebugElement and By for querying and interacting with the DOM.
 - Use Angular’s async helpers (fakeAsync, tick, waitForAsync) for async code.
 - Use ng-mocks for all dependency mocking.
+
+## 7. Testing Standalone Components, Directives, Pipes, and Providers with ng-mocks
+
+Standalone components, directives, pipes, and providers in Angular (v14+) can be tested and their dependencies mocked using ng-mocks. By default, MockBuilder will keep the class under test and mock all its dependencies. **You do not need to explicitly call `.keep()` for the class under test.**
+
+> **Note:** Only use `.keep()` if you want to keep a dependency (e.g., a child component or pipe), not the class under test itself.
+
+### Mocking All Imports (Shallow Test)
+
+```typescript
+import { MockBuilder, MockRender, ngMocks } from "ng-mocks";
+import { MyStandaloneComponent } from "./my-standalone.component";
+
+describe("MyStandaloneComponent", () => {
+  beforeEach(async () => {
+    await MockBuilder(MyStandaloneComponent); // mocks all imports by default, keeps the component under test
+  });
+
+  it("should render", () => {
+    const fixture = MockRender(MyStandaloneComponent);
+    const component = ngMocks.findInstance(MyStandaloneComponent);
+    expect(component).toBeTruthy();
+  });
+});
+```
+
+### Keeping Specific Imports (Deep Test)
+
+If you want to keep a specific import (e.g., a pipe or dependency component), use `.keep()`:
+
+```typescript
+beforeEach(async () => {
+  await MockBuilder(MyStandaloneComponent).keep(MyDependencyComponent);
+});
+```
+
+### Reference
+
+- See the [ng-mocks guide for standalone components](https://ng-mocks.sudo.eu/guides/component-standalone/) for more details and advanced usage.
 
 ---
 
