@@ -10,7 +10,7 @@ Use this guidelines when working with Angular related code.
 - **Rule of One:** Files focus on a single concept or functionality
 - **Reactive State:** Signals provide reactive and efficient state management
 - **Dependency Injection:** Angular's DI system manages service instances
-- **Function-Based DI:** Use function-based dependency injection with the inject() function instead of constructor-based injection in all new code. Example:
+- **Function-Based DI:** Use function-based dependency injection with the `inject()` function instead of constructor-based injection in all new code. Example:
 
   ```typescript
   import { inject } from "@angular/core";
@@ -135,6 +135,17 @@ Use this guidelines when working with Angular related code.
 - **DI Hierarchy:** Services follow the Angular DI hierarchy
 - **Service Contracts:** Interfaces define service contracts
 - **Focused Responsibilities:** Services focus on specific tasks
+- **Function-Based DI:** Use function-based dependency injection with the `inject()` function instead of constructor-based injection in all new code. Example:
+
+  ```typescript
+  import { inject } from "@angular/core";
+  import { HttpClient } from "@angular/common/http";
+
+  export class MyService {
+    private readonly http = inject(HttpClient);
+    // ...
+  }
+  ```
 
 ## 7. Directive and Pipe Patterns
 
