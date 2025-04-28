@@ -47,6 +47,7 @@ src/app/
     feature/
       user-overview/
         user-overview.component.ts
+        user-overview.store.ts
         ...
       ...
     ui/
@@ -55,8 +56,12 @@ src/app/
         ...
       ...
     data/
-      user-api/
-        user-api.data.ts
+      models/
+        user.model.ts
+      infrastructure/
+        user.infrastructure.ts
+      state/
+        user.store.ts
         ...
       ...
     util/
