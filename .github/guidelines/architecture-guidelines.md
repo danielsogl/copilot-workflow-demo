@@ -12,6 +12,8 @@ This project follows a Domain-Driven Design (DDD) approach for modularity, maint
   - `ui/`: Presentational components, directives, and pipes.
   - `data/`: Data access, API clients, persistence logic.
   - `util/`: Utilities and helpers.
+- **Component, Directive, and Pipe Subfolders:**
+  - All components, directives, and pipes must be placed in their own subfolders within their respective type folders. For example, a component named `task-list.component.ts` should be located at `src/app/tasks/feature-task/task-list/task-list.component.ts` (i.e., inside a `task-list` subfolder), not directly in the `feature-task` folder. This applies to all new code and ensures a scalable, maintainable structure.
 - **Shared Kernel:**
   - Cross-domain code (shared types, utilities) is placed in `src/app/shared/`.
 
@@ -41,19 +43,27 @@ This project follows a Domain-Driven Design (DDD) approach for modularity, maint
 src/app/
   user/
     feature/
-      user-overview.feature.ts
+      user-overview/
+        user-overview.feature.ts
+        ...
       ...
       index.ts
     ui/
-      user-list.ui.ts
+      user-list/
+        user-list.ui.ts
+        ...
       ...
       index.ts
     data/
-      user-api.data.ts
+      user-api/
+        user-api.data.ts
+        ...
       ...
       index.ts
     util/
-      user-helpers.util.ts
+      user-helpers/
+        user-helpers.util.ts
+        ...
       ...
       index.ts
   order/
@@ -64,4 +74,4 @@ src/app/
 
 ---
 
-For more, see the [Sheriff documentation](https://sheriff.softarc.io/) and the guidelines in `.github/guidelines/`.
+For more, see the [Sheriff documentation](https://sheriff.softarc.io/)
