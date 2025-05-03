@@ -79,6 +79,13 @@ Use this guidelines when working with Angular related code.
   readonly value = input(0, { alias: "sliderValue" });
   ```
 
+## 3a. Typed Reactive Forms
+
+- **Typed Forms:** Always use strictly typed reactive forms by defining an interface for the form values and using `FormGroup<MyFormType>`, `FormBuilder.group<MyFormType>()`, and `FormControl<T>()`.
+- **Non-Nullable Controls:** Prefer `nonNullable: true` for controls to avoid null issues and improve type safety.
+- **Patch and Get Values:** Use `patchValue` and `getRawValue()` to work with typed form values.
+- **Reference:** See the [Angular Typed Forms documentation](https://angular.dev/guide/forms/typed-forms) for details and examples.
+
 ## 4. Component Patterns
 
 - **Naming Pattern:** Components follow consistent naming - `feature.type.ts` (e.g., `hero-list.component.ts`)
@@ -225,10 +232,3 @@ Use this guidelines when working with Angular related code.
 - **Screen Readers:** Components work with screen readers
 - **Focus Management:** Focus management guides user interaction
 - **Alternative Text:** Images include alt text
-
-## 3a. Typed Reactive Forms
-
-- **Typed Forms:** Always use strictly typed reactive forms by defining an interface for the form values and using `FormGroup<MyFormType>`, `FormBuilder.group<MyFormType>()`, and `FormControl<T>()`.
-- **Non-Nullable Controls:** Prefer `nonNullable: true` for controls to avoid null issues and improve type safety.
-- **Patch and Get Values:** Use `patchValue` and `getRawValue()` to work with typed form values.
-- **Reference:** See the [Angular Typed Forms documentation](https://angular.dev/guide/forms/typed-forms) for details and examples.

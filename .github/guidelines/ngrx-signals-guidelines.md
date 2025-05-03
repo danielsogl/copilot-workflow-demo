@@ -2,8 +2,6 @@
 
 This document outlines the state management patterns used in our Angular applications with NgRx Signals Store.
 
-> **Testing guidelines have been moved to `.github/guidelines/ngrx-signals-testing-guidelines.md`.**
-
 ## 1. NgRx Signals Architecture
 
 - **Component-Centric Design:** Stores are designed around component requirements
