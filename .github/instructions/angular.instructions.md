@@ -1,6 +1,6 @@
-# Angular Guidelines
-
-Use this guidelines when working with Angular related code.
+---
+applyTo: "**/*.{ts,html}"
+---
 
 ## 1. Core Architecture
 

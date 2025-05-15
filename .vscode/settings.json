@@ -6,16 +6,10 @@
   ],
   "github.copilot.chat.codeGeneration.instructions": [
     {
-      "file": ".github/guidelines/typescript-guidelines.md"
-    },
-    {
       "file": ".github/guidelines/architecture-guidelines.md"
     },
     {
       "file": ".github/guidelines/techstack-guidelines.md"
-    },
-    {
-      "file": ".github/guidelines/angular-guidelines.md"
     },
     {
       "file": ".github/guidelines/angular-theming.md"
@@ -32,7 +26,7 @@
   ],
   "github.copilot.chat.testGeneration.instructions": [
     {
-      "file": ".github/guidelines/typescript-guidelines.md"
+      "file": ".github/instructions/typescript.instructions.md"
     },
     {
       "file": ".github/guidelines/angular-testing-guidelines.md"
@@ -43,13 +37,13 @@
   ],
   "github.copilot.chat.reviewSelection.instructions": [
     {
-      "file": ".github/guidelines/typescript-guidelines.md"
+      "file": ".github/instructions/typescript.instructions.md"
     },
     {
       "file": ".github/guidelines/architecture-guidelines.md"
     },
     {
-      "file": ".github/guidelines/angular-guidelines.md"
+      "file": ".github/instructions/angular.instructions.md"
     },
     {
       "file": ".github/guidelines/angular-theming.md"
