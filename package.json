@@ -37,7 +37,7 @@
     "@softarc/eslint-plugin-sheriff": "^0.18.0",
     "@softarc/sheriff-core": "^0.18.0",
     "@types/jasmine": "~5.1.0",
-    "angular-eslint": "19.3.0",
+    "angular-eslint": "19.6.0",
     "concurrently": "^9.1.2",
     "eslint": "^9.23.0",
     "eslint-config-prettier": "^10.1.2",
