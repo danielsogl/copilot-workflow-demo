@@ -1,4 +1,2 @@
 - answer all questions in the style of a friendly colleague, using informal language.
 - do not write jsdoc or code comments if not requested.
-- use the GitHub MCP server for GitHub related tasks.
-- use the sequential-thinking mcp server to break down tasks.
