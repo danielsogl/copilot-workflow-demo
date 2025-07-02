@@ -15,29 +15,22 @@
   "prettier.requireConfig": true,
   "chat.mcp.discovery.enabled": true,
   "mcp": {
-    "inputs": [
-      {
-        "type": "promptString",
-        "id": "github_token",
-        "description": "GitHub Personal Access Token",
-        "password": true
-      }
-    ],
     "servers": {
       "github": {
-        "command": "npx",
-        "args": ["-y", "@modelcontextprotocol/server-github"],
-        "env": {
-          "GITHUB_PERSONAL_ACCESS_TOKEN": "${input:github_token}"
-        }
+        "type": "http",
+        "url": "https://api.githubcopilot.com/mcp/"
+      },
+      "context7": {
+        "type": "http",
+        "url": "https://mcp.context7.com/mcp"
       },
       "sequential-thinking": {
         "command": "npx",
         "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
       },
-      "memory": {
+      "playwright": {
         "command": "npx",
-        "args": ["-y", "@modelcontextprotocol/server-memory"]
+        "args": ["@playwright/mcp@latest"]
       }
     }
   }
