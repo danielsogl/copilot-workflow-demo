@@ -1,5 +1,5 @@
 ---
-applyTo: "**/*.{ts,html}"
+applyTo: "**"
 ---
 
 ## 1. Core Architecture

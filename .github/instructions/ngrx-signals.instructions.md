@@ -1,3 +1,7 @@
+---
+applyTo: "**"
+---
+
 # NgRx Signals Patterns
 
 This document outlines the state management patterns used in our Angular applications with NgRx Signals Store.

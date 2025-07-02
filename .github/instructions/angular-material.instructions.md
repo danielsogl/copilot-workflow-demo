@@ -1,3 +1,7 @@
+---
+applyTo: "**"
+---
+
 # Angular Material Theming Guidelines (v3)
 
 These guidelines define how to implement, structure, and maintain themes using Angular Material v3 in this project. They are based on the official [Angular Material Theming Guide](https://material.angular.io/guide/theming) and tailored for consistency, scalability, and maintainability.

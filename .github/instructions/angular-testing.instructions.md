@@ -1,3 +1,7 @@
+---
+applyTo: "**"
+---
+
 # Angular Testing Guidelines (Jasmine + ng-mocks)
 
 These guidelines reflect Angular v19+ best practices, ng-mocks usage, and the official Angular testing guides:

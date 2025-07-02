@@ -1,3 +1,7 @@
+---
+applyTo: "**"
+---
+
 # NgRx Signals Testing Guidelines
 
 These guidelines outline best practices for testing NgRx Signals Stores in Angular applications.

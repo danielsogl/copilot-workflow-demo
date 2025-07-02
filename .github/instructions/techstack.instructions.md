@@ -1,3 +1,7 @@
+---
+applyTo: "**"
+---
+
 # Tech Stack Guidelines
 
 This project uses the following technology stack:

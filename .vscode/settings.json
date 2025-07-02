@@ -4,54 +4,6 @@
       "file": ".github/guidelines/commit-convention.md"
     }
   ],
-  "github.copilot.chat.codeGeneration.instructions": [
-    {
-      "file": ".github/guidelines/architecture-guidelines.md"
-    },
-    {
-      "file": ".github/guidelines/techstack-guidelines.md"
-    },
-    {
-      "file": ".github/guidelines/angular-theming.md"
-    },
-    {
-      "file": ".github/guidelines/ngrx-signals-guidelines.md"
-    },
-    {
-      "file": ".github/guidelines/angular-testing-guidelines.md"
-    },
-    {
-      "file": ".github/guidelines/ngrx-signals-testing-guidelines.md"
-    }
-  ],
-  "github.copilot.chat.testGeneration.instructions": [
-    {
-      "file": ".github/instructions/typescript.instructions.md"
-    },
-    {
-      "file": ".github/guidelines/angular-testing-guidelines.md"
-    },
-    {
-      "file": ".github/guidelines/ngrx-signals-testing-guidelines.md"
-    }
-  ],
-  "github.copilot.chat.reviewSelection.instructions": [
-    {
-      "file": ".github/instructions/typescript.instructions.md"
-    },
-    {
-      "file": ".github/guidelines/architecture-guidelines.md"
-    },
-    {
-      "file": ".github/instructions/angular.instructions.md"
-    },
-    {
-      "file": ".github/guidelines/angular-theming.md"
-    },
-    {
-      "file": ".github/guidelines/ngrx-signals-guidelines.md"
-    }
-  ],
   "chat.promptFiles": true,
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
