@@ -58,7 +58,7 @@
   },
   "overrides": {
     "@ngrx/signals": {
-      "@angular/core": "^20.x"
+      "@angular/core": "^20.0.6"
     }
   },
   "lint-staged": {
