@@ -1,6 +1,110 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
-  ]
+    "config:recommended",
+    ":semanticCommits",
+    ":dependencyDashboard",
+    ":rebaseStalePrs",
+    ":separateMajorReleases",
+    ":combinePatchMinorReleases",
+    ":ignoreUnstable",
+    ":prImmediately",
+    ":updateNotScheduled",
+    ":automergeDisabled",
+    ":maintainLockFilesWeekly",
+    ":prConcurrentLimit10"
+  ],
+  "platformAutomerge": true,
+  "rangeStrategy": "bump",
+  "semanticCommits": "enabled",
+  "timezone": "Europe/Berlin",
+  "schedule": ["before 6am on monday"],
+  "labels": ["dependencies"],
+  "assignees": ["danielsogl"],
+  "reviewers": ["danielsogl"],
+  "packageRules": [
+    {
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true,
+      "platformAutomerge": true,
+      "groupName": "non-major dependencies",
+      "groupSlug": "all-minor-patch"
+    },
+    {
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "groupName": "major dependencies",
+      "groupSlug": "all-major"
+    },
+    {
+      "groupName": "Angular framework",
+      "automerge": false,
+      "matchPackageNames": ["/^@angular/", "angular-eslint"]
+    },
+    {
+      "groupName": "NgRx ecosystem",
+      "automerge": false,
+      "matchPackageNames": ["/^@ngrx/"]
+    },
+    {
+      "groupName": "TypeScript type definitions",
+      "automerge": true,
+      "platformAutomerge": true,
+      "matchPackageNames": ["/^@types//"]
+    },
+    {
+      "groupName": "linting and formatting",
+      "automerge": true,
+      "platformAutomerge": true,
+      "matchPackageNames": [
+        "/^eslint/",
+        "/^prettier/",
+        "/^husky/",
+        "/^lint-staged/",
+        "typescript-eslint"
+      ]
+    },
+    {
+      "groupName": "testing frameworks",
+      "automerge": true,
+      "platformAutomerge": true,
+      "matchPackageNames": ["/^karma/", "/^jasmine/", "ng-mocks"]
+    },
+    {
+      "matchPackageNames": ["typescript", "ts-node"],
+      "groupName": "TypeScript core",
+      "automerge": false
+    },
+    {
+      "groupName": "Sheriff module boundaries",
+      "automerge": true,
+      "platformAutomerge": true,
+      "matchPackageNames": ["/^@softarc/"]
+    },
+    {
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["engines"],
+      "enabled": false,
+      "description": "Disable Node.js engine updates"
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "automerge": true,
+    "schedule": ["at any time"]
+  },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true,
+    "schedule": ["before 6am on monday"]
+  },
+  "prCreation": "immediate",
+  "prHourlyLimit": 2,
+  "prConcurrentLimit": 5,
+  "updatePinnedDependencies": false,
+  "enabledManagers": ["npm"],
+  "ignoreDeps": [],
+  "ignorePaths": ["**/node_modules/**", "**/dist/**", "**/coverage/**"]
 }
