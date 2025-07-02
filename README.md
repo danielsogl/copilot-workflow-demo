@@ -1,6 +1,36 @@
 # CopilotWorkflowDemo
 
-This demo app lets users manage tasks with a timer, todos, and status tracking. It is designed to showcase how GitHub Copilot can help you build and extend real-world Angular applications.
+This demo app lets users manage tasks with a timer, todos, and status tracking. It is de## GitHub Copilot Setup & Automation
+
+This project is enhanced with a custom GitHub Copilot configuration to streamline development, enforce standards, and automate repetitive tasks. The setup includes:
+
+- **Custom Copilot Instructions:**
+
+  - Enforces project-specific TypeScript, Angular, and DDD guidelines from `.github/instructions/`.
+  - Ensures strong typing, modularity, and best practices in all generated code.
+  - Integrates architectural and testing conventions directly into Copilot's code suggestions.
+
+- **Model Context Protocol (MCP) Servers:**
+
+  - **GitHub MCP:** Enables GitHub-related tasks and repository interactions.
+  - **Context7:** Provides up-to-date documentation for libraries and frameworks.
+  - **Sequential Thinking:** Helps break down complex tasks into manageable steps.
+  - **Playwright:** Supports end-to-end testing automation and scenarios.
+
+- **Reusable Prompt Files:**
+
+  - Domain-specific instructions are stored in `.github/instructions/` and automatically applied.
+  - Common coding, refactoring, and testing tasks are available as reusable prompts.
+  - Promotes consistency and speeds up onboarding for new contributors.
+
+### Configuration
+
+The Copilot setup is configured in `.vscode/settings.json` with:
+
+- Prompt file discovery enabled for automatic instruction loading
+- MCP servers configured for enhanced capabilities
+- Commit message generation following project conventions
+- Format-on-save and consistent code stylingcase how GitHub Copilot can help you build and extend real-world Angular applications.
 
 ## Project Structure & Architecture
 
@@ -105,7 +135,7 @@ npx eslint . --ext .ts
 
 - [Angular CLI Documentation](https://angular.dev/tools/cli)
 - [Sheriff Documentation](https://sheriff.softarc.io/)
-- See `.github/guidelines/` for detailed coding and architecture guidelines.
+- See `.github/instructions/` for detailed coding and architecture guidelines.
 
 ---
 
@@ -119,21 +149,9 @@ This project is enhanced with a custom GitHub Copilot configuration to streamlin
   - Ensures strong typing, modularity, and best practices in all generated code.
   - Integrates architectural and testing conventions directly into Copilot's code suggestions.
 
-- **Reusable Prompts:**
-
-  - Common coding, refactoring, and testing tasks are available as reusable prompts.
-  - Prompts are tailored to the project's tech stack and folder structure.
-  - Promotes consistency and speeds up onboarding for new contributors.
-
-- **MCP Servers Integration:**
-
-  - **GitHub MCP Server:** Automates GitHub-related workflows (issues, PRs, code reviews) directly from the IDE.
-  - **Time MCP Server:** Provides current system time for time-sensitive features and automations.
-  - **SequentialThinking MCP Server:** Breaks down complex tasks into actionable steps, improving planning and implementation.
-
 - **Developer Experience:**
   - Copilot is context-aware of the project's boundaries, DDD structure, and Sheriff rules.
   - All code suggestions and automations respect the public API boundaries and modularity enforced by Sheriff.
-  - Custom instructions and prompts are maintained in `.github/guidelines/` and integrated into the Copilot workflow.
+  - Custom instructions are maintained in `.github/instructions/` and automatically loaded via prompt file discovery.
 
-For more details on the Copilot setup, see the `.github/guidelines/` directory and the project documentation.
+For more details on the Copilot setup, see the `.github/instructions/` directory and the VS Code settings configuration.
