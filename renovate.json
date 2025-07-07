@@ -78,12 +78,6 @@
       "automerge": false
     },
     {
-      "groupName": "Sheriff module boundaries",
-      "automerge": true,
-      "platformAutomerge": true,
-      "matchPackageNames": ["/^@softarc/"]
-    },
-    {
       "matchManagers": ["npm"],
       "matchDepTypes": ["engines"],
       "enabled": false,

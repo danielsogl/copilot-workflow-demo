@@ -5,20 +5,17 @@ This demo app lets users manage tasks with a timer, todos, and status tracking. 
 This project is enhanced with a custom GitHub Copilot configuration to streamline development, enforce standards, and automate repetitive tasks. The setup includes:
 
 - **Custom Copilot Instructions:**
-
   - Enforces project-specific TypeScript, Angular, and DDD guidelines from `.github/instructions/`.
   - Ensures strong typing, modularity, and best practices in all generated code.
   - Integrates architectural and testing conventions directly into Copilot's code suggestions.
 
 - **Model Context Protocol (MCP) Servers:**
-
   - **GitHub MCP:** Enables GitHub-related tasks and repository interactions.
   - **Context7:** Provides up-to-date documentation for libraries and frameworks.
   - **Sequential Thinking:** Helps break down complex tasks into manageable steps.
   - **Playwright:** Supports end-to-end testing automation and scenarios.
 
 - **Reusable Prompt Files:**
-
   - Domain-specific instructions are stored in `.github/instructions/` and automatically applied.
   - Common coding, refactoring, and testing tasks are available as reusable prompts.
   - Promotes consistency and speeds up onboarding for new contributors.
@@ -38,9 +35,6 @@ The Copilot setup is configured in `.vscode/settings.json` with:
   - Code is organized by business domain under `src/app/<domain>/<type>` (e.g., `task/feature/`, `task/ui/`, `task/data/`, `task/util/`).
   - Each domain/type exposes a public API via an `index.ts` file.
   - Shared code lives in `src/app/shared/`.
-- **Module Boundaries:**
-  - Enforced with [Sheriff](https://github.com/softarc-consulting/sheriff) and configured in `sheriff.config.ts`.
-  - Only public APIs (`index.ts`) are accessible across modules.
 - **Tech Stack:**
   - Angular v19+ (standalone components, modern control flow, no NgModules)
   - TypeScript (strict mode, strong typing, ESLint, Prettier)
@@ -134,7 +128,6 @@ npx eslint . --ext .ts
 ## Additional Resources
 
 - [Angular CLI Documentation](https://angular.dev/tools/cli)
-- [Sheriff Documentation](https://sheriff.softarc.io/)
 - See `.github/instructions/` for detailed coding and architecture guidelines.
 
 ---
@@ -144,14 +137,13 @@ npx eslint . --ext .ts
 This project is enhanced with a custom GitHub Copilot configuration to streamline development, enforce standards, and automate repetitive tasks. The setup includes:
 
 - **Custom Copilot Instructions:**
-
   - Enforces project-specific TypeScript, Angular, and DDD guidelines.
   - Ensures strong typing, modularity, and best practices in all generated code.
   - Integrates architectural and testing conventions directly into Copilot's code suggestions.
 
 - **Developer Experience:**
-  - Copilot is context-aware of the project's boundaries, DDD structure, and Sheriff rules.
-  - All code suggestions and automations respect the public API boundaries and modularity enforced by Sheriff.
+  - Copilot is context-aware of the project's boundaries and DDD structure.
+  - All code suggestions and automations respect the public API boundaries and modularity enforced by the project structure.
   - Custom instructions are maintained in `.github/instructions/` and automatically loaded via prompt file discovery.
 
 For more details on the Copilot setup, see the `.github/instructions/` directory and the VS Code settings configuration.

@@ -13,7 +13,6 @@ This project uses the following technology stack:
 - **Component Patterns:** Standalone components, modern Angular control flow
 - **API:** Local fake REST API using [json-server](https://github.com/typicode/json-server#readme) served from `db.json` on `http://localhost:3000`
 - **Testing:** Jasmine, ng-mocks, Playwright (E2E)
-- **Module Boundaries:** Enforced with [Sheriff](https://github.com/softarc-consulting/sheriff)
 - **Linting/Formatting:** ESLint, Prettier
 - **Other:**
   - No NgModules (standalone APIs only)
