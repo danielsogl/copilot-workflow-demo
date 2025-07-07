@@ -1,5 +1,5 @@
 ---
-applyTo: "**"
+applyTo: '**/*.ts'
 ---
 
 > **Note:** The use of barrel files (index.ts files for re-exporting) is strictly prohibited in this project. Do not create, reference, or use barrel files in any part of the codebase or documentation.

@@ -1,5 +1,5 @@
 ---
-applyTo: "**"
+applyTo: '**/*.spec.ts'
 ---
 
 # Angular Testing Guidelines (Jasmine + ng-mocks)

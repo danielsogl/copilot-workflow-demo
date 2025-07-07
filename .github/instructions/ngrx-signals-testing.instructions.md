@@ -1,5 +1,5 @@
 ---
-applyTo: "**"
+applyTo: '**/*store.spec.ts'
 ---
 
 # NgRx Signals Testing Guidelines

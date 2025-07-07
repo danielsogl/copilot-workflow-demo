@@ -1,5 +1,5 @@
 ---
-applyTo: "**"
+applyTo: '**/*.store.ts'
 ---
 
 # NgRx Signals Patterns

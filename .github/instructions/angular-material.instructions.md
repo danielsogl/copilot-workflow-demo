@@ -1,5 +1,5 @@
 ---
-applyTo: "**"
+applyTo: '**/*.ts, **/*.html, **/*.scss'
 ---
 
 # Angular Material Theming Guidelines (v3)

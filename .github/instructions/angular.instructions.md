@@ -1,5 +1,5 @@
 ---
-applyTo: "**"
+applyTo: '**/*.ts, **/*.html, **/*.scss'
 ---
 
 ## 1. Core Architecture
