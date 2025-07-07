@@ -4,6 +4,17 @@
       "file": ".github/guidelines/commit-convention.md"
     }
   ],
+  "github.copilot.chat.testGeneration.instructions": [
+    {
+      "file": ".github/instructions/angular-testing.instructions.md"
+    },
+    {
+      "file": ".github/instructions/ngrx-signals-testing.instructions.md"
+    },
+    {
+      "file": ".github/instructions/typescript.instructions.md"
+    }
+  ],
   "chat.promptFiles": true,
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
