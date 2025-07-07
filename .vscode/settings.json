@@ -24,7 +24,7 @@
   "editor.trimAutoWhitespace": true,
   "prettier.configPath": ".prettierrc",
   "prettier.requireConfig": true,
-  "chat.mcp.discovery.enabled": true,
+  "chat.mcp.discovery.enabled": false,
   "mcp": {
     "servers": {
       "github": {
