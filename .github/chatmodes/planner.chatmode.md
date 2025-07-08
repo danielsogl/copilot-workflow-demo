@@ -1,6 +1,6 @@
 ---
 description: "Generate an implementation plan for new features or refactoring existing code."
-tools: ["codebase", "fetch", "findTestFiles", "githubRepo", "search", "usages"]
+tools: ['codebase', 'fetch', 'findTestFiles', 'githubRepo', 'search', 'usages', 'github']
 ---
 
 # Planning mode instructions
