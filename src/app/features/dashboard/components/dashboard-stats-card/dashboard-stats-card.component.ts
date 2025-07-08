@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -14,4 +14,14 @@ export class DashboardStatsCardComponent {
   readonly icon = input.required<string>();
   readonly color = input<string>('primary');
   readonly suffix = input<string>('');
+  readonly clickable = input<boolean>(false);
+  readonly filterType = input<string>('');
+
+  readonly cardClick = output<string>();
+
+  onCardClick(): void {
+    if (this.clickable()) {
+      this.cardClick.emit(this.filterType());
+    }
+  }
 }

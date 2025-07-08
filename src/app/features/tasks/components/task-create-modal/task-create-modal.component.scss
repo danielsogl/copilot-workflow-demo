@@ -1,0 +1,150 @@
+.task-create-modal {
+  width: 100%;
+  max-width: 500px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--mat-on-surface);
+    }
+  }
+
+  &__close-button {
+    color: var(--mat-on-surface-variant);
+  }
+
+  &__error {
+    background-color: var(--mat-error-container);
+    color: var(--mat-on-error-container);
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    font-size: 14px;
+    border-left: 4px solid var(--mat-error);
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__field {
+    width: 100%;
+
+    &--half {
+      flex: 1;
+    }
+  }
+
+  &__row {
+    display: flex;
+    gap: 16px;
+  }
+
+  &__actions {
+    padding: 24px 0 0 0;
+    margin: 0;
+    gap: 12px;
+
+    button {
+      min-width: 100px;
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 600px) {
+  .task-create-modal {
+    max-width: 100%;
+    padding: 16px;
+
+    &__header {
+      margin-bottom: 16px;
+
+      h2 {
+        font-size: 20px;
+      }
+    }
+
+    &__row {
+      flex-direction: column;
+      gap: 12px;
+
+      .task-create-modal__field--half {
+        width: 100%;
+      }
+    }
+
+    &__form {
+      gap: 12px;
+    }
+
+    &__actions {
+      padding: 16px 0 0 0;
+      flex-direction: column-reverse;
+
+      button {
+        width: 100%;
+        min-width: unset;
+      }
+    }
+  }
+}
+
+// Override Material Dialog styles
+::ng-deep {
+  .mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: 12px;
+  }
+
+  .mat-mdc-dialog-content {
+    padding: 24px;
+    margin: 0;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+
+  .mat-mdc-dialog-actions {
+    padding: 0 24px 24px 24px;
+    margin: 0;
+    min-height: unset;
+  }
+}
+
+// Form field enhancements
+.task-create-modal__field {
+  .mat-mdc-form-field-subscript-wrapper {
+    margin-top: 4px;
+  }
+
+  .mat-mdc-form-field-hint,
+  .mat-mdc-form-field-error {
+    font-size: 12px;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 60px;
+  }
+}
+
+// Loading state
+button[disabled] {
+  mat-icon {
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

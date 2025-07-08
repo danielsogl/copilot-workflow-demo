@@ -1,0 +1,108 @@
+<div class="task-create-modal">
+  <mat-dialog-content>
+    <div class="task-create-modal__header">
+      <h2 mat-dialog-title>Create New Task</h2>
+      <button
+        mat-icon-button
+        mat-dialog-close
+        class="task-create-modal__close-button"
+        aria-label="Close dialog">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    @if (error()) {
+      <div class="task-create-modal__error">
+        {{ error() }}
+      </div>
+    }
+
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="task-create-modal__form">
+      <mat-form-field appearance="outline" class="task-create-modal__field">
+        <mat-label>Title *</mat-label>
+        <input
+          matInput
+          formControlName="title"
+          placeholder="Enter task title"
+          maxlength="100"
+          required>
+        <mat-hint align="end">{{ taskForm.get('title')?.value?.length || 0 }}/100</mat-hint>
+        @if (getFieldError('title')) {
+          <mat-error>{{ getFieldError('title') }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="task-create-modal__field">
+        <mat-label>Description</mat-label>
+        <textarea
+          matInput
+          formControlName="description"
+          placeholder="Enter task description"
+          rows="3"
+          maxlength="500">
+        </textarea>
+        <mat-hint align="end">{{ taskForm.get('description')?.value?.length || 0 }}/500</mat-hint>
+        @if (getFieldError('description')) {
+          <mat-error>{{ getFieldError('description') }}</mat-error>
+        }
+      </mat-form-field>
+
+      <div class="task-create-modal__row">
+        <mat-form-field appearance="outline" class="task-create-modal__field task-create-modal__field--half">
+          <mat-label>Priority *</mat-label>
+          <mat-select formControlName="priority" required>
+            @for (priority of priorities; track priority.value) {
+              <mat-option [value]="priority.value">
+                {{ priority.label }}
+              </mat-option>
+            }
+          </mat-select>
+          @if (getFieldError('priority')) {
+            <mat-error>{{ getFieldError('priority') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="task-create-modal__field task-create-modal__field--half">
+          <mat-label>Due Date *</mat-label>
+          <input
+            matInput
+            [matDatepicker]="dueDatePicker"
+            formControlName="dueDate"
+            [min]="minDate"
+            placeholder="Select due date"
+            readonly>
+          <mat-datepicker-toggle matIconSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #dueDatePicker></mat-datepicker>
+          @if (getFieldError('dueDate')) {
+            <mat-error>{{ getFieldError('dueDate') }}</mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="task-create-modal__actions">
+    <button
+      mat-button
+      type="button"
+      (click)="onCancel()"
+      [disabled]="isLoading()">
+      Cancel
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      (click)="onSubmit()"
+      [disabled]="isLoading() || !taskForm.valid">
+      @if (isLoading()) {
+        <ng-container>
+          <mat-icon>hourglass_empty</mat-icon>
+          Creating...
+        </ng-container>
+      } @else {
+        Create Task
+      }
+    </button>
+  </mat-dialog-actions>
+</div>

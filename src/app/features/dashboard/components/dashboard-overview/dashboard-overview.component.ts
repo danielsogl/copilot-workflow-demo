@@ -1,4 +1,5 @@
 import { Component, OnInit, signal, computed, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DashboardService } from '../../services/dashboard.service';
 import { DashboardStatsCardComponent } from '../dashboard-stats-card/dashboard-stats-card.component';
@@ -13,6 +14,7 @@ import { DashboardStats } from '../../../../shared/models/dashboard.model';
 })
 export class DashboardOverviewComponent implements OnInit {
   private readonly dashboardService = inject(DashboardService);
+  private readonly router = inject(Router);
 
   readonly isLoading = signal(true);
   readonly error = signal<string | null>(null);
@@ -34,5 +36,9 @@ export class DashboardOverviewComponent implements OnInit {
     setTimeout(() => {
       this.isLoading.set(false);
     }, 500);
+  }
+
+  onCardClick(filterType: string): void {
+    this.router.navigate(['/tasks', filterType]);
   }
 }

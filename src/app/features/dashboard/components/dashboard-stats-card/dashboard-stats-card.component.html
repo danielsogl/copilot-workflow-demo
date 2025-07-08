@@ -1,4 +1,7 @@
-<mat-card class="stats-card stats-card--{{ color() }}">
+<mat-card 
+  class="stats-card stats-card--{{ color() }}" 
+  [class.stats-card--clickable]="clickable()"
+  (click)="onCardClick()">
   <mat-card-content>
     <div class="stats-card__header">
       <mat-icon class="stats-card__icon">{{ icon() }}</mat-icon>

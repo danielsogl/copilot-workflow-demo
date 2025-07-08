@@ -20,6 +20,9 @@
         [value]="stats().totalTasks"
         icon="assignment"
         color="primary"
+        [clickable]="true"
+        filterType="all"
+        (cardClick)="onCardClick($event)"
       />
 
       <app-dashboard-stats-card
@@ -27,6 +30,9 @@
         [value]="stats().completedTasks"
         icon="check_circle"
         color="success"
+        [clickable]="true"
+        filterType="completed"
+        (cardClick)="onCardClick($event)"
       />
 
       <app-dashboard-stats-card
@@ -34,6 +40,9 @@
         [value]="stats().pendingTasks"
         icon="schedule"
         color="info"
+        [clickable]="true"
+        filterType="pending"
+        (cardClick)="onCardClick($event)"
       />
 
       <app-dashboard-stats-card
@@ -41,6 +50,9 @@
         [value]="stats().overdueTasks"
         icon="warning"
         color="error"
+        [clickable]="true"
+        filterType="overdue"
+        (cardClick)="onCardClick($event)"
       />
 
       <app-dashboard-stats-card
