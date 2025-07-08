@@ -52,10 +52,10 @@ Develop a new feature in this Angular project according to the DDD architecture,
 
 ## References
 
-- [Angular Guidelines](../guidelines/angular-guidelines.md)
-- [TypeScript Guidelines](../guidelines/typescript-guidelines.md)
-- [NgRx Signals Patterns](../guidelines/ngrx-signals-guidelines.md)
-- [Architecture Guidelines](../guidelines/architecture-guidelines.md)
+- [Angular Guidelines](../instructions/angular.instructions.md)
+- [TypeScript Guidelines](../instructions/typescript.instructions.md)
+- [NgRx Signals Patterns](../instructions/ngrx-signals.instructions.md)
+- [Architecture Guidelines](../instructions/architecture.instructions.md)
 
 ---
 
