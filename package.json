@@ -33,7 +33,7 @@
     "@angular/cli": "^20.0.5",
     "@angular/compiler-cli": "^20.0.6",
     "@ngrx/eslint-plugin": "^19.2.1",
-    "@playwright/test": "^1.53.2",
+    "@playwright/test": "^1.54.1",
     "@types/jasmine": "~5.1.8",
     "@types/node": "^24.0.10",
     "angular-eslint": "20.1.1",
