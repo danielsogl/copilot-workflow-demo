@@ -35,7 +35,7 @@
     "@ngrx/eslint-plugin": "^19.2.1",
     "@playwright/test": "^1.54.1",
     "@types/jasmine": "~5.1.8",
-    "@types/node": "^24.0.10",
+    "@types/node": "^24.0.13",
     "angular-eslint": "20.1.1",
     "concurrently": "^9.2.0",
     "eslint": "^9.30.1",
