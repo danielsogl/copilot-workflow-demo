@@ -38,8 +38,8 @@
     "angular-eslint": "20.1.1",
     "concurrently": "^9.2.0",
     "eslint": "^9.31.0",
-    "eslint-config-prettier": "^10.1.5",
-    "eslint-plugin-prettier": "^5.5.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.3",
     "husky": "^9.1.7",
     "is-ci": "^4.1.0",
     "jsdom": "26.1.0",
@@ -48,7 +48,7 @@
     "prettier": "^3.6.2",
     "prettier-eslint": "^16.4.2",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.36.0",
+    "typescript-eslint": "^8.37.0",
     "vitest": "3.2.4"
   },
   "overrides": {
