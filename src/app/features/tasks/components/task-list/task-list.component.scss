@@ -304,7 +304,7 @@
 
 // Loading state enhancements
 .task-list__loading mat-spinner {
-  --mdc-circular-progress-active-indicator-color: var(--mat-primary);
+  --mat-progress-spinner-active-indicator-color: var(--mat-primary);
 }
 
 // Chip color variants
