@@ -11,7 +11,7 @@ This project uses the following technology stack:
 - **State Management:** NgRx Signals Store
 - **UI Library:** Angular Material v3
 - **Component Patterns:** Standalone components, modern Angular control flow
-- **API:** Local fake REST API using [json-server](https://github.com/typicode/json-server#readme) served from `db.json` on `http://localhost:3000`
+- **API:** Local fake REST API using json-server served from `db.json` on `http://localhost:3000`
 - **Testing:** Vitest, ng-mocks, Playwright (E2E)
 - **Linting/Formatting:** ESLint, Prettier
 - **Other:**

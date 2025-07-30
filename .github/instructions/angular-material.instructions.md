@@ -1,10 +1,10 @@
 ---
-applyTo: '**/*.ts, **/*.html, **/*.scss'
+applyTo: "**/*.ts, **/*.html, **/*.scss"
 ---
 
 # Angular Material Theming Guidelines (v3)
 
-These guidelines define how to implement, structure, and maintain themes using Angular Material v3 in this project. They are based on the official [Angular Material Theming Guide](https://material.angular.io/guide/theming) and tailored for consistency, scalability, and maintainability.
+These guidelines define how to implement, structure, and maintain themes using Angular Material v3 in this project.
 
 ---
 
@@ -111,11 +111,5 @@ These guidelines define how to implement, structure, and maintain themes using A
 
 - **Import Order:**
   - Always import theme files before component styles in `styles.scss`.
-- **Upgrades:**
-  - Review the [Angular Material changelog](https://github.com/angular/components/blob/main/CHANGELOG.md) for theming changes on upgrades.
 - **Documentation:**
   - Document all customizations and overrides in the theme file.
-
----
-
-For more details, see the [official Angular Material Theming Guide](https://material.angular.io/guide/theming).

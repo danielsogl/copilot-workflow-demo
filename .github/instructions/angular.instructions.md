@@ -1,10 +1,10 @@
 ---
-applyTo: '**/*.ts, **/*.html, **/*.scss'
+applyTo: "**/*.ts, **/*.html, **/*.scss"
 ---
 
 ## 1. Core Architecture
 
-- **Standalone Components:** Components, directives, and pipes are standalone by default. The `standalone: true` flag is no longer required and should be omitted in new code (Angular v17+ and above).
+- **Standalone Components:** Components, directives, and pipes are standalone by default. The `standalone: true` flag is no longer required and should be omitted in new code.
 - **Strong Typing:** TypeScript types, interfaces, and models provide type safety throughout the codebase
 - **Single Responsibility:** Each component and service has a single, well-defined responsibility
 - **Rule of One:** Files focus on a single concept or functionality

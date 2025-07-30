@@ -10,11 +10,10 @@ These guidelines reflect Angular v19+ best practices, using Vitest as the test r
 
 - Use Vitest for all test specs (`.spec.ts`), following the AAA pattern (Arrange, Act, Assert).
 - Use Angular's TestBed and ComponentFixture for setup and DOM interaction.
-- Use Angular Testing Library for user-centric testing when appropriate.
 - Prefer standalone components, strong typing, and feature-based file structure.
 - Use Vitest's built-in mocking capabilities (`vi.mock`, `vi.spyOn`) for mocking dependencies.
 - Use Angular's input() and model() for signal-based inputs in tests.
-- Use DebugElement and By for DOM queries, or Angular Testing Library's queries.
+- Use DebugElement and By for DOM queries and element selection.
 - Use Vitest's `vi.spyOn` and `vi.fn()` for spies and mocks.
 - Use Vitest's `fakeTimers` for time-based testing.
 - Use clear, descriptive test names and group related tests with `describe`.
@@ -131,64 +130,7 @@ describe("MyComponent", () => {
 });
 ```
 
-## 4. Component Testing with Angular Testing Library
-
-Angular Testing Library provides a more user-centric approach to testing components.
-
-```typescript
-import { render, screen, fireEvent } from "@testing-library/angular";
-import { provideZonelessChangeDetection } from "@angular/core";
-import { MyComponent } from "./my.component";
-import { MyService } from "./my.service";
-import { describe, it, expect, vi } from "vitest";
-
-describe("MyComponent", () => {
-  it("should render counter", async () => {
-    await render(MyComponent, {
-      inputs: {
-        counter: 5,
-        greeting: "Hello World!",
-      },
-      providers: [provideZonelessChangeDetection()],
-    });
-
-    expect(screen.getByText("Current Count: 5")).toBeVisible();
-    expect(screen.getByText("Hello World!")).toBeVisible();
-  });
-
-  it("should increment the counter on click", async () => {
-    await render(MyComponent, {
-      inputs: { counter: 5 },
-      providers: [provideZonelessChangeDetection()],
-    });
-
-    const incrementButton = screen.getByRole("button", { name: "+" });
-    fireEvent.click(incrementButton);
-
-    expect(screen.getByText("Current Count: 6")).toBeVisible();
-  });
-
-  it("should call service method", async () => {
-    const mockService = {
-      doSomething: vi.fn().mockReturnValue("done"),
-    };
-
-    await render(MyComponent, {
-      providers: [
-        { provide: MyService, useValue: mockService },
-        provideZonelessChangeDetection(),
-      ],
-    });
-
-    const button = screen.getByRole("button", { name: "Do Something" });
-    fireEvent.click(button);
-
-    expect(mockService.doSomething).toHaveBeenCalled();
-  });
-});
-```
-
-## 5. Directive Testing Example
+## 4. Directive Testing Example
 
 ```typescript
 import { TestBed, ComponentFixture } from "@angular/core/testing";
@@ -231,7 +173,7 @@ describe("MyDirective", () => {
 });
 ```
 
-## 6. Pipe Testing Example
+## 5. Pipe Testing Example
 
 ```typescript
 import { TestBed } from "@angular/core/testing";
@@ -255,7 +197,7 @@ describe("MyPipe", () => {
 });
 ```
 
-## 7. Mocking and Spying Patterns
+## 6. Mocking and Spying Patterns
 
 ### Service Mocking
 ```typescript
@@ -298,7 +240,7 @@ vi.mock("external-library", () => ({
 }));
 ```
 
-## 8. Async Testing Patterns
+## 7. Async Testing Patterns
 
 ### Promises
 ```typescript
@@ -330,7 +272,7 @@ it("should handle observables", () => {
 });
 ```
 
-## 9. Time-based Testing
+## 8. Time-based Testing
 
 ```typescript
 import { vi } from "vitest";
@@ -348,7 +290,7 @@ it("should handle timers", () => {
 });
 ```
 
-## 10. Testing Standalone Components
+## 9. Testing Standalone Components
 
 ```typescript
 import { TestBed } from "@angular/core/testing";
@@ -371,33 +313,13 @@ describe("MyStandaloneComponent", () => {
 });
 ```
 
-## 11. Utility Patterns
+## 10. Utility Patterns
 
 - Use TestHelper classes for common DOM queries and actions.
 - Use DebugElement and By for querying and interacting with the DOM.
 - Use Vitest's async utilities for handling asynchronous code.
-- Use Angular Testing Library for user-centric testing approaches.
 - Use Vitest's `vi.mock` for comprehensive mocking needs.
-
-## 12. Configuration
-
-Ensure your `vitest.config.ts` is properly configured for Angular:
-
-```typescript
-import { defineConfig } from "vitest/config";
-import angular from "@analogjs/vite-plugin-angular";
-
-export default defineConfig({
-  plugins: [angular()],
-  test: {
-    environment: "jsdom",
-    setupFiles: ["src/test-setup.ts"],
-    globals: true,
-    include: ["**/*.spec.ts"],
-  },
-});
-```
 
 ---
 
-**Follow these patterns for all Angular tests. Use Vitest, Angular TestBed, and Angular Testing Library when appropriate. Prefer strong typing, standalone components, and feature-based structure. For more, see the official Angular testing guides and Vitest documentation.**
+**Follow these patterns for all Angular tests. Use Vitest and Angular TestBed for all testing scenarios. Prefer strong typing, standalone components, and feature-based structure. For more, see the official Angular testing guides and Vitest documentation.**
