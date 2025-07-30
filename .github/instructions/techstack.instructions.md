@@ -19,4 +19,4 @@ This project uses the following technology stack:
   - No static or in-memory data in application code
   - All data access via the API layer
 
-For more details, see the architecture and coding guidelines in `.github/guidelines/`.
+For more details, see the architecture and coding instructions in `.github/instructions/`.

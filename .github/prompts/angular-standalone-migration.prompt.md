@@ -7,11 +7,9 @@ Migrate only the provided legacy Angular files (using NgModules, CommonModule, o
 ## Instructions
 
 1. **Preparation:**
-
    - Commit all work and use a clean git branch before starting.
 
 2. **Automated Migration (Recommended):**
-
    - Run the official Angular schematic only on the files provided as context:
      ```sh
      ng g @angular/core:standalone --path <relative-path-to-file-or-folder>
@@ -21,10 +19,8 @@ Migrate only the provided legacy Angular files (using NgModules, CommonModule, o
      1. Convert all components, directives, and pipes in the provided files to standalone.
      2. Remove unnecessary NgModule classes in the provided files.
      3. Switch to the standalone bootstrapping API if the root module is included in the context.
-   - See the official guide for details: https://angular.dev/reference/migrations/standalone
 
 3. **Manual Migration Steps (for provided files):**
-
    - Remove all `@NgModule` classes and related metadata.
    - Move providers to `@Injectable({ providedIn: 'root' })` on services or to the `providers` property of components if needed.
    - Convert all components, directives, and pipes to standalone (remove `standalone: true` if Angular v17+; standalone is default).
@@ -39,15 +35,13 @@ Migrate only the provided legacy Angular files (using NgModules, CommonModule, o
    - Ensure all UI components meet accessibility standards and use Angular Material v3 for standard UI components and theming.
 
 4. **After Migration:**
-
    - Remove any remaining NgModule declarations manually if needed.
    - Run all unit tests and fix any failures.
    - Run code formatters and linters, and fix any warnings or errors.
 
 5. **References:**
-   - [Official Angular Standalone Migration Guide](https://angular.dev/reference/migrations/standalone)
-   - [Angular Guidelines](../guidelines/angular-guidelines.md)
-   - [TypeScript Guidelines](../guidelines/typescript-guidelines.md)
+   - [Angular Guidelines](../instructions/angular.instructions.md)
+   - [TypeScript Guidelines](../instructions/typescript.instructions.md)
 
 ---
 
@@ -81,6 +75,5 @@ export class UserListComponent {}
 
 **Always follow the latest Angular, TypeScript, and project guidelines. For more, see:**
 
-- [Official Angular Standalone Migration Guide](https://angular.dev/reference/migrations/standalone)
-- [Angular Guidelines](../guidelines/angular-guidelines.md)
-- [TypeScript Guidelines](../guidelines/typescript-guidelines.md)
+- [Angular Guidelines](../instructions/angular.instructions.md)
+- [TypeScript Guidelines](../instructions/typescript.instructions.md)

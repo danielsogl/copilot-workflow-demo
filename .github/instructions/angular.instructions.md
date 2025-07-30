@@ -84,7 +84,6 @@ applyTo: "**/*.ts, **/*.html, **/*.scss"
 - **Typed Forms:** Always use strictly typed reactive forms by defining an interface for the form values and using `FormGroup<MyFormType>`, `FormBuilder.group<MyFormType>()`, and `FormControl<T>()`.
 - **Non-Nullable Controls:** Prefer `nonNullable: true` for controls to avoid null issues and improve type safety.
 - **Patch and Get Values:** Use `patchValue` and `getRawValue()` to work with typed form values.
-- **Reference:** See the [Angular Typed Forms documentation](https://angular.dev/guide/forms/typed-forms) for details and examples.
 
 ## 4. Component Patterns
 
@@ -124,7 +123,6 @@ applyTo: "**/*.ts, **/*.html, **/*.scss"
   - Prefer Material's layout and typography utilities for spacing and text.
   - Use Material icons and fonts for visual consistency.
   - Avoid mixing multiple UI libraries in the same project.
-  - Reference the [Angular Material documentation](https://material.angular.io) for usage patterns and updates.
 - **CDK Utilities:** Use Angular CDK utilities for custom behaviors, overlays, accessibility, and testing harnesses.
 - **Migration:** For legacy or custom components, migrate to Angular Material/CDK where feasible.
 
@@ -132,7 +130,7 @@ applyTo: "**/*.ts, **/*.html, **/*.scss"
 
 - **Modern Control Flow:** Use the new Angular control flow syntax: `@if`, `@for`, `@switch` in templates. Do not use legacy structural directives such as `*ngIf`, `*ngFor`, or `*ngSwitch`.
 - **No Legacy Structural Directives:** Remove or migrate any usage of `*ngIf`, `*ngFor`, or `*ngSwitch` to the new control flow syntax in all new code. Legacy code should be migrated when touched.
-- **Referencing Conditional Results:** When using `@if`, reference the result using the `as` keyword, e.g. `@if (user(); as u) { ... }`. This is the recommended pattern for accessing the value inside the block. See the [Angular documentation](https://angular.dev/guide/templates/control-flow#referencing-the-conditional-expressions-result) for details.
+- **Referencing Conditional Results:** When using `@if`, reference the result using the `as` keyword, e.g. `@if (user(); as u) { ... }`. This is the recommended pattern for accessing the value inside the block.
 
 ## 6. Service and DI Patterns
 
