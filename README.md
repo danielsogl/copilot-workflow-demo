@@ -1,47 +1,98 @@
-# CopilotWorkflowDemo
+# GitHub Copilot for Angular & NgRx - Setup Demo
 
-This demo app lets users manage tasks with a timer, todos, and status tracking. It is de## GitHub Copilot Setup & Automation
+This repository demonstrates how to set up and configure **GitHub Copilot** in **Visual Studio Code** for Angular development with NgRx Signals Store. It showcases a complete task management application with timer functionality, built using modern Angular patterns and enhanced by intelligent Copilot assistance.
 
-This project is enhanced with a custom GitHub Copilot configuration to streamline development, enforce standards, and automate repetitive tasks. The setup includes:
+## 🚀 GitHub Copilot Setup for Visual Studio Code
 
-- **Custom Copilot Instructions:**
-  - Enforces project-specific TypeScript, Angular, and DDD guidelines from `.github/instructions/`.
-  - Ensures strong typing, modularity, and best practices in all generated code.
-  - Integrates architectural and testing conventions directly into Copilot's code suggestions.
+### Prerequisites
 
-- **Model Context Protocol (MCP) Servers:**
-  - **GitHub MCP:** Enables GitHub-related tasks and repository interactions.
-  - **Context7:** Provides up-to-date documentation for libraries and frameworks.
-  - **Sequential Thinking:** Helps break down complex tasks into manageable steps.
-  - **Playwright:** Supports end-to-end testing automation and scenarios.
+1. **GitHub Copilot subscription** - Individual, Business, or Enterprise
+2. **Visual Studio Code** with the GitHub Copilot extension installed
+3. **Node.js 18+** and **npm**
 
-- **Reusable Prompt Files:**
-  - Domain-specific instructions are stored in `.github/instructions/` and automatically applied.
-  - Common coding, refactoring, and testing tasks are available as reusable prompts.
-  - Promotes consistency and speeds up onboarding for new contributors.
+### Step 1: Install Required Extensions
 
-### Configuration
+Install these VS Code extensions for the best Angular + Copilot experience:
 
-The Copilot setup is configured in `.vscode/settings.json` with:
+```bash
+# Core Copilot extensions
+code --install-extension GitHub.copilot
+code --install-extension GitHub.copilot-chat
 
-- Prompt file discovery enabled for automatic instruction loading
-- MCP servers configured for enhanced capabilities
-- Commit message generation following project conventions
-- Format-on-save and consistent code stylingcase how GitHub Copilot can help you build and extend real-world Angular applications.
+# Angular development extensions
+code --install-extension Angular.ng-template
+code --install-extension ms-vscode.vscode-typescript-next
+```
 
-## Project Structure & Architecture
+### Step 2: Configure Copilot for Angular & NgRx
+
+Copy the `.vscode/settings.json` configuration from this repository to enable:
+
+- **Prompt file discovery** for automatic instruction loading
+- **Commit message generation** following Angular conventions
+- **Chat edit requests** for inline code improvements
+- **Test generation** with proper Angular testing patterns
+
+Key settings:
+
+```json
+{
+  "chat.promptFiles": true,
+  "github.copilot.chat.commitMessageGeneration.instructions": [
+    { "file": ".github/guidelines/commit-convention.md" }
+  ],
+  "github.copilot.chat.generateTests.codeLens": true,
+  "github.copilot.chat.setupTests.enabled": true
+}
+```
+
+### Step 3: Custom Instructions for Angular & NgRx
+
+This project includes specialized Copilot instructions in `.github/instructions/`:
+
+- **`angular.instructions.md`** - Angular 19+ standalone components, modern control flow
+- **`ngrx-signals.instructions.md`** - NgRx Signals Store patterns and best practices
+- **`architecture.instructions.md`** - Domain-driven design structure
+- **`angular-testing.instructions.md`** - Vitest and ng-mocks testing patterns
+- **`typescript.instructions.md`** - Strict TypeScript configuration
+
+These instructions are automatically loaded and help Copilot generate code that follows your project's patterns and conventions.
+
+### Step 4: Using Copilot with Angular & NgRx
+
+Once configured, Copilot will assist with:
+
+- **Component Generation**: Creates standalone Angular components following the project's DDD structure
+- **Service & Store Creation**: Generates NgRx Signals stores with proper typing and patterns
+- **Test Scaffolding**: Produces comprehensive tests using Vitest and ng-mocks
+- **Code Completion**: Provides context-aware suggestions for Angular APIs and NgRx patterns
+- **Refactoring**: Helps modernize code to use Angular's latest features (control flow, signals)
+
+### Example Copilot Prompts
+
+Try these prompts in GitHub Copilot Chat:
+
+```
+Generate a new task feature with NgRx Signals store
+Create a unit test for the TaskService using ng-mocks
+Refactor this component to use Angular's new control flow syntax
+Add proper TypeScript typing to this NgRx store
+```
+
+## 📁 Project Structure & Architecture
 
 - **Domain-Driven Design (DDD):**
   - Code is organized by business domain under `src/app/<domain>/<type>` (e.g., `task/feature/`, `task/ui/`, `task/data/`, `task/util/`).
   - Each domain/type exposes a public API via an `index.ts` file.
   - Shared code lives in `src/app/shared/`.
 - **Tech Stack:**
-  - Angular v19+ (standalone components, modern control flow, no NgModules)
-  - TypeScript (strict mode, strong typing, ESLint, Prettier)
-  - NgRx Signals Store for state management
-  - Angular Material v3 for UI
-  - json-server for local API (see `db.json`)
-  - Unit testing with Vitest, ng-mocks, Playwright (E2E)
+  - **Angular v20+** (standalone components, modern control flow, no NgModules)
+  - **TypeScript** (strict mode, strong typing, ESLint, Prettier)
+  - **NgRx Signals Store** for state management
+  - **Angular Material v20** for UI components
+  - **json-server** for local REST API (see `db.json`)
+  - **Vitest** for unit testing with **ng-mocks**
+  - **Playwright** for end-to-end testing
 
 ### Example Folder Structure
 
@@ -58,92 +109,41 @@ src/app/
       navbar/
 ```
 
-## Features
+## ✨ Demo Application Features
 
-- **Task Management:** Create, view, and manage tasks. Each task has a title, description, and a list of todos.
-- **Todos:** Each task contains multiple todos. Mark todos as done to track progress.
-- **Timer:** Set a timer for each task. Start, pause, or stop the timer. When the timer finishes, the task is marked as overdue.
-- **Overdue & Finished Logic:**
-  - If the timer runs out before the task is finished, the task is marked as overdue.
-  - If all todos are completed or the task is manually marked as finished, the timer stops and the task is marked as finished.
-- **Status Tracking:** Tasks can be in progress, overdue, or finished.
+This task management app demonstrates real-world Angular + NgRx patterns:
 
-## API & Mock Data
+- **Task Management**: Create, view, and manage tasks with titles, descriptions, and todo lists
+- **Timer Functionality**: Set timers for tasks with start, pause, and stop controls
+- **Status Tracking**: Automatic status updates (in progress, overdue, finished)
+- **Todo Management**: Mark individual todos as complete to track task progress
+- **Responsive UI**: Built with Angular Material for a modern user experience
 
-- The app uses a local fake REST API powered by [json-server](https://github.com/typicode/json-server#readme).
-- Mock data is defined in `db.json`.
-- API runs at `http://localhost:3000`.
+### Business Logic
 
-## Development
+- When a timer runs out before task completion → task marked as **overdue**
+- When all todos are completed → task marked as **finished** and timer stops
+- Tasks can be manually marked as finished to stop the timer early
 
-### Start the Angular App
+## 🔧 Development Setup
 
-```bash
-ng serve
-```
+### API & Mock Data
 
-App runs at [http://localhost:4200](http://localhost:4200).
+- Uses [json-server](https://github.com/typicode/json-server#readme) for a local REST API
+- Mock data is defined in `db.json`
+- API runs at `http://localhost:3000`
 
-### Start the API Server
-
-```bash
-npx json-server --watch db.json --port 3000
-```
-
-### Code Scaffolding
-
-Use Angular CLI to generate components, directives, or pipes:
-
-```bash
-ng generate component component-name
-```
-
-### Building
-
-```bash
-ng build
-```
-
-### Running Unit Tests
-
-```bash
-ng test
-```
-
-### Running End-to-End Tests
-
-```bash
-ng e2e
-```
-
-## Linting & Formatting
-
-- Code must pass all ESLint and Prettier checks.
-- Run linting with:
-
-```bash
-npx eslint . --ext .ts
-```
-
-## Additional Resources
+## 📚 Additional Resources
 
 - [Angular CLI Documentation](https://angular.dev/tools/cli)
-- See `.github/instructions/` for detailed coding and architecture guidelines.
+- [NgRx Signals Documentation](https://ngrx.io/guide/signals)
+- [GitHub Copilot for VS Code](https://docs.github.com/en/copilot/using-github-copilot/using-github-copilot-in-your-ide)
+- Project-specific guidelines in `.github/instructions/`
 
 ---
 
-## GitHub Copilot Setup & Automation
+## 🤝 Contributing
 
-This project is enhanced with a custom GitHub Copilot configuration to streamline development, enforce standards, and automate repetitive tasks. The setup includes:
+This project demonstrates best practices for Angular + NgRx development with GitHub Copilot. The custom instructions and configuration serve as a template for setting up Copilot in your own Angular projects.
 
-- **Custom Copilot Instructions:**
-  - Enforces project-specific TypeScript, Angular, and DDD guidelines.
-  - Ensures strong typing, modularity, and best practices in all generated code.
-  - Integrates architectural and testing conventions directly into Copilot's code suggestions.
-
-- **Developer Experience:**
-  - Copilot is context-aware of the project's boundaries and DDD structure.
-  - All code suggestions and automations respect the public API boundaries and modularity enforced by the project structure.
-  - Custom instructions are maintained in `.github/instructions/` and automatically loaded via prompt file discovery.
-
-For more details on the Copilot setup, see the `.github/instructions/` directory and the VS Code settings configuration.
+Feel free to explore the `.github/instructions/` directory to understand how the custom Copilot instructions work and adapt them for your needs.
