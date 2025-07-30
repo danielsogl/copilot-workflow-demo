@@ -4,17 +4,6 @@
       "file": ".github/guidelines/commit-convention.md"
     }
   ],
-  "github.copilot.chat.testGeneration.instructions": [
-    {
-      "file": ".github/instructions/angular-testing.instructions.md"
-    },
-    {
-      "file": ".github/instructions/ngrx-signals-testing.instructions.md"
-    },
-    {
-      "file": ".github/instructions/typescript.instructions.md"
-    }
-  ],
   "chat.promptFiles": true,
   "editor.formatOnSave": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -24,5 +13,16 @@
   "editor.trimAutoWhitespace": true,
   "prettier.configPath": ".prettierrc",
   "prettier.requireConfig": true,
-  "chat.mcp.discovery.enabled": true
+  "chat.mcp.discovery.enabled": true,
+  "github.copilot.chat.localeOverride": "de",
+
+  // Experimental/Preview Features Only (defaults removed)
+  "github.copilot.chat.agent.thinkingTool": true,
+  "github.copilot.chat.codesearch.enabled": true,
+  "chat.editRequests": "hover",
+  "chat.sendElementsToChat.enabled": true,
+  "github.copilot.chat.edits.suggestRelatedFilesFromGitHistory": true,
+  "github.copilot.chat.generateTests.codeLens": true,
+  "github.copilot.chat.setupTests.enabled": true,
+  "github.copilot.chat.reviewSelection.enabled": true
 }
