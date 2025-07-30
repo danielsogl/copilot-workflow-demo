@@ -41,7 +41,7 @@ The Copilot setup is configured in `.vscode/settings.json` with:
   - NgRx Signals Store for state management
   - Angular Material v3 for UI
   - json-server for local API (see `db.json`)
-  - Unit testing with Jasmine, ng-mocks, Playwright (E2E)
+  - Unit testing with Vitest, ng-mocks, Playwright (E2E)
 
 ### Example Folder Structure
 

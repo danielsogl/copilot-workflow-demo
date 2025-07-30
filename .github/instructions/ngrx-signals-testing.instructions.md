@@ -1,8 +1,8 @@
 ---
-applyTo: '**/*.spec.ts'
+applyTo: "**/*.spec.ts"
 ---
 
-# NgRx Signals Testing Guidelines
+Follow these patterns for all NgRx Signals Store tests. Use Vitest, Angular's latest APIs, and strong typing. For more, see the official NgRx Signals documentation.
 
 These guidelines outline best practices for testing NgRx Signals Stores in Angular applications.
 
@@ -32,7 +32,3 @@ describe("CounterStore", () => {
   });
 });
 ```
-
----
-
-Follow these patterns for all NgRx Signals Store tests. Use Jasmine, Angular’s latest APIs, and strong typing. For more, see the official NgRx Signals documentation.

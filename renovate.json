@@ -70,7 +70,7 @@
       "groupName": "testing frameworks",
       "automerge": true,
       "platformAutomerge": true,
-      "matchPackageNames": ["/^karma/", "/^jasmine/", "ng-mocks"]
+      "matchPackageNames": ["/^vitest/", "/^@vitest/", "ng-mocks"]
     },
     {
       "matchPackageNames": ["typescript", "ts-node"],
