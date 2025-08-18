@@ -24,5 +24,7 @@
   "github.copilot.chat.edits.suggestRelatedFilesFromGitHistory": true,
   "github.copilot.chat.generateTests.codeLens": true,
   "github.copilot.chat.setupTests.enabled": true,
-  "github.copilot.chat.reviewSelection.enabled": true
+  "github.copilot.chat.reviewSelection.enabled": true,
+  "github.copilot.chat.alternateGptPrompt.enabled": true,
+  "chat.todoListTool.enabled": true
 }
