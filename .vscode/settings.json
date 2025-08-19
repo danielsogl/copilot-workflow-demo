@@ -13,7 +13,12 @@
   "editor.trimAutoWhitespace": true,
   "prettier.configPath": ".prettierrc",
   "prettier.requireConfig": true,
-  "chat.mcp.discovery.enabled": true,
+  "chat.mcp.discovery.enabled": {
+    "claude-desktop": false,
+    "windsurf": false,
+    "cursor-global": false,
+    "cursor-workspace": false,
+  },
   "github.copilot.chat.localeOverride": "de",
 
   // Experimental/Preview Features Only (defaults removed)
