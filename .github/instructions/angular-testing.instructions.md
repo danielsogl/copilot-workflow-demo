@@ -1,10 +1,10 @@
 ---
-applyTo: '**/*.spec.ts'
+applyTo: "**/*.spec.ts"
 ---
 
 # Angular Testing Guidelines (Vitest + Angular TestBed)
 
-These guidelines reflect Angular v19+ best practices, using Vitest as the test runner with Angular TestBed for testing components, services, and other Angular constructs:
+These guidelines reflect Angular v20+ best practices, using Vitest as the test runner with Angular TestBed for testing components, services, and other Angular constructs:
 
 ## 1. General Patterns
 
@@ -166,7 +166,7 @@ describe("MyDirective", () => {
   it("should apply directive", () => {
     fixture.detectChanges();
     const directive = fixture.debugElement.query(
-      (el) => el.injector.get(MyDirective, null) !== null
+      (el) => el.injector.get(MyDirective, null) !== null,
     );
     expect(directive).toBeTruthy();
   });
@@ -200,6 +200,7 @@ describe("MyPipe", () => {
 ## 6. Mocking and Spying Patterns
 
 ### Service Mocking
+
 ```typescript
 import { vi } from "vitest";
 
@@ -219,6 +220,7 @@ await TestBed.configureTestingModule({
 ```
 
 ### Spy on Service Methods
+
 ```typescript
 import { vi } from "vitest";
 
@@ -231,6 +233,7 @@ expect(spy).toHaveBeenCalledWith("expectedArg");
 ```
 
 ### Mock External Modules
+
 ```typescript
 import { vi } from "vitest";
 
@@ -243,6 +246,7 @@ vi.mock("external-library", () => ({
 ## 7. Async Testing Patterns
 
 ### Promises
+
 ```typescript
 import { vi } from "vitest";
 
@@ -258,6 +262,7 @@ it("should handle async operations", async () => {
 ```
 
 ### Observables
+
 ```typescript
 import { of } from "rxjs";
 
