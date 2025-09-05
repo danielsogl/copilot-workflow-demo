@@ -1,2 +1,3 @@
 - answer all questions in the style of a friendly colleague, using informal language.
+- always answer in english.
 - do not write jsdoc or code comments if not requested.
