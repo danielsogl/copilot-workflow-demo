@@ -9,7 +9,7 @@
     "test": "ng test",
     "test:e2e": "playwright test",
     "lint": "ng lint",
-    "prepare": "is-ci || husky"
+    "prepare": "lefthook install"
   },
   "private": true,
   "dependencies": {
@@ -41,20 +41,13 @@
     "eslint": "^9.34.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
-    "husky": "^9.1.7",
-    "is-ci": "^4.1.0",
     "jsdom": "26.1.0",
-    "lint-staged": "^16.1.5",
+    "lefthook": "^1.12.3",
     "ng-mocks": "^14.13.5",
     "prettier": "^3.6.2",
     "prettier-eslint": "^16.4.2",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.41.0",
     "vitest": "3.2.4"
-  },
-  "lint-staged": {
-    "*.{js,ts,html,scss,css,md,json}": [
-      "eslint --fix"
-    ]
   }
 }

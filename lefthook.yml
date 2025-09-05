@@ -1,0 +1,26 @@
+# Lefthook configuration
+# Fast and powerful Git hooks manager
+# https://github.com/evilmartians/lefthook
+
+pre-commit:
+  parallel: true
+  commands:
+    prettier:
+      # Run Prettier to format staged files
+      run: npx prettier --write {staged_files}
+      # Run on all supported file types
+      glob: "*.{js,ts,jsx,tsx,html,scss,css,md,json,yml,yaml}"
+      # Automatically stage formatted files
+      stage_fixed: true
+      # Custom failure message
+      fail_text: "Prettier formatting failed. Please check the files."
+
+    lint:
+      # Run ESLint with --fix on staged files (after Prettier)
+      run: npx eslint --fix {staged_files}
+      # Only run on JavaScript, TypeScript, HTML, SCSS, CSS, Markdown, and JSON files
+      glob: "*.{js,ts,html,scss,css,md,json}"
+      # Automatically stage fixed files
+      stage_fixed: true
+      # Custom failure message
+      fail_text: "ESLint failed. Please fix the issues before committing."
