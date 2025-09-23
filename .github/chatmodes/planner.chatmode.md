@@ -1,6 +1,17 @@
 ---
 description: "Generate an implementation plan for new features or refactoring existing code."
-tools: ['codebase', 'fetch', 'findTestFiles', 'githubRepo', 'search', 'usages', 'github']
+tools:
+  [
+    "codebase",
+    "fetch",
+    "findTestFiles",
+    "githubRepo",
+    "search",
+    "usages",
+    "github",
+    "context7",
+    "angular-cli",
+  ]
 ---
 
 # Planning mode instructions

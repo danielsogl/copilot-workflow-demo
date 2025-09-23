@@ -1,6 +1,15 @@
 ---
 description: "Generate a new NgRx Signal Store with best practices and a test plan."
-tools: ["codebase", "fetch", "findTestFiles", "search", "usages"]
+tools:
+  [
+    "codebase",
+    "fetch",
+    "findTestFiles",
+    "search",
+    "usages",
+    "context7",
+    "angular-cli",
+  ]
 ---
 
 # NgRx Signal Store Mode

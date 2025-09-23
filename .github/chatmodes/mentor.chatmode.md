@@ -1,6 +1,16 @@
 ---
 description: "Help mentor the engineer by providing guidance and support."
-tools: ["codebase", "fetch", "findTestFiles", "githubRepo", "search", "usages"]
+tools:
+  [
+    "codebase",
+    "fetch",
+    "findTestFiles",
+    "githubRepo",
+    "search",
+    "usages",
+    "context7",
+    "angular-cli",
+  ]
 ---
 
 # Mentor mode instructions
