@@ -1,3 +1,32 @@
+---
+description: A structured prompt for developing a new feature in an Angular project following DDD architecture and best practices.
+mode: agent
+model: Claude Sonnet 4.5 (Preview) (copilot)
+tools:
+  [
+    "edit",
+    "runNotebooks",
+    "search",
+    "new",
+    "runCommands",
+    "runTasks",
+    "usages",
+    "vscodeAPI",
+    "think",
+    "problems",
+    "changes",
+    "testFailure",
+    "openSimpleBrowser",
+    "fetch",
+    "githubRepo",
+    "extensions",
+    "todos",
+    "runTests",
+    "context7",
+    "angular-cli",
+  ]
+---
+
 # Angular Feature Development Prompt
 
 ## Goal
