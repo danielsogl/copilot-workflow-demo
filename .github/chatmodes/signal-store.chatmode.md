@@ -1,15 +1,7 @@
 ---
-description: "Generate a new NgRx Signal Store with best practices and a test plan."
-tools:
-  [
-    "codebase",
-    "fetch",
-    "findTestFiles",
-    "search",
-    "usages",
-    "context7",
-    "angular-cli",
-  ]
+description: "Help generate a new NgRx Signal Store for a domain feature following the project's guidelines."
+model: Claude Sonnet 4.5 (Preview) (copilot)
+tools: ['edit', 'search', 'new', 'runCommands', 'runTasks', 'usages', 'think', 'problems', 'changes', 'testFailure', 'fetch', 'githubRepo', 'todos', 'runTests', 'context7', 'angular-cli']
 ---
 
 # NgRx Signal Store Mode

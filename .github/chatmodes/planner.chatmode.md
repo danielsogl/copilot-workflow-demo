@@ -1,17 +1,7 @@
 ---
-description: "Generate an implementation plan for new features or refactoring existing code."
-tools:
-  [
-    "codebase",
-    "fetch",
-    "findTestFiles",
-    "githubRepo",
-    "search",
-    "usages",
-    "github",
-    "context7",
-    "angular-cli",
-  ]
+description: "Help plan the implementation of a new feature or refactoring task."
+model: Claude Sonnet 4.5 (Preview) (copilot)
+tools: ['search', 'usages', 'think', 'problems', 'changes', 'testFailure', 'fetch', 'githubRepo', 'todos', 'context7', 'angular-cli']
 ---
 
 # Planning mode instructions
