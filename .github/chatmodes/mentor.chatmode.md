@@ -1,15 +1,18 @@
 ---
 description: "Help mentor the engineer by providing guidance and support."
+model: Claude Sonnet 4.5 (Preview) (copilot)
 tools:
   [
-    "codebase",
-    "fetch",
-    "findTestFiles",
-    "githubRepo",
     "search",
     "usages",
+    "think",
+    "problems",
+    "changes",
+    "testFailure",
+    "fetch",
+    "githubRepo",
+    "todos",
     "context7",
-    "angular-cli",
   ]
 ---
 
