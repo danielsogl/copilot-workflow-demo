@@ -1,10 +1,4 @@
 {
-  "github.copilot.chat.commitMessageGeneration.instructions": [
-    {
-      "file": ".github/guidelines/commit-convention.md"
-    }
-  ],
-  "chat.promptFiles": true,
   "editor.formatOnSave": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.tabSize": 2,
@@ -19,17 +13,21 @@
     "cursor-global": false,
     "cursor-workspace": false
   },
-  "github.copilot.chat.localeOverride": "de",
 
-  // Experimental/Preview Features Only (defaults removed)
+  // Copilot Chat Settings
+  "github.copilot.chat.localeOverride": "en",
+  "github.copilot.chat.commitMessageGeneration.instructions": [
+    {
+      "file": ".github/guidelines/commit-convention.md"
+    }
+  ],
   "github.copilot.chat.agent.thinkingTool": true,
-  "github.copilot.chat.codesearch.enabled": true,
+  "chat.agent.thinkingStyle": "collapsed",
   "chat.editRequests": "hover",
   "chat.sendElementsToChat.enabled": true,
   "github.copilot.chat.edits.suggestRelatedFilesFromGitHistory": true,
-  "github.copilot.chat.generateTests.codeLens": true,
-  "github.copilot.chat.setupTests.enabled": true,
   "github.copilot.chat.reviewSelection.enabled": true,
-  "github.copilot.chat.alternateGptPrompt.enabled": true,
-  "chat.todoListTool.enabled": true
+  "chat.implicitContext.enabled": {
+    "panel": "always"
+  }
 }
