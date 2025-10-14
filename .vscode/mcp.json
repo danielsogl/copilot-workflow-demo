@@ -6,39 +6,21 @@
     },
     "context7": {
       "type": "http",
-      "url": "https://mcp.context7.com/mcp",
-      "headers": {
-        "CONTEXT7_API_KEY": "${input:context7_mcp_pat}",
-      }
+      "url": "https://mcp.context7.com/mcp"
     },
     "playwright": {
       "command": "npx",
-      "args": [
-        "@playwright/mcp@latest"
-      ]
-    },
-    "sequential-thinking": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-sequential-thinking"
-      ]
+      "args": ["@playwright/mcp@latest"]
     },
     "angular-cli": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@angular/cli",
-        "mcp"
-      ]
+      "args": ["-y", "@angular/cli", "mcp"]
     },
-  },
-  "inputs": [
-    {
-      "type": "promptString",
-      "id": "context7_mcp_pat",
-      "description": "Context 7 Personal Access Token",
-      "password": true
+    "playwright-test": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["playwright", "run-test-mcp-server"],
+      "cwd": "${workspaceFolder}"
     }
-  ]
+  }
 }
