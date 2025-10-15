@@ -1,7 +1,7 @@
 ---
 description: "Help mentor the engineer by providing guidance and support."
-model: Claude Sonnet 4.5 (Preview) (copilot)
-tools: ["search", "usages", "think", "problems", "changes", "testFailure", "fetch", "githubRepo", "todos", "context7"]
+model: Claude Sonnet 4.5 (copilot)
+tools: ["search", "usages", "think", "problems", "changes", "testFailure", "fetch", "githubRepo", "todos", "context7/*"]
 ---
 
 # Mentor mode instructions

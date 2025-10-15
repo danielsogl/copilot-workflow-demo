@@ -1,7 +1,7 @@
 ---
 description: A reusable prompt for generating Angular Signal Forms with complete validation and dynamic field management for a specified entity.
 mode: agent
-model: GPT-5-Codex (Preview) (copilot)
+model: Claude Sonnet 4.5 (copilot)
 tools: ["edit","search","new","runCommands","runTasks","usages","problems","todos","angular-cli/*"]
 ---
 

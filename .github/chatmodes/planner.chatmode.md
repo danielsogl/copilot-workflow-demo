@@ -1,7 +1,7 @@
 ---
 description: "Help plan the implementation of a new feature or refactoring task."
-model: Claude Sonnet 4.5 (Preview) (copilot)
-tools: ['search', 'usages', 'think', 'problems', 'changes', 'testFailure', 'fetch', 'githubRepo', 'todos', 'context7', 'angular-cli']
+model: Claude Sonnet 4.5 (copilot)
+tools: ['search', 'usages', 'think', 'problems', 'changes', 'testFailure', 'fetch', 'githubRepo', 'todos', 'context7/*', 'angular-cli/*']
 ---
 
 # Planning mode instructions
