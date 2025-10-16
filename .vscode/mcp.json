@@ -21,6 +21,10 @@
       "command": "npx",
       "args": ["playwright", "run-test-mcp-server"],
       "cwd": "${workspaceFolder}"
+    },
+    "figma": {
+      "type": "http",
+      "url": "http://127.0.0.1:3845/mcp"
     }
   }
 }
