@@ -86,7 +86,139 @@ applyTo: "**/*.ts, **/*.html, **/*.scss"
   readonly value = input(0, { alias: "sliderValue" });
   ```
 
-## 3a. Typed Reactive Forms
+## 3a. Signal Forms (Preferred for New Forms)
+
+- **Signal-Based Forms:** Use `@angular/forms/signals` for new forms. This API provides reactive, signal-based form management with schema validation.
+- **Form Creation:** Use the `form()` function to create signal-based forms:
+
+  ```typescript
+  import { Component, signal } from '@angular/core';
+  import { form, Control } from '@angular/forms/signals';
+  import { JsonPipe } from '@angular/common';
+
+  @Component({
+    selector: 'app-user-form',
+    imports: [Control, JsonPipe],
+    template: `
+      <form>
+        <input [control]="userForm.name" placeholder="Name" />
+        <input [control]="userForm.email" placeholder="Email" />
+        <pre>{{ user() | json }}</pre>
+      </form>
+    `
+  })
+  export class UserFormComponent {
+    user = signal({ name: '', email: '' });
+    userForm = form(this.user);
+  }
+  ```
+
+- **Schema Validation:** Define validation rules using the `schema()` function:
+
+  ```typescript
+  import { form, schema, required, email, minLength, maxLength, pattern } from '@angular/forms/signals';
+
+  const userSchema = schema<{ name: string, email: string }>((f) => {
+    required(f.name, { message: 'Name is required' });
+    minLength(f.name, 3, { message: 'Name must be at least 3 characters' });
+    required(f.email, { message: 'Email is required' });
+    email(f.email, { message: 'Enter a valid email' });
+  });
+
+  export class UserFormComponent {
+    user = signal({ name: '', email: '' });
+    userForm = form(this.user, userSchema);
+  }
+  ```
+
+- **Error Handling:** Display validation errors using the modern control flow:
+
+  ```html
+  <input [control]="userForm.name" placeholder="Name" />
+  @if(userForm.name().touched() || userForm.name().dirty()) {
+    @for (error of userForm.name().errors(); track error.kind) {
+      <p class="error">{{ error.message }}</p>
+    }
+  }
+  ```
+
+- **Nested Objects:** Access nested form controls directly:
+
+  ```typescript
+  const user = signal({
+    name: '',
+    address: {
+      street: '',
+      city: ''
+    }
+  });
+  const userForm = form(user, schema<typeof user>((f) => {
+    required(f.name);
+    required(f.address.street);
+    required(f.address.city);
+  }));
+  ```
+
+  ```html
+  <input [control]="userForm.address.street" />
+  <input [control]="userForm.address.city" />
+  ```
+
+- **Dynamic Arrays:** Use `applyEach()` for array validation:
+
+  ```typescript
+  import { applyEach, required } from '@angular/forms/signals';
+
+  const userSchema = schema<User>((f) => {
+    applyEach(f.hobbies, (hobby) => {
+      required(hobby.name, { message: 'Hobby name is required' });
+    });
+  });
+
+  addHobby() {
+    this.user.update(state => ({
+      ...state,
+      hobbies: [...state.hobbies, { name: '' }]
+    }));
+  }
+
+  removeHobby(index: number) {
+    this.user.update(state => ({
+      ...state,
+      hobbies: state.hobbies.filter((_, i) => i !== index)
+    }));
+  }
+  ```
+
+  ```html
+  @for (hobby of userForm.hobbies; track hobby; let i = $index) {
+    <input [control]="hobby.name" />
+    <button type="button" (click)="removeHobby(i)">Remove</button>
+  }
+  ```
+
+- **Form Submission:** Check validity before submitting:
+
+  ```typescript
+  onSubmit() {
+    if (this.userForm().valid()) {
+      const formData = this.user();
+      // Submit form data
+    }
+  }
+  ```
+
+- **Available Validators:** Use built-in validators from `@angular/forms/signals`:
+  - `required(field, options?)` - Field must have a value
+  - `email(field, options?)` - Valid email format
+  - `minLength(field, length, options?)` - Minimum string length
+  - `maxLength(field, length, options?)` - Maximum string length
+  - `min(field, value, options?)` - Minimum numeric value
+  - `max(field, value, options?)` - Maximum numeric value
+  - `pattern(field, regex, options?)` - Match a regular expression
+  - `customError(field, condition, options)` - Custom validation logic
+
+## 3b. Typed Reactive Forms (Legacy - Use Signal Forms for New Code)
 
 - **Typed Forms:** Always use strictly typed reactive forms by defining an interface for the form values and using `FormGroup<MyFormType>`, `FormBuilder.group<MyFormType>()`, and `FormControl<T>()`.
 - **Non-Nullable Controls:** Prefer `nonNullable: true` for controls to avoid null issues and improve type safety.
