@@ -1,0 +1,107 @@
+<div class="user-profile-form">
+  <mat-card class="user-profile-form__card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon class="user-profile-form__icon">person_add</mat-icon>
+        Create User Profile
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      @if (error()) {
+        <div class="user-profile-form__error">
+          <mat-icon>error</mat-icon>
+          {{ error() }}
+        </div>
+      }
+
+      <form
+        [formGroup]="userForm"
+        (ngSubmit)="onSubmit()"
+        class="user-profile-form__form"
+      >
+        <mat-form-field appearance="outline" class="user-profile-form__field">
+          <mat-label>Name *</mat-label>
+          <input
+            matInput
+            formControlName="name"
+            placeholder="Enter full name"
+            maxlength="100"
+            required
+          />
+          <mat-icon matIconPrefix>person</mat-icon>
+          <mat-hint align="end">
+            {{ userForm.get("name")?.value?.length || 0 }}/100
+          </mat-hint>
+          @if (getFieldError("name")) {
+            <mat-error>{{ getFieldError("name") }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="user-profile-form__field">
+          <mat-label>Email *</mat-label>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            placeholder="Enter email address"
+            maxlength="255"
+            required
+          />
+          <mat-icon matIconPrefix>email</mat-icon>
+          <mat-hint align="end">
+            {{ userForm.get("email")?.value?.length || 0 }}/255
+          </mat-hint>
+          @if (getFieldError("email")) {
+            <mat-error>{{ getFieldError("email") }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="user-profile-form__field">
+          <mat-label>Role *</mat-label>
+          <mat-select formControlName="role" required>
+            @for (role of roles; track role.value) {
+              <mat-option [value]="role.value">
+                {{ role.label }}
+              </mat-option>
+            }
+          </mat-select>
+          <mat-icon matIconPrefix>badge</mat-icon>
+          @if (getFieldError("role")) {
+            <mat-error>{{ getFieldError("role") }}</mat-error>
+          }
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions align="end" class="user-profile-form__actions">
+      <button
+        mat-button
+        type="button"
+        (click)="onCancel()"
+        [disabled]="isLoading()"
+      >
+        Cancel
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        (click)="onSubmit()"
+        [disabled]="isLoading() || !userForm.valid"
+      >
+        @if (isLoading()) {
+          <ng-container>
+            <mat-icon>hourglass_empty</mat-icon>
+            Creating...
+          </ng-container>
+        } @else {
+          <ng-container>
+            <mat-icon>check</mat-icon>
+            Create User
+          </ng-container>
+        }
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
