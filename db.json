@@ -75,5 +75,21 @@
       "dueDate": "2025-01-25",
       "createdAt": "2025-01-06"
     }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "role": "admin",
+      "createdAt": "2025-01-01"
+    },
+    {
+      "id": "2",
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "role": "developer",
+      "createdAt": "2025-01-02"
+    }
   ]
 }
