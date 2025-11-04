@@ -75,7 +75,14 @@
           "options": {
             "tsConfig": "tsconfig.spec.json",
             "runner": "vitest",
-            "buildTarget": "::development"
+            "buildTarget": "::development",
+            "include": ["src/**/*.spec.ts"],
+            "exclude": [
+              "**/node_modules/**",
+              "**/dist/**",
+              "**/tests/**",
+              "**/e2e/**"
+            ]
           }
         },
         "lint": {
