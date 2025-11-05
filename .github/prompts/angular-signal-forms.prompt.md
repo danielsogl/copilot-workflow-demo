@@ -9,7 +9,9 @@ tools: ["edit","search","new","runCommands","runTasks","usages","problems","todo
 
 ## Goal
 
-Generate a complete Angular Signal Form with validation, error handling, and dynamic field management for a specified entity, following the project's architecture patterns and modern Angular Signal Forms API.
+Generate a complete Angular Signal Form with schema validation, error handling, and dynamic field management for a specified entity, following the project's architecture patterns and modern Angular Signal Forms API with built-in schema validation.
+
+> **Important**: This prompt follows the patterns defined in `angular-signal-forms.instructions.md`. Review that file for comprehensive Signal Forms patterns, schema validation approaches, and best practices before generating forms.
 
 ## Prerequisites
 
@@ -32,12 +34,12 @@ Before running this prompt, ensure you have:
 
 ### Step 2: Form Component Generation
 
-Generate a complete Angular Signal Form component with:
+Generate a complete Angular Signal Form component with schema validation:
 
 #### Core Imports and Dependencies
 ```typescript
-import { Component, signal, effect } from '@angular/core';
-import { form, required, email, minLength, maxLength, min, max, schema, applyEach, Control } from '@angular/forms/signals';
+import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/core';
+import { form, schema, Control, required, email, minLength, maxLength, min, max, pattern, applyEach } from '@angular/forms/signals';
 import { JsonPipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -47,27 +49,35 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 ```
 
-#### Entity Types and Interfaces
-- Define or import the entity type and any nested types
-- Create separate types for form data if different from the entity (e.g., `CreateUserRequest`, `UpdateUserRequest`)
-- Define validation error types if needed
-
-#### Validation Schema
-Create a comprehensive validation schema using `@angular/forms/signals`:
+#### Schema Definition
+Create a comprehensive validation schema using Angular's built-in validators:
 
 ```typescript
-const [entityName]Schema = schema<[EntityType]>((f) => {
-  required(f.fieldName, { message: 'Field name is required' });
-  email(f.email, { message: 'Invalid email format' });
-  minLength(f.name, 2, { message: 'Name must be at least 2 characters' });
-  maxLength(f.description, 500, { message: 'Description cannot exceed 500 characters' });
+interface [EntityType] {
+  name: string;
+  email: string;
+  description?: string;
+  address: {
+    street: string;
+    city: string;
+  };
+  tags: string[];
+}
 
+const [entityName]Schema = schema<[EntityType]>((f) => {
+  required(f.name, { message: 'Name is required' });
+  minLength(f.name, 2, { message: 'Name must be at least 2 characters' });
+  required(f.email, { message: 'Email is required' });
+  email(f.email, { message: 'Invalid email format' });
+  maxLength(f.description, 500, { message: 'Description cannot exceed 500 characters' });
+  
   // For nested objects
-  required(f.nestedObject.field, { message: 'Field is required' });
+  required(f.address.street, { message: 'Street is required' });
+  required(f.address.city, { message: 'City is required' });
 
   // For arrays
-  applyEach(f.arrayField, (item) => {
-    required(item.property, { message: 'Property is required' });
+  applyEach(f.tags, (tag) => {
+    minLength(tag, 1, { message: 'Tag cannot be empty' });
   });
 });
 ```
@@ -91,21 +101,18 @@ const [entityName]Schema = schema<[EntityType]>((f) => {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class [EntityName]FormComponent {
-  // Signal for form data
+  // Signal for form data with proper typing
   [entityName] = signal<[EntityType]>({
-    // Initialize with default values based on entity structure
+    // Initialize with default values matching the interface structure
   });
 
-  // Signal form with validation
+  // Signal form with schema validation
   readonly [entityName]Form = form(this.[entityName], [entityName]Schema);
 
-  // Effect for error tracking (optional)
-  private readonly errors = effect(() => {
-    const formErrors = this.[entityName]Form().errors();
-    if (formErrors.length > 0) {
-      console.log('Form validation errors:', formErrors);
-    }
-  });
+  // Computed signals for form state management
+  readonly isValid = computed(() => this.[entityName]Form().valid());
+  readonly isDirty = computed(() => this.[entityName]Form.name().dirty() || this.[entityName]Form.email().dirty());
+  readonly canSubmit = computed(() => this.isValid() && this.isDirty());
 
   // Dynamic field management methods
   // Form submission handler
@@ -214,16 +221,24 @@ remove[ArrayItem](index: number): void {
 onSubmit(): void {
   if (this.[entityName]Form().valid()) {
     const formData = this.[entityName]();
+    console.log('Form submitted with valid data:', formData);
+    
     // Handle form submission (emit event, call service, etc.)
-    console.log('Form submitted:', formData);
+    this.handleFormSubmit(formData);
   } else {
     // Mark all fields as touched to show validation errors
     this.markAllFieldsTouched();
   }
 }
 
+private handleFormSubmit(data: [EntityType]): void {
+  // Emit to parent component or call service
+  this.formSubmit.emit(data);
+}
+
 private markAllFieldsTouched(): void {
   // Implementation to mark all fields as touched for validation display
+  // This will trigger error display for all invalid fields
 }
 ```
 
@@ -338,17 +353,22 @@ src/app/[domain]/
 
 ## Best Practices
 
-1. **Modern Angular Patterns**: Use standalone components, function-based DI with `inject()`, and modern control flow (`@if`, `@for`)
-2. **Signal-First Approach**: Leverage signals for all reactive state management
-3. **Material Design**: Use Angular Material components for consistent UI and built-in accessibility
-4. **Type Safety**: Maintain strict TypeScript typing throughout the form
-5. **Validation Schema**: Use schema-based validation for maintainable and reusable validation rules
-6. **Responsive Design**: Ensure forms work well on all device sizes
-7. **Error Handling**: Provide clear, user-friendly error messages
-8. **Performance**: Use OnPush change detection and efficient signal updates
+1. **Schema-Based Validation**: Always use Angular's built-in `schema()` function for declarative validation following `angular-signal-forms.instructions.md`
+2. **Modern Angular Patterns**: Use standalone components, function-based DI with `inject()`, and modern control flow (`@if`, `@for`)
+3. **Signal-First Approach**: Leverage signals for all reactive state management
+4. **Material Design**: Use Angular Material components for consistent UI and built-in accessibility
+5. **Type Safety**: Maintain strict TypeScript typing throughout the form with proper interfaces
+6. **Schema Organization**: Store validation schemas in dedicated files for reusability across components
+7. **Responsive Design**: Ensure forms work well on all device sizes
+8. **Error Handling**: Provide clear, user-friendly error messages with custom messages in validators
+9. **Performance**: Use OnPush change detection and efficient signal updates with computed signals
+10. **Built-in Validators**: Use Angular's built-in validators (`required`, `email`, `minLength`, etc.) for common validation needs
 
-## References
+## Key References
 
+> **Primary Reference**: [Angular Signal Forms Instructions](../instructions/angular-signal-forms.instructions.md) - Comprehensive guide for Signal Forms with schema validation
+
+### Supporting References
 - [Angular Instructions](../instructions/angular.instructions.md) - Core Angular patterns and best practices
 - [Angular Material Instructions](../instructions/angular-material.instructions.md) - Material Design component usage
 - [TypeScript Instructions](../instructions/typescript.instructions.md) - TypeScript conventions and typing
