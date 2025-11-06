@@ -1,0 +1,26 @@
+<div
+  class="todo-item"
+  [class.completed]="todo.completed"
+  [class.disabled]="disabled"
+>
+  <mat-checkbox
+    [checked]="todo.completed"
+    [disabled]="disabled"
+    (change)="onToggle()"
+    class="todo-checkbox"
+  ></mat-checkbox>
+
+  <span class="todo-title" [class.completed]="todo.completed">
+    {{ todo.title }}
+  </span>
+
+  <button
+    mat-icon-button
+    class="todo-delete"
+    [disabled]="disabled"
+    (click)="onDelete()"
+    matTooltip="Delete todo"
+  >
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>

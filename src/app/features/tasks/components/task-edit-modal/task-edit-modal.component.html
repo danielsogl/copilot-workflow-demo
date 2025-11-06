@@ -1,18 +1,18 @@
-<div class="task-create-modal__header">
-  <h2 mat-dialog-title>Create New Task</h2>
+<div class="task-edit-modal__header">
+  <h2 mat-dialog-title>Edit Task</h2>
   <button
     mat-icon-button
     mat-dialog-close
-    class="task-create-modal__close-button"
+    class="task-edit-modal__close-button"
     aria-label="Close dialog"
   >
     <mat-icon>close</mat-icon>
   </button>
 </div>
 
-<mat-dialog-content class="task-create-modal__content">
+<mat-dialog-content class="task-edit-modal__content">
   @if (taskStore.error()) {
-    <div class="task-create-modal__error">
+    <div class="task-edit-modal__error">
       {{ taskStore.error() }}
     </div>
   }
@@ -20,9 +20,9 @@
   <form
     [formGroup]="taskForm"
     (ngSubmit)="onSubmit()"
-    class="task-create-modal__form"
+    class="task-edit-modal__form"
   >
-    <mat-form-field appearance="outline" class="task-create-modal__field">
+    <mat-form-field appearance="outline" class="task-edit-modal__field">
       <mat-label>Title *</mat-label>
       <input
         matInput
@@ -39,7 +39,7 @@
       }
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="task-create-modal__field">
+    <mat-form-field appearance="outline" class="task-edit-modal__field">
       <mat-label>Description</mat-label>
       <textarea
         matInput
@@ -56,10 +56,10 @@
       }
     </mat-form-field>
 
-    <div class="task-create-modal__row">
+    <div class="task-edit-modal__row">
       <mat-form-field
         appearance="outline"
-        class="task-create-modal__field task-create-modal__field--half"
+        class="task-edit-modal__field task-edit-modal__field--half"
       >
         <mat-label>Priority *</mat-label>
         <mat-select formControlName="priority" required>
@@ -76,7 +76,7 @@
 
       <mat-form-field
         appearance="outline"
-        class="task-create-modal__field task-create-modal__field--half"
+        class="task-edit-modal__field task-edit-modal__field--half"
       >
         <mat-label>Due Date *</mat-label>
         <input
@@ -97,10 +97,26 @@
         }
       </mat-form-field>
     </div>
+
+    <mat-form-field appearance="outline" class="task-edit-modal__field">
+      <mat-label>Estimated Time (minutes)</mat-label>
+      <input
+        matInput
+        type="number"
+        formControlName="estimatedMinutes"
+        placeholder="Enter estimated time in minutes"
+        min="0"
+        max="9999"
+      />
+      <mat-hint>How long do you estimate this task will take?</mat-hint>
+      @if (getFieldError("estimatedMinutes")) {
+        <mat-error>{{ getFieldError("estimatedMinutes") }}</mat-error>
+      }
+    </mat-form-field>
   </form>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end" class="task-create-modal__actions">
+<mat-dialog-actions align="end" class="task-edit-modal__actions">
   <button
     mat-button
     type="button"
@@ -119,10 +135,10 @@
     @if (taskStore.loading() && isSubmitting()) {
       <ng-container>
         <mat-icon>hourglass_empty</mat-icon>
-        Creating...
+        Saving...
       </ng-container>
     } @else {
-      Create Task
+      Save Changes
     }
   </button>
 </mat-dialog-actions>

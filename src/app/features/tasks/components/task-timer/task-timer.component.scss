@@ -1,0 +1,200 @@
+.timer-card {
+  max-width: 400px;
+  margin: 1rem auto;
+}
+
+.timer-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+// Circular Progress
+.progress-circle {
+  position: relative;
+  width: 200px;
+  height: 200px;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+
+  .progress-background {
+    fill: none;
+    stroke: #e0e0e0;
+    stroke-width: 8;
+  }
+
+  .progress-bar {
+    fill: none;
+    stroke: #1976d2;
+    stroke-width: 8;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.3s ease;
+  }
+
+  &.overtime .progress-bar {
+    stroke: #f44336;
+  }
+
+  .progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+
+    .elapsed-time {
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .estimated-time {
+      font-size: 1rem;
+      color: #666;
+      margin-top: 0.25rem;
+    }
+  }
+}
+
+// Timer Status
+.timer-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+
+  .status-icon {
+    &.running {
+      color: #4caf50;
+    }
+
+    &.paused {
+      color: #ff9800;
+    }
+
+    &.completed {
+      color: #2196f3;
+    }
+
+    &.idle {
+      color: #9e9e9e;
+    }
+  }
+}
+
+// Timer Controls
+.timer-controls {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  button {
+    min-width: 100px;
+
+    mat-icon {
+      margin-right: 0.25rem;
+    }
+  }
+}
+
+// Overtime Warning
+.overtime-warning {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: #fff3e0;
+  border-left: 4px solid #ff9800;
+  border-radius: 4px;
+  color: #e65100;
+  font-weight: 500;
+
+  mat-icon {
+    color: #ff9800;
+  }
+}
+
+// Compact View
+.timer-compact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+
+  .compact-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .compact-icon {
+      &.running {
+        color: #4caf50;
+      }
+
+      &.overtime {
+        color: #f44336;
+      }
+    }
+
+    .compact-time {
+      font-weight: 600;
+      font-size: 0.95rem;
+
+      &.overtime {
+        color: #f44336;
+      }
+    }
+
+    .compact-progress {
+      color: #666;
+      font-size: 0.875rem;
+
+      &.overtime {
+        color: #f44336;
+      }
+    }
+  }
+
+  .compact-controls {
+    display: flex;
+    gap: 0.25rem;
+  }
+}
+
+// Responsive
+@media (max-width: 600px) {
+  .timer-card {
+    margin: 0.5rem;
+  }
+
+  .progress-circle {
+    width: 150px;
+    height: 150px;
+
+    .progress-text {
+      .elapsed-time {
+        font-size: 1.5rem;
+      }
+
+      .estimated-time {
+        font-size: 0.875rem;
+      }
+    }
+  }
+
+  .timer-controls button {
+    min-width: 80px;
+    font-size: 0.875rem;
+  }
+}

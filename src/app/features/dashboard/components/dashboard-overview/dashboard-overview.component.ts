@@ -1,44 +1,25 @@
-import { Component, OnInit, signal, computed, inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { DashboardService } from '../../services/dashboard.service';
-import { DashboardStatsCardComponent } from '../dashboard-stats-card/dashboard-stats-card.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { DashboardStats } from '../../../../shared/models/dashboard.model';
+import { Component, OnInit, inject } from "@angular/core";
+import { Router } from "@angular/router";
+import { TaskStore } from "../../../tasks/services/task.store";
+import { DashboardStatsCardComponent } from "../dashboard-stats-card/dashboard-stats-card.component";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @Component({
-  selector: 'app-dashboard-overview',
-  templateUrl: './dashboard-overview.component.html',
-  styleUrl: './dashboard-overview.component.scss',
-  imports: [DashboardStatsCardComponent, MatProgressSpinnerModule]
+  selector: "app-dashboard-overview",
+  templateUrl: "./dashboard-overview.component.html",
+  styleUrl: "./dashboard-overview.component.scss",
+  imports: [DashboardStatsCardComponent, MatProgressSpinnerModule],
 })
 export class DashboardOverviewComponent implements OnInit {
-  private readonly dashboardService = inject(DashboardService);
+  readonly taskStore = inject(TaskStore);
   private readonly router = inject(Router);
 
-  readonly isLoading = signal(true);
-  readonly error = signal<string | null>(null);
-
-  readonly stats = toSignal(this.dashboardService.getDashboardStats(), {
-    initialValue: {
-      totalTasks: 0,
-      completedTasks: 0,
-      pendingTasks: 0,
-      overdueTasks: 0,
-      completionRate: 0
-    } as DashboardStats
-  });
-
-  readonly hasData = computed(() => this.stats().totalTasks > 0);
-
   ngOnInit(): void {
-    // Simulate loading state
-    setTimeout(() => {
-      this.isLoading.set(false);
-    }, 500);
+    // Load tasks from store
+    this.taskStore.loadTasks();
   }
 
   onCardClick(filterType: string): void {
-    this.router.navigate(['/tasks', filterType]);
+    this.router.navigate(["/tasks", filterType]);
   }
 }

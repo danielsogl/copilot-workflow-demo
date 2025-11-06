@@ -5,48 +5,47 @@
         mat-icon-button
         (click)="goToDashboard()"
         matTooltip="Back to Dashboard"
-        class="task-list__back-button">
+        class="task-list__back-button"
+      >
         <mat-icon>arrow_back</mat-icon>
       </button>
-      <h1>{{ statusLabels[statusFilter()] }}</h1>
+      <h1>{{ statusLabels[taskStore.statusFilter()] }}</h1>
     </div>
-    
+
     <button
       mat-raised-button
       color="primary"
       (click)="openCreateTaskModal()"
-      class="task-list__create-button">
+      class="task-list__create-button"
+    >
       <mat-icon>add</mat-icon>
       New Task
     </button>
   </div>
 
-  @if (error()) {
+  @if (taskStore.error()) {
     <div class="task-list__error">
-      {{ error() }}
+      {{ taskStore.error() }}
     </div>
   }
 
-  @if (isLoading()) {
+  @if (taskStore.loading()) {
     <div class="task-list__loading">
       <mat-spinner></mat-spinner>
       <p>Loading tasks...</p>
     </div>
-  } @else if (filteredTasks().length === 0) {
+  } @else if (taskStore.filteredTasks().length === 0) {
     <div class="task-list__empty">
       <mat-icon class="task-list__empty-icon">assignment</mat-icon>
       <h3>No tasks found</h3>
       <p>
-        @if (statusFilter() === 'all') {
+        @if (taskStore.statusFilter() === "all") {
           Start by creating your first task to get organized!
         } @else {
-          No {{ statusFilter() }} tasks at the moment.
+          No {{ taskStore.statusFilter() }} tasks at the moment.
         }
       </p>
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="openCreateTaskModal()">
+      <button mat-raised-button color="primary" (click)="openCreateTaskModal()">
         <mat-icon>add</mat-icon>
         Create Task
       </button>
@@ -54,7 +53,11 @@
   } @else {
     <div class="task-list__content">
       <mat-card class="task-list__table-card">
-        <table mat-table [dataSource]="filteredTasks()" class="task-list__table">
+        <table
+          mat-table
+          [dataSource]="taskStore.filteredTasks()"
+          class="task-list__table"
+        >
           <!-- Title Column -->
           <ng-container matColumnDef="title">
             <th mat-header-cell *matHeaderCellDef>Task</th>
@@ -72,9 +75,10 @@
           <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef>Status</th>
             <td mat-cell *matCellDef="let task">
-              <mat-chip 
+              <mat-chip
                 [color]="statusColors[task.status]"
-                class="task-list__status-chip">
+                class="task-list__status-chip"
+              >
                 <mat-icon>{{ getStatusIcon(task.status) }}</mat-icon>
                 {{ task.status | titlecase }}
               </mat-chip>
@@ -85,9 +89,10 @@
           <ng-container matColumnDef="priority">
             <th mat-header-cell *matHeaderCellDef>Priority</th>
             <td mat-cell *matCellDef="let task">
-              <mat-chip 
+              <mat-chip
                 [color]="priorityColors[task.priority]"
-                class="task-list__priority-chip">
+                class="task-list__priority-chip"
+              >
                 <mat-icon>{{ getPriorityIcon(task.priority) }}</mat-icon>
                 {{ task.priority | titlecase }}
               </mat-chip>
@@ -97,12 +102,20 @@
           <!-- Due Date Column -->
           <ng-container matColumnDef="dueDate">
             <th mat-header-cell *matHeaderCellDef>Due Date</th>
-            <td mat-cell *matCellDef="let task" 
-                [class.task-list__overdue]="isOverdue(task)">
+            <td
+              mat-cell
+              *matCellDef="let task"
+              [class.task-list__overdue]="isOverdue(task)"
+            >
               <div class="task-list__date">
-                {{ task.dueDate | date:'shortDate' }}
+                {{ task.dueDate | date: "shortDate" }}
                 @if (isOverdue(task)) {
-                  <mat-icon class="task-list__overdue-icon" matTooltip="Overdue">warning</mat-icon>
+                  <mat-icon
+                    class="task-list__overdue-icon"
+                    matTooltip="Overdue"
+                  >
+                    warning
+                  </mat-icon>
                 }
               </div>
             </td>
@@ -113,13 +126,14 @@
             <th mat-header-cell *matHeaderCellDef>Actions</th>
             <td mat-cell *matCellDef="let task">
               <div class="task-list__actions">
-                @if (task.status !== 'completed') {
+                @if (task.status !== "completed") {
                   <button
                     mat-icon-button
                     color="primary"
                     (click)="toggleTaskStatus(task)"
                     matTooltip="Mark as Complete"
-                    class="task-list__action-button">
+                    class="task-list__action-button"
+                  >
                     <mat-icon>check</mat-icon>
                   </button>
                 } @else {
@@ -127,17 +141,19 @@
                     mat-icon-button
                     (click)="toggleTaskStatus(task)"
                     matTooltip="Mark as Pending"
-                    class="task-list__action-button">
+                    class="task-list__action-button"
+                  >
                     <mat-icon>undo</mat-icon>
                   </button>
                 }
-                
+
                 <button
                   mat-icon-button
                   color="warn"
                   (click)="deleteTask(task)"
                   matTooltip="Delete Task"
-                  class="task-list__action-button">
+                  class="task-list__action-button"
+                >
                   <mat-icon>delete</mat-icon>
                 </button>
               </div>
@@ -145,7 +161,7 @@
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
       </mat-card>
     </div>
@@ -157,7 +173,8 @@
     color="primary"
     (click)="openCreateTaskModal()"
     class="task-list__fab"
-    matTooltip="Create New Task">
+    matTooltip="Create New Task"
+  >
     <mat-icon>add</mat-icon>
   </button>
 </div>

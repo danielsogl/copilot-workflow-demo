@@ -49,4 +49,17 @@ body {
       container-text-color: var(--mat-sys-on-primary),
     )
   );
+
+  @include mat.dialog-overrides(
+    (
+      container-shape: 12px,
+    )
+  );
+}
+
+// Task modal max-width styling
+.task-modal {
+  .mat-mdc-dialog-container {
+    max-width: 500px;
+  }
 }

@@ -1,0 +1,35 @@
+@if (!isExpanded()) {
+  <button mat-button class="add-todo-button" (click)="expand()">
+    <mat-icon>add</mat-icon>
+    Add todo
+  </button>
+} @else {
+  <form class="todo-form" (ngSubmit)="onSubmit()">
+    <mat-form-field class="todo-input" appearance="outline">
+      <mat-label>Todo item</mat-label>
+      <input
+        matInput
+        [formControl]="todoControl"
+        (keydown)="onKeyDown($event)"
+        placeholder="Enter todo item"
+        autocomplete="off"
+      />
+      @if (todoControl.errors?.["maxlength"]) {
+        <mat-error>Maximum length is 200 characters</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="form-actions">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!todoControl.valid || !todoControl.value.trim()"
+      >
+        <mat-icon>add</mat-icon>
+        Add
+      </button>
+      <button mat-button type="button" (click)="collapse()">Cancel</button>
+    </div>
+  </form>
+}

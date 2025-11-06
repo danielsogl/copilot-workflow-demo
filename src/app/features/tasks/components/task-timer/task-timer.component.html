@@ -1,0 +1,152 @@
+@if (!compact) {
+  <mat-card class="timer-card">
+    <mat-card-content>
+      <div class="timer-display">
+        <!-- Circular Progress -->
+        <div class="progress-circle" [class.overtime]="isOvertime()">
+          <svg viewBox="0 0 100 100">
+            <circle class="progress-background" cx="50" cy="50" r="45"></circle>
+            <circle
+              class="progress-bar"
+              cx="50"
+              cy="50"
+              r="45"
+              [style.strokeDasharray]="282.7"
+              [style.strokeDashoffset]="
+                282.7 - (282.7 * progressPercentage()) / 100
+              "
+            ></circle>
+          </svg>
+          <div class="progress-text">
+            <div class="elapsed-time">{{ formattedElapsed() }}</div>
+            <div class="estimated-time">/ {{ formattedEstimated() }}</div>
+          </div>
+        </div>
+
+        <!-- Timer Status -->
+        <div class="timer-status">
+          @if (isRunning()) {
+            <mat-icon class="status-icon running">play_circle</mat-icon>
+            <span>Running</span>
+          } @else if (isPaused()) {
+            <mat-icon class="status-icon paused">pause_circle</mat-icon>
+            <span>Paused</span>
+          } @else if (isCompleted()) {
+            <mat-icon class="status-icon completed">check_circle</mat-icon>
+            <span>Completed</span>
+          } @else {
+            <mat-icon class="status-icon idle">schedule</mat-icon>
+            <span>Ready</span>
+          }
+        </div>
+
+        <!-- Timer Controls -->
+        <div class="timer-controls">
+          @if (isIdle() || isPaused()) {
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="startTimer()"
+              matTooltip="Start timer"
+            >
+              <mat-icon>play_arrow</mat-icon>
+              Start
+            </button>
+          }
+
+          @if (isRunning()) {
+            <button
+              mat-raised-button
+              color="accent"
+              (click)="pauseTimer()"
+              matTooltip="Pause timer"
+            >
+              <mat-icon>pause</mat-icon>
+              Pause
+            </button>
+          }
+
+          @if (!isIdle() && !isCompleted()) {
+            <button
+              mat-raised-button
+              color="warn"
+              (click)="stopTimer()"
+              matTooltip="Stop and complete timer"
+            >
+              <mat-icon>stop</mat-icon>
+              Stop
+            </button>
+          }
+
+          @if (!isIdle()) {
+            <button
+              mat-button
+              (click)="resetTimer()"
+              matTooltip="Reset timer to zero"
+            >
+              <mat-icon>refresh</mat-icon>
+              Reset
+            </button>
+          }
+        </div>
+
+        <!-- Overtime Warning -->
+        @if (isOvertime()) {
+          <div class="overtime-warning">
+            <mat-icon>warning</mat-icon>
+            <span>Task is over estimated time</span>
+          </div>
+        }
+      </div>
+    </mat-card-content>
+  </mat-card>
+} @else {
+  <!-- Compact View -->
+  <div class="timer-compact">
+    <div class="compact-display">
+      <mat-icon
+        class="compact-icon"
+        [class.running]="isRunning()"
+        [class.overtime]="isOvertime()"
+      >
+        @if (isRunning()) {
+          play_circle
+        } @else if (isPaused()) {
+          pause_circle
+        } @else if (isCompleted()) {
+          check_circle
+        } @else {
+          schedule
+        }
+      </mat-icon>
+      <span class="compact-time" [class.overtime]="isOvertime()">
+        {{ formattedElapsed() }} / {{ formattedEstimated() }}
+      </span>
+      <span class="compact-progress" [class.overtime]="isOvertime()">
+        ({{ progressPercentage() }}%)
+      </span>
+    </div>
+    <div class="compact-controls">
+      @if (isIdle() || isPaused()) {
+        <button
+          mat-icon-button
+          color="primary"
+          (click)="startTimer()"
+          matTooltip="Start timer"
+        >
+          <mat-icon>play_arrow</mat-icon>
+        </button>
+      }
+      @if (isRunning()) {
+        <button
+          mat-icon-button
+          color="accent"
+          (click)="pauseTimer()"
+          matTooltip="Pause timer"
+        >
+          <mat-icon>pause</mat-icon>
+        </button>
+      }
+    </div>
+  </div>
+}
