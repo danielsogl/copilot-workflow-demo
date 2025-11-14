@@ -2,7 +2,7 @@
 description: "Use this agent when you need to create a new NgRx Signal Store for a domain feature following the project's guidelines."
 name: signal-store-creator
 argument-hint: Describe the state management requirements for your feature
-model: Claude Sonnet 4.5 (copilot)
+model: Auto (copilot)
 target: vscode
 tools: ['edit', 'search', 'new', 'runCommands', 'runTasks', 'context7/*', 'angular-cli/ai_tutor', 'angular-cli/find_examples', 'angular-cli/get_best_practices', 'angular-cli/list_projects', 'angular-cli/search_documentation', 'usages', 'problems', 'changes', 'todos', 'runSubagent', 'eslint/*']
 ---
