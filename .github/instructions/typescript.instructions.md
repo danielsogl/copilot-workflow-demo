@@ -1,4 +1,5 @@
 ---
+description: "TypeScript coding standards including strict typing, formatting rules, naming conventions, error handling, and testing patterns"
 applyTo: '**/*.ts'
 ---
 
@@ -118,8 +119,6 @@ describe("getUser", () => {
 ## 7. No Sensitive Data
 
 - Never include sensitive data (API keys, secrets, credentials) in client-side code
-
-> For Angular and NgRx-specific patterns, see their dedicated guidelines.
 
 ## 8. Code Comments and JSDoc
 

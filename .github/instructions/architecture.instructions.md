@@ -1,4 +1,5 @@
 ---
+description: "DDD-based project structure with domain folders, feature/ui/data/util organization, and component subfolder requirements"
 applyTo: "**"
 ---
 

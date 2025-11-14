@@ -1,4 +1,5 @@
 ---
+description: "Testing patterns for Angular v20+ using Vitest with TestBed for components, services, directives, and pipes"
 applyTo: "**/*.spec.ts"
 ---
 

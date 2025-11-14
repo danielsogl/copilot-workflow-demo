@@ -1,4 +1,5 @@
 ---
+description: "Type-safe form validation using Angular Signal Forms with built-in schema validation for reactive, declarative form management"
 applyTo: "**/*.ts, **/*.html"
 ---
 

@@ -1,4 +1,5 @@
 ---
+description: "State management patterns using NgRx Signals Store with signalStore, withState, withMethods, entities, and rxMethod integration"
 applyTo: '**/*.store.ts'
 ---
 

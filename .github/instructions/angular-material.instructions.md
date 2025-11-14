@@ -1,4 +1,5 @@
 ---
+description: "Guidelines for implementing Angular Material v3 themes, colors, typography, and component theming using SCSS"
 applyTo: "**/*.ts, **/*.html, **/*.scss"
 ---
 

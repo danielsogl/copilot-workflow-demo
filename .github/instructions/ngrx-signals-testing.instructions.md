@@ -1,4 +1,5 @@
 ---
+description: "Testing strategies for NgRx Signals Stores using Vitest, TestBed, store mocking, and the unprotected utility"
 applyTo: "**/*.spec.ts"
 ---
 

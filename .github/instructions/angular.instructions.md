@@ -1,4 +1,5 @@
 ---
+description: "Angular v20+ patterns including standalone components, signals, modern control flow, function-based DI, and OnPush change detection"
 applyTo: "**/*.ts, **/*.html, **/*.scss"
 ---
 
