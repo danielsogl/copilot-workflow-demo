@@ -29,5 +29,6 @@
   "github.copilot.chat.reviewSelection.enabled": true,
   "chat.implicitContext.enabled": {
     "panel": "always"
-  }
+  },
+  "chat.customAgentInSubagent.enabled": true
 }

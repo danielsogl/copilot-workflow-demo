@@ -1,8 +1,8 @@
 ---
 description: This prompt can be used to review code changes made on a given branch
-mode: agent
+agent: agent
 model: Auto (copilot)
-tools: ['search', 'runCommands', 'runTasks', 'usages', 'think', 'problems', 'changes', 'testFailure', 'githubRepo', 'todos', 'runTests']
+tools: ['search', 'runCommands', 'runTasks', 'usages', 'problems', 'changes', 'testFailure', 'githubRepo', 'todos', 'runTests', 'runSubagent']
 ---
 
 # Code Review for Active Branch

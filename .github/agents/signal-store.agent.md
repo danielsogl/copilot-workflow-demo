@@ -1,7 +1,7 @@
 ---
-description: "Help generate a new NgRx Signal Store for a domain feature following the project's guidelines."
+description: "Use this agent when you need to create a new NgRx Signal Store for a domain feature following the project's guidelines."
 model: Claude Sonnet 4.5 (copilot)
-tools: ['edit', 'search', 'new', 'runCommands', 'runTasks', 'usages', 'think', 'problems', 'changes', 'fetch', 'todos', 'context7/*', 'angular-cli/*']
+tools: ['edit', 'search', 'new', 'runCommands', 'runTasks', 'context7/*', 'angular-cli/ai_tutor', 'angular-cli/find_examples', 'angular-cli/get_best_practices', 'angular-cli/list_projects', 'angular-cli/search_documentation', 'usages', 'problems', 'changes', 'todos', 'runSubagent']
 ---
 
 # NgRx Signal Store Mode
