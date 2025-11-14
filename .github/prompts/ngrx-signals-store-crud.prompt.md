@@ -1,5 +1,6 @@
 ---
 description: A reusable prompt for generating NgRx Signal stores with complete CRUD operations for a specified entity.
+name: ngrx-signals-store-crud-generator
 agent: agent
 model: Claude Sonnet 4.5 (copilot)
 tools: ["edit","search","new","runCommands","runTasks","usages","problems","todos"]

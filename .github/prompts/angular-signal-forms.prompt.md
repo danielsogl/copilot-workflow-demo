@@ -1,5 +1,6 @@
 ---
 description: A reusable prompt for generating Angular Signal Forms with complete validation and dynamic field management for a specified entity.
+name: angular-signal-forms-generator
 agent: agent
 model: Claude Sonnet 4.5 (copilot)
 tools: ['edit', 'search', 'new', 'runCommands', 'runTasks', 'context7/*', 'angular-cli/find_examples', 'angular-cli/list_projects', 'angular-cli/search_documentation', 'usages', 'problems', 'todos', 'runSubagent']
