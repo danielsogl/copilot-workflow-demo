@@ -35,19 +35,19 @@
     "@angular/compiler-cli": "^21.0.0-rc.2",
     "@ngrx/eslint-plugin": "^20.1.0",
     "@playwright/test": "^1.56.1",
-    "@types/node": "^24.10.0",
-    "angular-eslint": "^20.5.1",
+    "@types/node": "^24.10.1",
+    "angular-eslint": "^20.6.0",
     "concurrently": "^9.2.1",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
-    "jsdom": "^27.1.0",
-    "lefthook": "^2.0.2",
+    "jsdom": "^27.2.0",
+    "lefthook": "^2.0.4",
     "ng-mocks": "^14.14.0",
     "prettier": "^3.6.2",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.3",
-    "vitest": "^4.0.8"
+    "typescript-eslint": "^8.46.4",
+    "vitest": "^4.0.9"
   },
   "overrides": {
     "@ngrx/signals": {
