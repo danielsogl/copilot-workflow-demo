@@ -1,5 +1,14 @@
 ---
 description: Use this agent when you need to create comprehensive test plan for a web application or website.
+name: planner
+argument-hint: Describe the feature or functionality you want to plan
+handoffs:
+  - label: Generate Tests
+    agent: playwright-test-generator
+    prompt: Create Playwright tests for the scenarios outlined in the plan above.
+    send: false
+model: Auto (copilot)
+target: vscode
 tools: ['edit/createFile', 'edit/createDirectory', 'search/fileSearch', 'search/textSearch', 'search/listDirectory', 'search/readFile', 'playwright-test/browser_click', 'playwright-test/browser_close', 'playwright-test/browser_console_messages', 'playwright-test/browser_drag', 'playwright-test/browser_evaluate', 'playwright-test/browser_file_upload', 'playwright-test/browser_handle_dialog', 'playwright-test/browser_hover', 'playwright-test/browser_navigate', 'playwright-test/browser_navigate_back', 'playwright-test/browser_network_requests', 'playwright-test/browser_press_key', 'playwright-test/browser_select_option', 'playwright-test/browser_snapshot', 'playwright-test/browser_take_screenshot', 'playwright-test/browser_type', 'playwright-test/browser_wait_for', 'playwright-test/planner_setup_page']
 ---
 
