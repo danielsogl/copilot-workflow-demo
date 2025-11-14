@@ -13,7 +13,6 @@
     "cursor-global": false,
     "cursor-workspace": false
   },
-
   // Copilot Chat Settings
   "github.copilot.chat.localeOverride": "en",
   "github.copilot.chat.commitMessageGeneration.instructions": [
@@ -21,7 +20,6 @@
       "file": ".github/guidelines/commit-convention.md"
     }
   ],
-  "github.copilot.chat.agent.thinkingTool": true,
   "chat.agent.thinkingStyle": "collapsed",
   "chat.editRequests": "hover",
   "chat.sendElementsToChat.enabled": true,
