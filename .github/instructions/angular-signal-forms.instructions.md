@@ -3,9 +3,11 @@ description: "Type-safe form validation using Angular Signal Forms with built-in
 applyTo: "**/*.ts, **/*.html"
 ---
 
-# Angular Signal Forms with Schema Validation
+# Angular Signal Forms with Schema Validation (Angular v21+)
 
 This is the **primary and recommended approach** for form validation in this Angular application. Use Angular's built-in schema validation for type-safe, declarative form management with Signal Forms.
+
+**⚠️ Signal Forms are currently an experimental feature in Angular v21. The API and functionality may change in future releases.**
 
 ## Why Signal Forms with Built-in Schema Validation?
 
@@ -20,6 +22,37 @@ This is the **primary and recommended approach** for form validation in this Ang
 ## Core Pattern: Schema-Based Validation
 
 Angular Signal Forms provides a built-in `schema()` function for declarative validation that works seamlessly with signals. Define your validation rules once and apply them to your forms.
+
+## Field State Properties
+
+Every field in a Signal Form exposes reactive state through signals. Access field state by calling the field as a function (e.g., `userForm.name()`):
+
+### Value Signals
+- **`value()`** - Current field value (may be debounced)
+- **`controlValue()`** - Always up-to-date form control value (non-debounced)
+
+### Validation Signals
+- **`valid()`** - Boolean indicating if field passes all validation
+- **`invalid()`** - Boolean indicating if field fails validation
+- **`errors()`** - Array of validation errors with `kind` and `message`
+- **`errorSummary()`** - Includes errors from nested fields
+- **`pending()`** - Boolean indicating async validation in progress
+
+### Interaction State Signals
+- **`touched()`** - User has focused and blurred the field
+- **`dirty()`** - User has changed the value
+- **`submitting()`** - Form submission is in progress
+
+### Conditional State Signals
+- **`disabled()`** - Field is disabled
+- **`disabledReasons()`** - Array of strings explaining why field is disabled
+- **`hidden()`** - Field is hidden
+- **`readonly()`** - Field is read-only
+
+### State Methods
+- **`reset()`** - Marks field as pristine and untouched (doesn't reset value)
+- **`markAsTouched()`** - Manually mark field as touched
+- **`markAsDirty()`** - Manually mark field as dirty
 
 ### Built-in Validators
 
@@ -58,7 +91,7 @@ import {
 
 ```typescript
 import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
-import { form, schema, Control, required, email, minLength } from '@angular/forms/signals';
+import { form, schema, Field, required, email, minLength } from '@angular/forms/signals';
 import { JsonPipe } from '@angular/common';
 
 // Define TypeScript interface
@@ -77,12 +110,12 @@ const userSchema = schema<User>((f) => {
 
 @Component({
   selector: 'app-user-form',
-  imports: [Control, JsonPipe],
+  imports: [Field, JsonPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <form (ngSubmit)="onSubmit()">
       <div>
-        <input type="text" placeholder="Name" [control]="userForm.name" />
+        <input type="text" placeholder="Name" [field]="userForm.name" />
         @if(userForm.name().touched() || userForm.name().dirty()) {
           @for (error of userForm.name().errors(); track error.kind) {
             <p class="error">{{ error.message }}</p>
@@ -91,7 +124,7 @@ const userSchema = schema<User>((f) => {
       </div>
 
       <div>
-        <input type="email" placeholder="Email" [control]="userForm.email" />
+        <input type="email" placeholder="Email" [field]="userForm.email" />
         @if(userForm.email().touched() || userForm.email().dirty()) {
           @for (error of userForm.email().errors(); track error.kind) {
             <p class="error">{{ error.message }}</p>
@@ -100,7 +133,7 @@ const userSchema = schema<User>((f) => {
       </div>
 
       <button type="submit" [disabled]="!userForm().valid()">Submit</button>
-      
+
       <pre>{{ user() | json }}</pre>
     </form>
   `,
@@ -128,7 +161,7 @@ For custom validation beyond built-in validators, use `validate()` and `customEr
 
 ```typescript
 import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
-import { form, schema, Control, required, validate, customError } from '@angular/forms/signals';
+import { form, schema, Field, required, validate, customError } from '@angular/forms/signals';
 
 interface User {
   username: string;
@@ -171,24 +204,24 @@ const userSchema = schema<User>((f) => {
 
 @Component({
   selector: 'app-custom-validation-form',
-  imports: [Control],
+  imports: [Field],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <form (ngSubmit)="onSubmit()">
-      <input [control]="userForm.username" placeholder="Username" />
+      <input [field]="userForm.username" placeholder="Username" />
       @if(userForm.username().touched() || userForm.username().dirty()) {
         @for (error of userForm.username().errors(); track error.kind) {
           <p class="error">{{ error.message }}</p>
         }
       }
-      
-      <input [control]="userForm.age" type="number" placeholder="Age" />
+
+      <input [field]="userForm.age" type="number" placeholder="Age" />
       @if(userForm.age().touched() || userForm.age().dirty()) {
         @for (error of userForm.age().errors(); track error.kind) {
           <p class="error">{{ error.message }}</p>
         }
       }
-      
+
       <button type="submit" [disabled]="!userForm().valid()">Submit</button>
     </form>
   `
@@ -209,7 +242,7 @@ export class CustomValidationFormComponent {
 
 ```typescript
 import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
-import { form, schema, Control, required, email, min, max, pattern } from '@angular/forms/signals';
+import { form, schema, Field, required, email, min, max, pattern } from '@angular/forms/signals';
 
 interface Address {
   street: string;
@@ -242,27 +275,27 @@ const userSchema = schema<User>((f) => {
 
 @Component({
   selector: 'app-nested-form',
-  imports: [Control],
+  imports: [Field],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <form (ngSubmit)="onSubmit()">
       <!-- User fields -->
-      <input [control]="userForm.name" placeholder="Name" />
-      <input [control]="userForm.age" type="number" placeholder="Age" />
-      <input [control]="userForm.email" placeholder="Email" />
+      <input [field]="userForm.name" placeholder="Name" />
+      <input [field]="userForm.age" type="number" placeholder="Age" />
+      <input [field]="userForm.email" placeholder="Email" />
 
       <!-- Address fields -->
       <h3>Address</h3>
-      <input [control]="userForm.address.street" placeholder="Street" />
+      <input [field]="userForm.address.street" placeholder="Street" />
       @if(userForm.address.street().touched()) {
         @for (error of userForm.address.street().errors(); track error.kind) {
           <p class="error">{{ error.message }}</p>
         }
       }
-      
-      <input [control]="userForm.address.city" placeholder="City" />
-      <input [control]="userForm.address.zip" placeholder="ZIP" />
-      <input [control]="userForm.address.country" placeholder="Country" />
+
+      <input [field]="userForm.address.city" placeholder="City" />
+      <input [field]="userForm.address.zip" placeholder="ZIP" />
+      <input [field]="userForm.address.country" placeholder="Country" />
 
       <button type="submit" [disabled]="!userForm().valid()">Submit</button>
     </form>
@@ -295,7 +328,7 @@ export class NestedFormComponent {
 
 ```typescript
 import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
-import { form, schema, Control, required, email, applyEach, min } from '@angular/forms/signals';
+import { form, schema, Field, required, email, applyEach, min } from '@angular/forms/signals';
 
 interface Hobby {
   name: string;
@@ -324,24 +357,24 @@ const userSchema = schema<User>((f) => {
 
 @Component({
   selector: 'app-array-form',
-  imports: [Control],
+  imports: [Field],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <form (ngSubmit)="onSubmit()">
-      <input [control]="userForm.name" placeholder="Name" />
-      <input [control]="userForm.email" placeholder="Email" />
+      <input [field]="userForm.name" placeholder="Name" />
+      <input [field]="userForm.email" placeholder="Email" />
 
       <h3>Hobbies</h3>
       @for (hobby of userForm.hobbies; track hobby; let i = $index) {
         <div class="hobby-item">
-          <input [control]="hobby.name" placeholder="Hobby name" />
+          <input [field]="hobby.name" placeholder="Hobby name" />
           @if(hobby.name().touched() || hobby.name().dirty()) {
             @for (error of hobby.name().errors(); track error.kind) {
               <p class="error">{{ error.message }}</p>
             }
           }
-          
-          <input [control]="hobby.yearsOfExperience" type="number" placeholder="Years" />
+
+          <input [field]="hobby.yearsOfExperience" type="number" placeholder="Years" />
           <button type="button" (click)="removeHobby(i)">Remove</button>
         </div>
       }
@@ -389,7 +422,7 @@ export class ArrayFormComponent {
 
 ```typescript
 import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
-import { form, schema, Control, required, email, minLength, validate, customError } from '@angular/forms/signals';
+import { form, schema, Field, required, email, minLength, validate, customError } from '@angular/forms/signals';
 
 interface SignupForm {
   name: string;
@@ -423,14 +456,14 @@ const signupSchema = schema<SignupForm>((f) => {
 
 @Component({
   selector: 'app-signup-form',
-  imports: [Control],
+  imports: [Field],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <form (ngSubmit)="onSubmit()">
-      <input [control]="signupForm.name" placeholder="Name" />
-      <input [control]="signupForm.email" type="email" placeholder="Email" />
-      <input [control]="signupForm.password" type="password" placeholder="Password" />
-      <input [control]="signupForm.confirmPassword" type="password" placeholder="Confirm Password" />
+      <input [field]="signupForm.name" placeholder="Name" />
+      <input [field]="signupForm.email" type="email" placeholder="Email" />
+      <input [field]="signupForm.password" type="password" placeholder="Password" />
+      <input [field]="signupForm.confirmPassword" type="password" placeholder="Confirm Password" />
 
       @if(signupForm.confirmPassword().touched() || signupForm.confirmPassword().dirty()) {
         @for (error of signupForm.confirmPassword().errors(); track error.kind) {
@@ -464,7 +497,7 @@ export class SignupFormComponent {
 
 ```typescript
 import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
-import { form, schema, Control, required, email, minLength, validate, customError } from '@angular/forms/signals';
+import { form, schema, Field, required, email, minLength, validate, customError } from '@angular/forms/signals';
 import { inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
@@ -476,18 +509,18 @@ interface UserForm {
 
 @Component({
   selector: 'app-async-form',
-  imports: [Control],
+  imports: [Field],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <form (ngSubmit)="onSubmit()">
-      <input [control]="userForm.username" placeholder="Username" />
+      <input [field]="userForm.username" placeholder="Username" />
       @if(userForm.username().touched() || userForm.username().dirty()) {
         @for (error of userForm.username().errors(); track error.kind) {
           <p class="error">{{ error.message }}</p>
         }
       }
-      
-      <input [control]="userForm.email" type="email" placeholder="Email" />
+
+      <input [field]="userForm.email" type="email" placeholder="Email" />
       
       <button type="submit" [disabled]="!userForm().valid() || isCheckingUsername()">
         {{ isCheckingUsername() ? 'Checking...' : 'Submit' }}
@@ -547,7 +580,7 @@ export class AsyncFormComponent {
 
 ```typescript
 import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
-import { form, schema, Control, required, minLength, applyEach, validate, customError } from '@angular/forms/signals';
+import { form, schema, Field, required, minLength, applyEach, validate, customError } from '@angular/forms/signals';
 
 type Priority = 'Low' | 'Medium' | 'High';
 type Status = 'Not Started' | 'In Progress' | 'Completed';
@@ -613,18 +646,18 @@ const userProjectsSchema = schema<UserProjects>((f) => {
 
 @Component({
   selector: 'app-projects-form',
-  imports: [Control],
+  imports: [Field],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <form (ngSubmit)="onSubmit()">
-      <input [control]="projectsForm.username" placeholder="Username" />
+      <input [field]="projectsForm.username" placeholder="Username" />
 
       <h3>Projects</h3>
       @for (project of projectsForm.projects; track project; let i = $index) {
         <div class="project-card">
-          <input [control]="project.name" placeholder="Project name" />
-          <input [control]="project.deadline" type="date" />
-          <select [control]="project.status">
+          <input [field]="project.name" placeholder="Project name" />
+          <input [field]="project.deadline" type="date" />
+          <select [field]="project.status">
             <option value="Not Started">Not Started</option>
             <option value="In Progress">In Progress</option>
             <option value="Completed">Completed</option>
@@ -634,14 +667,14 @@ const userProjectsSchema = schema<UserProjects>((f) => {
           <h4>Tasks</h4>
           @for (task of project.tasks; track task; let j = $index) {
             <div class="task-item">
-              <input [control]="task.title" placeholder="Task title" />
-              <select [control]="task.priority">
+              <input [field]="task.title" placeholder="Task title" />
+              <select [field]="task.priority">
                 <option value="Low">Low</option>
                 <option value="Medium">Medium</option>
                 <option value="High">High</option>
               </select>
-              <input [control]="task.dueDate" type="date" />
-              <input [control]="task.done" type="checkbox" />
+              <input [field]="task.dueDate" type="date" />
+              <input [field]="task.done" type="checkbox" />
               <button type="button" (click)="removeTask(i, j)">Remove</button>
             </div>
           }
@@ -850,7 +883,7 @@ const signupSchema = schema<SignupForm>((f) => {
 
 ```typescript
 import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/core';
-import { form, schema, Control, required, email } from '@angular/forms/signals';
+import { form, schema, Field, required, email } from '@angular/forms/signals';
 
 interface User {
   name: string;
@@ -865,12 +898,12 @@ const userSchema = schema<User>((f) => {
 
 @Component({
   selector: 'app-stateful-form',
-  imports: [Control],
+  imports: [Field],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <form (ngSubmit)="onSubmit()">
-      <input [control]="userForm.name" placeholder="Name" />
-      <input [control]="userForm.email" placeholder="Email" />
+      <input [field]="userForm.name" placeholder="Name" />
+      <input [field]="userForm.email" placeholder="Email" />
       
       <button type="submit" [disabled]="!canSubmit()">Submit</button>
       
@@ -1027,7 +1060,7 @@ applyEach(f.items, (item) => {
 validate(f.phone, (field) => {
   const value = field.value();
   const isRequired = f.parent.requirePhone.value();
-  
+
   if (isRequired && !value) {
     return customError({
       kind: 'required',
@@ -1035,6 +1068,201 @@ validate(f.phone, (field) => {
     });
   }
   return null;
+});
+```
+
+## Advanced Features
+
+### Form Submission with `submit()`
+
+The `submit()` function handles form submission with built-in validation and async operation support:
+
+```typescript
+import { submit } from '@angular/forms/signals';
+
+onSubmit(event: Event) {
+  event.preventDefault();
+  submit(this.userForm, async () => {
+    const formData = this.user();
+    console.log('Submitting:', formData);
+    // await this.api.saveUser(formData);
+  });
+}
+```
+
+The `submit()` function automatically:
+- Marks all fields as touched
+- Validates the entire form
+- Sets `submitting()` signal to true during async operation
+- Only executes the callback if validation passes
+
+### Conditional Validation and Field States
+
+Use `disabled()`, `hidden()`, and `readonly()` functions to conditionally control field behavior:
+
+```typescript
+import { disabled, hidden, readonly } from '@angular/forms/signals';
+
+const formSchema = schema<User>((f) => {
+  required(f.email);
+
+  // Disable field based on condition
+  disabled(f.country, () => !f.enableCountrySelection.value());
+
+  // Hide field conditionally
+  hidden(f.advancedOptions, () => !f.showAdvanced.value());
+
+  // Make field read-only
+  readonly(f.userId, () => f.isEditMode.value());
+});
+```
+
+### Applying Schemas to Nested Objects
+
+Use `apply()` to reuse schemas for nested objects:
+
+```typescript
+import { apply } from '@angular/forms/signals';
+
+const addressSchema = schema<Address>((f) => {
+  required(f.street);
+  required(f.city);
+  pattern(f.zip, /^\d{5}$/);
+});
+
+const userSchema = schema<User>((f) => {
+  required(f.name);
+
+  // Apply existing schema to nested object
+  apply(f.address, addressSchema);
+});
+```
+
+### Conditional Schema Application
+
+Use `applyWhen()` or `applyWhenValue()` for conditional validation:
+
+```typescript
+import { applyWhen, applyWhenValue } from '@angular/forms/signals';
+
+const formSchema = schema<PaymentForm>((f) => {
+  required(f.paymentMethod);
+
+  // Apply schema when field value matches
+  applyWhenValue(f.paymentMethod, 'credit-card', (f) => {
+    required(f.cardNumber);
+    required(f.cvv);
+    required(f.expiryDate);
+  });
+
+  // Apply schema based on custom condition
+  applyWhen(f.shippingAddress, () => f.useShipping.value(), (f) => {
+    required(f.street);
+    required(f.city);
+  });
+});
+```
+
+### Multi-Field (Tree) Validation
+
+Use `validateTree()` for validation that involves multiple fields:
+
+```typescript
+import { validateTree } from '@angular/forms/signals';
+
+const formSchema = schema<DateRange>((f) => {
+  required(f.startDate);
+  required(f.endDate);
+
+  // Validate relationship between fields
+  validateTree(f, (tree) => {
+    const start = new Date(f.startDate.value());
+    const end = new Date(f.endDate.value());
+
+    if (start > end) {
+      return customError({
+        kind: 'dateRange',
+        message: 'End date must be after start date',
+        field: f.endDate // Attach error to specific field
+      });
+    }
+    return null;
+  });
+});
+```
+
+### Async Validation with Resources
+
+Use `validateAsync()` for asynchronous validation with Angular resources:
+
+```typescript
+import { validateAsync } from '@angular/forms/signals';
+import { resource } from '@angular/core';
+
+const userSchema = schema<User>((f) => {
+  required(f.username);
+
+  // Async validation with resource
+  validateAsync(f.username, {
+    params: () => ({ username: f.username.value() }),
+    factory: ({ username }) =>
+      this.http.get<{available: boolean}>(`/api/check-username/${username}`),
+    errors: (response) =>
+      !response.available ?
+        [customError({ kind: 'taken', message: 'Username is already taken' })] :
+        []
+  });
+});
+```
+
+### HTTP Validation Shorthand
+
+Use `validateHttp()` for simpler HTTP-based validation:
+
+```typescript
+import { validateHttp } from '@angular/forms/signals';
+
+const userSchema = schema<User>((f) => {
+  required(f.email);
+
+  // Simplified HTTP validation
+  validateHttp(f.email, {
+    url: (value) => `/api/check-email/${value}`,
+    method: 'GET',
+    errors: (response) => response.exists ?
+      [customError({ kind: 'duplicate', message: 'Email already registered' })] :
+      []
+  });
+});
+```
+
+### Custom Error Messages with Functions
+
+Error messages can be functions that receive the field for dynamic messages:
+
+```typescript
+const schema = schema<User>((f) => {
+  minLength(f.password, 8, {
+    message: (field) => `Password must be at least 8 characters (currently ${field.value().length})`
+  });
+});
+```
+
+### Standard Schema Integration
+
+Use `validateStandardSchema()` to integrate with Zod, Valibot, or other Standard Schema V1 libraries:
+
+```typescript
+import { validateStandardSchema } from '@angular/forms/signals';
+import { z } from 'zod';
+
+const zodSchema = z.object({
+  email: z.string().email(),
+  age: z.number().min(18).max(120)
+});
+
+const formSchema = schema<User>((f) => {
+  validateStandardSchema(f, zodSchema);
 });
 ```
 
@@ -1103,28 +1331,57 @@ describe('UserFormComponent', () => {
   });
 
   it('should track touched and dirty state', () => {
-    const nameControl = component.userForm.name();
-    
-    expect(nameControl.touched()).toBe(false);
-    expect(nameControl.dirty()).toBe(false);
-    
+    const nameField = component.userForm.name();
+
+    expect(nameField.touched()).toBe(false);
+    expect(nameField.dirty()).toBe(false);
+
     // Simulate user interaction
     component.user.update(u => ({ ...u, name: 'John' }));
-    
-    expect(nameControl.dirty()).toBe(true);
+
+    expect(nameField.dirty()).toBe(true);
   });
 
   it('should display validation errors', () => {
     // Submit with invalid data
     component.user.set({ name: '', email: 'invalid' });
-    
+
     const nameErrors = component.userForm.name().errors();
     const emailErrors = component.userForm.email().errors();
-    
+
     expect(nameErrors.length).toBeGreaterThan(0);
     expect(emailErrors.length).toBeGreaterThan(0);
     expect(nameErrors[0].message).toContain('required');
     expect(emailErrors[0].message).toContain('email');
   });
+
+  it('should access controlValue for non-debounced value', () => {
+    // controlValue() provides immediate, non-debounced access
+    const nameField = component.userForm.name();
+    component.user.set({ name: 'Test', email: 'test@example.com' });
+
+    expect(nameField.controlValue()).toBe('Test');
+    expect(nameField.value()).toBe('Test');
+  });
+
+  it('should check pending state during async validation', () => {
+    const field = component.userForm.email();
+    expect(field.pending()).toBe(false);
+
+    // Async validators would set pending to true during execution
+  });
 });
 ```
+
+## Migration Tips
+
+When migrating from Reactive Forms to Signal Forms:
+
+- Replace `FormControl`/`FormGroup` with `signal()` and `form()`
+- Replace `Validators.*` with schema functions (`required()`, `email()`, etc.)
+- Replace `formControlName` with `[field]` directive
+- Replace `valueChanges` subscriptions with computed signals
+- Replace `patchValue()`/`setValue()` with `signal.set()` or `signal.update()`
+- Replace form validators with schema-based validation
+- Use `submit()` instead of manual validation checks
+
