@@ -308,3 +308,4 @@ applyTo: "**/*.ts, **/*.html, **/*.scss"
 - **Alternative Text:** All images include descriptive alt text for accessibility
 - **Angular CDK A11y:** Use Angular CDK accessibility utilities for consistent a11y implementation
 - **Semantic HTML:** Use semantic HTML elements for better accessibility and SEO
+
