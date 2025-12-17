@@ -93,7 +93,7 @@ applyTo: "**/*.ts, **/*.html, **/*.scss"
 
 ## 4. Component Patterns
 
-- **Naming Pattern:** Components follow consistent naming - `feature.type.ts` (e.g., `hero-list.component.ts`)
+- **Naming Pattern:** Components follow simplified naming without type suffix - `feature.ts` (e.g., `hero-list.ts`)
 - **Template Size:** Keep templates small and focused. Use inline templates only for very simple components
 - **Style Extraction:** Styles exist in separate `.css/.scss` files for maintainability
 - **Function-Based Inputs/Outputs:** Use `input()` and `output()` functions instead of decorators

@@ -4,8 +4,8 @@ import { MatIconModule } from "@angular/material/icon";
 
 @Component({
   selector: "app-dashboard-stats-card",
-  templateUrl: "./dashboard-stats-card.component.html",
-  styleUrl: "./dashboard-stats-card.component.scss",
+  templateUrl: "./dashboard-stats-card.html",
+  styleUrl: "./dashboard-stats-card.scss",
   imports: [MatCardModule, MatIconModule],
 })
 export class DashboardStatsCardComponent {

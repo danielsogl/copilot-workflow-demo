@@ -12,8 +12,8 @@ import { MatIconModule } from "@angular/material/icon";
 
 @Component({
   selector: "app-todo-create-form",
-  templateUrl: "./todo-create-form.component.html",
-  styleUrl: "./todo-create-form.component.scss",
+  templateUrl: "./todo-create-form.html",
+  styleUrl: "./todo-create-form.scss",
   imports: [
     ReactiveFormsModule,
     MatFormFieldModule,

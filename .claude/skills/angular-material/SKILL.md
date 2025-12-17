@@ -279,7 +279,7 @@ $dark-theme: mat.m2-define-dark-theme(
 ### Component-Level Styling
 
 ```scss
-// component.component.scss
+// component.scss
 @use "@angular/material" as mat;
 
 :host {

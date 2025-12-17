@@ -7,8 +7,8 @@ import { Todo } from "../../../../shared/models/todo.model";
 
 @Component({
   selector: "app-todo-item",
-  templateUrl: "./todo-item.component.html",
-  styleUrl: "./todo-item.component.scss",
+  templateUrl: "./todo-item.html",
+  styleUrl: "./todo-item.scss",
   imports: [
     MatCheckboxModule,
     MatIconModule,

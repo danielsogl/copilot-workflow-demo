@@ -5,21 +5,21 @@ export const routes: Routes = [
   {
     path: "dashboard",
     loadComponent: () =>
-      import("./features/dashboard/dashboard.component").then(
+      import("./features/dashboard/dashboard").then(
         (m) => m.DashboardComponent,
       ),
   },
   {
     path: "tasks",
     loadComponent: () =>
-      import("./features/tasks/components/task-list/task-list.component").then(
+      import("./features/tasks/components/task-list/task-list").then(
         (m) => m.TaskListComponent,
       ),
   },
   {
     path: "tasks/:status",
     loadComponent: () =>
-      import("./features/tasks/components/task-list/task-list.component").then(
+      import("./features/tasks/components/task-list/task-list").then(
         (m) => m.TaskListComponent,
       ),
   },

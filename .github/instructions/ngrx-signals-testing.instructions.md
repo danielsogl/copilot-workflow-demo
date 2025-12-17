@@ -1,6 +1,6 @@
 ---
 description: "Testing strategies for NgRx Signals Stores using Vitest, TestBed, store mocking, and the unprotected utility"
-applyTo: "**/*.spec.ts"
+applyTo: "**/*-store.spec.ts"
 ---
 
 Follow these patterns for all NgRx Signals Store tests. Use Vitest, Angular's latest APIs, and strong typing. For more, see the official NgRx Signals documentation.

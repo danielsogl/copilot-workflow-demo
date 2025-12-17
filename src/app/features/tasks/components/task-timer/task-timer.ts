@@ -13,12 +13,12 @@ import { MatCardModule } from "@angular/material/card";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { Task } from "../../../../shared/models/task.model";
-import { TaskStore } from "../../services/task.store";
+import { TaskStore } from "../../services/task-store";
 
 @Component({
   selector: "app-task-timer",
-  templateUrl: "./task-timer.component.html",
-  styleUrl: "./task-timer.component.scss",
+  templateUrl: "./task-timer.html",
+  styleUrl: "./task-timer.scss",
   imports: [
     MatButtonModule,
     MatIconModule,

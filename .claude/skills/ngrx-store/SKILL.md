@@ -14,11 +14,11 @@ src/app/
   <domain>/
     data/
       state/
-        <domain>.store.ts      # Store definition
+        <domain>-store.ts      # Store definition (dash separator)
       models/
         <domain>.model.ts      # State interfaces
       infrastructure/
-        <domain>.infrastructure.ts  # API service
+        <domain>.ts            # API service
 ```
 
 ## Basic Store Template
@@ -36,7 +36,7 @@ import { rxMethod } from "@ngrx/signals/rxjs-interop";
 import { tapResponse } from "@ngrx/operators";
 import { pipe, switchMap } from "rxjs";
 
-import { ItemService } from "../infrastructure/item.infrastructure";
+import { ItemService } from "../infrastructure/item";
 import { Item } from "../models/item.model";
 
 // State interface
@@ -139,7 +139,7 @@ import { rxMethod } from "@ngrx/signals/rxjs-interop";
 import { tapResponse } from "@ngrx/operators";
 import { pipe, switchMap } from "rxjs";
 
-import { TaskService } from "../infrastructure/task.infrastructure";
+import { TaskService } from "../infrastructure/task";
 import { Task } from "../models/task.model";
 
 // State for non-entity properties
@@ -324,7 +324,7 @@ import {
   OnInit,
   ChangeDetectionStrategy,
 } from "@angular/core";
-import { TaskStore } from "../data/state/task.store";
+import { TaskStore } from "../data/state/task-store";
 
 @Component({
   selector: "app-task-list",
@@ -367,8 +367,8 @@ import { provideZonelessChangeDetection } from "@angular/core";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { of } from "rxjs";
 
-import { TaskStore } from "./task.store";
-import { TaskService } from "../infrastructure/task.infrastructure";
+import { TaskStore } from "./task-store";
+import { TaskService } from "../infrastructure/task";
 
 describe("TaskStore", () => {
   let store: InstanceType<typeof TaskStore>;

@@ -15,8 +15,8 @@ Place test files next to the source files:
 
 ```
 component-name/
-  component-name.component.ts
-  component-name.component.spec.ts  # <- Test file here
+  component-name.ts
+  component-name.spec.ts  # <- Test file here
 ```
 
 ## Essential Imports
@@ -35,8 +35,8 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { provideZonelessChangeDetection } from "@angular/core";
 import { By } from "@angular/platform-browser";
 
-import { MyComponent } from "./my.component";
-import { MyService } from "../services/my.service";
+import { MyComponent } from "./my";
+import { MyService } from "../services/my";
 
 describe("MyComponent", () => {
   let component: MyComponent;
@@ -102,7 +102,7 @@ import {
   HttpTestingController,
 } from "@angular/common/http/testing";
 
-import { MyService } from "./my.service";
+import { MyService } from "./my";
 
 describe("MyService", () => {
   let service: MyService;

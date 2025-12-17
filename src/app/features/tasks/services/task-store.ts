@@ -18,7 +18,7 @@ import { rxMethod } from "@ngrx/signals/rxjs-interop";
 import { tapResponse } from "@ngrx/operators";
 import { computed, inject } from "@angular/core";
 import { pipe, switchMap, tap } from "rxjs";
-import { TaskService } from "./task.service";
+import { TaskService } from "./task";
 import { Task } from "../../../shared/models/task.model";
 
 export interface TaskState {

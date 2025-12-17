@@ -6,8 +6,8 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
 
 @Component({
   selector: "app-navbar",
-  templateUrl: "./navbar.component.html",
-  styleUrls: ["./navbar.component.scss"],
+  templateUrl: "./navbar.html",
+  styleUrls: ["./navbar.scss"],
   imports: [
     MatToolbarModule,
     MatButtonModule,

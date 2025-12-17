@@ -14,24 +14,24 @@ src/app/
   <domain>/                    # Business domain (tasks, user, order, etc.)
     feature/                   # Feature/container components
       <feature-name>/
-        <feature-name>.component.ts
-        <feature-name>.component.html
-        <feature-name>.component.scss
-        <feature-name>.component.spec.ts
+        <feature-name>.ts
+        <feature-name>.html
+        <feature-name>.scss
+        <feature-name>.spec.ts
     ui/                        # Presentational components
       <component-name>/
-        <component-name>.component.ts
+        <component-name>.ts
         ...
     data/                      # Data access layer
       models/
         <domain>.model.ts      # Domain models/interfaces
       infrastructure/
-        <domain>.infrastructure.ts  # API service
+        <domain>.ts            # API service
       state/
-        <domain>.store.ts      # NgRx Signals Store
+        <domain>-store.ts      # NgRx Signals Store
     util/                      # Domain utilities
       <util-name>/
-        <util-name>.util.ts
+        <util-name>.ts
 ```
 
 ## Step-by-Step Feature Creation
@@ -58,7 +58,7 @@ export type UpdateTaskDto = Partial<CreateTaskDto>;
 
 ### 2. Create Infrastructure Service
 
-`src/app/tasks/data/infrastructure/task.infrastructure.ts`:
+`src/app/tasks/data/infrastructure/task.ts`:
 
 ```typescript
 import { inject, Injectable } from "@angular/core";
@@ -96,7 +96,7 @@ export class TaskInfrastructure {
 
 ### 3. Create Signal Store
 
-`src/app/tasks/data/state/task.store.ts`:
+`src/app/tasks/data/state/task-store.ts`:
 
 ```typescript
 import { computed, inject } from "@angular/core";
@@ -120,7 +120,7 @@ import { rxMethod } from "@ngrx/signals/rxjs-interop";
 import { tapResponse } from "@ngrx/operators";
 import { pipe, switchMap } from "rxjs";
 
-import { TaskInfrastructure } from "../infrastructure/task.infrastructure";
+import { TaskInfrastructure } from "../infrastructure/task";
 import { Task, CreateTaskDto, UpdateTaskDto } from "../models/task.model";
 
 export interface TaskState {
@@ -232,7 +232,7 @@ export const TaskStore = signalStore(
 
 ### 4. Create UI Component (Presentational)
 
-`src/app/tasks/ui/task-item/task-item.component.ts`:
+`src/app/tasks/ui/task-item/task-item.ts`:
 
 ```typescript
 import {
@@ -250,8 +250,8 @@ import { Task } from "../../data/models/task.model";
 
 @Component({
   selector: "app-task-item",
-  templateUrl: "./task-item.component.html",
-  styleUrl: "./task-item.component.scss",
+  templateUrl: "./task-item.html",
+  styleUrl: "./task-item.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatCardModule, MatCheckboxModule, MatIconModule, MatButtonModule],
 })
@@ -278,7 +278,7 @@ export class TaskItemComponent {
 
 ### 5. Create Feature Component (Container)
 
-`src/app/tasks/feature/task-list/task-list.component.ts`:
+`src/app/tasks/feature/task-list/task-list.ts`:
 
 ```typescript
 import {
@@ -289,13 +289,13 @@ import {
 } from "@angular/core";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
-import { TaskStore } from "../../data/state/task.store";
-import { TaskItemComponent } from "../../ui/task-item/task-item.component";
+import { TaskStore } from "../../data/state/task-store";
+import { TaskItemComponent } from "../../ui/task-item/task-item";
 
 @Component({
   selector: "app-task-list",
-  templateUrl: "./task-list.component.html",
-  styleUrl: "./task-list.component.scss",
+  templateUrl: "./task-list.html",
+  styleUrl: "./task-list.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatProgressSpinnerModule, TaskItemComponent],
 })
@@ -327,16 +327,12 @@ export const TASK_ROUTES: Routes = [
   {
     path: "",
     loadComponent: () =>
-      import("./task-list/task-list.component").then(
-        (m) => m.TaskListComponent,
-      ),
+      import("./task-list/task-list").then((m) => m.TaskListComponent),
   },
   {
     path: ":id",
     loadComponent: () =>
-      import("./task-detail/task-detail.component").then(
-        (m) => m.TaskDetailComponent,
-      ),
+      import("./task-detail/task-detail").then((m) => m.TaskDetailComponent),
   },
 ];
 ```
@@ -350,10 +346,10 @@ export const TASK_ROUTES: Routes = [
    - `ui/` = Presentational components (dumb, input/output only)
    - `data/` = State, models, and API services
 4. **Naming Conventions**:
-   - Files: `kebab-case.type.ts` (e.g., `task-list.component.ts`)
+   - Files: `kebab-case.ts` (e.g., `task-list.ts`) - no type suffix
+   - Stores: `kebab-case-store.ts` (e.g., `task-store.ts`) - dash separator
    - Classes: `PascalCase` (e.g., `TaskListComponent`)
-   - Stores: `PascalCaseStore` (e.g., `TaskStore`)
-   - Services: `PascalCaseInfrastructure` (e.g., `TaskInfrastructure`)
+   - Models: `kebab-case.model.ts` (e.g., `task.model.ts`) - keep .model suffix
 
 ## Checklist for New Feature
 

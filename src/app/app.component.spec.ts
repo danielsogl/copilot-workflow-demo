@@ -2,7 +2,7 @@ import { provideZonelessChangeDetection } from "@angular/core";
 import type { ComponentFixture } from "@angular/core/testing";
 import { TestBed } from "@angular/core/testing";
 import { provideRouter } from "@angular/router";
-import { AppComponent } from "./app.component";
+import { AppComponent } from "./app";
 
 describe("AppComponent", () => {
   let component: AppComponent;

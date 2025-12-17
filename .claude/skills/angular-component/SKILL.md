@@ -25,10 +25,10 @@ src/app/
   <domain>/           # e.g., tasks, user
     feature/          # Feature/container components
       <component-name>/
-        <component-name>.component.ts
-        <component-name>.component.html
-        <component-name>.component.scss
-        <component-name>.component.spec.ts
+        <component-name>.ts
+        <component-name>.html
+        <component-name>.scss
+        <component-name>.spec.ts
     ui/               # Presentational components
       <component-name>/
         ...
@@ -49,8 +49,8 @@ import {
 
 @Component({
   selector: "app-example",
-  templateUrl: "./example.component.html",
-  styleUrl: "./example.component.scss",
+  templateUrl: "./example.html",
+  styleUrl: "./example.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     // Import only required standalone components, directives, pipes

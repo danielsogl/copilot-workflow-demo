@@ -2,15 +2,15 @@ import { Component, Input, computed, inject } from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatDividerModule } from "@angular/material/divider";
-import { TodoItemComponent } from "../todo-item/todo-item.component";
-import { TodoCreateFormComponent } from "../todo-create-form/todo-create-form.component";
-import { TaskStore } from "../../services/task.store";
+import { TodoItemComponent } from "../todo-item/todo-item";
+import { TodoCreateFormComponent } from "../todo-create-form/todo-create-form";
+import { TaskStore } from "../../services/task-store";
 import { Todo } from "../../../../shared/models/todo.model";
 
 @Component({
   selector: "app-todo-list",
-  templateUrl: "./todo-list.component.html",
-  styleUrl: "./todo-list.component.scss",
+  templateUrl: "./todo-list.html",
+  styleUrl: "./todo-list.scss",
   imports: [
     MatCardModule,
     MatProgressBarModule,

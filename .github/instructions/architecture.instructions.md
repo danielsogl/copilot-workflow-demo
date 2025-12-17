@@ -20,7 +20,7 @@ This project follows a Domain-Driven Design (DDD) approach for modularity, maint
   - `data/`: Data access, API clients, persistence logic.
   - `util/`: Utilities and helpers.
 - **Component, Directive, and Pipe Subfolders:**
-  - All components, directives, and pipes must be placed in their own subfolders within their respective type folders. For example, a component named `task-list.component.ts` should be located at `src/app/tasks/feature-task/task-list/task-list.component.ts` (i.e., inside a `task-list` subfolder), not directly in the `feature-task` folder. This applies to all new code and ensures a scalable, maintainable structure.
+  - All components, directives, and pipes must be placed in their own subfolders within their respective type folders. For example, a component named `task-list.ts` should be located at `src/app/tasks/feature-task/task-list/task-list.ts` (i.e., inside a `task-list` subfolder), not directly in the `feature-task` folder. This applies to all new code and ensures a scalable, maintainable structure.
 - **Shared Kernel:**
   - Cross-domain code (shared types, utilities) is placed in `src/app/shared/`.
 
@@ -31,27 +31,27 @@ src/app/
   user/
     feature/
       user-overview/
-        user-overview.component.ts
-        user-overview.store.ts
+        user-overview.ts
+        user-overview-store.ts
         ...
       ...
     ui/
       user-list/
-        user-list.component.ts
+        user-list.ts
         ...
       ...
     data/
       models/
         user.model.ts
       infrastructure/
-        user.infrastructure.ts
+        user-infrastructure.ts
       state/
-        user.store.ts
+        user-store.ts
         ...
       ...
     util/
       user-helpers/
-        user-helpers.util.ts
+        user-helpers.ts
         ...
       ...
   order/

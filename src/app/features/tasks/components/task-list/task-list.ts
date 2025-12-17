@@ -10,14 +10,14 @@ import { MatCardModule } from "@angular/material/card";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { DatePipe, TitleCasePipe } from "@angular/common";
-import { TaskStore } from "../../services/task.store";
-import { TaskCreateModalComponent } from "../task-create-modal/task-create-modal.component";
+import { TaskStore } from "../../services/task-store";
+import { TaskCreateModalComponent } from "../task-create-modal/task-create-modal";
 import { Task } from "../../../../shared/models/task.model";
 
 @Component({
   selector: "app-task-list",
-  templateUrl: "./task-list.component.html",
-  styleUrl: "./task-list.component.scss",
+  templateUrl: "./task-list.html",
+  styleUrl: "./task-list.scss",
   imports: [
     MatTableModule,
     MatButtonModule,
