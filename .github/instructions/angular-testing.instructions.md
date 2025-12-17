@@ -5,7 +5,9 @@ applyTo: "**/*.spec.ts"
 
 # Angular Testing Guidelines (Vitest + Angular TestBed)
 
-These guidelines reflect Angular v20+ best practices, using Vitest as the test runner with Angular TestBed for testing components, services, and other Angular constructs:
+These guidelines reflect Angular v20+ best practices, using Vitest as the test runner with Angular TestBed for testing components, services, and other Angular constructs.
+
+**Note:** Vitest globals (`describe`, `it`, `expect`, `vi`, `beforeEach`, `afterEach`) are pre-configured in `tsconfig.spec.json` - no imports needed.
 
 ## 1. General Patterns
 
@@ -27,12 +29,12 @@ Services should be tested using Angular's TestBed with Vitest. Use provideHttpCl
 ```typescript
 import { TestBed } from "@angular/core/testing";
 import { provideZonelessChangeDetection } from "@angular/core";
-import { MyService } from "./my.service";
 import {
   provideHttpClientTesting,
   HttpTestingController,
 } from "@angular/common/http/testing";
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
+
+import { MyService } from "./my.service";
 
 describe("MyService", () => {
   let service: MyService;
@@ -74,10 +76,10 @@ Use Angular's TestBed with Vitest for component testing. Mock dependencies using
 ```typescript
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { provideZonelessChangeDetection } from "@angular/core";
+import { By } from "@angular/platform-browser";
+
 import { MyComponent } from "./my.component";
 import { MyService } from "./my.service";
-import { By } from "@angular/platform-browser";
-import { describe, it, expect, beforeEach, vi } from "vitest";
 
 describe("MyComponent", () => {
   let component: MyComponent;
@@ -134,11 +136,11 @@ describe("MyComponent", () => {
 ## 4. Directive Testing Example
 
 ```typescript
+import { Component } from "@angular/core";
 import { TestBed, ComponentFixture } from "@angular/core/testing";
 import { provideZonelessChangeDetection } from "@angular/core";
-import { Component } from "@angular/core";
+
 import { MyDirective } from "./my.directive";
-import { describe, it, expect, beforeEach } from "vitest";
 
 @Component({
   template: `
@@ -179,8 +181,8 @@ describe("MyDirective", () => {
 ```typescript
 import { TestBed } from "@angular/core/testing";
 import { provideZonelessChangeDetection } from "@angular/core";
+
 import { MyPipe } from "./my.pipe";
-import { describe, it, expect, beforeEach } from "vitest";
 
 describe("MyPipe", () => {
   let pipe: MyPipe;
@@ -203,8 +205,6 @@ describe("MyPipe", () => {
 ### Service Mocking
 
 ```typescript
-import { vi } from "vitest";
-
 // Mock entire service
 const mockService = {
   method1: vi.fn(),
@@ -223,8 +223,6 @@ await TestBed.configureTestingModule({
 ### Spy on Service Methods
 
 ```typescript
-import { vi } from "vitest";
-
 // Spy on existing service method
 const service = TestBed.inject(MyService);
 const spy = vi.spyOn(service, "method").mockReturnValue("mocked");
@@ -236,8 +234,6 @@ expect(spy).toHaveBeenCalledWith("expectedArg");
 ### Mock External Modules
 
 ```typescript
-import { vi } from "vitest";
-
 // Mock external module
 vi.mock("external-library", () => ({
   someFunction: vi.fn(() => "mocked result"),
@@ -249,8 +245,6 @@ vi.mock("external-library", () => ({
 ### Promises
 
 ```typescript
-import { vi } from "vitest";
-
 it("should handle async operations", async () => {
   const mockService = {
     asyncMethod: vi.fn().mockResolvedValue("result"),
@@ -281,8 +275,6 @@ it("should handle observables", () => {
 ## 8. Time-based Testing
 
 ```typescript
-import { vi } from "vitest";
-
 it("should handle timers", () => {
   vi.useFakeTimers();
 
@@ -301,8 +293,8 @@ it("should handle timers", () => {
 ```typescript
 import { TestBed } from "@angular/core/testing";
 import { provideZonelessChangeDetection } from "@angular/core";
+
 import { MyStandaloneComponent } from "./my-standalone.component";
-import { describe, it, expect, beforeEach } from "vitest";
 
 describe("MyStandaloneComponent", () => {
   beforeEach(async () => {
