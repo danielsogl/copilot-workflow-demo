@@ -990,20 +990,6 @@ resetForm() {
 ```
 
 ## Common Validators Reference
-```
-
-### 3. Lazy Validation for Large Forms
-
-```typescript
-// Only validate on blur or submit, not on every keystroke
-@if(userForm.name().touched()) {
-  @for (error of userForm.name().errors(); track error.kind) {
-    <p class="error">{{ error.message }}</p>
-  }
-}
-```
-
-## Common Validators Reference
 
 ```typescript
 import { 
