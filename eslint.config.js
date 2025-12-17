@@ -1,20 +1,21 @@
 // @ts-check
 const eslint = require("@eslint/js");
+const { defineConfig } = require("eslint/config");
 const tseslint = require("typescript-eslint");
 const angular = require("angular-eslint");
 const eslintConfigPrettier = require("eslint-config-prettier/flat");
-const ngrx = require("@ngrx/eslint-plugin/v9");
+const playwright = /** @type {import("eslint-plugin-playwright").default} */ (
+  require("eslint-plugin-playwright")
+);
 
-module.exports = tseslint.config(
+module.exports = defineConfig([
   {
     files: ["**/*.ts"],
     extends: [
       eslint.configs.recommended,
-      ...tseslint.configs.recommended,
-      ...tseslint.configs.stylistic,
-      ...angular.configs.tsRecommended,
-      ...ngrx.configs.operators,
-      ...ngrx.configs.signals,
+      tseslint.configs.recommended,
+      tseslint.configs.stylistic,
+      angular.configs.tsRecommended,
       eslintConfigPrettier,
     ],
     processor: angular.processInlineTemplates,
@@ -40,9 +41,17 @@ module.exports = tseslint.config(
   {
     files: ["**/*.html"],
     extends: [
-      ...angular.configs.templateRecommended,
-      ...angular.configs.templateAccessibility,
+      angular.configs.templateRecommended,
+      angular.configs.templateAccessibility,
     ],
     rules: {},
   },
-);
+  {
+    files: ["tests/**"],
+    extends: [playwright.configs["flat/recommended"]],
+    rules: {
+      // Customize Playwright rules
+      // ...
+    },
+  },
+]);

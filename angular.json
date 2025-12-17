@@ -71,19 +71,7 @@
           "builder": "@angular/build:extract-i18n"
         },
         "test": {
-          "builder": "@angular/build:unit-test",
-          "options": {
-            "tsConfig": "tsconfig.spec.json",
-            "runner": "vitest",
-            "buildTarget": "::development",
-            "include": ["src/**/*.spec.ts"],
-            "exclude": [
-              "**/node_modules/**",
-              "**/dist/**",
-              "**/tests/**",
-              "**/e2e/**"
-            ]
-          }
+          "builder": "@angular/build:unit-test"
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",

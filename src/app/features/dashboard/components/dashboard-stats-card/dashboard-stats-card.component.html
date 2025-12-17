@@ -1,14 +1,16 @@
-<mat-card 
-  class="stats-card stats-card--{{ color() }}" 
+<mat-card
+  class="stats-card stats-card--{{ color() }}"
   [class.stats-card--clickable]="clickable()"
-  (click)="onCardClick()">
+  (click)="onCardClick()"
+>
   <mat-card-content>
     <div class="stats-card__header">
       <mat-icon class="stats-card__icon">{{ icon() }}</mat-icon>
       <h3 class="stats-card__title">{{ title() }}</h3>
     </div>
     <div class="stats-card__value">
-      {{ value() }}<span class="stats-card__suffix">{{ suffix() }}</span>
+      {{ value() }}
+      <span class="stats-card__suffix">{{ suffix() }}</span>
     </div>
   </mat-card-content>
 </mat-card>

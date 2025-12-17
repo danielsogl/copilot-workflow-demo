@@ -9,7 +9,7 @@
       },
       "models": {
         "qwen3-coder:30b": {
-          "name": "Qwen 3 Coder 30B",
+          "name": "Qwen 3 Coder 30B"
         }
       }
     }
