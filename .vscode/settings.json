@@ -29,5 +29,8 @@
     "panel": "always"
   },
   "chat.customAgentInSubagent.enabled": true,
-  "chat.agentSessionsViewLocation": "view"
+  "chat.agentSessionsViewLocation": "view",
+  "github.copilot.chat.cli.customAgents.enabled": true,
+  "github.copilot.chat.customAgents.showOrganizationAndEnterpriseAgents": true,
+  "inlineChat.enableV2": true
 }
