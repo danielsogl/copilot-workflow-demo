@@ -9,13 +9,15 @@
       <mat-label>Todo item</mat-label>
       <input
         matInput
-        [formControl]="todoControl"
+        [field]="todoForm.todo"
         (keydown)="onKeyDown($event)"
         placeholder="Enter todo item"
         autocomplete="off"
       />
-      @if (todoControl.errors?.["maxlength"]) {
-        <mat-error>Maximum length is 200 characters</mat-error>
+      @if (todoForm.todo().touched() || todoForm.todo().dirty()) {
+        @for (error of todoForm.todo().errors(); track error.kind) {
+          <mat-error>{{ error.message }}</mat-error>
+        }
       }
     </mat-form-field>
 
@@ -24,7 +26,7 @@
         mat-raised-button
         color="primary"
         type="submit"
-        [disabled]="!todoControl.valid || !todoControl.value.trim()"
+        [disabled]="!todoForm().valid() || !todoData().todo.trim()"
       >
         <mat-icon>add</mat-icon>
         Add

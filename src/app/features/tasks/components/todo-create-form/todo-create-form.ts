@@ -1,21 +1,33 @@
-import { Component, output, signal, inject } from "@angular/core";
+import { Component, output, signal } from "@angular/core";
 import {
-  FormBuilder,
-  FormControl,
-  ReactiveFormsModule,
-  Validators,
-} from "@angular/forms";
+  form,
+  schema,
+  Field,
+  required,
+  minLength,
+  maxLength,
+} from "@angular/forms/signals";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
+
+interface TodoForm {
+  todo: string;
+}
+
+const todoSchema = schema<TodoForm>((f) => {
+  required(f.todo, { message: "Todo is required" });
+  minLength(f.todo, 1, { message: "Todo must have at least 1 character" });
+  maxLength(f.todo, 200, { message: "Maximum length is 200 characters" });
+});
 
 @Component({
   selector: "app-todo-create-form",
   templateUrl: "./todo-create-form.html",
   styleUrl: "./todo-create-form.scss",
   imports: [
-    ReactiveFormsModule,
+    Field,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -23,20 +35,13 @@ import { MatIconModule } from "@angular/material/icon";
   ],
 })
 export class TodoCreateForm {
-  private readonly formBuilder = inject(FormBuilder);
-
   readonly create = output<string>();
 
   readonly isExpanded = signal(false);
 
-  readonly todoControl: FormControl<string> = this.formBuilder.control("", {
-    nonNullable: true,
-    validators: [
-      Validators.required,
-      Validators.minLength(1),
-      Validators.maxLength(200),
-    ],
-  });
+  readonly todoData = signal<TodoForm>({ todo: "" });
+
+  readonly todoForm = form(this.todoData, todoSchema);
 
   expand(): void {
     this.isExpanded.set(true);
@@ -44,13 +49,16 @@ export class TodoCreateForm {
 
   collapse(): void {
     this.isExpanded.set(false);
-    this.todoControl.reset();
+    this.todoData.set({ todo: "" });
+    this.todoForm.todo().reset();
   }
 
   onSubmit(): void {
-    if (this.todoControl.valid && this.todoControl.value.trim()) {
-      this.create.emit(this.todoControl.value.trim());
-      this.todoControl.reset();
+    const value = this.todoData().todo.trim();
+    if (this.todoForm().valid() && value) {
+      this.create.emit(value);
+      this.todoData.set({ todo: "" });
+      this.todoForm.todo().reset();
     }
   }
 
