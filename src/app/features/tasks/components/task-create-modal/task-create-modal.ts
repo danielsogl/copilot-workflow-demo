@@ -1,11 +1,12 @@
-import { Component, inject, signal, effect } from "@angular/core";
+import { Component, inject, signal, effect, computed } from "@angular/core";
 import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  ReactiveFormsModule,
-  Validators,
-} from "@angular/forms";
+  form,
+  schema,
+  Field,
+  required,
+  minLength,
+  maxLength,
+} from "@angular/forms/signals";
 import { MatDialogRef, MatDialogModule } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
@@ -18,18 +19,31 @@ import { TaskStore } from "../../services/task-store";
 import { Task } from "../../../../shared/models/task.model";
 
 interface TaskForm {
-  title: FormControl<string>;
-  description: FormControl<string>;
-  priority: FormControl<"low" | "medium" | "high">;
-  dueDate: FormControl<string>;
+  title: string;
+  description: string;
+  priority: "low" | "medium" | "high";
+  dueDate: string;
 }
+
+const taskSchema = schema<TaskForm>((f) => {
+  required(f.title, { message: "Title is required" });
+  minLength(f.title, 3, { message: "Title must be at least 3 characters" });
+  maxLength(f.title, 100, {
+    message: "Title must not exceed 100 characters",
+  });
+  maxLength(f.description, 500, {
+    message: "Description must not exceed 500 characters",
+  });
+  required(f.priority, { message: "Priority is required" });
+  required(f.dueDate, { message: "Due Date is required" });
+});
 
 @Component({
   selector: "app-task-create-modal",
   templateUrl: "./task-create-modal.html",
   styleUrl: "./task-create-modal.scss",
   imports: [
-    ReactiveFormsModule,
+    Field,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
@@ -41,12 +55,33 @@ interface TaskForm {
   ],
 })
 export class TaskCreateModal {
-  private readonly formBuilder = inject(FormBuilder);
   private readonly dialogRef = inject(MatDialogRef<TaskCreateModal>);
   readonly taskStore = inject(TaskStore);
 
   readonly isSubmitting = signal(false);
   private readonly previousTaskCount = signal(this.taskStore.totalTaskCount());
+
+  readonly taskData = signal<TaskForm>({
+    title: "",
+    description: "",
+    priority: "medium",
+    dueDate: "",
+  });
+
+  readonly taskForm = form(this.taskData, taskSchema);
+
+  readonly priorities = [
+    { value: "low", label: "Low" },
+    { value: "medium", label: "Medium" },
+    { value: "high", label: "High" },
+  ] as const;
+
+  readonly minDate = new Date();
+
+  readonly titleLength = computed(() => this.taskData().title?.length || 0);
+  readonly descriptionLength = computed(
+    () => this.taskData().description?.length || 0,
+  );
 
   constructor() {
     // Watch for task count changes to detect successful creation
@@ -66,44 +101,13 @@ export class TaskCreateModal {
     });
   }
 
-  readonly taskForm: FormGroup<TaskForm> = this.formBuilder.group<TaskForm>({
-    title: this.formBuilder.control("", {
-      nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(100),
-      ],
-    }),
-    description: this.formBuilder.control("", {
-      nonNullable: true,
-      validators: [Validators.maxLength(500)],
-    }),
-    priority: this.formBuilder.control("medium" as const, {
-      nonNullable: true,
-      validators: [Validators.required],
-    }),
-    dueDate: this.formBuilder.control("", {
-      nonNullable: true,
-      validators: [Validators.required],
-    }),
-  });
-
-  readonly priorities = [
-    { value: "low", label: "Low" },
-    { value: "medium", label: "Medium" },
-    { value: "high", label: "High" },
-  ] as const;
-
-  readonly minDate = new Date();
-
   onSubmit(): void {
-    if (this.taskForm.valid) {
+    if (this.taskForm().valid()) {
       this.isSubmitting.set(true);
       this.previousTaskCount.set(this.taskStore.totalTaskCount());
       this.taskStore.clearError();
 
-      const formValue = this.taskForm.getRawValue();
+      const formValue = this.taskData();
       const taskData: Omit<
         Task,
         "id" | "createdAt" | "completedAt" | "status"
@@ -116,7 +120,7 @@ export class TaskCreateModal {
 
       this.taskStore.createTask(taskData);
     } else {
-      this.markFormGroupTouched();
+      this.markFormAsTouched();
     }
   }
 
@@ -124,36 +128,19 @@ export class TaskCreateModal {
     this.dialogRef.close();
   }
 
-  private markFormGroupTouched(): void {
-    Object.keys(this.taskForm.controls).forEach((key) => {
-      const control = this.taskForm.get(key);
-      control?.markAsTouched();
-    });
+  private markFormAsTouched(): void {
+    this.taskForm.title().markAsTouched();
+    this.taskForm.description().markAsTouched();
+    this.taskForm.priority().markAsTouched();
+    this.taskForm.dueDate().markAsTouched();
   }
 
   getFieldError(fieldName: keyof TaskForm): string {
-    const control = this.taskForm.get(fieldName);
-    if (control?.errors && control.touched) {
-      if (control.errors["required"]) {
-        return `${this.getFieldLabel(fieldName)} is required`;
-      }
-      if (control.errors["minlength"]) {
-        return `${this.getFieldLabel(fieldName)} must be at least ${control.errors["minlength"].requiredLength} characters`;
-      }
-      if (control.errors["maxlength"]) {
-        return `${this.getFieldLabel(fieldName)} must not exceed ${control.errors["maxlength"].requiredLength} characters`;
-      }
+    const field = this.taskForm[fieldName]();
+    if ((field.touched() || field.dirty()) && field.errors().length > 0) {
+      const firstError = field.errors()[0];
+      return firstError?.message || "";
     }
     return "";
-  }
-
-  private getFieldLabel(fieldName: keyof TaskForm): string {
-    const labels: Record<keyof TaskForm, string> = {
-      title: "Title",
-      description: "Description",
-      priority: "Priority",
-      dueDate: "Due Date",
-    };
-    return labels[fieldName];
   }
 }

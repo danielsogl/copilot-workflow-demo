@@ -126,6 +126,16 @@
             <th mat-header-cell *matHeaderCellDef>Actions</th>
             <td mat-cell *matCellDef="let task">
               <div class="task-list__actions">
+                <button
+                  mat-icon-button
+                  color="accent"
+                  (click)="openEditTaskModal(task)"
+                  matTooltip="Edit Task"
+                  class="task-list__action-button"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
+
                 @if (task.status !== "completed") {
                   <button
                     mat-icon-button
