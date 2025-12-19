@@ -12,6 +12,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { DatePipe, TitleCasePipe } from "@angular/common";
 import { TaskStore } from "../../services/task-store";
 import { TaskCreateModal } from "../task-create-modal/task-create-modal";
+import { TaskEditModal } from "../task-edit-modal/task-edit-modal";
 import { Task } from "../../../../shared/models/task.model";
 
 @Component({
@@ -99,6 +100,24 @@ export class TaskList implements OnInit {
       if (result) {
         // Task is created in the modal via store, no need to refresh
         // The store automatically updates with the new task
+      }
+    });
+  }
+
+  openEditTaskModal(task: Task): void {
+    const dialogRef = this.dialog.open(TaskEditModal, {
+      width: "500px",
+      maxWidth: "90vw",
+      disableClose: false,
+      autoFocus: true,
+      panelClass: "task-modal",
+      data: task,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // Task is updated in the modal via store, no need to refresh
+        // The store automatically updates with the changes
       }
     });
   }
