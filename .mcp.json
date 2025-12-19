@@ -31,6 +31,10 @@
       "type": "stdio",
       "command": "npx",
       "args": ["@eslint/mcp@latest"]
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest"]
     }
   }
 }
