@@ -61,7 +61,7 @@ const userSchema = schema<User>((f) => {
     </form>
   `,
 })
-export class UserFormComponent {
+export class UserForm {
   // Initialize state signal
   user = signal<User>({ name: "", email: "" });
 
@@ -258,7 +258,7 @@ const userSchema = schema<User>((f) => {
     <button type="button" (click)="addHobby()">Add Hobby</button>
   `,
 })
-export class HobbyFormComponent {
+export class HobbyForm {
   user = signal<User>({ name: "", hobbies: [] });
   userForm = form(this.user, userSchema);
 
@@ -315,7 +315,7 @@ field.markAsDirty(); // Mark as dirty
     </form>
   `,
 })
-export class FormComponent {
+export class Form {
   user = signal<User>({ name: "", email: "" });
   userForm = form(this.user, userSchema);
 

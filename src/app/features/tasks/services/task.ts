@@ -6,7 +6,7 @@ import { Task } from "../../../shared/models/task.model";
 @Injectable({
   providedIn: "root",
 })
-export class TaskService {
+export class TaskApi {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = "http://localhost:3000/tasks";
 

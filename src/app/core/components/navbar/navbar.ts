@@ -16,4 +16,4 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
     RouterLinkActive,
   ],
 })
-export class NavbarComponent {}
+export class Navbar {}

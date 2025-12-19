@@ -122,7 +122,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 ### Dialog
 
 ```typescript
-// dialog.component.ts
+// dialog.ts
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 
 export interface DialogData {
@@ -144,7 +144,7 @@ export interface DialogData {
     </mat-dialog-actions>
   `,
 })
-export class ConfirmDialogComponent {
+export class ConfirmDialog {
   readonly data = inject<DialogData>(MAT_DIALOG_DATA);
 }
 
@@ -196,7 +196,7 @@ import { MatSort } from "@angular/material/sort";
     ></mat-paginator>
   `,
 })
-export class DataTableComponent implements AfterViewInit {
+export class DataTable implements AfterViewInit {
   displayedColumns = ["name", "status"];
   dataSource = new MatTableDataSource<Item>();
 
@@ -311,7 +311,7 @@ import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-
     </div>
   `,
 })
-export class DragListComponent {
+export class DragList {
   drop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.items(), event.previousIndex, event.currentIndex);
   }

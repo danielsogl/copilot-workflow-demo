@@ -11,7 +11,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { DatePipe, TitleCasePipe } from "@angular/common";
 import { TaskStore } from "../../services/task-store";
-import { TaskCreateModalComponent } from "../task-create-modal/task-create-modal";
+import { TaskCreateModal } from "../task-create-modal/task-create-modal";
 import { Task } from "../../../../shared/models/task.model";
 
 @Component({
@@ -30,7 +30,7 @@ import { Task } from "../../../../shared/models/task.model";
     TitleCasePipe,
   ],
 })
-export class TaskListComponent implements OnInit {
+export class TaskList implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   readonly taskStore = inject(TaskStore);
@@ -87,7 +87,7 @@ export class TaskListComponent implements OnInit {
   }
 
   openCreateTaskModal(): void {
-    const dialogRef = this.dialog.open(TaskCreateModalComponent, {
+    const dialogRef = this.dialog.open(TaskCreateModal, {
       width: "500px",
       maxWidth: "90vw",
       disableClose: false,

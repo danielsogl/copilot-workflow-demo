@@ -1,16 +1,16 @@
 import { Component, OnInit, inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { TaskStore } from "../../../tasks/services/task-store";
-import { DashboardStatsCardComponent } from "../dashboard-stats-card/dashboard-stats-card";
+import { DashboardStatsCard } from "../dashboard-stats-card/dashboard-stats-card";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @Component({
   selector: "app-dashboard-overview",
   templateUrl: "./dashboard-overview.html",
   styleUrl: "./dashboard-overview.scss",
-  imports: [DashboardStatsCardComponent, MatProgressSpinnerModule],
+  imports: [DashboardStatsCard, MatProgressSpinnerModule],
 })
-export class DashboardOverviewComponent implements OnInit {
+export class DashboardOverview implements OnInit {
   readonly taskStore = inject(TaskStore);
   private readonly router = inject(Router);
 

@@ -34,7 +34,7 @@ import {
   HttpTestingController,
 } from "@angular/common/http/testing";
 
-import { MyService } from "./my.service";
+import { MyService } from "./my";
 
 describe("MyService", () => {
   let service: MyService;
@@ -78,8 +78,8 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { provideZonelessChangeDetection } from "@angular/core";
 import { By } from "@angular/platform-browser";
 
-import { MyComponent } from "./my.component";
-import { MyService } from "./my.service";
+import { MyComponent } from "./my";
+import { MyService } from "./my";
 
 describe("MyComponent", () => {
   let component: MyComponent;
@@ -140,29 +140,29 @@ import { Component } from "@angular/core";
 import { TestBed, ComponentFixture } from "@angular/core/testing";
 import { provideZonelessChangeDetection } from "@angular/core";
 
-import { MyDirective } from "./my.directive";
+import { MyDirective } from "./my";
 
 @Component({
   template: `
     <div [myDirective]="value">Test</div>
   `,
 })
-class TestHostComponent {
+class TestHost {
   value = "test";
 }
 
 describe("MyDirective", () => {
-  let fixture: ComponentFixture<TestHostComponent>;
-  let component: TestHostComponent;
+  let fixture: ComponentFixture<TestHost>;
+  let component: TestHost;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MyDirective],
-      declarations: [TestHostComponent],
+      declarations: [TestHost],
       providers: [provideZonelessChangeDetection()],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TestHostComponent);
+    fixture = TestBed.createComponent(TestHost);
     component = fixture.componentInstance;
   });
 
@@ -182,7 +182,7 @@ describe("MyDirective", () => {
 import { TestBed } from "@angular/core/testing";
 import { provideZonelessChangeDetection } from "@angular/core";
 
-import { MyPipe } from "./my.pipe";
+import { MyPipe } from "./my";
 
 describe("MyPipe", () => {
   let pipe: MyPipe;
@@ -294,7 +294,7 @@ it("should handle timers", () => {
 import { TestBed } from "@angular/core/testing";
 import { provideZonelessChangeDetection } from "@angular/core";
 
-import { MyStandaloneComponent } from "./my-standalone.component";
+import { MyStandaloneComponent } from "./my-standalone";
 
 describe("MyStandaloneComponent", () => {
   beforeEach(async () => {

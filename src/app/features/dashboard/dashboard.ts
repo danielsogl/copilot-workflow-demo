@@ -1,9 +1,9 @@
 import { Component } from "@angular/core";
-import { DashboardOverviewComponent } from "./components/dashboard-overview/dashboard-overview";
+import { DashboardOverview } from "./components/dashboard-overview/dashboard-overview";
 
 @Component({
   selector: "app-dashboard",
   template: "<app-dashboard-overview></app-dashboard-overview>",
-  imports: [DashboardOverviewComponent],
+  imports: [DashboardOverview],
 })
-export class DashboardComponent {}
+export class Dashboard {}

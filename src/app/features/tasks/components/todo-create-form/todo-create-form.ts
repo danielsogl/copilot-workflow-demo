@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, signal, inject } from "@angular/core";
+import { Component, output, signal, inject } from "@angular/core";
 import {
   FormBuilder,
   FormControl,
@@ -22,10 +22,10 @@ import { MatIconModule } from "@angular/material/icon";
     MatIconModule,
   ],
 })
-export class TodoCreateFormComponent {
+export class TodoCreateForm {
   private readonly formBuilder = inject(FormBuilder);
 
-  @Output() create = new EventEmitter<string>();
+  readonly create = output<string>();
 
   readonly isExpanded = signal(false);
 

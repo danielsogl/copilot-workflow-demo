@@ -45,9 +45,9 @@ interface TaskEditForm {
     MatIconModule,
   ],
 })
-export class TaskEditModalComponent {
+export class TaskEditModal {
   private readonly formBuilder = inject(FormBuilder);
-  private readonly dialogRef = inject(MatDialogRef<TaskEditModalComponent>);
+  private readonly dialogRef = inject(MatDialogRef<TaskEditModal>);
   readonly taskStore = inject(TaskStore);
 
   readonly task: Task = inject(MAT_DIALOG_DATA);

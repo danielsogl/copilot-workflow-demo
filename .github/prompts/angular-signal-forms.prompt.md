@@ -97,11 +97,11 @@ const [entityName]Schema = schema<[EntityType]>((f) => {
     Control,
     JsonPipe
   ],
-  templateUrl: './[entity-name]-form.component.html',
-  styleUrls: ['./[entity-name]-form.component.scss'],
+  templateUrl: './[entity-name]-form.html',
+  styleUrls: ['./[entity-name]-form.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class [EntityName]FormComponent {
+export class [EntityName]Form {
   // Signal for form data with proper typing
   [entityName] = signal<[EntityType]>({
     // Initialize with default values matching the interface structure
@@ -327,7 +327,7 @@ readonly formCancel = output<void>();
     </app-[entity-name]-form>
   `
 })
-export class ParentComponent {
+export class Parent {
   selectedEntity = signal<[EntityType] | null>(null);
 
   handleFormSubmit(data: [EntityType]): void {
@@ -344,9 +344,9 @@ Create the following files in the appropriate domain folder:
 src/app/[domain]/
 ├── feature/
 │   ├── [entity-name]-form/
-│   │   ├── [entity-name]-form.component.ts
-│   │   ├── [entity-name]-form.component.html
-│   │   └── [entity-name]-form.component.scss
+│   │   ├── [entity-name]-form.ts
+│   │   ├── [entity-name]-form.html
+│   │   └── [entity-name]-form.scss
 └── data/
     └── models/
         └── [entity-name].model.ts               # Entity model reference

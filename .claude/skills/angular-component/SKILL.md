@@ -57,7 +57,7 @@ import {
     // Do NOT import CommonModule or RouterModule
   ],
 })
-export class ExampleComponent {
+export class Example {
   // Dependency Injection using inject()
   private readonly someService = inject(SomeService);
 

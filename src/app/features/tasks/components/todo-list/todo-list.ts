@@ -1,9 +1,9 @@
-import { Component, Input, computed, inject } from "@angular/core";
+import { Component, input, computed, inject } from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatDividerModule } from "@angular/material/divider";
-import { TodoItemComponent } from "../todo-item/todo-item";
-import { TodoCreateFormComponent } from "../todo-create-form/todo-create-form";
+import { TodoItem } from "../todo-item/todo-item";
+import { TodoCreateForm } from "../todo-create-form/todo-create-form";
 import { TaskStore } from "../../services/task-store";
 import { Todo } from "../../../../shared/models/todo.model";
 
@@ -15,17 +15,19 @@ import { Todo } from "../../../../shared/models/todo.model";
     MatCardModule,
     MatProgressBarModule,
     MatDividerModule,
-    TodoItemComponent,
-    TodoCreateFormComponent,
+    TodoItem,
+    TodoCreateForm,
   ],
 })
-export class TodoListComponent {
+export class TodoList {
   private readonly taskStore = inject(TaskStore);
 
-  @Input({ required: true }) taskId!: string;
+  readonly taskId = input.required<string>();
 
   // Get task and its todos
-  readonly task = computed(() => this.taskStore.tasksEntityMap()[this.taskId]);
+  readonly task = computed(
+    () => this.taskStore.tasksEntityMap()[this.taskId()],
+  );
   readonly todos = computed(() => {
     const task = this.task();
     return task?.todos?.sort((a, b) => a.order - b.order) || [];
@@ -50,12 +52,12 @@ export class TodoListComponent {
 
   // Actions
   onCreateTodo(title: string): void {
-    this.taskStore.addTodo({ taskId: this.taskId, title });
+    this.taskStore.addTodo({ taskId: this.taskId(), title });
   }
 
   onToggleTodo(todo: Todo): void {
     this.taskStore.toggleTodo({
-      taskId: this.taskId,
+      taskId: this.taskId(),
       todoId: todo.id,
       completed: !todo.completed,
     });
@@ -63,7 +65,7 @@ export class TodoListComponent {
 
   onDeleteTodo(todo: Todo): void {
     if (confirm(`Delete "${todo.title}"?`)) {
-      this.taskStore.deleteTodo({ taskId: this.taskId, todoId: todo.id });
+      this.taskStore.deleteTodo({ taskId: this.taskId(), todoId: todo.id });
     }
   }
 }

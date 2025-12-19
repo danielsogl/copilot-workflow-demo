@@ -32,7 +32,7 @@ You are an NgRx Signal Store expert. Your task is to create a complete signal st
    - Return Observables (never Promises)
 
 4. **Create Store File**:
-   - Location: `src/app/{domain}/data/state/{name}.store.ts`
+   - Location: `src/app/{domain}/data/state/{name}-store.ts`
    - Follow NgRx Signals patterns:
      - Define state interface with strong typing
      - Create `initialState` with meaningful defaults

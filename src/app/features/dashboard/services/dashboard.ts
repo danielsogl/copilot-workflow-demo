@@ -7,7 +7,7 @@ import { DashboardStats } from "../../../shared/models/dashboard.model";
 @Injectable({
   providedIn: "root",
 })
-export class DashboardService {
+export class DashboardData {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = "http://localhost:3000/tasks";
 

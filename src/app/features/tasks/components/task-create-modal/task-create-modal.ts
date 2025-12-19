@@ -40,9 +40,9 @@ interface TaskForm {
     MatIconModule,
   ],
 })
-export class TaskCreateModalComponent {
+export class TaskCreateModal {
   private readonly formBuilder = inject(FormBuilder);
-  private readonly dialogRef = inject(MatDialogRef<TaskCreateModalComponent>);
+  private readonly dialogRef = inject(MatDialogRef<TaskCreateModal>);
   readonly taskStore = inject(TaskStore);
 
   readonly isSubmitting = signal(false);

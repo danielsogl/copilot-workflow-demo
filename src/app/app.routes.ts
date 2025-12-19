@@ -5,22 +5,20 @@ export const routes: Routes = [
   {
     path: "dashboard",
     loadComponent: () =>
-      import("./features/dashboard/dashboard").then(
-        (m) => m.DashboardComponent,
-      ),
+      import("./features/dashboard/dashboard").then((m) => m.Dashboard),
   },
   {
     path: "tasks",
     loadComponent: () =>
       import("./features/tasks/components/task-list/task-list").then(
-        (m) => m.TaskListComponent,
+        (m) => m.TaskList,
       ),
   },
   {
     path: "tasks/:status",
     loadComponent: () =>
       import("./features/tasks/components/task-list/task-list").then(
-        (m) => m.TaskListComponent,
+        (m) => m.TaskList,
       ),
   },
 ];

@@ -138,7 +138,7 @@ const userSchema = schema<User>((f) => {
     </form>
   `,
 })
-export class UserFormComponent {
+export class UserForm {
   // Initialize form state with signal
   user = signal<User>({ name: '', email: '' });
 
@@ -226,7 +226,7 @@ const userSchema = schema<User>((f) => {
     </form>
   `
 })
-export class CustomValidationFormComponent {
+export class CustomValidationForm {
   user = signal<User>({ username: '', age: 0 });
   userForm = form(this.user, userSchema);
 
@@ -301,7 +301,7 @@ const userSchema = schema<User>((f) => {
     </form>
   `,
 })
-export class NestedFormComponent {
+export class NestedForm {
   user = signal<User>({
     name: '',
     age: 0,
@@ -387,7 +387,7 @@ const userSchema = schema<User>((f) => {
     </form>
   `,
 })
-export class ArrayFormComponent {
+export class ArrayForm {
   user = signal<User>({
     name: '',
     email: '',
@@ -475,7 +475,7 @@ const signupSchema = schema<SignupForm>((f) => {
     </form>
   `,
 })
-export class SignupFormComponent {
+export class SignupForm {
   formData = signal<SignupForm>({
     name: '',
     email: '',
@@ -528,7 +528,7 @@ interface UserForm {
     </form>
   `
 })
-export class AsyncFormComponent {
+export class AsyncForm {
   private readonly http = inject(HttpClient);
   
   readonly isCheckingUsername = signal(false);
@@ -687,7 +687,7 @@ const userProjectsSchema = schema<UserProjects>((f) => {
     </form>
   `,
 })
-export class ProjectsFormComponent {
+export class ProjectsForm {
   userProjects = signal<UserProjects>({
     username: '',
     projects: [],
@@ -915,7 +915,7 @@ const userSchema = schema<User>((f) => {
     </form>
   `,
 })
-export class StatefulFormComponent {
+export class StatefulForm {
   user = signal<User>({ name: '', email: '' });
   userForm = form(this.user, userSchema);
 
@@ -1256,18 +1256,18 @@ const formSchema = schema<User>((f) => {
 
 ```typescript
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { UserFormComponent } from './user-form.component';
+import { UserForm } from './user-form';
 
-describe('UserFormComponent', () => {
-  let component: UserFormComponent;
-  let fixture: ComponentFixture<UserFormComponent>;
+describe('UserForm', () => {
+  let component: UserForm;
+  let fixture: ComponentFixture<UserForm>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UserFormComponent],
+      imports: [UserForm],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(UserFormComponent);
+    fixture = TestBed.createComponent(UserForm);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

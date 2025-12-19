@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
+import { Component, input, output } from "@angular/core";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
@@ -16,22 +16,22 @@ import { Todo } from "../../../../shared/models/todo.model";
     MatTooltipModule,
   ],
 })
-export class TodoItemComponent {
-  @Input({ required: true }) todo!: Todo;
-  @Input() disabled = false;
+export class TodoItem {
+  readonly todo = input.required<Todo>();
+  readonly disabled = input(false);
 
-  @Output() toggleComplete = new EventEmitter<Todo>();
-  @Output() delete = new EventEmitter<Todo>();
+  readonly toggleComplete = output<Todo>();
+  readonly delete = output<Todo>();
 
   onToggle(): void {
-    if (!this.disabled) {
-      this.toggleComplete.emit(this.todo);
+    if (!this.disabled()) {
+      this.toggleComplete.emit(this.todo());
     }
   }
 
   onDelete(): void {
-    if (!this.disabled) {
-      this.delete.emit(this.todo);
+    if (!this.disabled()) {
+      this.delete.emit(this.todo());
     }
   }
 }

@@ -70,7 +70,7 @@ import {
 } from "@ngrx/signals";
 import { withEntities, entityConfig } from "@ngrx/signals/entities";
 import { computed, inject } from "@angular/core";
-import { UserService } from "./user.service";
+import { UserService } from "./user";
 import { User } from "./user.model";
 import { setAllEntities } from "@ngrx/signals/entities";
 
@@ -146,7 +146,7 @@ export const UserStore = signalStore(
 // Signal store method patterns
 import { signalStore, withState, withMethods, patchState } from "@ngrx/signals";
 import { inject } from "@angular/core";
-import { TodoService } from "./todo.service";
+import { TodoService } from "./todo";
 import { Todo } from "./todo.model";
 
 export interface TodoState {
@@ -244,7 +244,7 @@ export const UserStore = signalStore(
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UsersContainerComponent implements OnInit {
+export class UsersContainer implements OnInit {
   readonly userStore = inject(UserStore);
 
   selectedUserName = computed(() => {
@@ -455,7 +455,7 @@ export const PreferencesStore = signalStore(
 
 ### Store Organization
 
-- **File Location:** Store definitions (`*.store.ts`) exist in dedicated files
+- **File Location:** Store definitions (`*-store.ts`) exist in dedicated files
 - **Naming Convention:** Stores follow the naming pattern `FeatureNameStore`
 - **Model Co-location:** State interfaces and models exist near store definitions
 - **Provider Functions:** Provider functions (`provideFeatureNameStore()`) encapsulate store providers

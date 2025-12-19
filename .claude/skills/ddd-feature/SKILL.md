@@ -255,7 +255,7 @@ import { Task } from "../../data/models/task.model";
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatCardModule, MatCheckboxModule, MatIconModule, MatButtonModule],
 })
-export class TaskItemComponent {
+export class TaskItem {
   readonly task = input.required<Task>();
 
   readonly toggle = output<boolean>();
@@ -297,9 +297,9 @@ import { TaskItemComponent } from "../../ui/task-item/task-item";
   templateUrl: "./task-list.html",
   styleUrl: "./task-list.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatProgressSpinnerModule, TaskItemComponent],
+  imports: [MatProgressSpinnerModule, TaskItem],
 })
-export class TaskListComponent implements OnInit {
+export class TaskList implements OnInit {
   readonly taskStore = inject(TaskStore);
 
   ngOnInit(): void {

@@ -350,7 +350,7 @@ import { TaskStore } from "../data/state/task-store";
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TaskListComponent implements OnInit {
+export class TaskList implements OnInit {
   readonly taskStore = inject(TaskStore);
 
   ngOnInit(): void {

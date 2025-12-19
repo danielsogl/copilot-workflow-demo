@@ -130,12 +130,12 @@ export const TaskStore = signalStore(
 ```
 # ❌ BAD
 src/app/tasks/feature/
-  task-list.component.ts  // Direct file
+  task-list.ts  // Direct file
 
 # ✅ GOOD
 src/app/tasks/feature/
   task-list/
-    task-list.component.ts
+    task-list.ts
 ```
 
 ❌ **Wrong Folder Structure**:
@@ -310,7 +310,7 @@ Generate review feedback as:
 
 ## Critical Issues 🚫
 
-### File: `src/app/tasks/feature/task-list.component.ts`
+### File: `src/app/tasks/feature/task-list.ts`
 
 **Issue**: Missing OnPush change detection
 **Severity**: Critical

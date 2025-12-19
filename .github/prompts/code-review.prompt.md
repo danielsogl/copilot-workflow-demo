@@ -3,7 +3,7 @@ description: This prompt can be used to review code changes made on a given bran
 name: code-review
 agent: agent
 model: Auto (copilot)
-tools: ['search', 'runCommands', 'runTasks', 'usages', 'problems', 'changes', 'testFailure', 'githubRepo', 'todos', 'runTests', 'runSubagent']
+tools: ['execute/testFailure', 'execute/getTerminalOutput', 'execute/runTask', 'execute/getTaskOutput', 'execute/createAndRunTask', 'execute/runInTerminal', 'execute/runTests', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'search', 'web/githubRepo', 'agent', 'todo']
 ---
 
 # Code Review for Active Branch
@@ -44,26 +44,26 @@ Files with critical problems that must be fixed:
 
 ### 3. Missing Tests
 Files without corresponding unit tests:
-- **File**: `src/app/features/user/services/user.service.ts`
-  - **Missing**: `user.service.spec.ts`
+- **File**: `src/app/features/user/services/user.ts`
+  - **Missing**: `user.spec.ts`
   - **Requirement**: All services must have unit tests
 
 ### 4. Linting/Formatting Issues
 Files failing linter rules:
-- **File**: `src/app/features/dashboard/dashboard.component.ts`
+- **File**: `src/app/features/dashboard/dashboard.ts`
   - **Rule**: `@typescript-eslint/no-explicit-any`
   - **Line**: 42
   - **Fix**: Replace `any` with proper type
 
 ### 5. Architecture Violations
 Files not following DDD structure:
-- **File**: `src/app/user/user-list.component.ts`
+- **File**: `src/app/user/user-list.ts`
   - **Issue**: Component not in subfolder
-  - **Expected**: `src/app/user/feature/user-list/user-list.component.ts`
+  - **Expected**: `src/app/user/feature/user-list/user-list.ts`
 
 ### 6. Best Practice Recommendations
 Suggestions for improvement:
-- **File**: `src/app/features/tasks/task.service.ts`
+- **File**: `src/app/features/tasks/task.ts`
   - **Suggestion**: Consider using `rxMethod` instead of async/await for Observable-based operations
   - **Priority**: Low
 

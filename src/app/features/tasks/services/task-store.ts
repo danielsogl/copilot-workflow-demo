@@ -18,7 +18,7 @@ import { rxMethod } from "@ngrx/signals/rxjs-interop";
 import { tapResponse } from "@ngrx/operators";
 import { computed, inject } from "@angular/core";
 import { pipe, switchMap, tap } from "rxjs";
-import { TaskService } from "./task";
+import { TaskApi } from "./task";
 import { Task } from "../../../shared/models/task.model";
 
 export interface TaskState {
@@ -94,7 +94,7 @@ export const TaskStore = signalStore(
       }),
     }),
   ),
-  withMethods((store, taskService = inject(TaskService)) => ({
+  withMethods((store, taskService = inject(TaskApi)) => ({
     // Load all tasks
     loadTasks: rxMethod<void>(
       pipe(

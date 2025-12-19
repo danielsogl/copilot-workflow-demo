@@ -1,6 +1,6 @@
 import {
   Component,
-  Input,
+  input,
   computed,
   inject,
   signal,
@@ -27,11 +27,11 @@ import { TaskStore } from "../../services/task-store";
     MatTooltipModule,
   ],
 })
-export class TaskTimerComponent implements OnDestroy {
+export class TaskTimer implements OnDestroy {
   private readonly taskStore = inject(TaskStore);
 
-  @Input({ required: true }) task!: Task;
-  @Input() compact = false;
+  readonly task = input.required<Task>();
+  readonly compact = input(false);
 
   // Local timer tick for UI updates
   private readonly currentTime = signal(Date.now());
@@ -40,7 +40,7 @@ export class TaskTimerComponent implements OnDestroy {
   constructor() {
     // Update current time every second if timer is running
     effect(() => {
-      const task = this.task;
+      const task = this.task();
       if (task?.timerStatus === "running") {
         this.startLocalTimer();
       } else {
@@ -50,10 +50,12 @@ export class TaskTimerComponent implements OnDestroy {
   }
 
   // Computed values
-  readonly timerStatus = computed(() => this.task?.timerStatus || "idle");
-  readonly estimatedMinutes = computed(() => this.task?.estimatedMinutes || 0);
+  readonly timerStatus = computed(() => this.task()?.timerStatus || "idle");
+  readonly estimatedMinutes = computed(
+    () => this.task()?.estimatedMinutes || 0,
+  );
   readonly elapsedMinutes = computed(() => {
-    const task = this.task;
+    const task = this.task();
     if (!task) return 0;
 
     let elapsed = task.elapsedMinutes || 0;
@@ -100,26 +102,30 @@ export class TaskTimerComponent implements OnDestroy {
 
   // Actions
   startTimer(): void {
-    if (this.task) {
-      this.taskStore.startTimer(this.task.id);
+    const task = this.task();
+    if (task) {
+      this.taskStore.startTimer(task.id);
     }
   }
 
   pauseTimer(): void {
-    if (this.task) {
-      this.taskStore.pauseTimer(this.task.id);
+    const task = this.task();
+    if (task) {
+      this.taskStore.pauseTimer(task.id);
     }
   }
 
   stopTimer(): void {
-    if (this.task) {
-      this.taskStore.stopTimer(this.task.id);
+    const task = this.task();
+    if (task) {
+      this.taskStore.stopTimer(task.id);
     }
   }
 
   resetTimer(): void {
-    if (this.task) {
-      this.taskStore.resetTimer(this.task.id);
+    const task = this.task();
+    if (task) {
+      this.taskStore.resetTimer(task.id);
     }
   }
 

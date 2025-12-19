@@ -8,7 +8,7 @@ import { MatIconModule } from "@angular/material/icon";
   styleUrl: "./dashboard-stats-card.scss",
   imports: [MatCardModule, MatIconModule],
 })
-export class DashboardStatsCardComponent {
+export class DashboardStatsCard {
   readonly title = input.required<string>();
   readonly value = input.required<number>();
   readonly icon = input.required<string>();

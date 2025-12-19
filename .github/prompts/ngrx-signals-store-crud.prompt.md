@@ -1,9 +1,9 @@
 ---
 description: A reusable prompt for generating NgRx Signal stores with complete CRUD operations for a specified entity.
 name: ngrx-signals-store-crud-generator
-agent: agent
-model: Claude Sonnet 4.5 (copilot)
-tools: ["edit","search","new","runCommands","runTasks","usages","problems","todos"]
+agent: signal-store-creator
+model: Claude Haiku 4.5 (copilot)
+tools: ['vscode/getProjectSetupInfo', 'vscode/runCommand', 'execute/getTerminalOutput', 'execute/runTask', 'execute/getTaskOutput', 'execute/createAndRunTask', 'execute/runInTerminal', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit', 'search', 'eslint/*', 'todo']
 ---
 
 # NgRx Signal Store CRUD Generator
@@ -120,10 +120,10 @@ Create the following files in the appropriate domain folder:
 ```
 src/app/[domain]/
 ├── data/
-│   ├── [entity-name].service.ts        # HTTP service (if not exists)
-│   └── [entity-name].service.spec.ts   # Service tests
+│   ├── [entity-name].ts        # HTTP service (if not exists)
+│   └── [entity-name].spec.ts   # Service tests
 ├── feature/
-│   ├── [entity-name].store.ts          # Signal store
+│   ├── [entity-name]-store.ts          # Signal store
 └── data/
     └── models/
         └── [entity-name].model.ts       # Entity model (reference)
