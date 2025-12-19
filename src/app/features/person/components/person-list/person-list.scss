@@ -1,0 +1,195 @@
+.person-list-container {
+  margin: 2rem;
+  padding: 0;
+
+  mat-card-header {
+    padding: 1.5rem;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  mat-card-content {
+    padding: 1.5rem;
+  }
+}
+
+.title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  .title-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .title-icon {
+      font-size: 2rem;
+      width: 2rem;
+      height: 2rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 0.5rem;
+
+    button {
+      mat-icon {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  gap: 1rem;
+
+  p {
+    margin: 0;
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+.error-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #ffebee;
+  border-radius: 4px;
+  color: #c62828;
+
+  mat-icon {
+    font-size: 2rem;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  text-align: center;
+
+  mat-icon {
+    font-size: 4rem;
+    width: 4rem;
+    height: 4rem;
+    color: rgba(0, 0, 0, 0.3);
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    margin: 0 0 0.5rem;
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  p {
+    margin: 0 0 1.5rem;
+    color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.table-container {
+  overflow-x: auto;
+  margin-top: 1rem;
+
+  table {
+    width: 100%;
+
+    th {
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.87);
+    }
+
+    td {
+      color: rgba(0, 0, 0, 0.6);
+    }
+
+    .name-cell {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      .person-icon {
+        color: rgba(0, 0, 0, 0.4);
+      }
+
+      .person-name {
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.87);
+      }
+    }
+
+    .email-link {
+      color: #1976d2;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .action-buttons-cell {
+      display: flex;
+      gap: 0.25rem;
+    }
+  }
+}
+
+.summary {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  text-align: center;
+
+  p {
+    margin: 0;
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: 500;
+  }
+}
+
+@media (max-width: 768px) {
+  .title-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+
+    .action-buttons {
+      width: 100%;
+      flex-direction: column;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+
+  .table-container {
+    table {
+      font-size: 0.875rem;
+    }
+  }
+}

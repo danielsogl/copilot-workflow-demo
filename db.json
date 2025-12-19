@@ -202,5 +202,79 @@
         }
       ]
     }
+  ],
+  "persons": [
+    {
+      "id": "1",
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john.doe@example.com",
+      "phone": "+1-555-0101",
+      "dateOfBirth": "1985-03-15",
+      "address": "123 Main Street",
+      "city": "New York",
+      "country": "USA",
+      "createdAt": "2024-01-10T10:00:00Z"
+    },
+    {
+      "id": "2",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "email": "jane.smith@example.com",
+      "phone": "+1-555-0102",
+      "dateOfBirth": "1990-07-22",
+      "address": "456 Oak Avenue",
+      "city": "Los Angeles",
+      "country": "USA",
+      "createdAt": "2024-02-05T14:30:00Z"
+    },
+    {
+      "id": "3",
+      "firstName": "Michael",
+      "lastName": "Johnson",
+      "email": "michael.johnson@example.com",
+      "phone": "+1-555-0103",
+      "dateOfBirth": "1988-11-30",
+      "address": "789 Pine Road",
+      "city": "Chicago",
+      "country": "USA",
+      "createdAt": "2024-03-12T09:15:00Z"
+    },
+    {
+      "id": "4",
+      "firstName": "Emily",
+      "lastName": "Brown",
+      "email": "emily.brown@example.com",
+      "phone": "+1-555-0104",
+      "dateOfBirth": "1992-05-18",
+      "address": "321 Elm Street",
+      "city": "Houston",
+      "country": "USA",
+      "createdAt": "2024-04-20T16:45:00Z"
+    },
+    {
+      "id": "5",
+      "firstName": "David",
+      "lastName": "Wilson",
+      "email": "david.wilson@example.com",
+      "phone": "+1-555-0105",
+      "dateOfBirth": "1987-09-08",
+      "address": "654 Maple Drive",
+      "city": "Phoenix",
+      "country": "USA",
+      "createdAt": "2024-05-15T11:20:00Z"
+    },
+    {
+      "id": "6",
+      "firstName": "Sarah",
+      "lastName": "Davis",
+      "email": "sarah.davis@example.com",
+      "phone": "+1-555-0106",
+      "dateOfBirth": "1995-01-25",
+      "address": "987 Cedar Lane",
+      "city": "Philadelphia",
+      "country": "USA",
+      "createdAt": "2024-06-08T13:00:00Z"
+    }
   ]
 }

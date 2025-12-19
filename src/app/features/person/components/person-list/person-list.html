@@ -1,0 +1,138 @@
+<mat-card class="person-list-container">
+  <mat-card-header>
+    <mat-card-title class="title-row">
+      <div class="title-content">
+        <mat-icon class="title-icon">people</mat-icon>
+        <h1>Persons</h1>
+      </div>
+      <div class="action-buttons">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="openCreatePersonModal()"
+          matTooltip="Add new person"
+        >
+          <mat-icon>add</mat-icon>
+          Add Person
+        </button>
+        <button
+          mat-button
+          (click)="goToDashboard()"
+          matTooltip="Back to dashboard"
+        >
+          <mat-icon>dashboard</mat-icon>
+          Dashboard
+        </button>
+      </div>
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    @if (personStore.loading()) {
+      <div class="loading-container">
+        <mat-spinner diameter="50"></mat-spinner>
+        <p>Loading persons...</p>
+      </div>
+    } @else if (personStore.error()) {
+      <div class="error-container">
+        <mat-icon color="warn">error</mat-icon>
+        <p>{{ personStore.error() }}</p>
+      </div>
+    } @else if (personStore.totalPersonCount() === 0) {
+      <div class="empty-state">
+        <mat-icon>people_outline</mat-icon>
+        <h2>No persons found</h2>
+        <p>Get started by adding your first person</p>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="openCreatePersonModal()"
+        >
+          <mat-icon>add</mat-icon>
+          Add Person
+        </button>
+      </div>
+    } @else {
+      <div class="table-container">
+        <table mat-table [dataSource]="personStore.personsEntities()">
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let person">
+              <div class="name-cell">
+                <mat-icon class="person-icon">person</mat-icon>
+                <span class="person-name">{{ getFullName(person) }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Email Column -->
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let person">
+              <a [href]="'mailto:' + person.email" class="email-link">
+                {{ person.email }}
+              </a>
+            </td>
+          </ng-container>
+
+          <!-- Phone Column -->
+          <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef>Phone</th>
+            <td mat-cell *matCellDef="let person">
+              {{ person.phone }}
+            </td>
+          </ng-container>
+
+          <!-- City Column -->
+          <ng-container matColumnDef="city">
+            <th mat-header-cell *matHeaderCellDef>City</th>
+            <td mat-cell *matCellDef="let person">
+              {{ person.city }}
+            </td>
+          </ng-container>
+
+          <!-- Country Column -->
+          <ng-container matColumnDef="country">
+            <th mat-header-cell *matHeaderCellDef>Country</th>
+            <td mat-cell *matCellDef="let person">
+              {{ person.country }}
+            </td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let person">
+              <div class="action-buttons-cell">
+                <button
+                  mat-icon-button
+                  color="primary"
+                  (click)="openEditPersonModal(person)"
+                  matTooltip="Edit person"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button
+                  mat-icon-button
+                  color="warn"
+                  (click)="deletePerson(person)"
+                  matTooltip="Delete person"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+
+      <div class="summary">
+        <p>Total: {{ personStore.totalPersonCount() }} person(s)</p>
+      </div>
+    }
+  </mat-card-content>
+</mat-card>
