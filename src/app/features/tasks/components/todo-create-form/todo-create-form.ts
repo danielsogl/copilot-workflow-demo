@@ -4,7 +4,6 @@ import {
   schema,
   Field,
   required,
-  minLength,
   maxLength,
 } from "@angular/forms/signals";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -18,7 +17,6 @@ interface TodoForm {
 
 const todoSchema = schema<TodoForm>((f) => {
   required(f.todo, { message: "Todo is required" });
-  minLength(f.todo, 1, { message: "Todo must have at least 1 character" });
   maxLength(f.todo, 200, { message: "Maximum length is 200 characters" });
 });
 
@@ -50,7 +48,6 @@ export class TodoCreateForm {
   collapse(): void {
     this.isExpanded.set(false);
     this.todoData.set({ todo: "" });
-    this.todoForm.todo().reset();
   }
 
   onSubmit(): void {
@@ -58,7 +55,6 @@ export class TodoCreateForm {
     if (this.todoForm().valid() && value) {
       this.create.emit(value);
       this.todoData.set({ todo: "" });
-      this.todoForm.todo().reset();
     }
   }
 
