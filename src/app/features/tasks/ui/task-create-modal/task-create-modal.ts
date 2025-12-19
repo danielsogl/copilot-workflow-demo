@@ -14,7 +14,7 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
-import { TaskStore } from "../../services/task-store";
+import { TaskStore } from "../../data/state/task-store";
 import { Task } from "../../../../shared/models/task.model";
 
 interface TaskForm {

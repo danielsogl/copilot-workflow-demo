@@ -4,7 +4,7 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatDividerModule } from "@angular/material/divider";
 import { TodoItem } from "../todo-item/todo-item";
 import { TodoCreateForm } from "../todo-create-form/todo-create-form";
-import { TaskStore } from "../../services/task-store";
+import { TaskStore } from "../../data/state/task-store";
 import { Todo } from "../../../../shared/models/todo.model";
 
 @Component({

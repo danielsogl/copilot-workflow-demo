@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from "@angular/core";
 import { Router } from "@angular/router";
-import { TaskStore } from "../../../tasks/services/task-store";
+import { TaskStore } from "../../../tasks/data/state/task-store";
 import { DashboardStatsCard } from "../dashboard-stats-card/dashboard-stats-card";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 

@@ -10,15 +10,11 @@ export const routes: Routes = [
   {
     path: "tasks",
     loadComponent: () =>
-      import("./features/tasks/components/task-list/task-list").then(
-        (m) => m.TaskList,
-      ),
+      import("./features/tasks/ui/task-list/task-list").then((m) => m.TaskList),
   },
   {
     path: "tasks/:status",
     loadComponent: () =>
-      import("./features/tasks/components/task-list/task-list").then(
-        (m) => m.TaskList,
-      ),
+      import("./features/tasks/ui/task-list/task-list").then((m) => m.TaskList),
   },
 ];

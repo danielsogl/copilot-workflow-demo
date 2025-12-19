@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable, map, catchError, of, tap } from "rxjs";
-import { Task } from "../../../shared/models/task.model";
+import { Task } from "../../../../shared/models/task.model";
 
 @Injectable({
   providedIn: "root",

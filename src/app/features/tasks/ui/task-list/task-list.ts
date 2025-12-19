@@ -10,7 +10,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { DatePipe, TitleCasePipe } from "@angular/common";
-import { TaskStore } from "../../services/task-store";
+import { TaskStore } from "../../data/state/task-store";
 import { TaskCreateModal } from "../task-create-modal/task-create-modal";
 import { Task } from "../../../../shared/models/task.model";
 

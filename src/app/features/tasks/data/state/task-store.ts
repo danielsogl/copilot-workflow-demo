@@ -18,8 +18,8 @@ import { rxMethod } from "@ngrx/signals/rxjs-interop";
 import { tapResponse } from "@ngrx/operators";
 import { computed, inject } from "@angular/core";
 import { pipe, switchMap, tap } from "rxjs";
-import { TaskApi } from "./task";
-import { Task } from "../../../shared/models/task.model";
+import { TaskApi } from "../infrastructure/task";
+import { Task } from "../../../../shared/models/task.model";
 
 export interface TaskState {
   selectedTaskId: string | null;
