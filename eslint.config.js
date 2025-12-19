@@ -3,6 +3,9 @@ const eslint = require("@eslint/js");
 const { defineConfig } = require("eslint/config");
 const tseslint = require("typescript-eslint");
 const angular = require("angular-eslint");
+const ngrx = /** @type {import("@ngrx/eslint-plugin/v9")} */ (
+  require("@ngrx/eslint-plugin/v9")
+);
 const eslintConfigPrettier = require("eslint-config-prettier/flat");
 const playwright = /** @type {import("eslint-plugin-playwright").default} */ (
   require("eslint-plugin-playwright")
@@ -11,11 +14,14 @@ const playwright = /** @type {import("eslint-plugin-playwright").default} */ (
 module.exports = defineConfig([
   {
     files: ["**/*.ts"],
+    ignores: ["tests/**"],
     extends: [
       eslint.configs.recommended,
       tseslint.configs.recommended,
       tseslint.configs.stylistic,
       angular.configs.tsRecommended,
+      .../** @type {any[]} */ (ngrx.configs.signals),
+      .../** @type {any[]} */ (ngrx.configs.operators),
       eslintConfigPrettier,
     ],
     processor: angular.processInlineTemplates,
