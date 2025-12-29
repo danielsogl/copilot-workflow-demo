@@ -41,7 +41,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-playwright": "^2.4.0",
     "eslint-plugin-prettier": "^5.5.4",
-    "jsdom": "^27.3.0",
+    "jsdom": "^27.4.0",
     "lefthook": "^2.0.13",
     "ng-mocks": "^14.15.0",
     "prettier": "^3.7.4",
