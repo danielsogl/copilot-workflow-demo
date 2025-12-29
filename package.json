@@ -42,11 +42,11 @@
     "eslint-plugin-playwright": "^2.4.0",
     "eslint-plugin-prettier": "^5.5.4",
     "jsdom": "^27.3.0",
-    "lefthook": "^2.0.12",
+    "lefthook": "^2.0.13",
     "ng-mocks": "^14.15.0",
     "prettier": "^3.7.4",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.50.0",
+    "typescript-eslint": "^8.50.1",
     "vitest": "^4.0.16"
   },
   "overrides": {
