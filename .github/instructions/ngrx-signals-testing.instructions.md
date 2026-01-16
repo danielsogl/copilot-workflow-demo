@@ -280,7 +280,7 @@ it("should show movies (spy approach)", () => {
 it("should show movies with MoviesStore", async () => {
   const fixture = TestBed.configureTestingModule({
     imports: [MoviesComponent],
-    providers: [provideHttpClient(), provideHttpClientTesting()],
+    providers: [provideHttpClientTesting()],
   }).createComponent(MoviesComponent);
 
   const ctrl = TestBed.inject(HttpTestingController);

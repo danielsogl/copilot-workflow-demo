@@ -9,6 +9,8 @@ This guide covers Angular coding patterns, style conventions, and best practices
 
 > **Note:** When in doubt, prefer consistency with the existing codebase over these recommendations.
 
+> **Note (Angular v21+):** As of Angular v21, `provideHttpClient()` is no longer required in test providers. Only use `provideHttpClientTesting()` for HTTP testing.
+
 ## 1. Core Architecture
 
 - **Standalone Components:** Components, directives, and pipes are standalone by default. Do NOT set `standalone: true` in decorators as it's the default behavior.

@@ -96,7 +96,6 @@ describe("MyComponent", () => {
 ```typescript
 import { TestBed } from "@angular/core/testing";
 import { provideZonelessChangeDetection } from "@angular/core";
-import { provideHttpClient } from "@angular/common/http";
 import {
   provideHttpClientTesting,
   HttpTestingController,
@@ -113,7 +112,6 @@ describe("MyService", () => {
       providers: [
         MyService,
         provideZonelessChangeDetection(),
-        provideHttpClient(),
         provideHttpClientTesting(),
       ],
     });

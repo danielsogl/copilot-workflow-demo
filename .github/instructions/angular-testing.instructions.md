@@ -44,8 +44,8 @@ describe("MyService", () => {
     TestBed.configureTestingModule({
       providers: [
         MyService,
-        provideHttpClientTesting(),
         provideZonelessChangeDetection(),
+        provideHttpClientTesting(),
       ],
     });
     service = TestBed.inject(MyService);
