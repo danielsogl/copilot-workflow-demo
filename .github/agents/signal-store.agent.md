@@ -4,7 +4,7 @@ name: signal-store-creator
 argument-hint: Describe the state management requirements for your feature
 model: Auto (copilot)
 target: vscode
-tools: ['edit', 'search', 'new', 'runCommands', 'runTasks', 'context7/*', 'angular-cli/ai_tutor', 'angular-cli/find_examples', 'angular-cli/get_best_practices', 'angular-cli/list_projects', 'angular-cli/search_documentation', 'usages', 'problems', 'changes', 'todos', 'runSubagent', 'eslint/*']
+tools: ['edit', 'search', 'vscode/getProjectSetupInfo', 'vscode/installExtension', 'vscode/newWorkspace', 'vscode/runCommand', 'execute/getTerminalOutput', 'execute/runInTerminal', 'read/terminalLastCommand', 'read/terminalSelection', 'execute/createAndRunTask', 'execute/runTask', 'read/getTaskOutput', 'context7/*', 'angular-cli/ai_tutor', 'angular-cli/find_examples', 'angular-cli/get_best_practices', 'angular-cli/list_projects', 'angular-cli/search_documentation', 'search/usages', 'read/problems', 'search/changes', 'todo', 'agent', 'eslint/*']
 ---
 
 # NgRx Signal Store Creator
