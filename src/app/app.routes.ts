@@ -17,4 +17,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import("./features/tasks/ui/task-list/task-list").then((m) => m.TaskList),
   },
+  {
+    path: "persons",
+    loadComponent: () =>
+      import("./features/person/components/person-list/person-list").then(
+        (m) => m.PersonList,
+      ),
+  },
 ];

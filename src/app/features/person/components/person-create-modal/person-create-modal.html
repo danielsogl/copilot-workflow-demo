@@ -1,0 +1,116 @@
+<h2 mat-dialog-title>
+  <mat-icon>person_add</mat-icon>
+  Create New Person
+</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="personForm" class="person-form">
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" required />
+        @if (getFieldError("firstName")) {
+          <mat-error>{{ getFieldError("firstName") }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" required />
+        @if (getFieldError("lastName")) {
+          <mat-error>{{ getFieldError("lastName") }}</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="form-field-full">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" required />
+      <mat-icon matPrefix>email</mat-icon>
+      @if (getFieldError("email")) {
+        <mat-error>{{ getFieldError("email") }}</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="phone" required />
+        <mat-icon matPrefix>phone</mat-icon>
+        @if (getFieldError("phone")) {
+          <mat-error>{{ getFieldError("phone") }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Date of Birth</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="dateOfBirth"
+          [max]="maxDate"
+          required
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        @if (getFieldError("dateOfBirth")) {
+          <mat-error>{{ getFieldError("dateOfBirth") }}</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="form-field-full">
+      <mat-label>Address</mat-label>
+      <input matInput formControlName="address" required />
+      <mat-icon matPrefix>home</mat-icon>
+      @if (getFieldError("address")) {
+        <mat-error>{{ getFieldError("address") }}</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>City</mat-label>
+        <input matInput formControlName="city" required />
+        @if (getFieldError("city")) {
+          <mat-error>{{ getFieldError("city") }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Country</mat-label>
+        <input matInput formControlName="country" required />
+        @if (getFieldError("country")) {
+          <mat-error>{{ getFieldError("country") }}</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    @if (personStore.error()) {
+      <div class="error-message">
+        <mat-icon>error</mat-icon>
+        <span>{{ personStore.error() }}</span>
+      </div>
+    }
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()" [disabled]="isSubmitting()">
+    Cancel
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onSubmit()"
+    [disabled]="isSubmitting() || !personForm.valid"
+  >
+    @if (isSubmitting()) {
+      <mat-icon>hourglass_empty</mat-icon>
+      Creating...
+    } @else {
+      <mat-icon>save</mat-icon>
+      Create Person
+    }
+  </button>
+</mat-dialog-actions>
