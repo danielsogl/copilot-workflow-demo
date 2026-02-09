@@ -34,7 +34,7 @@
     "@angular/compiler-cli": "^21.1.0",
     "@ngrx/eslint-plugin": "^21.0.1",
     "@playwright/test": "^1.57.0",
-    "@types/node": "^24.10.9",
+    "@types/node": "^24.10.12",
     "angular-eslint": "^21.1.0",
     "concurrently": "^9.2.1",
     "eslint": "^9.39.2",
