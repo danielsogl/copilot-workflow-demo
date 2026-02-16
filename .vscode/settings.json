@@ -20,17 +20,36 @@
       "file": ".github/guidelines/commit-convention.md"
     }
   ],
-  "chat.agent.thinkingStyle": "collapsed",
-  "chat.editRequests": "hover",
+  "chat.agent.thinkingStyle": "fixedScrolling",
+  "chat.editRequests": "inline",
   "chat.sendElementsToChat.enabled": true,
   "github.copilot.chat.edits.suggestRelatedFilesFromGitHistory": true,
   "github.copilot.chat.reviewSelection.enabled": true,
-  "chat.implicitContext.enabled": {
-    "panel": "always"
-  },
   "chat.customAgentInSubagent.enabled": true,
-  "chat.agentSessionsViewLocation": "view",
   "github.copilot.chat.cli.customAgents.enabled": true,
-  "github.copilot.chat.customAgents.showOrganizationAndEnterpriseAgents": true,
-  "inlineChat.enableV2": true
+  // Agent & Tools
+  "chat.agent.enabled": true,
+  "chat.useAgentsMdFile": true,
+  "chat.useAgentSkills": true,
+  "chat.viewSessions.enabled": true,
+  // Instructions, Prompts & Agents file locations
+  "chat.instructionsFilesLocations": {
+    ".github/instructions": true
+  },
+  "chat.promptFilesLocations": {
+    ".github/prompts": true
+  },
+  "chat.agentFilesLocations": {
+    ".github/agents": true
+  },
+  // Code Generation & Review
+  "github.copilot.chat.codeGeneration.useInstructionFiles": true,
+  "github.copilot.chat.reviewSelection.instructions": [
+    {
+      "file": ".github/instructions/angular.instructions.md"
+    },
+    {
+      "file": ".github/instructions/typescript.instructions.md"
+    }
+  ]
 }
