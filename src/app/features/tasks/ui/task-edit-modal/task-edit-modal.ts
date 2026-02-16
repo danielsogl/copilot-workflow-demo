@@ -1,11 +1,15 @@
 import { Component, inject, signal, effect } from "@angular/core";
 import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  ReactiveFormsModule,
-  Validators,
-} from "@angular/forms";
+  form,
+  schema,
+  FormField,
+  required,
+  minLength,
+  maxLength,
+  min,
+  max,
+  submit,
+} from "@angular/forms/signals";
 import {
   MatDialogRef,
   MatDialogModule,
@@ -21,20 +25,37 @@ import { MatIconModule } from "@angular/material/icon";
 import { TaskStore } from "../../data/state/task-store";
 import { Task } from "../../../../shared/models/task.model";
 
-interface TaskEditForm {
-  title: FormControl<string>;
-  description: FormControl<string>;
-  priority: FormControl<"low" | "medium" | "high">;
-  dueDate: FormControl<string>;
-  estimatedMinutes: FormControl<number>;
+interface TaskEditFormModel {
+  title: string;
+  description: string;
+  priority: "low" | "medium" | "high";
+  dueDate: string;
+  estimatedMinutes: number;
 }
+
+const taskEditSchema = schema<TaskEditFormModel>((f) => {
+  required(f.title, { message: "Title is required" });
+  minLength(f.title, 3, { message: "Title must be at least 3 characters" });
+  maxLength(f.title, 100, { message: "Title must not exceed 100 characters" });
+  maxLength(f.description, 500, {
+    message: "Description must not exceed 500 characters",
+  });
+  required(f.priority, { message: "Priority is required" });
+  required(f.dueDate, { message: "Due Date is required" });
+  min(f.estimatedMinutes, 0, {
+    message: "Estimated time must be at least 0",
+  });
+  max(f.estimatedMinutes, 9999, {
+    message: "Estimated time cannot exceed 9999",
+  });
+});
 
 @Component({
   selector: "app-task-edit-modal",
   templateUrl: "./task-edit-modal.html",
   styleUrl: "./task-edit-modal.scss",
   imports: [
-    ReactiveFormsModule,
+    FormField,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
@@ -46,7 +67,6 @@ interface TaskEditForm {
   ],
 })
 export class TaskEditModal {
-  private readonly formBuilder = inject(FormBuilder);
   private readonly dialogRef = inject(MatDialogRef<TaskEditModal>);
   readonly taskStore = inject(TaskStore);
 
@@ -76,36 +96,15 @@ export class TaskEditModal {
     });
   }
 
-  readonly taskForm: FormGroup<TaskEditForm> =
-    this.formBuilder.group<TaskEditForm>({
-      title: this.formBuilder.control(this.task.title, {
-        nonNullable: true,
-        validators: [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(100),
-        ],
-      }),
-      description: this.formBuilder.control(this.task.description, {
-        nonNullable: true,
-        validators: [Validators.maxLength(500)],
-      }),
-      priority: this.formBuilder.control(this.task.priority, {
-        nonNullable: true,
-        validators: [Validators.required],
-      }),
-      dueDate: this.formBuilder.control(this.task.dueDate, {
-        nonNullable: true,
-        validators: [Validators.required],
-      }),
-      estimatedMinutes: this.formBuilder.control(
-        this.task.estimatedMinutes || 0,
-        {
-          nonNullable: true,
-          validators: [Validators.min(0), Validators.max(9999)],
-        },
-      ),
-    });
+  readonly taskModel = signal<TaskEditFormModel>({
+    title: this.task.title,
+    description: this.task.description,
+    priority: this.task.priority,
+    dueDate: this.task.dueDate,
+    estimatedMinutes: this.task.estimatedMinutes || 0,
+  });
+
+  readonly taskForm = form(this.taskModel, taskEditSchema);
 
   readonly priorities = [
     { value: "low", label: "Low" },
@@ -116,12 +115,12 @@ export class TaskEditModal {
   readonly minDate = new Date();
 
   onSubmit(): void {
-    if (this.taskForm.valid) {
+    submit(this.taskForm, async () => {
       this.isSubmitting.set(true);
       this.initialTaskVersion.set(JSON.stringify(this.task));
       this.taskStore.clearError();
 
-      const formValue = this.taskForm.getRawValue();
+      const formValue = this.taskModel();
       const updates: Partial<Task> = {
         title: formValue.title,
         description: formValue.description,
@@ -131,52 +130,10 @@ export class TaskEditModal {
       };
 
       this.taskStore.updateTask({ id: this.task.id, updates });
-    } else {
-      this.markFormGroupTouched();
-    }
+    });
   }
 
   onCancel(): void {
     this.dialogRef.close();
-  }
-
-  private markFormGroupTouched(): void {
-    Object.keys(this.taskForm.controls).forEach((key) => {
-      const control = this.taskForm.get(key);
-      control?.markAsTouched();
-    });
-  }
-
-  getFieldError(fieldName: keyof TaskEditForm): string {
-    const control = this.taskForm.get(fieldName);
-    if (control?.errors && control.touched) {
-      if (control.errors["required"]) {
-        return `${this.getFieldLabel(fieldName)} is required`;
-      }
-      if (control.errors["minlength"]) {
-        return `${this.getFieldLabel(fieldName)} must be at least ${control.errors["minlength"].requiredLength} characters`;
-      }
-      if (control.errors["maxlength"]) {
-        return `${this.getFieldLabel(fieldName)} must not exceed ${control.errors["maxlength"].requiredLength} characters`;
-      }
-      if (control.errors["min"]) {
-        return `${this.getFieldLabel(fieldName)} must be at least ${control.errors["min"].min}`;
-      }
-      if (control.errors["max"]) {
-        return `${this.getFieldLabel(fieldName)} cannot exceed ${control.errors["max"].max}`;
-      }
-    }
-    return "";
-  }
-
-  private getFieldLabel(fieldName: keyof TaskEditForm): string {
-    const labels: Record<keyof TaskEditForm, string> = {
-      title: "Title",
-      description: "Description",
-      priority: "Priority",
-      dueDate: "Due Date",
-      estimatedMinutes: "Estimated Time",
-    };
-    return labels[fieldName];
   }
 }

@@ -17,25 +17,19 @@
     </div>
   }
 
-  <form
-    [formGroup]="taskForm"
-    (ngSubmit)="onSubmit()"
-    class="task-edit-modal__form"
-  >
+  <form (ngSubmit)="onSubmit()" class="task-edit-modal__form">
     <mat-form-field appearance="outline" class="task-edit-modal__field">
       <mat-label>Title *</mat-label>
       <input
         matInput
-        formControlName="title"
+        [formField]="taskForm.title"
         placeholder="Enter task title"
-        maxlength="100"
-        required
       />
-      <mat-hint align="end">
-        {{ taskForm.get("title")?.value?.length || 0 }}/100
-      </mat-hint>
-      @if (getFieldError("title")) {
-        <mat-error>{{ getFieldError("title") }}</mat-error>
+      <mat-hint align="end">{{ taskModel().title.length }}/100</mat-hint>
+      @if (taskForm.title().touched()) {
+        @for (error of taskForm.title().errors(); track error.kind) {
+          <mat-error>{{ error.message }}</mat-error>
+        }
       }
     </mat-form-field>
 
@@ -43,16 +37,15 @@
       <mat-label>Description</mat-label>
       <textarea
         matInput
-        formControlName="description"
+        [formField]="taskForm.description"
         placeholder="Enter task description"
         rows="3"
-        maxlength="500"
       ></textarea>
-      <mat-hint align="end">
-        {{ taskForm.get("description")?.value?.length || 0 }}/500
-      </mat-hint>
-      @if (getFieldError("description")) {
-        <mat-error>{{ getFieldError("description") }}</mat-error>
+      <mat-hint align="end">{{ taskModel().description.length }}/500</mat-hint>
+      @if (taskForm.description().touched()) {
+        @for (error of taskForm.description().errors(); track error.kind) {
+          <mat-error>{{ error.message }}</mat-error>
+        }
       }
     </mat-form-field>
 
@@ -62,15 +55,17 @@
         class="task-edit-modal__field task-edit-modal__field--half"
       >
         <mat-label>Priority *</mat-label>
-        <mat-select formControlName="priority" required>
+        <mat-select [formField]="taskForm.priority">
           @for (priority of priorities; track priority.value) {
             <mat-option [value]="priority.value">
               {{ priority.label }}
             </mat-option>
           }
         </mat-select>
-        @if (getFieldError("priority")) {
-          <mat-error>{{ getFieldError("priority") }}</mat-error>
+        @if (taskForm.priority().touched()) {
+          @for (error of taskForm.priority().errors(); track error.kind) {
+            <mat-error>{{ error.message }}</mat-error>
+          }
         }
       </mat-form-field>
 
@@ -82,7 +77,7 @@
         <input
           matInput
           [matDatepicker]="dueDatePicker"
-          formControlName="dueDate"
+          [formField]="taskForm.dueDate"
           [min]="minDate"
           placeholder="Select due date"
           readonly
@@ -92,8 +87,10 @@
           [for]="dueDatePicker"
         ></mat-datepicker-toggle>
         <mat-datepicker #dueDatePicker></mat-datepicker>
-        @if (getFieldError("dueDate")) {
-          <mat-error>{{ getFieldError("dueDate") }}</mat-error>
+        @if (taskForm.dueDate().touched()) {
+          @for (error of taskForm.dueDate().errors(); track error.kind) {
+            <mat-error>{{ error.message }}</mat-error>
+          }
         }
       </mat-form-field>
     </div>
@@ -103,14 +100,14 @@
       <input
         matInput
         type="number"
-        formControlName="estimatedMinutes"
+        [formField]="taskForm.estimatedMinutes"
         placeholder="Enter estimated time in minutes"
-        min="0"
-        max="9999"
       />
       <mat-hint>How long do you estimate this task will take?</mat-hint>
-      @if (getFieldError("estimatedMinutes")) {
-        <mat-error>{{ getFieldError("estimatedMinutes") }}</mat-error>
+      @if (taskForm.estimatedMinutes().touched()) {
+        @for (error of taskForm.estimatedMinutes().errors(); track error.kind) {
+          <mat-error>{{ error.message }}</mat-error>
+        }
       }
     </mat-form-field>
   </form>
@@ -130,7 +127,7 @@
     color="primary"
     type="submit"
     (click)="onSubmit()"
-    [disabled]="(taskStore.loading() && isSubmitting()) || !taskForm.valid"
+    [disabled]="(taskStore.loading() && isSubmitting()) || !taskForm().valid()"
   >
     @if (taskStore.loading() && isSubmitting()) {
       <ng-container>

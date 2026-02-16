@@ -1,21 +1,34 @@
-import { Component, output, signal, inject } from "@angular/core";
+import { Component, output, signal } from "@angular/core";
 import {
-  FormBuilder,
-  FormControl,
-  ReactiveFormsModule,
-  Validators,
-} from "@angular/forms";
+  form,
+  schema,
+  FormField,
+  required,
+  minLength,
+  maxLength,
+  submit,
+} from "@angular/forms/signals";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
+
+interface TodoModel {
+  todo: string;
+}
+
+const todoSchema = schema<TodoModel>((f) => {
+  required(f.todo, { message: "Todo is required" });
+  minLength(f.todo, 1, { message: "Todo must not be empty" });
+  maxLength(f.todo, 200, { message: "Maximum length is 200 characters" });
+});
 
 @Component({
   selector: "app-todo-create-form",
   templateUrl: "./todo-create-form.html",
   styleUrl: "./todo-create-form.scss",
   imports: [
-    ReactiveFormsModule,
+    FormField,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -23,20 +36,12 @@ import { MatIconModule } from "@angular/material/icon";
   ],
 })
 export class TodoCreateForm {
-  private readonly formBuilder = inject(FormBuilder);
-
   readonly create = output<string>();
 
   readonly isExpanded = signal(false);
 
-  readonly todoControl: FormControl<string> = this.formBuilder.control("", {
-    nonNullable: true,
-    validators: [
-      Validators.required,
-      Validators.minLength(1),
-      Validators.maxLength(200),
-    ],
-  });
+  readonly todoModel = signal<TodoModel>({ todo: "" });
+  readonly todoForm = form(this.todoModel, todoSchema);
 
   expand(): void {
     this.isExpanded.set(true);
@@ -44,14 +49,19 @@ export class TodoCreateForm {
 
   collapse(): void {
     this.isExpanded.set(false);
-    this.todoControl.reset();
+    this.todoModel.set({ todo: "" });
+    this.todoForm.todo().reset();
   }
 
   onSubmit(): void {
-    if (this.todoControl.valid && this.todoControl.value.trim()) {
-      this.create.emit(this.todoControl.value.trim());
-      this.todoControl.reset();
-    }
+    submit(this.todoForm, async () => {
+      const value = this.todoModel().todo.trim();
+      if (value) {
+        this.create.emit(value);
+        this.todoModel.set({ todo: "" });
+        this.todoForm.todo().reset();
+      }
+    });
   }
 
   onKeyDown(event: KeyboardEvent): void {

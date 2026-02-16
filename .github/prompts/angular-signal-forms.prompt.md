@@ -39,7 +39,7 @@ Generate a complete Angular Signal Form component with schema validation:
 #### Core Imports and Dependencies
 ```typescript
 import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/core';
-import { form, schema, Control, required, email, minLength, maxLength, min, max, pattern, applyEach } from '@angular/forms/signals';
+import { form, schema, FormField, required, email, minLength, maxLength, min, max, pattern, applyEach } from '@angular/forms/signals';
 import { JsonPipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -93,7 +93,7 @@ const [entityName]Schema = schema<[EntityType]>((f) => {
     MatSelectModule,
     MatCheckboxModule,
     MatDatepickerModule,
-    Control,
+    FormField,
     JsonPipe
   ],
   templateUrl: './[entity-name]-form.html',
@@ -146,7 +146,7 @@ For each entity field, generate appropriate input with validation:
 ```html
 <mat-form-field class="w-full">
   <mat-label>[Field Label]</mat-label>
-  <input matInput [control]="[entityName]Form.[fieldName]" placeholder="[Placeholder]">
+  <input matInput [formField]="[entityName]Form.[fieldName]" placeholder="[Placeholder]">
   @if([entityName]Form.[fieldName]().touched() || [entityName]Form.[fieldName]().dirty()) {
     @for (error of [entityName]Form.[fieldName]().errors(); track error.kind) {
       <mat-error>{{ error.message }}</mat-error>
@@ -159,7 +159,7 @@ For each entity field, generate appropriate input with validation:
 ```html
 <mat-form-field class="w-full">
   <mat-label>[Field Label]</mat-label>
-  <mat-select [control]="[entityName]Form.[fieldName]">
+  <mat-select [formField]="[entityName]Form.[fieldName]">
     @for (option of [options]; track option.value) {
       <mat-option [value]="option.value">{{ option.label }}</mat-option>
     }
