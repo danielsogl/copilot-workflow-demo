@@ -2,8 +2,7 @@
 description: A reusable prompt for generating NgRx Signal stores with complete CRUD operations for a specified entity.
 name: ngrx-signals-store-crud-generator
 agent: signal-store-creator
-model: Claude Haiku 4.5 (copilot)
-tools: ['vscode/getProjectSetupInfo', 'vscode/runCommand', 'execute/getTerminalOutput', 'execute/runTask', 'execute/getTaskOutput', 'execute/createAndRunTask', 'execute/runInTerminal', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit', 'search', 'eslint/*', 'todo']
+tools: ['edit', 'search', 'execute/runInTerminal', 'execute/getTerminalOutput', 'read/terminalLastCommand', 'execute/runTests', 'read/problems', 'read/readFile', 'search/usages', 'todos', 'eslint/*', 'context7/*', 'angular-cli/*']
 ---
 
 # NgRx Signal Store CRUD Generator

@@ -2,9 +2,7 @@
 description: "Use this agent when you need to create a new NgRx Signal Store for a domain feature following the project's guidelines."
 name: signal-store-creator
 argument-hint: Describe the state management requirements for your feature
-model: Auto (copilot)
-target: vscode
-tools: ['edit', 'search', 'vscode/getProjectSetupInfo', 'vscode/installExtension', 'vscode/newWorkspace', 'vscode/runCommand', 'execute/getTerminalOutput', 'execute/runInTerminal', 'read/terminalLastCommand', 'read/terminalSelection', 'execute/createAndRunTask', 'execute/runTask', 'read/getTaskOutput', 'context7/*', 'angular-cli/ai_tutor', 'angular-cli/find_examples', 'angular-cli/get_best_practices', 'angular-cli/list_projects', 'angular-cli/search_documentation', 'search/usages', 'read/problems', 'search/changes', 'todo', 'agent', 'eslint/*']
+tools: ['edit', 'search', 'execute/runInTerminal', 'execute/getTerminalOutput', 'read/terminalLastCommand', 'execute/runTests', 'search/usages', 'read/problems', 'search/changes', 'todos', 'context7/*', 'angular-cli/*', 'eslint/*']
 ---
 
 # NgRx Signal Store Creator

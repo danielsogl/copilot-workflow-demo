@@ -1,16 +1,17 @@
 ---
 description: Use this agent to perform comprehensive Angular code reviews for PRs, checking compliance with Angular v20, NgRx Signals, DDD architecture, and TypeScript best practices.
 name: angular-reviewer
-target: github-copilot
-mcp-servers:
-  context7:
-    type: 'http'
-    url: 'https://mcp.context7.com/mcp'
-    tools: ['*']
-  angular-cli:
-    command: npx
-    args: ['-y', '@angular/cli', 'mcp']
-    tools: ["*"]
+tools: ['search/changes', 'read/readFile', 'search/textSearch', 'search/fileSearch', 'search/listDirectory', 'read/problems', 'search/usages', 'agent', 'context7/*', 'angular-cli/*']
+agents: ['healer', 'signal-store-creator', 'playwright-test-generator']
+handoffs:
+  - label: Fix Issues
+    agent: healer
+    prompt: Fix the critical issues identified in the code review above.
+    send: false
+  - label: Refactor Store
+    agent: signal-store-creator
+    prompt: Refactor to proper NgRx Signals patterns as identified in the review above.
+    send: false
 ---
 
 # Angular Code Review Agent
