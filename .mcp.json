@@ -6,7 +6,7 @@
     },
     "context7": {
       "type": "http",
-      "url": "https://mcp.context7.com/mcp"
+      "url": "https://mcp.context7.com/mcp/oauth"
     },
     "supabase": {
       "type": "stdio",
@@ -21,6 +21,10 @@
       "type": "stdio",
       "command": "npx",
       "args": ["@playwright/mcp@latest"]
+    },
+    "playwright-test": {
+      "command": "npx",
+      "args": ["playwright", "run-test-mcp-server"]
     },
     "angular-cli": {
       "type": "stdio",
