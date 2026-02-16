@@ -48,7 +48,7 @@ test.describe("Task CRUD", () => {
       // Set due date via keyboard input
       await page.getByLabel("Due Date").click();
       await page.getByLabel("Due Date").pressSequentially("03/15/2026");
-      await page.getByLabel("Due Date").press("Escape");
+      await page.getByLabel("Due Date").press("Tab");
 
       await page.getByRole("button", { name: "Create" }).click();
 
@@ -81,7 +81,7 @@ test.describe("Task CRUD", () => {
       // Add date - now valid
       await page.getByLabel("Due Date").click();
       await page.getByLabel("Due Date").pressSequentially("03/15/2026");
-      await page.getByLabel("Due Date").press("Escape");
+      await page.getByLabel("Due Date").press("Tab");
 
       await expect(createBtn).toBeEnabled();
     });
