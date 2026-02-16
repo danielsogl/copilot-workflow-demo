@@ -1,0 +1,37 @@
+<mat-card class="task-card" [class.task-card--overdue()]="overdue()">
+  <mat-card-header>
+    <app-priority-badge [priority]="task().priority" />
+    <span class="spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-btn">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="edit.emit(task())">
+        <mat-icon>edit</mat-icon>
+        <span>Edit</span>
+      </button>
+      <button mat-menu-item (click)="delete.emit(task())">
+        <mat-icon color="warn">delete</mat-icon>
+        <span>Delete</span>
+      </button>
+    </mat-menu>
+  </mat-card-header>
+
+  <mat-card-content>
+    <h3 class="task-title">{{ task().title }}</h3>
+    <p class="task-description">{{ task().description }}</p>
+  </mat-card-content>
+
+  <mat-card-footer>
+    <div class="task-meta">
+      <span
+        class="due-date"
+        [class.due-date--overdue()]="overdue()"
+        [matTooltip]="overdue() ? 'Overdue!' : 'Due date'"
+      >
+        <mat-icon class="meta-icon">calendar_today</mat-icon>
+        {{ formattedDueDate() }}
+      </span>
+    </div>
+  </mat-card-footer>
+</mat-card>

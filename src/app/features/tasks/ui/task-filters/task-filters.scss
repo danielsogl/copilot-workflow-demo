@@ -1,0 +1,37 @@
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.search-field {
+  flex: 1;
+  min-width: 250px;
+  max-width: 400px;
+}
+
+.priority-chips {
+  display: flex;
+  align-items: center;
+}
+
+.priority-chip {
+  cursor: pointer;
+  text-transform: capitalize;
+
+  &--high[aria-selected="true"] {
+    background-color: #fde8e8 !important;
+    color: #e53935 !important;
+  }
+
+  &--medium[aria-selected="true"] {
+    background-color: #fff8e1 !important;
+    color: #f57f17 !important;
+  }
+
+  &--low[aria-selected="true"] {
+    background-color: #e8f5e9 !important;
+    color: #43a047 !important;
+  }
+}

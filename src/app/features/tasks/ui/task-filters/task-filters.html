@@ -1,0 +1,31 @@
+<div class="filters">
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-icon matPrefix>search</mat-icon>
+    <mat-label>Search tasks...</mat-label>
+    <input matInput [(ngModel)]="searchQuery" />
+    @if (searchQuery()) {
+      <button
+        matSuffix
+        mat-icon-button
+        aria-label="Clear search"
+        (click)="searchQuery.set('')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    }
+  </mat-form-field>
+
+  <div class="priority-chips">
+    <mat-chip-set>
+      @for (priority of priorities; track priority) {
+        <mat-chip
+          [highlighted]="selectedPriority === priority"
+          (click)="togglePriority(priority)"
+          class="priority-chip priority-chip--{{ priority }}"
+        >
+          {{ priority }}
+        </mat-chip>
+      }
+    </mat-chip-set>
+  </div>
+</div>

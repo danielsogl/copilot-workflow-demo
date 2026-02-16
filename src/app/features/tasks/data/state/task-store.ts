@@ -17,20 +17,26 @@ import {
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
 import { tapResponse } from "@ngrx/operators";
 import { computed, inject } from "@angular/core";
-import { pipe, switchMap, tap } from "rxjs";
-import { TaskApi } from "../infrastructure/task";
-import { Task } from "../../../../shared/models/task.model";
+import { EMPTY, forkJoin, pipe, switchMap, tap } from "rxjs";
+import { TaskApi } from "../infrastructure/task-api";
+import {
+  Task,
+  TaskFormData,
+  TaskPriority,
+  TaskStatus,
+} from "../models/task.model";
+import { isOverdue } from "../../util/task-helpers/task-helpers";
 
 export interface TaskState {
-  selectedTaskId: string | null;
-  statusFilter: "all" | "pending" | "completed" | "overdue";
+  searchQuery: string;
+  priorityFilter: TaskPriority | null;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: TaskState = {
-  selectedTaskId: null,
-  statusFilter: "all",
+  searchQuery: "",
+  priorityFilter: null,
   loading: false,
   error: null,
 };
@@ -41,66 +47,83 @@ const taskEntityConfig = entityConfig({
   selectId: (task: Task) => task.id,
 });
 
+const byOrder = (a: Task, b: Task) => a.order - b.order;
+
 export const TaskStore = signalStore(
   { providedIn: "root" },
   withState(initialState),
   withEntities(taskEntityConfig),
-  withComputed(
-    ({ tasksEntities, tasksEntityMap, selectedTaskId, statusFilter }) => ({
-      // Selected task
-      selectedTask: computed(() => {
-        const id = selectedTaskId();
-        return id ? tasksEntityMap()[id] : undefined;
-      }),
+  withComputed(({ tasksEntities, searchQuery, priorityFilter }) => {
+    const filteredTasks = computed(() => {
+      let tasks = tasksEntities();
+      const query = searchQuery().toLowerCase().trim();
+      const priority = priorityFilter();
 
-      // Total count
-      totalTaskCount: computed(() => tasksEntities().length),
+      if (query) {
+        tasks = tasks.filter(
+          (task) =>
+            task.title.toLowerCase().includes(query) ||
+            task.description.toLowerCase().includes(query),
+        );
+      }
 
-      // Filtered tasks by status
-      filteredTasks: computed(() => {
-        const tasks = tasksEntities();
-        const filter = statusFilter();
+      if (priority) {
+        tasks = tasks.filter((task) => task.priority === priority);
+      }
 
-        if (filter === "all") {
-          return tasks;
-        }
+      return tasks;
+    });
 
-        return tasks.filter((task) => task.status === filter);
-      }),
+    return {
+      filteredTasks,
 
-      // Statistics
-      completedTasksCount: computed(
-        () =>
-          tasksEntities().filter((task) => task.status === "completed").length,
+      todoTasks: computed(() =>
+        filteredTasks()
+          .filter((t) => t.status === "todo")
+          .sort(byOrder),
+      ),
+      inProgressTasks: computed(() =>
+        filteredTasks()
+          .filter((t) => t.status === "in_progress")
+          .sort(byOrder),
+      ),
+      completedTasks: computed(() =>
+        filteredTasks()
+          .filter((t) => t.status === "completed")
+          .sort(byOrder),
       ),
 
-      pendingTasksCount: computed(
-        () =>
-          tasksEntities().filter((task) => task.status === "pending").length,
+      // Stats
+      totalCount: computed(() => tasksEntities().length),
+      todoCount: computed(
+        () => tasksEntities().filter((t) => t.status === "todo").length,
       ),
-
-      overdueTasksCount: computed(
-        () =>
-          tasksEntities().filter((task) => task.status === "overdue").length,
+      inProgressCount: computed(
+        () => tasksEntities().filter((t) => t.status === "in_progress").length,
       ),
-
+      completedCount: computed(
+        () => tasksEntities().filter((t) => t.status === "completed").length,
+      ),
+      overdueCount: computed(
+        () => tasksEntities().filter((t) => isOverdue(t)).length,
+      ),
       completionRate: computed(() => {
         const total = tasksEntities().length;
         if (total === 0) return 0;
         const completed = tasksEntities().filter(
-          (task) => task.status === "completed",
+          (t) => t.status === "completed",
         ).length;
         return Math.round((completed / total) * 100);
       }),
-    }),
-  ),
-  withMethods((store, taskService = inject(TaskApi)) => ({
+    };
+  }),
+  withMethods((store, taskApi = inject(TaskApi)) => ({
     // Load all tasks
     loadTasks: rxMethod<void>(
       pipe(
         tap(() => patchState(store, { loading: true, error: null })),
         switchMap(() =>
-          taskService.getTasks().pipe(
+          taskApi.getTasks().pipe(
             tapResponse({
               next: (tasks) =>
                 patchState(store, setAllEntities(tasks, taskEntityConfig), {
@@ -110,60 +133,6 @@ export const TaskStore = signalStore(
                 patchState(store, {
                   loading: false,
                   error: `Failed to load tasks: ${error.message}`,
-                }),
-            }),
-          ),
-        ),
-      ),
-    ),
-
-    // Load tasks by status
-    loadTasksByStatus: rxMethod<string>(
-      pipe(
-        tap(() => patchState(store, { loading: true, error: null })),
-        switchMap((status) =>
-          taskService.getTasksByStatus(status).pipe(
-            tapResponse({
-              next: (tasks) =>
-                patchState(store, setAllEntities(tasks, taskEntityConfig), {
-                  loading: false,
-                  statusFilter: status as TaskState["statusFilter"],
-                }),
-              error: (error: Error) =>
-                patchState(store, {
-                  loading: false,
-                  error: `Failed to load tasks: ${error.message}`,
-                }),
-            }),
-          ),
-        ),
-      ),
-    ),
-
-    // Load single task by ID
-    loadTaskById: rxMethod<string>(
-      pipe(
-        tap(() => patchState(store, { loading: true, error: null })),
-        switchMap((id) =>
-          taskService.getTaskById(id).pipe(
-            tapResponse({
-              next: (task) => {
-                if (task) {
-                  patchState(store, addEntity(task, taskEntityConfig), {
-                    loading: false,
-                    selectedTaskId: task.id,
-                  });
-                } else {
-                  patchState(store, {
-                    loading: false,
-                    error: "Task not found",
-                  });
-                }
-              },
-              error: (error: Error) =>
-                patchState(store, {
-                  loading: false,
-                  error: `Failed to load task: ${error.message}`,
                 }),
             }),
           ),
@@ -172,13 +141,16 @@ export const TaskStore = signalStore(
     ),
 
     // Create task
-    createTask: rxMethod<
-      Omit<Task, "id" | "createdAt" | "completedAt" | "status">
-    >(
+    createTask: rxMethod<TaskFormData>(
       pipe(
         tap(() => patchState(store, { loading: true, error: null })),
-        switchMap((taskData) =>
-          taskService.createTask(taskData).pipe(
+        switchMap((taskData) => {
+          // New tasks get order = max order in their column + 1
+          const maxOrder = store
+            .tasksEntities()
+            .filter((t) => t.status === "todo")
+            .reduce((max, t) => Math.max(max, t.order), -1);
+          return taskApi.createTask(taskData, maxOrder + 1).pipe(
             tapResponse({
               next: (task) =>
                 patchState(store, addEntity(task, taskEntityConfig), {
@@ -190,8 +162,8 @@ export const TaskStore = signalStore(
                   error: `Failed to create task: ${error.message}`,
                 }),
             }),
-          ),
-        ),
+          );
+        }),
       ),
     ),
 
@@ -200,7 +172,7 @@ export const TaskStore = signalStore(
       pipe(
         tap(() => patchState(store, { loading: true, error: null })),
         switchMap(({ id, updates }) =>
-          taskService.updateTask(id, updates).pipe(
+          taskApi.updateTask(id, updates).pipe(
             tapResponse({
               next: (task) =>
                 patchState(
@@ -219,12 +191,145 @@ export const TaskStore = signalStore(
       ),
     ),
 
+    // Move task to another column (optimistic update)
+    moveTask: rxMethod<{
+      taskId: string;
+      newStatus: TaskStatus;
+      targetIndex: number;
+    }>(
+      pipe(
+        tap(({ taskId, newStatus, targetIndex }) => {
+          // Get tasks in the target column, sorted by order
+          const targetTasks = store
+            .tasksEntities()
+            .filter((t) => t.status === newStatus && t.id !== taskId)
+            .sort(byOrder);
+
+          // Recalculate order for all tasks in target column
+          const updates: { id: string; changes: Partial<Task> }[] = [];
+
+          // Insert moved task at targetIndex
+          const reordered = [...targetTasks];
+          const movedTask = store.tasksEntities().find((t) => t.id === taskId);
+          if (!movedTask) return;
+
+          reordered.splice(targetIndex, 0, movedTask);
+
+          reordered.forEach((t, i) => {
+            const changes: Partial<Task> = { order: i };
+            if (t.id === taskId) {
+              changes.status = newStatus;
+              if (newStatus === "completed") {
+                changes.completedAt = new Date().toISOString().split("T")[0];
+              }
+            }
+            updates.push({ id: t.id, changes });
+          });
+
+          // Optimistic: apply all updates at once
+          for (const u of updates) {
+            patchState(
+              store,
+              updateEntity({ id: u.id, changes: u.changes }, taskEntityConfig),
+            );
+          }
+        }),
+        switchMap(({ taskId, newStatus }) => {
+          const targetTasks = store
+            .tasksEntities()
+            .filter((t) => t.status === newStatus)
+            .sort(byOrder);
+
+          // Persist all order changes
+          const apiCalls = targetTasks.map((t) => {
+            const updates: Partial<Task> = { order: t.order };
+            if (t.id === taskId) {
+              updates.status = newStatus;
+              if (newStatus === "completed") {
+                updates.completedAt = new Date().toISOString().split("T")[0];
+              }
+            }
+            return taskApi.updateTask(t.id, updates);
+          });
+
+          if (apiCalls.length === 0) return EMPTY;
+
+          return forkJoin(apiCalls).pipe(
+            tapResponse({
+              // eslint-disable-next-line @typescript-eslint/no-empty-function
+              next: () => {},
+              error: (error: Error) =>
+                patchState(store, {
+                  error: `Failed to move task: ${error.message}`,
+                }),
+            }),
+          );
+        }),
+      ),
+    ),
+
+    // Reorder task within same column (optimistic update)
+    reorderTask: rxMethod<{
+      status: TaskStatus;
+      previousIndex: number;
+      currentIndex: number;
+    }>(
+      pipe(
+        tap(({ status, previousIndex, currentIndex }) => {
+          const columnTasks = store
+            .tasksEntities()
+            .filter((t) => t.status === status)
+            .sort(byOrder);
+
+          // Move item in array
+          const reordered = [...columnTasks];
+          const [moved] = reordered.splice(previousIndex, 1);
+          reordered.splice(currentIndex, 0, moved);
+
+          // Update order for all tasks in column
+          for (let i = 0; i < reordered.length; i++) {
+            patchState(
+              store,
+              updateEntity(
+                { id: reordered[i].id, changes: { order: i } },
+                taskEntityConfig,
+              ),
+            );
+          }
+        }),
+        switchMap(({ status }) => {
+          // Persist new order
+          const columnTasks = store
+            .tasksEntities()
+            .filter((t) => t.status === status)
+            .sort(byOrder);
+
+          const apiCalls = columnTasks.map((t) =>
+            taskApi.updateTask(t.id, { order: t.order }),
+          );
+
+          if (apiCalls.length === 0) return EMPTY;
+
+          return forkJoin(apiCalls).pipe(
+            tapResponse({
+              // eslint-disable-next-line @typescript-eslint/no-empty-function
+              next: () => {},
+              error: (error: Error) =>
+                patchState(store, {
+                  error: `Failed to reorder tasks: ${error.message}`,
+                }),
+            }),
+          );
+        }),
+      ),
+    ),
+
     // Delete task
     deleteTask: rxMethod<string>(
       pipe(
         tap(() => patchState(store, { loading: true, error: null })),
         switchMap((id) =>
-          taskService.deleteTask(id).pipe(
+          taskApi.deleteTask(id).pipe(
             tapResponse({
               next: () =>
                 patchState(store, removeEntity(id, taskEntityConfig), {
@@ -241,359 +346,17 @@ export const TaskStore = signalStore(
       ),
     ),
 
-    // Mark task as complete
-    markTaskComplete: rxMethod<string>(
-      pipe(
-        tap(() => patchState(store, { loading: true, error: null })),
-        switchMap((id) =>
-          taskService.markTaskComplete(id).pipe(
-            tapResponse({
-              next: (task) =>
-                patchState(
-                  store,
-                  updateEntity({ id, changes: task }, taskEntityConfig),
-                  { loading: false },
-                ),
-              error: (error: Error) =>
-                patchState(store, {
-                  loading: false,
-                  error: `Failed to complete task: ${error.message}`,
-                }),
-            }),
-          ),
-        ),
-      ),
-    ),
-
-    // Mark task as pending
-    markTaskPending: rxMethod<string>(
-      pipe(
-        tap(() => patchState(store, { loading: true, error: null })),
-        switchMap((id) =>
-          taskService.markTaskPending(id).pipe(
-            tapResponse({
-              next: (task) =>
-                patchState(
-                  store,
-                  updateEntity({ id, changes: task }, taskEntityConfig),
-                  { loading: false },
-                ),
-              error: (error: Error) =>
-                patchState(store, {
-                  loading: false,
-                  error: `Failed to update task: ${error.message}`,
-                }),
-            }),
-          ),
-        ),
-      ),
-    ),
-
-    // Update overdue tasks
-    updateOverdueTasks: rxMethod<void>(
-      pipe(
-        tap(() => patchState(store, { loading: true, error: null })),
-        switchMap(() =>
-          taskService.updateOverdueTasks().pipe(
-            tapResponse({
-              next: (overdueTasks) => {
-                // Update each overdue task in the store
-                overdueTasks.forEach((task) => {
-                  patchState(
-                    store,
-                    updateEntity(
-                      { id: task.id, changes: { status: "overdue" } },
-                      taskEntityConfig,
-                    ),
-                  );
-                });
-                patchState(store, { loading: false });
-              },
-              error: (error: Error) =>
-                patchState(store, {
-                  loading: false,
-                  error: `Failed to update overdue tasks: ${error.message}`,
-                }),
-            }),
-          ),
-        ),
-      ),
-    ),
-
-    // Select task
-    selectTask(taskId: string | null): void {
-      patchState(store, { selectedTaskId: taskId });
+    // Synchronous methods
+    setSearchQuery(query: string): void {
+      patchState(store, { searchQuery: query });
     },
 
-    // Set status filter
-    setStatusFilter(status: TaskState["statusFilter"]): void {
-      patchState(store, { statusFilter: status });
+    setPriorityFilter(priority: TaskPriority | null): void {
+      patchState(store, { priorityFilter: priority });
     },
 
-    // Clear error
     clearError(): void {
       patchState(store, { error: null });
     },
-
-    // Timer Methods
-
-    // Start timer
-    startTimer: rxMethod<string>(
-      pipe(
-        switchMap((id) => {
-          const task = store.tasksEntityMap()[id];
-          if (!task) return [];
-
-          const now = new Date().toISOString();
-          const updates: Partial<Task> = {
-            timerStatus: "running",
-            timerStartedAt: now,
-          };
-
-          return taskService.updateTask(id, updates).pipe(
-            tapResponse({
-              next: (updatedTask) =>
-                patchState(
-                  store,
-                  updateEntity({ id, changes: updatedTask }, taskEntityConfig),
-                ),
-              error: (error: Error) =>
-                patchState(store, {
-                  error: `Failed to start timer: ${error.message}`,
-                }),
-            }),
-          );
-        }),
-      ),
-    ),
-
-    // Pause timer
-    pauseTimer: rxMethod<string>(
-      pipe(
-        switchMap((id) => {
-          const task = store.tasksEntityMap()[id];
-          if (!task || task.timerStatus !== "running") return [];
-
-          // Calculate elapsed time since start
-          const startTime = task.timerStartedAt
-            ? new Date(task.timerStartedAt).getTime()
-            : Date.now();
-          const now = Date.now();
-          const additionalMinutes = (now - startTime) / (1000 * 60);
-          const totalElapsed = (task.elapsedMinutes || 0) + additionalMinutes;
-
-          const updates: Partial<Task> = {
-            timerStatus: "paused",
-            elapsedMinutes: Math.floor(totalElapsed),
-            timerStartedAt: undefined,
-          };
-
-          return taskService.updateTask(id, updates).pipe(
-            tapResponse({
-              next: (updatedTask) =>
-                patchState(
-                  store,
-                  updateEntity({ id, changes: updatedTask }, taskEntityConfig),
-                ),
-              error: (error: Error) =>
-                patchState(store, {
-                  error: `Failed to pause timer: ${error.message}`,
-                }),
-            }),
-          );
-        }),
-      ),
-    ),
-
-    // Stop timer (mark as completed)
-    stopTimer: rxMethod<string>(
-      pipe(
-        switchMap((id) => {
-          const task = store.tasksEntityMap()[id];
-          if (!task) return [];
-
-          // Calculate final elapsed time if running
-          let finalElapsed = task.elapsedMinutes || 0;
-          if (task.timerStatus === "running" && task.timerStartedAt) {
-            const startTime = new Date(task.timerStartedAt).getTime();
-            const now = Date.now();
-            const additionalMinutes = (now - startTime) / (1000 * 60);
-            finalElapsed += additionalMinutes;
-          }
-
-          const updates: Partial<Task> = {
-            timerStatus: "completed",
-            elapsedMinutes: Math.floor(finalElapsed),
-            timerStartedAt: undefined,
-          };
-
-          // If elapsed time exceeds estimated time, mark task as overdue
-          if (task.estimatedMinutes && finalElapsed > task.estimatedMinutes) {
-            updates.status = "overdue";
-          }
-
-          return taskService.updateTask(id, updates).pipe(
-            tapResponse({
-              next: (updatedTask) =>
-                patchState(
-                  store,
-                  updateEntity({ id, changes: updatedTask }, taskEntityConfig),
-                ),
-              error: (error: Error) =>
-                patchState(store, {
-                  error: `Failed to stop timer: ${error.message}`,
-                }),
-            }),
-          );
-        }),
-      ),
-    ),
-
-    // Reset timer
-    resetTimer: rxMethod<string>(
-      pipe(
-        switchMap((id) => {
-          const updates: Partial<Task> = {
-            timerStatus: "idle",
-            elapsedMinutes: 0,
-            timerStartedAt: undefined,
-          };
-
-          return taskService.updateTask(id, updates).pipe(
-            tapResponse({
-              next: (updatedTask) =>
-                patchState(
-                  store,
-                  updateEntity({ id, changes: updatedTask }, taskEntityConfig),
-                ),
-              error: (error: Error) =>
-                patchState(store, {
-                  error: `Failed to reset timer: ${error.message}`,
-                }),
-            }),
-          );
-        }),
-      ),
-    ),
-
-    // Todo Methods
-
-    // Add todo
-    addTodo: rxMethod<{ taskId: string; title: string }>(
-      pipe(
-        switchMap(({ taskId, title }) => {
-          const task = store.tasksEntityMap()[taskId];
-          if (!task) return [];
-
-          const newTodo = {
-            id: `todo-${Date.now()}`,
-            taskId,
-            title,
-            completed: false,
-            order: task.todos?.length || 0,
-            createdAt: new Date().toISOString(),
-          };
-
-          const updatedTodos = [...(task.todos || []), newTodo];
-
-          return taskService.updateTask(taskId, { todos: updatedTodos }).pipe(
-            tapResponse({
-              next: (updatedTask) =>
-                patchState(
-                  store,
-                  updateEntity(
-                    { id: taskId, changes: updatedTask },
-                    taskEntityConfig,
-                  ),
-                ),
-              error: (error: Error) =>
-                patchState(store, {
-                  error: `Failed to add todo: ${error.message}`,
-                }),
-            }),
-          );
-        }),
-      ),
-    ),
-
-    // Toggle todo completion
-    toggleTodo: rxMethod<{
-      taskId: string;
-      todoId: string;
-      completed: boolean;
-    }>(
-      pipe(
-        switchMap(({ taskId, todoId, completed }) => {
-          const task = store.tasksEntityMap()[taskId];
-          if (!task || !task.todos) return [];
-
-          const updatedTodos = task.todos.map((todo) =>
-            todo.id === todoId ? { ...todo, completed } : todo,
-          );
-
-          // Check if all todos are completed
-          const allComplete =
-            updatedTodos.length > 0 && updatedTodos.every((t) => t.completed);
-
-          // Auto-complete task if all todos are done
-          const updates: Partial<Task> = {
-            todos: updatedTodos,
-          };
-
-          if (allComplete && task.status !== "completed") {
-            updates.status = "completed";
-            updates.completedAt = new Date().toISOString();
-          }
-
-          return taskService.updateTask(taskId, updates).pipe(
-            tapResponse({
-              next: (updatedTask) =>
-                patchState(
-                  store,
-                  updateEntity(
-                    { id: taskId, changes: updatedTask },
-                    taskEntityConfig,
-                  ),
-                ),
-              error: (error: Error) =>
-                patchState(store, {
-                  error: `Failed to toggle todo: ${error.message}`,
-                }),
-            }),
-          );
-        }),
-      ),
-    ),
-
-    // Delete todo
-    deleteTodo: rxMethod<{ taskId: string; todoId: string }>(
-      pipe(
-        switchMap(({ taskId, todoId }) => {
-          const task = store.tasksEntityMap()[taskId];
-          if (!task || !task.todos) return [];
-
-          const updatedTodos = task.todos
-            .filter((todo) => todo.id !== todoId)
-            .map((todo, index) => ({ ...todo, order: index })); // Reorder remaining todos
-
-          return taskService.updateTask(taskId, { todos: updatedTodos }).pipe(
-            tapResponse({
-              next: (updatedTask) =>
-                patchState(
-                  store,
-                  updateEntity(
-                    { id: taskId, changes: updatedTask },
-                    taskEntityConfig,
-                  ),
-                ),
-              error: (error: Error) =>
-                patchState(store, {
-                  error: `Failed to delete todo: ${error.message}`,
-                }),
-            }),
-          );
-        }),
-      ),
-    ),
   })),
 );

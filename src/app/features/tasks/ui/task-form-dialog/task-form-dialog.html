@@ -1,0 +1,60 @@
+<h2 mat-dialog-title>{{ dialogTitle }}</h2>
+
+<mat-dialog-content>
+  <div class="form-fields">
+    <mat-form-field appearance="outline">
+      <mat-label>Title</mat-label>
+      <input
+        matInput
+        [ngModel]="title()"
+        (ngModelChange)="title.set($event)"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        [ngModel]="description()"
+        (ngModelChange)="description.set($event)"
+        rows="3"
+        required
+      ></textarea>
+    </mat-form-field>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Priority</mat-label>
+        <mat-select
+          [ngModel]="priority()"
+          (ngModelChange)="priority.set($event)"
+        >
+          @for (p of priorities; track p) {
+            <mat-option [value]="p">{{ p | titlecase }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Due Date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          [ngModel]="dueDate()"
+          (ngModelChange)="dueDate.set($event)"
+          required
+        />
+        <mat-datepicker-toggle matIconSuffix [for]="picker" />
+        <mat-datepicker #picker />
+      </mat-form-field>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-flat-button [disabled]="!isValid" (click)="save()">
+    {{ isEdit ? "Update" : "Create" }}
+  </button>
+</mat-dialog-actions>

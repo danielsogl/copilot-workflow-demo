@@ -1,0 +1,16 @@
+.board {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+}
+
+@media (max-width: 960px) {
+  .board {
+    flex-direction: column;
+
+    app-task-column {
+      max-width: 100%;
+    }
+  }
+}

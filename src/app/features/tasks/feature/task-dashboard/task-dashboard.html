@@ -1,0 +1,36 @@
+<div class="dashboard">
+  @if (store.loading()) {
+    <div class="loading-overlay">
+      <mat-spinner diameter="48" />
+    </div>
+  }
+
+  <app-dashboard-stats
+    [total]="store.totalCount()"
+    [todo]="store.todoCount()"
+    [inProgress]="store.inProgressCount()"
+    [completed]="store.completedCount()"
+    [overdue]="store.overdueCount()"
+    [completionRate]="store.completionRate()"
+  />
+
+  <app-task-filters
+    [searchQuery]="store.searchQuery()"
+    (searchQueryChange)="onSearchChange($event)"
+    (priorityChange)="onPriorityFilter($event)"
+  />
+
+  <app-task-board
+    [todoTasks]="store.todoTasks()"
+    [inProgressTasks]="store.inProgressTasks()"
+    [completedTasks]="store.completedTasks()"
+    (editTask)="openEditDialog($event)"
+    (deleteTask)="confirmDelete($event)"
+    (moveTask)="onMoveTask($event)"
+    (reorderTask)="onReorderTask($event)"
+  />
+</div>
+
+<button mat-fab class="fab-add" (click)="openCreateDialog()">
+  <mat-icon>add</mat-icon>
+</button>

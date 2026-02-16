@@ -23,17 +23,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Architecture Overview
 
-This is an Angular 20.2.4 task management application following Domain-Driven Design (DDD) principles with NgRx Signals Store for state management.
+This is an Angular 21 task management application following Domain-Driven Design (DDD) principles with NgRx Signals Store for state management.
 
 ### Tech Stack
 
-- **Angular v20.2.4** with standalone components (no NgModules)
-- **NgRx Signals Store v20.0.1** for reactive state management
-- **Angular Material v20.2.2** for UI components
-- **TypeScript v5.9.2** in strict mode
-- **Vitest v3.2.4** with ng-mocks v14.13.5 for unit testing
-- **Playwright v1.55.0** for E2E testing
-- **json-server v1.0.0-beta.3** for mock REST API
+- **Angular v21.1.4** with standalone components (no NgModules)
+- **NgRx Signals Store v21.0.1** for reactive state management
+- **Angular Material v21.1.4** for UI components
+- **TypeScript v5.9.3** in strict mode
+- **Vitest v4.0.17** with ng-mocks v14.15.0 for unit testing
+- **Playwright v1.58.2** for E2E testing
+- **json-server v1.0.0-beta.6** for mock REST API
 
 ### Project Structure
 
@@ -79,14 +79,14 @@ src/app/
 
 ### Build System
 
-- Uses **@angular/build v20.2.2** (modern esbuild-based builder)
+- Uses **@angular/build v21.1.4** (modern esbuild-based builder)
 - Application builder: `@angular/build:application`
 - Unit test builder: `@angular/build:unit-test` with Vitest runner
 - Dev server: `@angular/build:dev-server`
 
 ### Git Hooks
 
-- **Lefthook v1.12.3** manages pre-commit hooks (replaced Husky)
+- **Lefthook v2.0.16** manages pre-commit hooks (replaced Husky)
 - Auto-formats with Prettier on commit
 - Auto-fixes with ESLint on commit
 - Configuration in `lefthook.yml`
@@ -102,7 +102,7 @@ Follow Angular commit format: `type(scope): description`
 
 For comprehensive coding standards and patterns, refer to the instruction files in `.github/instructions/`:
 
-- **`.github/instructions/angular.instructions.md`** - Angular v20+ patterns, standalone components, modern control flow
+- **`.github/instructions/angular.instructions.md`** - Angular v21+ patterns, standalone components, modern control flow
 - **`.github/instructions/angular-material.instructions.md`** - Material Design component usage and theming
 - **`.github/instructions/angular-testing.instructions.md`** - Vitest and ng-mocks testing patterns
 - **`.github/instructions/architecture.instructions.md`** - DDD structure, folder organization, component placement

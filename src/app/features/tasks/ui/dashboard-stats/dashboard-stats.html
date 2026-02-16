@@ -1,0 +1,53 @@
+<div class="stats-row">
+  <mat-card class="stat-card">
+    <mat-icon class="stat-icon stat-icon--total">assignment</mat-icon>
+    <div class="stat-content">
+      <span class="stat-value">{{ total() }}</span>
+      <span class="stat-label">Total</span>
+    </div>
+  </mat-card>
+
+  <mat-card class="stat-card">
+    <mat-icon class="stat-icon stat-icon--todo">
+      radio_button_unchecked
+    </mat-icon>
+    <div class="stat-content">
+      <span class="stat-value">{{ todo() }}</span>
+      <span class="stat-label">To Do</span>
+    </div>
+  </mat-card>
+
+  <mat-card class="stat-card">
+    <mat-icon class="stat-icon stat-icon--progress">autorenew</mat-icon>
+    <div class="stat-content">
+      <span class="stat-value">{{ inProgress() }}</span>
+      <span class="stat-label">In Progress</span>
+    </div>
+  </mat-card>
+
+  <mat-card class="stat-card">
+    <mat-icon class="stat-icon stat-icon--done">check_circle</mat-icon>
+    <div class="stat-content">
+      <span class="stat-value">{{ completed() }}</span>
+      <span class="stat-label">Done</span>
+    </div>
+  </mat-card>
+
+  @if (overdue() > 0) {
+    <mat-card class="stat-card stat-card--overdue">
+      <mat-icon class="stat-icon stat-icon--overdue">warning</mat-icon>
+      <div class="stat-content">
+        <span class="stat-value">{{ overdue() }}</span>
+        <span class="stat-label">Overdue</span>
+      </div>
+    </mat-card>
+  }
+
+  <mat-card class="stat-card">
+    <mat-icon class="stat-icon stat-icon--rate">pie_chart</mat-icon>
+    <div class="stat-content">
+      <span class="stat-value">{{ completionRate() }}%</span>
+      <span class="stat-label">Complete</span>
+    </div>
+  </mat-card>
+</div>

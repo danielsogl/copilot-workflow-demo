@@ -1,0 +1,31 @@
+<div class="board" cdkDropListGroup>
+  <app-task-column
+    title="To Do"
+    status="todo"
+    [tasks]="todoTasks()"
+    [connectedTo]="connectedLists"
+    (editTask)="editTask.emit($event)"
+    (deleteTask)="deleteTask.emit($event)"
+    (taskDropped)="onTaskDropped($event, 'todo')"
+  />
+
+  <app-task-column
+    title="In Progress"
+    status="in_progress"
+    [tasks]="inProgressTasks()"
+    [connectedTo]="connectedLists"
+    (editTask)="editTask.emit($event)"
+    (deleteTask)="deleteTask.emit($event)"
+    (taskDropped)="onTaskDropped($event, 'in_progress')"
+  />
+
+  <app-task-column
+    title="Done"
+    status="completed"
+    [tasks]="completedTasks()"
+    [connectedTo]="connectedLists"
+    (editTask)="editTask.emit($event)"
+    (deleteTask)="deleteTask.emit($event)"
+    (taskDropped)="onTaskDropped($event, 'completed')"
+  />
+</div>

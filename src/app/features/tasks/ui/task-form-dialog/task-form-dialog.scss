@@ -1,0 +1,31 @@
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 400px;
+  padding-top: 8px;
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.half-width {
+  flex: 1;
+}
+
+@media (max-width: 600px) {
+  .form-fields {
+    min-width: auto;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+}

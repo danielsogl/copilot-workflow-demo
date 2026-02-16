@@ -1,0 +1,31 @@
+<div class="column">
+  <div class="column-header">
+    <h2 class="column-title">{{ title() }}</h2>
+    <span class="column-count">{{ tasks().length }}</span>
+  </div>
+
+  <div
+    class="column-body"
+    cdkDropList
+    [id]="dropListId"
+    [cdkDropListData]="tasks()"
+    [cdkDropListConnectedTo]="connectedTo()"
+    (cdkDropListDropped)="onDrop($event)"
+  >
+    @for (task of tasks(); track task.id) {
+      <app-task-card
+        [task]="task"
+        cdkDrag
+        [cdkDragData]="task"
+        (edit)="editTask.emit($event)"
+        (delete)="deleteTask.emit($event)"
+      />
+    }
+
+    @if (tasks().length === 0) {
+      <div class="column-empty">
+        <p>No tasks</p>
+      </div>
+    }
+  </div>
+</div>

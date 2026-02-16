@@ -1,20 +1,13 @@
 import { Routes } from "@angular/router";
 
 export const routes: Routes = [
-  { path: "", redirectTo: "/dashboard", pathMatch: "full" },
+  { path: "", redirectTo: "/board", pathMatch: "full" },
   {
-    path: "dashboard",
+    path: "board",
     loadComponent: () =>
-      import("./features/dashboard/dashboard").then((m) => m.Dashboard),
+      import("./features/tasks/feature/task-dashboard/task-dashboard").then(
+        (m) => m.TaskDashboard,
+      ),
   },
-  {
-    path: "tasks",
-    loadComponent: () =>
-      import("./features/tasks/ui/task-list/task-list").then((m) => m.TaskList),
-  },
-  {
-    path: "tasks/:status",
-    loadComponent: () =>
-      import("./features/tasks/ui/task-list/task-list").then((m) => m.TaskList),
-  },
+  { path: "**", redirectTo: "/board" },
 ];
