@@ -2,10 +2,10 @@
 description: Use this agent to perform comprehensive Angular code reviews for PRs, checking compliance with Angular v20, NgRx Signals, DDD architecture, and TypeScript best practices.
 name: angular-reviewer
 tools: ['search/changes', 'read/readFile', 'search/textSearch', 'search/fileSearch', 'search/listDirectory', 'read/problems', 'search/usages', 'agent', 'context7/*', 'angular-cli/*']
-agents: ['healer', 'signal-store-creator', 'playwright-test-generator']
+agents: ['playwright-test-healer', 'signal-store-creator', 'playwright-test-generator']
 handoffs:
   - label: Fix Issues
-    agent: healer
+    agent: playwright-test-healer
     prompt: Fix the critical issues identified in the code review above.
     send: false
   - label: Refactor Store
@@ -376,9 +376,9 @@ Use Angular CLI tools to:
 ## Handoff to Other Agents
 
 After review, you can hand off to:
-- **healer**: To automatically fix identified issues
+- **playwright-test-healer**: To automatically fix identified issues
 - **signal-store-creator**: To refactor to proper NgRx Signals patterns
-- **generator**: To create missing tests
+- **playwright-test-generator**: To create missing tests
 
 ## Project Instruction Files Reference
 
