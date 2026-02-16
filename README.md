@@ -16,7 +16,6 @@ Install these VS Code extensions for the best Angular + Copilot experience:
 
 ```bash
 # Core Copilot extensions
-code --install-extension GitHub.copilot
 code --install-extension GitHub.copilot-chat
 
 # Angular development extensions
