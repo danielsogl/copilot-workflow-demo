@@ -146,7 +146,7 @@ describe('FeatureStore', () => {
 
   it('should initialize with default state', () => {
     expect(store.loading()).toBe(false);
-    expect(store.error()).toBeNull());
+    expect(store.error()).toBeNull();
   });
 
   it('should load entities', () => {
