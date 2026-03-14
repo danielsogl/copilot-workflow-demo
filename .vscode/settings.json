@@ -23,7 +23,6 @@
   "chat.agent.thinkingStyle": "fixedScrolling",
   "chat.editRequests": "inline",
   "chat.sendElementsToChat.enabled": true,
-  "github.copilot.chat.edits.suggestRelatedFilesFromGitHistory": true,
   "github.copilot.chat.reviewSelection.enabled": true,
   "chat.customAgentInSubagent.enabled": true,
   "github.copilot.chat.cli.customAgents.enabled": true,
@@ -42,6 +41,9 @@
   "chat.agentFilesLocations": {
     ".github/agents": true
   },
+  //hooks
+  "chat.useHooks": true,
+  "chat.useClaudeHooks": false,
   // Code Generation & Review
   "github.copilot.chat.codeGeneration.useInstructionFiles": true,
   "github.copilot.chat.reviewSelection.instructions": [

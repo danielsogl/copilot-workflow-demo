@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "hooks": {
+    "errorOccurred": [
+      {
+        "description": "Log agent errors as JSON lines",
+        "type": "command",
+        "bash": "mkdir -p logs && cat >> logs/agent-errors.jsonl",
+        "timeoutSec": 5
+      }
+    ],
+    "postToolUse": [
+      {
+        "description": "Log failed or denied tool executions",
+        "type": "command",
+        "bash": "INPUT=$(cat)\nRESULT_TYPE=$(echo \"$INPUT\" | jq -r '.toolResult.resultType // empty')\nif [ \"$RESULT_TYPE\" = \"failure\" ] || [ \"$RESULT_TYPE\" = \"denied\" ]; then\n  mkdir -p logs\n  echo \"$INPUT\" >> logs/tool-failures.jsonl\nfi",
+        "timeoutSec": 5
+      },
+      {
+        "description": "Lint TypeScript files after edit/create",
+        "type": "command",
+        "bash": "INPUT=$(cat)\nTOOL_NAME=$(echo \"$INPUT\" | jq -r '.toolName // empty')\nif [ \"$TOOL_NAME\" != \"edit\" ] && [ \"$TOOL_NAME\" != \"create\" ]; then\n  exit 0\nfi\nTOOL_ARGS=$(echo \"$INPUT\" | jq -r '.toolArgs // \"{}\"')\nCHANGED_FILE=$(echo \"$TOOL_ARGS\" | jq -r '.filePath // .path // empty')\nif [ -z \"$CHANGED_FILE\" ] || [ ! -f \"$CHANGED_FILE\" ]; then\n  exit 0\nfi\ncase \"$CHANGED_FILE\" in\n  *.ts) npx eslint --fix \"$CHANGED_FILE\" >/dev/null 2>&1 || true ;;\n  *) ;;\nesac",
+        "timeoutSec": 30
+      },
+      {
+        "description": "Format common source files after edit/create",
+        "type": "command",
+        "bash": "INPUT=$(cat)\nTOOL_NAME=$(echo \"$INPUT\" | jq -r '.toolName // empty')\nif [ \"$TOOL_NAME\" != \"edit\" ] && [ \"$TOOL_NAME\" != \"create\" ]; then\n  exit 0\nfi\nTOOL_ARGS=$(echo \"$INPUT\" | jq -r '.toolArgs // \"{}\"')\nCHANGED_FILE=$(echo \"$TOOL_ARGS\" | jq -r '.filePath // .path // empty')\nif [ -z \"$CHANGED_FILE\" ] || [ ! -f \"$CHANGED_FILE\" ]; then\n  exit 0\nfi\ncase \"$CHANGED_FILE\" in\n  *.ts|*.html|*.scss|*.css|*.json|*.md) npx prettier --write \"$CHANGED_FILE\" >/dev/null 2>&1 || true ;;\n  *) ;;\nesac",
+        "timeoutSec": 15
+      }
+    ],
+    "sessionEnd": [
+      {
+        "description": "Write a compact session-end summary",
+        "type": "command",
+        "bash": "INPUT=$(cat)\nmkdir -p logs\nTS=$(echo \"$INPUT\" | jq -r '.timestamp // empty')\nREASON=$(echo \"$INPUT\" | jq -r '.reason // empty')\nCWD=$(echo \"$INPUT\" | jq -r '.cwd // empty')\necho \"{\\\"timestamp\\\":$TS,\\\"reason\\\":\\\"$REASON\\\",\\\"cwd\\\":\\\"$CWD\\\"}\" >> logs/session-end.jsonl",
+        "timeoutSec": 5
+      }
+    ]
+  }
+}
