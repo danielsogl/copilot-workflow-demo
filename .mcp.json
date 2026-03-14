@@ -1,26 +1,8 @@
 {
   "mcpServers": {
-    "github": {
-      "type": "http",
-      "url": "https://api.githubcopilot.com/mcp/"
-    },
     "context7": {
       "type": "http",
       "url": "https://mcp.context7.com/mcp/oauth"
-    },
-    "supabase": {
-      "type": "stdio",
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-postgres",
-        "postgresql://postgres:postgres@127.0.0.1:55322/postgres"
-      ]
-    },
-    "playwright": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["@playwright/mcp@latest"]
     },
     "playwright-test": {
       "command": "npx",
@@ -35,14 +17,6 @@
       "type": "stdio",
       "command": "npx",
       "args": ["@eslint/mcp@latest"]
-    },
-    "chrome-devtools": {
-      "command": "npx",
-      "args": ["-y", "chrome-devtools-mcp@latest"]
-    },
-    "figma": {
-      "type": "http",
-      "url": "http://127.0.0.1:3845/mcp"
     }
   }
 }

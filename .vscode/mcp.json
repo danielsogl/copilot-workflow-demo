@@ -1,16 +1,8 @@
 {
   "servers": {
-    "github": {
-      "type": "http",
-      "url": "https://api.githubcopilot.com/mcp/"
-    },
     "context7": {
       "type": "http",
       "url": "https://mcp.context7.com/mcp/oauth"
-    },
-    "playwright": {
-      "command": "npx",
-      "args": ["@playwright/mcp@latest"]
     },
     "angular-cli": {
       "command": "npx",
@@ -21,18 +13,10 @@
       "command": "npx",
       "args": ["playwright", "run-test-mcp-server"]
     },
-    "figma": {
-      "type": "http",
-      "url": "http://127.0.0.1:3845/mcp"
-    },
     "eslint": {
       "type": "stdio",
       "command": "npx",
       "args": ["@eslint/mcp@latest"]
-    },
-    "chrome-devtools": {
-      "command": "npx",
-      "args": ["-y", "chrome-devtools-mcp@latest"]
     }
   }
 }
