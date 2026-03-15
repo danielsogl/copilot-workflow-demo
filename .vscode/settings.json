@@ -41,6 +41,7 @@
   "chat.agentFilesLocations": {
     ".github/agents": true
   },
+  "chat.useNestedAgentsMdFiles": true,
   //hooks
   "chat.useHooks": true,
   "chat.useClaudeHooks": false,
