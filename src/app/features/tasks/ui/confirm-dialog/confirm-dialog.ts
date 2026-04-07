@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
-import { MatButtonModule } from "@angular/material/button";
+import { MatButton } from "@angular/material/button";
 import {
   MAT_DIALOG_DATA,
-  MatDialogModule,
+  MatDialogActions,
+  MatDialogContent,
   MatDialogRef,
+  MatDialogTitle,
 } from "@angular/material/dialog";
 
 export interface ConfirmDialogData {
@@ -22,10 +24,14 @@ export interface ConfirmDialogData {
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button mat-button (click)="dialogRef.close(false)">
-        {{ data.cancelLabel || "Cancel" }}
+        {{ data.cancelLabel ?? "Cancel" }}
       </button>
-      <button mat-flat-button color="warn" (click)="dialogRef.close(true)">
-        {{ data.confirmLabel || "Confirm" }}
+      <button
+        mat-flat-button
+        class="confirm-button"
+        (click)="dialogRef.close(true)"
+      >
+        {{ data.confirmLabel ?? "Confirm" }}
       </button>
     </mat-dialog-actions>
   `,
@@ -34,11 +40,16 @@ export interface ConfirmDialogData {
       color: var(--mat-sys-on-surface-variant);
       margin: 0;
     }
+
+    .confirm-button {
+      background-color: var(--mat-sys-error);
+      color: var(--mat-sys-on-error);
+    }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatDialogModule, MatButtonModule],
+  imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatButton],
 })
 export class ConfirmDialog {
-  readonly dialogRef = inject(MatDialogRef<ConfirmDialog>);
-  readonly data = inject<ConfirmDialogData>(MAT_DIALOG_DATA);
+  protected readonly dialogRef = inject(MatDialogRef<ConfirmDialog>);
+  protected readonly data = inject<ConfirmDialogData>(MAT_DIALOG_DATA);
 }

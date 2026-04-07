@@ -1,35 +1,33 @@
 <h2 mat-dialog-title>{{ dialogTitle }}</h2>
 
 <mat-dialog-content>
-  <div class="form-fields">
+  <form novalidate class="form-fields" (ngSubmit)="save()">
     <mat-form-field appearance="outline">
       <mat-label>Title</mat-label>
-      <input
-        matInput
-        [ngModel]="title()"
-        (ngModelChange)="title.set($event)"
-        required
-      />
+      <input matInput [formField]="taskForm.title" autocomplete="off" />
+      @let titleField = taskForm.title();
+      @if (titleField.touched() && titleField.invalid()) {
+        @for (error of titleField.errors(); track error.kind) {
+          <mat-error>{{ error.message }}</mat-error>
+        }
+      }
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Description</mat-label>
-      <textarea
-        matInput
-        [ngModel]="description()"
-        (ngModelChange)="description.set($event)"
-        rows="3"
-        required
-      ></textarea>
+      <textarea matInput rows="3" [formField]="taskForm.description"></textarea>
+      @let descriptionField = taskForm.description();
+      @if (descriptionField.touched() && descriptionField.invalid()) {
+        @for (error of descriptionField.errors(); track error.kind) {
+          <mat-error>{{ error.message }}</mat-error>
+        }
+      }
     </mat-form-field>
 
     <div class="form-row">
       <mat-form-field appearance="outline" class="half-width">
         <mat-label>Priority</mat-label>
-        <mat-select
-          [ngModel]="priority()"
-          (ngModelChange)="priority.set($event)"
-        >
+        <mat-select [formField]="taskForm.priority">
           @for (p of priorities; track p) {
             <mat-option [value]="p">{{ p | titlecase }}</mat-option>
           }
@@ -41,20 +39,29 @@
         <input
           matInput
           [matDatepicker]="picker"
-          [ngModel]="dueDate()"
-          (ngModelChange)="dueDate.set($event)"
-          required
+          [formField]="taskForm.dueDate"
         />
         <mat-datepicker-toggle matIconSuffix [for]="picker" />
         <mat-datepicker #picker />
+        @let dueDateField = taskForm.dueDate();
+        @if (dueDateField.touched() && dueDateField.invalid()) {
+          @for (error of dueDateField.errors(); track error.kind) {
+            <mat-error>{{ error.message }}</mat-error>
+          }
+        }
       </mat-form-field>
     </div>
-  </div>
+  </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button (click)="cancel()">Cancel</button>
-  <button mat-flat-button [disabled]="!isValid" (click)="save()">
+  <button mat-button type="button" (click)="cancel()">Cancel</button>
+  <button
+    mat-flat-button
+    type="button"
+    [disabled]="!canSubmit()"
+    (click)="save()"
+  >
     {{ isEdit ? "Update" : "Create" }}
   </button>
 </mat-dialog-actions>

@@ -4,60 +4,61 @@ import {
   input,
   output,
 } from "@angular/core";
-import { CdkDropListGroup, CdkDragDrop } from "@angular/cdk/drag-drop";
+import { CdkDragDrop, CdkDropListGroup } from "@angular/cdk/drag-drop";
 import { Task, TaskStatus } from "../../data/models/task.model";
 import { TaskColumn } from "../task-column/task-column";
 
 @Component({
   selector: "app-task-board",
   templateUrl: "./task-board.html",
-  styleUrls: ["./task-board.scss"],
+  styleUrl: "./task-board.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CdkDropListGroup, TaskColumn],
 })
 export class TaskBoard {
-  todoTasks = input.required<Task[]>();
-  inProgressTasks = input.required<Task[]>();
-  completedTasks = input.required<Task[]>();
+  readonly todoTasks = input.required<Task[]>();
+  readonly inProgressTasks = input.required<Task[]>();
+  readonly completedTasks = input.required<Task[]>();
 
-  editTask = output<Task>();
-  deleteTask = output<Task>();
-  moveTask = output<{
+  readonly editTask = output<Task>();
+  readonly deleteTask = output<Task>();
+  readonly moveTask = output<{
     taskId: string;
     newStatus: TaskStatus;
     targetIndex: number;
   }>();
-  reorderTask = output<{
+  readonly reorderTask = output<{
     status: TaskStatus;
     previousIndex: number;
     currentIndex: number;
   }>();
 
-  readonly connectedLists = [
+  protected readonly connectedLists: string[] = [
     "column-todo",
     "column-in_progress",
     "column-completed",
   ];
 
-  onTaskDropped(event: CdkDragDrop<Task[]>, targetStatus: TaskStatus): void {
+  protected onTaskDropped(
+    event: CdkDragDrop<Task[]>,
+    targetStatus: TaskStatus,
+  ): void {
     const task = event.item.data as Task;
 
     if (event.previousContainer === event.container) {
-      // Same column reorder
-      if (event.previousIndex !== event.currentIndex) {
-        this.reorderTask.emit({
-          status: targetStatus,
-          previousIndex: event.previousIndex,
-          currentIndex: event.currentIndex,
-        });
-      }
-    } else {
-      // Cross-column move
-      this.moveTask.emit({
-        taskId: task.id,
-        newStatus: targetStatus,
-        targetIndex: event.currentIndex,
+      if (event.previousIndex === event.currentIndex) return;
+      this.reorderTask.emit({
+        status: targetStatus,
+        previousIndex: event.previousIndex,
+        currentIndex: event.currentIndex,
       });
+      return;
     }
+
+    this.moveTask.emit({
+      taskId: task.id,
+      newStatus: targetStatus,
+      targetIndex: event.currentIndex,
+    });
   }
 }

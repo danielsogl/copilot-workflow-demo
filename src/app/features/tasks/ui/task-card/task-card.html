@@ -1,4 +1,4 @@
-<mat-card class="task-card" [class.task-card--overdue()]="overdue()">
+<mat-card class="task-card" [class.task-card--overdue]="overdue()">
   <mat-card-header>
     <app-priority-badge [priority]="task().priority" />
     <span class="spacer"></span>
@@ -26,7 +26,7 @@
     <div class="task-meta">
       <span
         class="due-date"
-        [class.due-date--overdue()]="overdue()"
+        [class.due-date--overdue]="overdue()"
         [matTooltip]="overdue() ? 'Overdue!' : 'Due date'"
       >
         <mat-icon class="meta-icon">calendar_today</mat-icon>

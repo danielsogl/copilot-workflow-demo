@@ -2,10 +2,11 @@
 @use "./theme/_theme-colors" as tt-theme;
 
 html {
+  color-scheme: light dark;
+
   @include mat.theme(
     (
       color: (
-        theme-type: light,
         primary: tt-theme.$primary-palette,
         tertiary: tt-theme.$tertiary-palette,
       ),
@@ -13,20 +14,7 @@ html {
       density: 0,
     )
   );
-}
 
-html,
-body {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: #f5f7fa;
-}
-
-:root {
   @include mat.toolbar-overrides(
     (
       container-background-color: var(--mat-sys-primary),
@@ -39,6 +27,19 @@ body {
       container-shape: 16px,
     )
   );
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family:
+    var(--mat-sys-body-large-font), Roboto, "Helvetica Neue", sans-serif;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
 }
 
 .task-dialog {

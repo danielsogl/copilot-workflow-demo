@@ -5,34 +5,46 @@ import {
   input,
   output,
 } from "@angular/core";
-import { MatCardModule } from "@angular/material/card";
-import { MatIconModule } from "@angular/material/icon";
-import { MatButtonModule } from "@angular/material/button";
-import { MatMenuModule } from "@angular/material/menu";
-import { MatTooltipModule } from "@angular/material/tooltip";
+import {
+  MatCard,
+  MatCardContent,
+  MatCardFooter,
+  MatCardHeader,
+} from "@angular/material/card";
+import { MatIcon } from "@angular/material/icon";
+import { MatIconButton } from "@angular/material/button";
+import { MatMenu, MatMenuItem, MatMenuTrigger } from "@angular/material/menu";
+import { MatTooltip } from "@angular/material/tooltip";
 import { Task } from "../../data/models/task.model";
 import { PriorityBadge } from "../priority-badge/priority-badge";
-import { isOverdue, formatDueDate } from "../../util/task-helpers/task-helpers";
+import { formatDueDate, isOverdue } from "../../util/task-helpers/task-helpers";
 
 @Component({
   selector: "app-task-card",
   templateUrl: "./task-card.html",
-  styleUrls: ["./task-card.scss"],
+  styleUrl: "./task-card.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    MatCardModule,
-    MatIconModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatTooltipModule,
+    MatCard,
+    MatCardHeader,
+    MatCardContent,
+    MatCardFooter,
+    MatIcon,
+    MatIconButton,
+    MatMenu,
+    MatMenuItem,
+    MatMenuTrigger,
+    MatTooltip,
     PriorityBadge,
   ],
 })
 export class TaskCard {
-  task = input.required<Task>();
-  edit = output<Task>();
-  delete = output<Task>();
+  readonly task = input.required<Task>();
+  readonly edit = output<Task>();
+  readonly delete = output<Task>();
 
-  overdue = computed(() => isOverdue(this.task()));
-  formattedDueDate = computed(() => formatDueDate(this.task().dueDate));
+  protected readonly overdue = computed(() => isOverdue(this.task()));
+  protected readonly formattedDueDate = computed(() =>
+    formatDueDate(this.task().dueDate),
+  );
 }

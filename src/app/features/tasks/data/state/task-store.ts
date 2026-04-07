@@ -1,22 +1,23 @@
+import { computed, inject } from "@angular/core";
 import {
+  patchState,
   signalStore,
-  withState,
+  type,
   withComputed,
   withMethods,
-  patchState,
-  type,
+  withState,
 } from "@ngrx/signals";
 import {
-  withEntities,
-  entityConfig,
-  setAllEntities,
   addEntity,
-  updateEntity,
+  entityConfig,
   removeEntity,
+  setAllEntities,
+  updateEntities,
+  updateEntity,
+  withEntities,
 } from "@ngrx/signals/entities";
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
 import { tapResponse } from "@ngrx/operators";
-import { computed, inject } from "@angular/core";
 import { EMPTY, forkJoin, pipe, switchMap, tap } from "rxjs";
 import { TaskApi } from "../infrastructure/task-api";
 import {
@@ -49,61 +50,49 @@ const taskEntityConfig = entityConfig({
 
 const byOrder = (a: Task, b: Task) => a.order - b.order;
 
+function today(): string {
+  return new Date().toISOString().split("T")[0];
+}
+
 export const TaskStore = signalStore(
   { providedIn: "root" },
   withState(initialState),
   withEntities(taskEntityConfig),
   withComputed(({ tasksEntities, searchQuery, priorityFilter }) => {
     const filteredTasks = computed(() => {
-      let tasks = tasksEntities();
       const query = searchQuery().toLowerCase().trim();
       const priority = priorityFilter();
-
-      if (query) {
-        tasks = tasks.filter(
-          (task) =>
-            task.title.toLowerCase().includes(query) ||
-            task.description.toLowerCase().includes(query),
+      return tasksEntities().filter((task) => {
+        if (priority && task.priority !== priority) return false;
+        if (!query) return true;
+        return (
+          task.title.toLowerCase().includes(query) ||
+          task.description.toLowerCase().includes(query)
         );
-      }
-
-      if (priority) {
-        tasks = tasks.filter((task) => task.priority === priority);
-      }
-
-      return tasks;
+      });
     });
+
+    const tasksByStatus = (status: TaskStatus) =>
+      computed(() =>
+        filteredTasks()
+          .filter((t) => t.status === status)
+          .sort(byOrder),
+      );
+
+    const countByStatus = (status: TaskStatus) =>
+      computed(() => tasksEntities().filter((t) => t.status === status).length);
 
     return {
       filteredTasks,
 
-      todoTasks: computed(() =>
-        filteredTasks()
-          .filter((t) => t.status === "todo")
-          .sort(byOrder),
-      ),
-      inProgressTasks: computed(() =>
-        filteredTasks()
-          .filter((t) => t.status === "in_progress")
-          .sort(byOrder),
-      ),
-      completedTasks: computed(() =>
-        filteredTasks()
-          .filter((t) => t.status === "completed")
-          .sort(byOrder),
-      ),
+      todoTasks: tasksByStatus("todo"),
+      inProgressTasks: tasksByStatus("in_progress"),
+      completedTasks: tasksByStatus("completed"),
 
-      // Stats
       totalCount: computed(() => tasksEntities().length),
-      todoCount: computed(
-        () => tasksEntities().filter((t) => t.status === "todo").length,
-      ),
-      inProgressCount: computed(
-        () => tasksEntities().filter((t) => t.status === "in_progress").length,
-      ),
-      completedCount: computed(
-        () => tasksEntities().filter((t) => t.status === "completed").length,
-      ),
+      todoCount: countByStatus("todo"),
+      inProgressCount: countByStatus("in_progress"),
+      completedCount: countByStatus("completed"),
       overdueCount: computed(
         () => tasksEntities().filter((t) => isOverdue(t)).length,
       ),
@@ -118,7 +107,6 @@ export const TaskStore = signalStore(
     };
   }),
   withMethods((store, taskApi = inject(TaskApi)) => ({
-    // Load all tasks
     loadTasks: rxMethod<void>(
       pipe(
         tap(() => patchState(store, { loading: true, error: null })),
@@ -140,12 +128,10 @@ export const TaskStore = signalStore(
       ),
     ),
 
-    // Create task
     createTask: rxMethod<TaskFormData>(
       pipe(
         tap(() => patchState(store, { loading: true, error: null })),
         switchMap((taskData) => {
-          // New tasks get order = max order in their column + 1
           const maxOrder = store
             .tasksEntities()
             .filter((t) => t.status === "todo")
@@ -167,7 +153,6 @@ export const TaskStore = signalStore(
       ),
     ),
 
-    // Update task
     updateTask: rxMethod<{ id: string; updates: Partial<Task> }>(
       pipe(
         tap(() => patchState(store, { loading: true, error: null })),
@@ -191,7 +176,7 @@ export const TaskStore = signalStore(
       ),
     ),
 
-    // Move task to another column (optimistic update)
+    // Move task across columns with optimistic update
     moveTask: rxMethod<{
       taskId: string;
       newStatus: TaskStatus;
@@ -199,40 +184,39 @@ export const TaskStore = signalStore(
     }>(
       pipe(
         tap(({ taskId, newStatus, targetIndex }) => {
-          // Get tasks in the target column, sorted by order
-          const targetTasks = store
+          const movedTask = store.tasksEntities().find((t) => t.id === taskId);
+          if (!movedTask) return;
+
+          const targetColumn = store
             .tasksEntities()
             .filter((t) => t.status === newStatus && t.id !== taskId)
             .sort(byOrder);
 
-          // Recalculate order for all tasks in target column
-          const updates: { id: string; changes: Partial<Task> }[] = [];
-
-          // Insert moved task at targetIndex
-          const reordered = [...targetTasks];
-          const movedTask = store.tasksEntities().find((t) => t.id === taskId);
-          if (!movedTask) return;
-
+          const reordered = [...targetColumn];
           reordered.splice(targetIndex, 0, movedTask);
 
-          reordered.forEach((t, i) => {
-            const changes: Partial<Task> = { order: i };
+          const changesById = new Map<string, Partial<Task>>();
+          reordered.forEach((t, index) => {
+            const changes: Partial<Task> = { order: index };
             if (t.id === taskId) {
               changes.status = newStatus;
               if (newStatus === "completed") {
-                changes.completedAt = new Date().toISOString().split("T")[0];
+                changes.completedAt = today();
               }
             }
-            updates.push({ id: t.id, changes });
+            changesById.set(t.id, changes);
           });
 
-          // Optimistic: apply all updates at once
-          for (const u of updates) {
-            patchState(
-              store,
-              updateEntity({ id: u.id, changes: u.changes }, taskEntityConfig),
-            );
-          }
+          patchState(
+            store,
+            updateEntities(
+              {
+                ids: reordered.map((t) => t.id),
+                changes: (entity) => changesById.get(entity.id) ?? {},
+              },
+              taskEntityConfig,
+            ),
+          );
         }),
         switchMap(({ taskId, newStatus }) => {
           const targetTasks = store
@@ -240,24 +224,22 @@ export const TaskStore = signalStore(
             .filter((t) => t.status === newStatus)
             .sort(byOrder);
 
-          // Persist all order changes
+          if (targetTasks.length === 0) return EMPTY;
+
           const apiCalls = targetTasks.map((t) => {
             const updates: Partial<Task> = { order: t.order };
             if (t.id === taskId) {
               updates.status = newStatus;
               if (newStatus === "completed") {
-                updates.completedAt = new Date().toISOString().split("T")[0];
+                updates.completedAt = today();
               }
             }
             return taskApi.updateTask(t.id, updates);
           });
 
-          if (apiCalls.length === 0) return EMPTY;
-
           return forkJoin(apiCalls).pipe(
             tapResponse({
-              // eslint-disable-next-line @typescript-eslint/no-empty-function
-              next: () => {},
+              next: () => undefined,
               error: (error: Error) =>
                 patchState(store, {
                   error: `Failed to move task: ${error.message}`,
@@ -268,7 +250,7 @@ export const TaskStore = signalStore(
       ),
     ),
 
-    // Reorder task within same column (optimistic update)
+    // Reorder task within same column with optimistic update
     reorderTask: rxMethod<{
       status: TaskStatus;
       previousIndex: number;
@@ -281,39 +263,38 @@ export const TaskStore = signalStore(
             .filter((t) => t.status === status)
             .sort(byOrder);
 
-          // Move item in array
           const reordered = [...columnTasks];
           const [moved] = reordered.splice(previousIndex, 1);
           reordered.splice(currentIndex, 0, moved);
 
-          // Update order for all tasks in column
-          for (let i = 0; i < reordered.length; i++) {
-            patchState(
-              store,
-              updateEntity(
-                { id: reordered[i].id, changes: { order: i } },
-                taskEntityConfig,
-              ),
-            );
-          }
+          const orderById = new Map(reordered.map((t, index) => [t.id, index]));
+
+          patchState(
+            store,
+            updateEntities(
+              {
+                ids: reordered.map((t) => t.id),
+                changes: (entity) => ({ order: orderById.get(entity.id) ?? 0 }),
+              },
+              taskEntityConfig,
+            ),
+          );
         }),
         switchMap(({ status }) => {
-          // Persist new order
           const columnTasks = store
             .tasksEntities()
             .filter((t) => t.status === status)
             .sort(byOrder);
 
+          if (columnTasks.length === 0) return EMPTY;
+
           const apiCalls = columnTasks.map((t) =>
             taskApi.updateTask(t.id, { order: t.order }),
           );
 
-          if (apiCalls.length === 0) return EMPTY;
-
           return forkJoin(apiCalls).pipe(
             tapResponse({
-              // eslint-disable-next-line @typescript-eslint/no-empty-function
-              next: () => {},
+              next: () => undefined,
               error: (error: Error) =>
                 patchState(store, {
                   error: `Failed to reorder tasks: ${error.message}`,
@@ -324,7 +305,6 @@ export const TaskStore = signalStore(
       ),
     ),
 
-    // Delete task
     deleteTask: rxMethod<string>(
       pipe(
         tap(() => patchState(store, { loading: true, error: null })),
@@ -346,7 +326,6 @@ export const TaskStore = signalStore(
       ),
     ),
 
-    // Synchronous methods
     setSearchQuery(query: string): void {
       patchState(store, { searchQuery: query });
     },

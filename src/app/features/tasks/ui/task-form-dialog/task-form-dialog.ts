@@ -1,40 +1,67 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   inject,
   signal,
 } from "@angular/core";
 import { TitleCasePipe } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { MatButtonModule } from "@angular/material/button";
+import {
+  form,
+  FormField,
+  maxLength,
+  minLength,
+  required,
+} from "@angular/forms/signals";
+import { MatButton } from "@angular/material/button";
 import {
   MAT_DIALOG_DATA,
-  MatDialogModule,
+  MatDialogActions,
+  MatDialogContent,
   MatDialogRef,
+  MatDialogTitle,
 } from "@angular/material/dialog";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatInputModule } from "@angular/material/input";
-import { MatSelectModule } from "@angular/material/select";
-import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatError, MatFormField, MatLabel } from "@angular/material/form-field";
+import { MatInput } from "@angular/material/input";
+import { MatOption, MatSelect } from "@angular/material/select";
+import {
+  MatDatepicker,
+  MatDatepickerInput,
+  MatDatepickerToggle,
+} from "@angular/material/datepicker";
 import { Task, TaskFormData, TaskPriority } from "../../data/models/task.model";
 
 export interface TaskFormDialogData {
   task?: Task;
 }
 
+interface TaskFormModel {
+  title: string;
+  description: string;
+  priority: TaskPriority;
+  dueDate: Date | null;
+}
+
 @Component({
   selector: "app-task-form-dialog",
   templateUrl: "./task-form-dialog.html",
-  styleUrls: ["./task-form-dialog.scss"],
+  styleUrl: "./task-form-dialog.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    FormsModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatDatepickerModule,
+    FormField,
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions,
+    MatButton,
+    MatFormField,
+    MatLabel,
+    MatError,
+    MatInput,
+    MatSelect,
+    MatOption,
+    MatDatepicker,
+    MatDatepickerInput,
+    MatDatepickerToggle,
     TitleCasePipe,
   ],
 })
@@ -42,47 +69,64 @@ export class TaskFormDialog {
   private readonly dialogRef = inject(MatDialogRef<TaskFormDialog>);
   private readonly data = inject<TaskFormDialogData>(MAT_DIALOG_DATA);
 
-  readonly isEdit = !!this.data.task;
-  readonly dialogTitle = this.isEdit ? "Edit Task" : "Create Task";
+  protected readonly isEdit = !!this.data.task;
+  protected readonly dialogTitle = this.isEdit ? "Edit Task" : "Create Task";
+  protected readonly priorities: readonly TaskPriority[] = [
+    "low",
+    "medium",
+    "high",
+  ];
 
-  title = signal(this.data.task?.title ?? "");
-  description = signal(this.data.task?.description ?? "");
-  priority = signal<TaskPriority>(this.data.task?.priority ?? "medium");
-  dueDate = signal<Date | null>(
-    this.data.task ? new Date(this.data.task.dueDate + "T00:00:00") : null,
-  );
+  protected readonly model = signal<TaskFormModel>({
+    title: this.data.task?.title ?? "",
+    description: this.data.task?.description ?? "",
+    priority: this.data.task?.priority ?? "medium",
+    dueDate: this.data.task
+      ? new Date(`${this.data.task.dueDate}T00:00:00`)
+      : null,
+  });
 
-  readonly priorities: TaskPriority[] = ["low", "medium", "high"];
+  protected readonly taskForm = form(this.model, (path) => {
+    required(path.title, { message: "Title is required" });
+    minLength(path.title, 3, {
+      message: "Title must be at least 3 characters",
+    });
+    maxLength(path.title, 100, {
+      message: "Title cannot exceed 100 characters",
+    });
 
-  get isValid(): boolean {
-    return (
-      this.title().trim().length > 0 &&
-      this.description().trim().length > 0 &&
-      this.dueDate() !== null
-    );
-  }
+    required(path.description, { message: "Description is required" });
+    maxLength(path.description, 500, {
+      message: "Description cannot exceed 500 characters",
+    });
 
-  save(): void {
-    if (!this.isValid) return;
+    required(path.dueDate, { message: "Due date is required" });
+  });
 
+  protected readonly canSubmit = computed(() => this.taskForm().valid());
+
+  protected save(): void {
+    if (!this.canSubmit()) return;
+
+    const value = this.model();
     const formData: TaskFormData = {
-      title: this.title().trim(),
-      description: this.description().trim(),
-      priority: this.priority(),
-      dueDate: this.formatDate(this.dueDate()!),
+      title: value.title.trim(),
+      description: value.description.trim(),
+      priority: value.priority,
+      dueDate: formatDate(value.dueDate!),
     };
 
     this.dialogRef.close(formData);
   }
 
-  cancel(): void {
+  protected cancel(): void {
     this.dialogRef.close();
   }
+}
 
-  private formatDate(date: Date): string {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  }
+function formatDate(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
 }

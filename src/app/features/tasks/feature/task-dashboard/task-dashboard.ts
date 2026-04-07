@@ -3,12 +3,13 @@ import {
   Component,
   effect,
   inject,
+  untracked,
 } from "@angular/core";
-import { MatButtonModule } from "@angular/material/button";
-import { MatIconModule } from "@angular/material/icon";
+import { MatFabButton } from "@angular/material/button";
+import { MatIcon } from "@angular/material/icon";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { TaskStore } from "../../data/state/task-store";
 import {
   Task,
@@ -31,19 +32,19 @@ import {
 @Component({
   selector: "app-task-dashboard",
   templateUrl: "./task-dashboard.html",
-  styleUrls: ["./task-dashboard.scss"],
+  styleUrl: "./task-dashboard.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    MatButtonModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
+    MatFabButton,
+    MatIcon,
+    MatProgressSpinner,
     DashboardStats,
     TaskFilters,
     TaskBoard,
   ],
 })
 export class TaskDashboard {
-  readonly store = inject(TaskStore);
+  protected readonly store = inject(TaskStore);
   private readonly dialog = inject(MatDialog);
   private readonly snackBar = inject(MatSnackBar);
 
@@ -52,22 +53,21 @@ export class TaskDashboard {
 
     effect(() => {
       const error = this.store.error();
-      if (error) {
-        this.snackBar.open(error, "Dismiss", { duration: 5000 });
-        this.store.clearError();
-      }
+      if (!error) return;
+      this.snackBar.open(error, "Dismiss", { duration: 5000 });
+      untracked(() => this.store.clearError());
     });
   }
 
-  onSearchChange(query: string): void {
+  protected onSearchChange(query: string): void {
     this.store.setSearchQuery(query);
   }
 
-  onPriorityFilter(priority: TaskPriority | null): void {
+  protected onPriorityFilter(priority: TaskPriority | null): void {
     this.store.setPriorityFilter(priority);
   }
 
-  onMoveTask(event: {
+  protected onMoveTask(event: {
     taskId: string;
     newStatus: TaskStatus;
     targetIndex: number;
@@ -75,7 +75,7 @@ export class TaskDashboard {
     this.store.moveTask(event);
   }
 
-  onReorderTask(event: {
+  protected onReorderTask(event: {
     status: TaskStatus;
     previousIndex: number;
     currentIndex: number;
@@ -83,7 +83,7 @@ export class TaskDashboard {
     this.store.reorderTask(event);
   }
 
-  openCreateDialog(): void {
+  protected openCreateDialog(): void {
     const dialogRef = this.dialog.open(TaskFormDialog, {
       data: {} as TaskFormDialogData,
       width: "500px",
@@ -98,7 +98,7 @@ export class TaskDashboard {
     });
   }
 
-  openEditDialog(task: Task): void {
+  protected openEditDialog(task: Task): void {
     const dialogRef = this.dialog.open(TaskFormDialog, {
       data: { task } as TaskFormDialogData,
       width: "500px",
@@ -113,7 +113,7 @@ export class TaskDashboard {
     });
   }
 
-  confirmDelete(task: Task): void {
+  protected confirmDelete(task: Task): void {
     const dialogRef = this.dialog.open(ConfirmDialog, {
       data: {
         title: "Delete Task",

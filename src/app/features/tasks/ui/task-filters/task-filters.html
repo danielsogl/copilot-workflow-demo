@@ -19,7 +19,7 @@
     <mat-chip-set>
       @for (priority of priorities; track priority) {
         <mat-chip
-          [highlighted]="selectedPriority === priority"
+          [highlighted]="selectedPriority() === priority"
           (click)="togglePriority(priority)"
           class="priority-chip priority-chip--{{ priority }}"
         >

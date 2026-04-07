@@ -4,7 +4,7 @@ import { TaskPriority } from "../../data/models/task.model";
 @Component({
   selector: "app-priority-badge",
   template: `
-    <span class="badge" [class]="'badge--' + priority()">
+    <span class="badge badge--{{ priority() }}">
       {{ priority() }}
     </span>
   `,
@@ -13,29 +13,29 @@ import { TaskPriority } from "../../data/models/task.model";
     .badge {
       display: inline-block;
       padding: 2px 10px;
-      border-radius: 12px;
-      font-size: 11px;
+      border-radius: var(--mat-sys-corner-large);
+      font: var(--mat-sys-label-small);
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
     .badge--high {
-      background-color: #fde8e8;
-      color: #e53935;
+      background-color: var(--mat-sys-error-container);
+      color: var(--mat-sys-on-error-container);
     }
 
     .badge--medium {
-      background-color: #fff8e1;
-      color: #f57f17;
+      background-color: var(--mat-sys-tertiary-container);
+      color: var(--mat-sys-on-tertiary-container);
     }
 
     .badge--low {
-      background-color: #e8f5e9;
-      color: #43a047;
+      background-color: var(--mat-sys-secondary-container);
+      color: var(--mat-sys-on-secondary-container);
     }
   `,
 })
 export class PriorityBadge {
-  priority = input.required<TaskPriority>();
+  readonly priority = input.required<TaskPriority>();
 }

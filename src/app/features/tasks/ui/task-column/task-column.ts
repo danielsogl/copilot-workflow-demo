@@ -1,35 +1,34 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   input,
   output,
 } from "@angular/core";
-import { CdkDropList, CdkDrag, CdkDragDrop } from "@angular/cdk/drag-drop";
+import { CdkDrag, CdkDragDrop, CdkDropList } from "@angular/cdk/drag-drop";
 import { Task, TaskStatus } from "../../data/models/task.model";
 import { TaskCard } from "../task-card/task-card";
 
 @Component({
   selector: "app-task-column",
   templateUrl: "./task-column.html",
-  styleUrls: ["./task-column.scss"],
+  styleUrl: "./task-column.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CdkDropList, CdkDrag, TaskCard],
 })
 export class TaskColumn {
-  title = input.required<string>();
-  status = input.required<TaskStatus>();
-  tasks = input.required<Task[]>();
-  connectedTo = input<string[]>([]);
+  readonly title = input.required<string>();
+  readonly status = input.required<TaskStatus>();
+  readonly tasks = input.required<Task[]>();
+  readonly connectedTo = input<string[]>([]);
 
-  editTask = output<Task>();
-  deleteTask = output<Task>();
-  taskDropped = output<CdkDragDrop<Task[]>>();
+  readonly editTask = output<Task>();
+  readonly deleteTask = output<Task>();
+  readonly taskDropped = output<CdkDragDrop<Task[]>>();
 
-  get dropListId(): string {
-    return `column-${this.status()}`;
-  }
+  protected readonly dropListId = computed(() => `column-${this.status()}`);
 
-  onDrop(event: CdkDragDrop<Task[]>): void {
+  protected onDrop(event: CdkDragDrop<Task[]>): void {
     this.taskDropped.emit(event);
   }
 }

@@ -7,7 +7,7 @@
   <div
     class="column-body"
     cdkDropList
-    [id]="dropListId"
+    [id]="dropListId()"
     [cdkDropListData]="tasks()"
     [cdkDropListConnectedTo]="connectedTo()"
     (cdkDropListDropped)="onDrop($event)"
