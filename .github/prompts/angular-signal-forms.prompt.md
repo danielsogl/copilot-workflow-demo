@@ -2,7 +2,7 @@
 description: A reusable prompt for generating Angular Signal Forms with complete validation and dynamic field management for a specified entity.
 name: angular-signal-forms-generator
 agent: agent
-tools: ['edit', 'search', 'execute/runInTerminal', 'execute/getTerminalOutput', 'execute/runTests', 'search/usages', 'read/problems', 'todos', 'context7/*', 'angular-cli/*']
+tools: ['edit', 'search', 'execute/runInTerminal', 'execute/getTerminalOutput', 'execute/runTests', 'search/usages', 'read/problems', 'todo', 'context7/*', 'angular-cli/*']
 ---
 
 # Angular Signal Forms Generator
@@ -70,7 +70,7 @@ const [entityName]Schema = schema<[EntityType]>((f) => {
   required(f.email, { message: 'Email is required' });
   email(f.email, { message: 'Invalid email format' });
   maxLength(f.description, 500, { message: 'Description cannot exceed 500 characters' });
-  
+
   // For nested objects
   required(f.address.street, { message: 'Street is required' });
   required(f.address.city, { message: 'City is required' });
@@ -222,7 +222,7 @@ onSubmit(): void {
   if (this.[entityName]Form().valid()) {
     const formData = this.[entityName]();
     console.log('Form submitted with valid data:', formData);
-    
+
     // Handle form submission (emit event, call service, etc.)
     this.handleFormSubmit(formData);
   } else {

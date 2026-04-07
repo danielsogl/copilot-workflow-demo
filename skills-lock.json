@@ -1,45 +1,45 @@
 {
   "version": 1,
   "skills": {
-    "changelog-generator": {
-      "source": "ComposioHQ/awesome-claude-skills",
+    "PR Review": {
+      "source": "angular/angular",
       "sourceType": "github",
-      "computedHash": "0facdb5c491a654e3b0f6d300fb8fa14472d811cb715c632dc2862919b277dae"
+      "computedHash": "d442fc48460c6907ad3fa6719068e0f344581ab7fe02e1af29796a4111a3012b"
     },
-    "content-research-writer": {
-      "source": "ComposioHQ/awesome-claude-skills",
+    "adev-writing-guide": {
+      "source": "angular/angular",
       "sourceType": "github",
-      "computedHash": "de7e9085e875a651f209c826d1a5e7dd5f2436fb38fe565ef76b54492c1a0c22"
+      "computedHash": "0da9315d3f7e86f7d80300a36b2a8c85ed64ed318f3512c24324a173d3a6a839"
     },
-    "doc-coauthoring": {
-      "source": "anthropics/skills",
+    "angular-developer": {
+      "source": "angular/angular",
       "sourceType": "github",
-      "computedHash": "b964e4c3ffe13f66f76dd7919073e60c7aec622cd8a8363bb36323188100cf8e"
+      "computedHash": "b7764c591c965d85f95f1d4f6d3620b6ab92a1b1fedbcdead7d59e946fc3fd2e"
     },
-    "frontend-design": {
-      "source": "anthropics/skills",
+    "angular-new-app": {
+      "source": "angular/angular",
       "sourceType": "github",
-      "computedHash": "063a0e6448123cd359ad0044cc46b0e490cc7964d45ef4bb9fd842bd2ffbca67"
+      "computedHash": "49bd84ab08bd3498c52f476bed48fbb942dc6dbc0925607e84549adbed34bccf"
     },
-    "mcp-builder": {
-      "source": "anthropics/skills",
+    "find-skills": {
+      "source": "vercel-labs/skills",
       "sourceType": "github",
-      "computedHash": "fc68038c900eb801f73ff96130c9f9dba533cc94212ed8435833242f196dedcf"
+      "computedHash": "9e1c8b3103f92fa8092568a44fe64858de7c5c9dc65ce4bea8f168080e889cfd"
     },
-    "skill-creator": {
-      "source": "anthropics/skills",
+    "reference-compiler-cli": {
+      "source": "angular/angular",
       "sourceType": "github",
-      "computedHash": "b122f4d1e91aa1d83027e050b5b37c3156203ee85458d7b1360bc48167c9e02a"
+      "computedHash": "ce937230b5374cf04b00a76251c3545b3dd43797407ef67ebd44b21229a33bd8"
     },
-    "web-design-guidelines": {
-      "source": "vercel-labs/agent-skills",
+    "reference-core": {
+      "source": "angular/angular",
       "sourceType": "github",
-      "computedHash": "a6a44d5498f7e8f68289902f3dedfc6f38ae0cee1e96527c80724cf27f727c2a"
+      "computedHash": "16783417eeebecc4c35f5253872c2155967de10bd3e6b5d26f0bf950ff9347d0"
     },
-    "webapp-testing": {
-      "source": "anthropics/skills",
+    "reference-signal-forms": {
+      "source": "angular/angular",
       "sourceType": "github",
-      "computedHash": "cf8e5916d474886bd67b09691247f43f331523008b7d366064bc607ab42d6302"
+      "computedHash": "c48a51a68ab96d93ce98a7a3b55995208c70436423523ea64ae983a1ffa23020"
     }
   }
 }

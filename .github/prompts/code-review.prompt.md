@@ -2,7 +2,7 @@
 description: This prompt can be used to review code changes made on a given branch
 name: code-review
 agent: agent
-tools: ['execute/testFailure', 'execute/getTerminalOutput', 'execute/runTask', 'read/getTaskOutput', 'execute/createAndRunTask', 'execute/runInTerminal', 'execute/runTests', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'search', 'web/githubRepo', 'search/changes', 'search/usages', 'todos']
+tools: ['execute/testFailure', 'execute/getTerminalOutput', 'execute/runTask', 'read/getTaskOutput', 'execute/createAndRunTask', 'execute/runInTerminal', 'execute/runTests', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'search', 'web/githubRepo', 'search/changes', 'search/usages', 'todo']
 ---
 
 # Code Review for Active Branch

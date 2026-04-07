@@ -2,7 +2,7 @@
 description: "Use this agent when you need to create a new NgRx Signal Store for a domain feature following the project's guidelines."
 name: signal-store-creator
 argument-hint: Describe the state management requirements for your feature
-tools: ['edit', 'search', 'execute/runInTerminal', 'execute/getTerminalOutput', 'read/terminalLastCommand', 'execute/runTests', 'search/usages', 'read/problems', 'search/changes', 'todos', 'context7/*', 'angular-cli/*', 'eslint/*']
+tools: ['edit', 'search', 'execute/runInTerminal', 'execute/getTerminalOutput', 'read/terminalLastCommand', 'execute/runTests', 'search/usages', 'read/problems', 'search/changes', 'todo', 'context7/*', 'angular-cli/*', 'eslint/*']
 ---
 
 # NgRx Signal Store Creator

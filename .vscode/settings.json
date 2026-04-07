@@ -1,4 +1,5 @@
 {
+  // Editor
   "editor.formatOnSave": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.tabSize": 2,
@@ -7,31 +8,27 @@
   "editor.trimAutoWhitespace": true,
   "prettier.configPath": ".prettierrc",
   "prettier.requireConfig": true,
-  "chat.mcp.discovery.enabled": {
-    "claude-desktop": false,
-    "windsurf": false,
-    "cursor-global": false,
-    "cursor-workspace": false
-  },
-  // Copilot Chat Settings
+
+  // --- Copilot Chat: Core ---
   "github.copilot.chat.localeOverride": "en",
+  "github.copilot.chat.codeGeneration.useInstructionFiles": true,
   "github.copilot.chat.commitMessageGeneration.instructions": [
-    {
-      "file": ".github/guidelines/commit-convention.md"
-    }
+    { "file": ".github/guidelines/commit-convention.md" }
   ],
-  "chat.agent.thinkingStyle": "fixedScrolling",
-  "chat.editRequests": "inline",
-  "chat.sendElementsToChat.enabled": true,
   "github.copilot.chat.reviewSelection.enabled": true,
-  "chat.customAgentInSubagent.enabled": true,
-  "github.copilot.chat.cli.customAgents.enabled": true,
-  // Agent & Tools
+  "github.copilot.chat.reviewSelection.instructions": [
+    { "file": ".github/instructions/angular.instructions.md" },
+    { "file": ".github/instructions/typescript.instructions.md" }
+  ],
+
+  // --- Agents, Skills, AGENTS.md ---
   "chat.agent.enabled": true,
   "chat.useAgentsMdFile": true,
+  "chat.useNestedAgentsMdFiles": true,
   "chat.useAgentSkills": true,
-  "chat.viewSessions.enabled": true,
-  // Instructions, Prompts & Agents file locations
+  "chat.customAgentInSubagent.enabled": true,
+
+  // --- Custom file locations (Copilot-only paths) ---
   "chat.instructionsFilesLocations": {
     ".github/instructions": true
   },
@@ -41,18 +38,27 @@
   "chat.agentFilesLocations": {
     ".github/agents": true
   },
-  "chat.useNestedAgentsMdFiles": true,
-  //hooks
+
+  // --- Hooks: load only Copilot-native location ---
   "chat.useHooks": true,
-  "chat.useClaudeHooks": false,
-  // Code Generation & Review
-  "github.copilot.chat.codeGeneration.useInstructionFiles": true,
-  "github.copilot.chat.reviewSelection.instructions": [
-    {
-      "file": ".github/instructions/angular.instructions.md"
-    },
-    {
-      "file": ".github/instructions/typescript.instructions.md"
-    }
-  ]
+  "chat.hookFilesLocations": {
+    ".github/hooks": true,
+    ".claude/settings.json": false,
+    ".claude/settings.local.json": false,
+    "~/.claude/settings.json": false
+  },
+
+  // --- Disable foreign MCP discovery ---
+  "chat.mcp.discovery.enabled": {
+    "claude-desktop": false,
+    "windsurf": false,
+    "cursor-global": false,
+    "cursor-workspace": false
+  },
+
+  // --- UX ---
+  "chat.agent.thinkingStyle": "fixedScrolling",
+  "chat.editRequests": "inline",
+  "chat.sendElementsToChat.enabled": true,
+  "chat.viewSessions.enabled": true
 }

@@ -2,7 +2,7 @@
 description: "Use this agent to scaffold a complete DDD domain feature end-to-end, including feature and UI components, NgRx Signal Store, API service, models, tests, and routing."
 name: feature-scaffolder
 argument-hint: Describe the domain feature you want to create (e.g., "user management with profile editing")
-tools: ['edit', 'search', 'execute/runInTerminal', 'execute/getTerminalOutput', 'read/terminalLastCommand', 'execute/runTests', 'search/usages', 'read/problems', 'search/changes', 'todos', 'context7/*', 'angular-cli/*', 'eslint/*']
+tools: ['agent', 'edit', 'search', 'execute/runInTerminal', 'execute/getTerminalOutput', 'read/terminalLastCommand', 'execute/runTests', 'search/usages', 'read/problems', 'search/changes', 'todo', 'context7/*', 'angular-cli/*', 'eslint/*']
 agents: ['signal-store-creator', 'playwright-test-generator']
 handoffs:
   - label: Create Store

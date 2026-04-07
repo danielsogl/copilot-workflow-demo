@@ -23,7 +23,7 @@ tools:
   - playwright-test/browser_wait_for
   - playwright-test/planner_setup_page
   - playwright-test/planner_save_plan
-model: Claude Opus 4.6 (copilot)
+model: Claude Sonnet 4
 mcp-servers:
   playwright-test:
     type: stdio
