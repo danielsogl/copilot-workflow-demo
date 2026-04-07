@@ -48,71 +48,79 @@ This project follows a Domain-Driven Design (DDD) approach for modularity, maint
 ## 2. DDD Structure
 
 - **Domains:**
-  - `src/app/` is organized by business domains (e.g., `user/`, `tasks/`, `dashboard/`).
-  - Each domain contains subfolders for different types: `feature/`, `ui/`, `data/`, `util/`.
+  - Business domains live under `src/app/features/<domain>/` (e.g., `features/tasks/`, `features/dashboard/`).
+  - Each domain contains subfolders for different layers: `feature/`, `ui/`, `data/`, `util/`.
 
-- **Layered Folders:**
-  - `feature/`: Feature components, orchestrating domain logic and UI.
-  - `ui/`: Presentational components, directives, and pipes.
-  - `data/`: Data access, API clients, state management, persistence logic.
-  - `util/`: Utilities and helpers.
+- **Layered Folders (per domain):**
+  - `feature/`: Smart container components (route-level), orchestrating domain logic and UI. They inject stores and pass data to `ui/` components.
+  - `ui/`: Presentational ("dumb") components, directives, and pipes. OnPush, signal inputs/outputs only, no store/service injection.
+  - `data/`: Data access layer — `models/` (interfaces/types), `infrastructure/` (HTTP clients), `state/` (NgRx Signal Stores).
+  - `util/`: Pure helper functions specific to the domain.
 
 - **Component, Directive, and Pipe Subfolders:**
-  - All components, directives, pipes, and services must be placed in their own subfolders.
-  - Example: A component named `task-list.ts` should be located at `src/app/tasks/feature/task-list/task-list.ts` (inside a `task-list` subfolder), not directly in the `feature` folder.
+  - All components, directives, pipes, and services must be placed in their own subfolders named after the construct.
+  - Example: A component named `task-list.ts` is located at `src/app/features/tasks/feature/task-list/task-list.ts`, not directly in the `feature/` folder.
 
-- **Shared Kernel:**
-  - Cross-domain code (shared types, utilities) is placed in `src/app/shared/`.
+- **Cross-domain code:**
+  - App-wide infrastructure (navbar, layout, app-level services) lives in `src/app/core/`.
+  - Theming lives in `src/app/theme/`.
+  - There is **no** `shared/` folder — promote shared code into `core/` only when it is truly used by multiple domains.
 
 ## 3. Example Folder Structure
 
 ```text
 src/app/
-  tasks/
-    feature/
-      task-list/
-        task-list.ts
-        task-list.html
-        task-list.scss
-        task-list.spec.ts
-      task-create-modal/
-        task-create-modal.ts
-        task-create-modal.html
-        task-create-modal.scss
-    ui/
-      task-item/
-        task-item.ts
-        task-item.html
-        task-item.scss
-    data/
-      models/
-        task.model.ts
-      infrastructure/
-        task-api.ts
-      state/
-        task-store.ts
-    util/
-      task-helpers/
-        task-helpers.ts
-  dashboard/
-    feature/
-      dashboard-overview/
-        dashboard-overview.ts
-        ...
-    ui/
-      dashboard-stats-card/
-        dashboard-stats-card.ts
-        ...
-    data/
-      models/
-        dashboard.model.ts
-      infrastructure/
-        dashboard-data.ts
-  shared/
-    models/
-      common.model.ts
-    utilities/
-      date-utils.ts
+  app.ts
+  app.config.ts
+  app.routes.ts
+  core/
+    navbar/
+      navbar.ts
+      navbar.html
+      navbar.scss
+  theme/
+    theme.scss
+  features/
+    tasks/
+      feature/
+        task-dashboard/
+          task-dashboard.ts
+          task-dashboard.html
+          task-dashboard.scss
+          task-dashboard.spec.ts
+      ui/
+        task-card/
+          task-card.ts
+          task-card.html
+          task-card.scss
+        task-board/
+          task-board.ts
+          task-board.html
+          task-board.scss
+      data/
+        models/
+          task.model.ts
+        infrastructure/
+          task-api.ts
+        state/
+          task-store.ts
+      util/
+        task-helpers/
+          task-helpers.ts
+    dashboard/
+      feature/
+        dashboard-overview/
+          dashboard-overview.ts
+          ...
+      ui/
+        dashboard-stats-card/
+          dashboard-stats-card.ts
+          ...
+      data/
+        models/
+          dashboard.model.ts
+        infrastructure/
+          dashboard-api.ts
 ```
 
 ## 4. Key Principles

@@ -21,9 +21,10 @@ You are an Angular testing expert specializing in Vitest with Angular TestBed. Y
 
 - **Always use `provideZonelessChangeDetection()`** in every test setup
 - **Vitest globals** are pre-configured — never import `describe`, `it`, `expect`, `vi`
-- **Signal inputs** must be set via `componentRef.setInput('name', value)`
-- **Mock stores** by providing mock objects with `vi.fn()` for signal accessors
-- **Use `provideHttpClientTesting()`** for any service that uses HttpClient
+- **Signal inputs** must be set via `componentRef.setInput('name', value)` followed by `await fixture.whenStable()`
+- **Mock stores** by providing mock objects with `vi.fn()` for signal accessors, or use `MockProvider` from ng-mocks
+- **Use `provideHttpClientTesting()`** for any service that uses HttpClient — note that as of Angular v21+, `provideHttpClient()` is no longer required alongside it
+- **Test runner**: `npm test` runs Vitest via the `@angular/build:unit-test` builder (no Karma)
 
 ## Component Test Template
 
@@ -48,6 +49,7 @@ describe('MyComponent', () => {
     fixture = TestBed.createComponent(MyComponent);
     component = fixture.componentInstance;
     componentRef = fixture.componentRef;
+    await fixture.whenStable();
   });
 
   it('should create', () => {

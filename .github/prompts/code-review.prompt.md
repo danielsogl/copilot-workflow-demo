@@ -20,10 +20,16 @@ You are a senior developer performing a comprehensive code review of the changes
 ## Review Criteria
 
 Reference the project's instruction files located in `.github/instructions/`:
-- [Instructions Reference](../../AGENTS.md)
-- [Angular Instructions](../instructions/angular.instructions.md)
-- [TypeScript Instructions](../instructions/typescript.instructions.md)
-- [Architecture](../instructions/architecture.instructions.md)
+- [Project Conventions](../../AGENTS.md)
+- [Angular v21+](../instructions/angular.instructions.md)
+- [TypeScript](../instructions/typescript.instructions.md)
+- [Architecture (DDD)](../instructions/architecture.instructions.md)
+- [NgRx Signals v21+](../instructions/ngrx-signals.instructions.md)
+- [Angular Material 3](../instructions/angular-material.instructions.md)
+- [Signal Forms](../instructions/angular-signal-forms.instructions.md)
+- [Testing (Vitest)](../instructions/angular-testing.instructions.md)
+
+Pay special attention to v21+ patterns: `linkedSignal`, `httpResource`, `@let` template variables, `withFeature`/`withLinkedState` in stores, Material 3 system tokens (`--mat-sys-*`), and Signal Forms via `@angular/forms/signals`.
 
 ## Output Format
 
@@ -56,9 +62,9 @@ Files failing linter rules:
 
 ### 5. Architecture Violations
 Files not following DDD structure:
-- **File**: `src/app/user/user-list.ts`
+- **File**: `src/app/features/user/user-list.ts`
   - **Issue**: Component not in subfolder
-  - **Expected**: `src/app/user/feature/user-list/user-list.ts`
+  - **Expected**: `src/app/features/user/feature/user-list/user-list.ts`
 
 ### 6. Best Practice Recommendations
 Suggestions for improvement:

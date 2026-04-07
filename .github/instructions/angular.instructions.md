@@ -1,9 +1,9 @@
 ---
-description: "Angular v20+ patterns including standalone components, signals, modern control flow, naming conventions, and best practices from angular.dev/style-guide"
+description: "Angular v21+ patterns including standalone components, signals, linkedSignal, resource/httpResource, modern control flow, naming conventions, and best practices from angular.dev/style-guide"
 applyTo: "**/*.ts, **/*.html, **/*.scss"
 ---
 
-# Angular Development Guide
+# Angular Development Guide (v21+)
 
 This guide covers Angular coding patterns, style conventions, and best practices based on the official Angular style guide at https://angular.dev/style-guide.
 
@@ -244,6 +244,10 @@ ALWAYS use the new Angular control flow syntax. NEVER use legacy structural dire
   @default { <content /> }
 }
 
+<!-- @let — local template variables -->
+@let fullName = user().firstName + ' ' + user().lastName;
+<p>Welcome, {{ fullName }}!</p>
+
 <!-- Legacy - FORBIDDEN -->
 <p *ngIf="user$ | async as currentUser">...</p>
 <div *ngFor="let item of items; trackBy: trackByFn">...</div>
@@ -300,7 +304,7 @@ export class Highlight {
 
 ## 9. Service Patterns
 
-- **Data Services:** Handle API calls and data operations with proper error handling
+- **Data Services:** Handle API calls and data operations with proper error handling. Prefer `httpResource()` for component-driven reads (built-in loading/error signals); reserve `HttpClient` directly for mutations (POST/PUT/DELETE) and stream-based logic inside `rxMethod` / RxJS pipelines.
 - **Service Hierarchy:** Follow the Angular DI hierarchy and use appropriate providers
 - **Service Contracts:** Use TypeScript interfaces to define service contracts
 - **Focused Responsibilities:** Services focus on specific, single tasks
@@ -331,9 +335,30 @@ export class Counter {
 ```
 
 - **Signal Updates:** Use `set()` for replacing values, `update()` for transforming - NEVER use `mutate()`
-- **Side Effects:** Use `effect()` for side effects that depend on signal changes
+- **Side Effects:** Use `effect()` for side effects that depend on signal changes; use `untracked()` to read a signal inside an effect without subscribing
 - **Observable Interop:** Use `toSignal()` and `toObservable()` for RxJS interoperability
-- **Linked Signals:** Use `linkedSignal()` for complex state relationships
+- **Linked Signals:** Use `linkedSignal()` when you need a writable signal that resets reactively from a source — perfect for form-model defaults, selection state that follows a list, or local overrides of derived state:
+
+  ```typescript
+  // Selected option resets when options change, but user can override
+  readonly selected = linkedSignal<Option[], Option>({
+    source: this.options,
+    computation: (opts, prev) => opts.find(o => o.id === prev?.value.id) ?? opts[0],
+  });
+  ```
+
+- **Resource API:** Use `resource()` for async data dependent on signals (loaders return a Promise). Use `httpResource()` (`@angular/common/http`) for reactive HTTP — it wraps `HttpClient`, supports interceptors, and exposes `value`, `status`, `error`, `isLoading` as signals:
+
+  ```typescript
+  import { httpResource } from '@angular/common/http';
+
+  readonly userId = input.required<string>();
+  readonly user = httpResource<User>(() => `/api/users/${this.userId()}`);
+
+  // In template:
+  // @if (user.isLoading()) { ... }
+  // @if (user.value(); as u) { {{ u.name }} }
+  ```
 
 ## 11. Styling Patterns
 

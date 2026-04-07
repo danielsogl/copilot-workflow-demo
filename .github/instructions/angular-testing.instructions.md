@@ -1,11 +1,11 @@
 ---
-description: "Testing patterns for Angular v20+ using Vitest with TestBed for components, services, directives, and pipes"
+description: "Testing patterns for Angular v21+ using Vitest with TestBed via @angular/build:unit-test builder for components, services, directives, and pipes"
 applyTo: "**/*.spec.ts"
 ---
 
-# Angular Testing Guidelines (Vitest + Angular TestBed)
+# Angular Testing Guidelines (Vitest + Angular TestBed, v21+)
 
-These guidelines reflect Angular v20+ best practices, using Vitest as the test runner with Angular TestBed for testing components, services, and other Angular constructs.
+These guidelines reflect Angular v21+ best practices, using Vitest as the test runner via the official `@angular/build:unit-test` builder with Angular TestBed for testing components, services, and other Angular constructs. Run tests with `npm test` (`ng test`).
 
 **Note:** Vitest globals (`describe`, `it`, `expect`, `vi`, `beforeEach`, `afterEach`) are pre-configured in `tsconfig.spec.json` - no imports needed.
 

@@ -117,17 +117,19 @@ Provide example component integration showing:
 Create the following files in the appropriate domain folder:
 
 ```
-src/app/[domain]/
-├── data/
-│   ├── [entity-name].ts        # HTTP service (if not exists)
-│   └── [entity-name].spec.ts   # Service tests
-├── feature/
-│   ├── [entity-name]-store.ts          # Signal store
+src/app/features/[domain]/
 └── data/
-    └── models/
-        └── [entity-name].model.ts       # Entity model (reference)
+    ├── models/
+    │   └── [entity-name].model.ts        # Entity interface & DTOs
+    ├── infrastructure/
+    │   ├── [entity-name]-api.ts          # HttpClient service
+    │   └── [entity-name]-api.spec.ts     # Service tests
+    └── state/
+        ├── [entity-name]-store.ts        # Signal store
+        └── [entity-name]-store.spec.ts   # Store tests
 ```
 
 ## References
 
-- [NgRx Signals Patterns](../instructions/ngrx-signals.instructions.md) - Complete NgRx Signals architecture and patterns
+- [NgRx Signals Patterns](../instructions/ngrx-signals.instructions.md) - Complete NgRx Signals v21+ architecture and patterns including `withFeature`, `withLinkedState`, `withProps`, `withHooks`
+- [Architecture (DDD)](../instructions/architecture.instructions.md) - DDD folder structure with `features/` wrapper

@@ -19,32 +19,32 @@ You are an NgRx Signal Store expert. Your task is to create a complete signal st
    - Any async operations or methods needed
 
 2. **Create Model Files** (if needed):
-   - Location: `src/app/{domain}/data/models/{name}.model.ts`
+   - Location: `src/app/features/{domain}/data/models/{name}.model.ts`
    - Define TypeScript interfaces for entities and DTOs
    - Export all models needed by the store
 
 3. **Create Infrastructure File** (if async operations needed):
-   - Location: `src/app/{domain}/data/infrastructure/{name}.infrastructure.ts`
-   - Create service for API calls and data access
-   - Use HttpClient for REST operations
-   - Return Observables (never Promises)
+   - Location: `src/app/features/{domain}/data/infrastructure/{name}-api.ts`
+   - Create service for API calls and data access using `HttpClient`
+   - Return Observables for mutations (POST/PUT/DELETE) so they can be consumed by `rxMethod`
 
 4. **Create Store File**:
-   - Location: `src/app/{domain}/data/state/{name}-store.ts`
-   - Follow NgRx Signals patterns:
+   - Location: `src/app/features/{domain}/data/state/{name}-store.ts`
+   - Follow NgRx Signals v21+ patterns:
      - Define state interface with strong typing
      - Create `initialState` with meaningful defaults
      - Use `entityConfig` if managing collections
      - Use `signalStore` with `{ providedIn: 'root' }`
-     - Add `withState`, `withEntities`, `withComputed`, `withMethods`
-     - Use function-based DI (`inject()`)
-     - Use `rxMethod` for Observable-based operations
-     - Use `signalMethod` for lightweight signal-driven side effects
-     - Use `patchState` for state updates
+     - Compose with `withState`, `withEntities`, `withComputed`, `withMethods`, `withProps`, `withHooks`
+     - Use `withFeature(...)` to compose store-aware reusable features
+     - Use `withLinkedState(...)` when state must reset reactively from another signal
+     - Use function-based DI (`inject()`) inside `withMethods`
+     - Use `rxMethod` for Observable-based side effects with `tapResponse` for error handling
+     - Use `patchState` for all state updates — never direct mutation
      - Prefix private members with underscore (`_`)
 
 5. **Create Test File**:
-   - Location: `src/app/{domain}/data/state/{name}.store.spec.ts`
+   - Location: `src/app/features/{domain}/data/state/{name}-store.spec.ts`
    - Follow NgRx Signals testing guidelines:
      - Test initial state
      - Test computed properties
@@ -119,13 +119,14 @@ describe('FeatureStore', () => {
 
 ## Architecture Rules
 
-- **DDD Structure**: Follow `src/app/{domain}/data/` organization
+- **DDD Structure**: Follow `src/app/features/{domain}/data/` organization (note the `features/` wrapper)
 - **No Barrel Files**: Never create `index.ts` files
-- **Standalone Components**: All Angular code uses standalone pattern
-- **Strict TypeScript**: Enable strict null checks, no implicit any
-- **RxJS for Async**: Use `rxMethod` for Observable-based operations
-- **Signal Interop**: Use `toSignal` and `toObservable` for conversions
-- **Atomic Entity Ops**: Use `addEntity`, `updateEntity`, `removeEntity`, `setAllEntities`
+- **Standalone by default**: Do not set `standalone: true` — it is the default in Angular 21+
+- **Strict TypeScript**: Enable strict null checks, no implicit `any`, no `any`
+- **RxJS for Async Side Effects**: Use `rxMethod` + `tapResponse` for Observable-based operations
+- **Reactive HTTP for component reads**: Components prefer `httpResource()`; stores use `HttpClient` for mutations and side effects inside `rxMethod`
+- **Signal Interop**: Use `toSignal` and `toObservable` for conversions; expose observables via `withProps` if needed
+- **Atomic Entity Ops**: Use `addEntity`, `updateEntity`, `removeEntity`, `setAllEntities`, `updateAllEntities`, `removeEntities`
 
 Refer to these instruction files for detailed patterns:
 - `.github/instructions/ngrx-signals.instructions.md`

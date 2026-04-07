@@ -47,22 +47,37 @@ You are an Angular 21+ architecture expert. Your task is to scaffold complete do
 
 ## Component Conventions
 
-- **Standalone**: `standalone: true` on every component
-- **OnPush**: `ChangeDetectionStrategy.OnPush` always
-- **Signal Inputs**: `input()`, `input.required()`, `output()`, `model()`
-- **Modern Control Flow**: `@if`, `@for`, `@switch` — never `*ngIf`, `*ngFor`
+- **Standalone by default**: Do NOT set `standalone: true` — it is the default in Angular 21+
+- **OnPush**: `changeDetection: ChangeDetectionStrategy.OnPush` always
+- **Signal I/O**: `input()`, `input.required()`, `output()`, `model()` — never `@Input()` / `@Output()`
+- **Modern Control Flow**: `@if`, `@for` (with `track`), `@switch`, `@let` — never `*ngIf`, `*ngFor`
 - **inject() function**: No constructor injection
+- **Reactive HTTP**: Prefer `httpResource()` / `resource()` for component reads; `HttpClient` only for mutations or inside `rxMethod`
+- **Derived state**: `computed()` for read-only derivations, `linkedSignal()` when the value must reset reactively but stay writable
 - **No barrel files**: Never create `index.ts`
 - **No type suffixes**: `TaskCard` not `TaskCardComponent`
 - **kebab-case files**: `task-card.ts`, not `taskCard.ts`
 - **Own subfolder**: Each component in its own named subfolder
 
+## Store Conventions
+
+- `signalStore({ providedIn: 'root' }, withState(...), withMethods(...), withComputed(...))`
+- Use `withEntities(entityConfig)` for collections
+- Use `rxMethod` + `tapResponse` for Observable-based side effects
+- Use `withFeature` to compose store-aware reusable features
+- Use `withLinkedState` when state must reset reactively from another signal
+
+## Forms
+
+- Use **Angular Signal Forms** (`@angular/forms/signals`): `form()` + schema validators (`required`, `minLength`, `email`, ...)
+- Never use `ReactiveFormsModule` / `FormBuilder` / `FormGroup`
+
 ## Testing
 
-- Vitest with Angular TestBed
-- `provideZonelessChangeDetection()` mandatory
-- Mock stores in component tests with `vi.fn()`
-- `provideHttpClientTesting()` for service tests
+- Vitest with Angular TestBed via `@angular/build:unit-test` builder
+- `provideZonelessChangeDetection()` mandatory in test providers
+- Mock stores in component tests with `vi.fn()` or ng-mocks
+- `provideHttpClientTesting()` for service tests (no need for `provideHttpClient()` in v21+)
 
 ## Reference Files
 

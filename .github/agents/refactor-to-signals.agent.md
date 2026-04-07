@@ -29,15 +29,47 @@ You are an Angular migration expert. Your task is to convert legacy Angular patt
 
 ### 3. Observable → Signal
 ```typescript
-// Before                          // After
-loading$ = new BehaviorSubject(false);  readonly loading = signal(false);
-combined$ = combineLatest(...)          readonly combined = computed(() => ...);
+// Before                                       // After
+loading$ = new BehaviorSubject(false);          readonly loading = signal(false);
+combined$ = combineLatest(...)                  readonly combined = computed(() => ...);
+data$ = this.http.get<X>('/api/x');             readonly data = httpResource<X>(() => '/api/x');
 ```
 
-### 4. Ensure OnPush & Standalone
+### 4. Reactive HTTP → httpResource
+```typescript
+// Before
+@Input() id!: string;
+data: User | null = null;
+ngOnInit() {
+  this.http.get<User>(`/api/users/${this.id}`).subscribe(u => this.data = u);
+}
+
+// After
+readonly id = input.required<string>();
+readonly user = httpResource<User>(() => `/api/users/${this.id()}`);
+// Template: @if (user.value(); as u) { {{ u.name }} }
+```
+
+### 5. Derived state with reset → linkedSignal
+```typescript
+// Before — manual sync via effect
+selected: Option | null = null;
+constructor() {
+  effect(() => { this.selected = this.options()[0] ?? null; });
+}
+
+// After — linkedSignal preserves user override and resets reactively
+readonly selected = linkedSignal<Option[], Option | null>({
+  source: this.options,
+  computation: (opts, prev) => opts.find(o => o.id === prev?.value?.id) ?? opts[0] ?? null,
+});
+```
+
+### 6. Ensure OnPush & Standalone
 - Add `changeDetection: ChangeDetectionStrategy.OnPush`
-- Add `standalone: true` with direct imports
-- Remove NgModule references
+- Do NOT add `standalone: true` — it is the Angular 21 default; remove any explicit `standalone: true` you encounter
+- Convert `imports: [CommonModule]` to importing only the specific directives/pipes actually used (or remove entirely when control flow replaces `*ngIf`/`*ngFor`)
+- Remove NgModule references entirely
 
 ## Process
 

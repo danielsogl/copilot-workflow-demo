@@ -1,11 +1,11 @@
 ---
-description: "State management patterns using NgRx Signals Store with signalStore, withState, withMethods, entities, and rxMethod integration"
+description: "State management patterns using NgRx Signals Store v21+ with signalStore, withState, withMethods, withFeature, withLinkedState, entities, and rxMethod integration"
 applyTo: '**/*-store.ts'
 ---
 
-# NgRx Signals Patterns
+# NgRx Signals Patterns (v21+)
 
-This document outlines the state management patterns used in our Angular applications with NgRx Signals Store.
+This document outlines the state management patterns used in our Angular applications with NgRx Signals Store v21+.
 
 ## 1. NgRx Signals Architecture
 
@@ -309,6 +309,49 @@ export const UserStore = signalStore(
 - **Feature Composition:** Multiple features compose together
 - **Cross-Cutting Concerns:** Features handle logging, undo/redo, and other concerns
 - **State Slices:** Features define and manage specific state slices
+- **`withFeature` for store-aware features:** Use `withFeature` to pass store internals (state signals, computed, methods) into a reusable feature factory. This decouples a feature from the store's internal shape:
+
+  ```typescript
+  import { signalStoreFeature, withFeature, withState, withComputed, withMethods, patchState } from '@ngrx/signals';
+  import { withEntities } from '@ngrx/signals/entities';
+
+  export function withBooksFilter(books: Signal<Book[]>) {
+    return signalStoreFeature(
+      withState({ query: '' }),
+      withComputed(({ query }) => ({
+        filteredBooks: computed(() => books().filter(b => b.name.includes(query()))),
+      })),
+      withMethods((store) => ({
+        setQuery: (query: string) => patchState(store, { query }),
+      })),
+    );
+  }
+
+  export const BooksStore = signalStore(
+    withEntities<Book>(),
+    withFeature(({ entities }) => withBooksFilter(entities)),
+  );
+  ```
+
+### Linked State (`withLinkedState`)
+
+Use `withLinkedState` when a piece of state must reactively reset from another store signal but remain writable. This is the store-level equivalent of `linkedSignal()`:
+
+```typescript
+import { linkedSignal } from '@angular/core';
+import { signalStore, withLinkedState, withState } from '@ngrx/signals';
+
+export const OptionsStore = signalStore(
+  withState({ options: [] as Option[] }),
+  withLinkedState(({ options }) => ({
+    selectedOption: linkedSignal<Option[], Option>({
+      source: options,
+      computation: (newOpts, prev) =>
+        newOpts.find(o => o.id === prev?.value.id) ?? newOpts[0],
+    }),
+  })),
+);
+```
 
 ```typescript
 // Signal store feature patterns
@@ -405,6 +448,7 @@ import { Logger } from './logger';
 interface UserPreferencesState {
   theme: 'light' | 'dark';
   sendNotifications: boolean;
+}
 
 const initialState: UserPreferencesState = {
   theme: 'light',
@@ -415,8 +459,8 @@ export const PreferencesStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
   withProps(() => ({
-    logger:  inject(Logger),
-  }));
+    logger: inject(Logger),
+  })),
   withMethods((store) => ({
     setSendNotifications(enabled: boolean): void {
       patchState(store, { sendNotifications: enabled });

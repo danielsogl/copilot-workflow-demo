@@ -1,116 +1,133 @@
 ---
-description: "Guidelines for implementing Angular Material v3 themes, colors, typography, and component theming using SCSS"
+description: "Guidelines for implementing Angular Material 3 themes (mat.theme mixin), system tokens, typography, density, and component theming for Angular Material v21+"
 applyTo: "**/*.ts, **/*.html, **/*.scss"
 ---
 
-# Angular Material Theming Guidelines (v3)
+# Angular Material Theming Guidelines (Material 3, v21+)
 
-These guidelines define how to implement, structure, and maintain themes using Angular Material v3 in this project.
+These guidelines define how to implement, structure, and maintain themes using the Material 3 theming system in Angular Material v21+. The legacy `mat-light-theme`, `mat-palette`, and `angular-material-theme` APIs are **forbidden** — use the `mat.theme()` mixin and system tokens (`--mat-sys-*`) exclusively.
 
 ---
 
 ## 1. Theme Structure & Organization
 
-- **Central Theme File:**
-  - Define all theme configuration in a single SCSS file (e.g., `src/theme/_theme-colors.scss`).
-  - Import this file in `src/styles.scss`.
-- **No Inline Styles:**
-  - Do not use inline styles or hardcoded colors in components. Always use theme variables.
-- **Feature-Level Theming:**
-  - For feature-specific overrides, create a dedicated SCSS partial (e.g., `feature/_feature-theme.scss`) and import it in the main theme file.
+- **Central theme file:** Define the global theme in `src/app/theme/theme.scss` (or `src/styles.scss`). Apply it to the `html` selector so CSS variables cascade across the entire app.
+- **One source of truth:** All color, typography, and density configuration lives in the central theme. Components must consume system tokens, never hardcode colors or fonts.
+- **Feature overrides:** For feature-specific token overrides, scope `mat.theme-overrides()` under a CSS class on the feature root.
 
-## 2. Color System
+## 2. Defining the Theme
 
-- **Material Color Palettes:**
-  - Use Material color palettes (`mat-palette`) for primary, accent, and warn colors.
-  - Define palettes for both light and dark themes.
-- **Custom Colors:**
-  - Define custom palettes using `mat-palette` and reference them via theme variables.
-- **Surface & Background:**
-  - Use Material surface and background tokens for backgrounds, cards, and containers.
+Use the `mat.theme()` mixin with a Material 3 palette, font, and density:
 
-## 3. Theme Definition & Application
+```scss
+@use '@angular/material' as mat;
 
-- **Create Themes:**
-  - Use `mat-light-theme` and `mat-dark-theme` to define light and dark themes.
-  - Example:
-    ```scss
-    $my-primary: mat-palette($mat-indigo);
-    $my-accent: mat-palette($mat-pink, A200, A100, A400);
-    $my-warn: mat-palette($mat-red);
-    $my-theme: mat-light-theme(
-      (
-        color: (
-          primary: $my-primary,
-          accent: $my-accent,
-          warn: $my-warn,
-        ),
-      )
-    );
-    ```
-- **Apply Themes Globally:**
-  - Use `@include angular-material-theme($my-theme);` in your global styles.
-- **Dark Mode:**
-  - Define a dark theme and apply it using a CSS class (e.g., `.dark-theme`).
-  - Example:
-    ```scss
-    .dark-theme {
-      @include angular-material-theme($my-dark-theme);
-    }
-    ```
-  - Toggle dark mode by adding/removing the class on the root element.
+html {
+  color-scheme: light dark;
 
-## 4. Typography
+  @include mat.theme((
+    color: mat.$violet-palette,   // any M3 palette: $azure, $rose, $magenta, $cyan, etc.
+    typography: Roboto,
+    density: 0,                    // 0 = standard; -1, -2, -3 for denser layouts
+  ));
+}
+```
 
-- **Material Typography Config:**
-  - Use `mat-typography-config` to define custom typography.
-  - Apply with `@include angular-material-typography($my-typography);`.
-- **Consistent Font Usage:**
-  - Use theme typography variables in all components.
+`color-scheme: light dark` enables automatic light/dark switching from the user's OS preference (Material 3 colors are emitted via the CSS `light-dark()` function).
 
-## 5. Component Theming
+### Per-section overrides
 
-- **Theming Mixins:**
-  - Use Angular Material theming mixins for custom components.
-  - Example:
-    ```scss
-    @use "@angular/material" as mat;
-    @include mat.button-theme($my-theme);
-    ```
-- **Custom Component Themes:**
-  - For custom components, define and use your own theming mixins that accept a theme config.
+```scss
+.high-emphasis {
+  @include mat.theme-overrides((
+    primary-container: #84ffff,
+  ));
+}
+```
 
-## 6. SCSS Usage & Best Practices
+Or inline at the top level:
 
-- **@use Syntax:**
-  - Use the `@use` rule for all Angular Material imports (not `@import`).
-- **No Direct Color Usage:**
-  - Never use raw color values. Always use theme variables or palette functions.
-- **Variables Naming:**
-  - Name theme variables descriptively (e.g., `$app-primary`, `$app-accent`).
-- **No !important:**
-  - Avoid `!important` in theme styles.
+```scss
+@include mat.theme((
+  color: mat.$azure-palette,
+  typography: Roboto,
+  density: 0,
+), $overrides: (
+  primary-container: orange,
+));
+```
+
+## 3. Consuming Theme Tokens in Components
+
+Material 3 emits CSS custom properties prefixed with `--mat-sys-*`. Components consume these directly — never SCSS variables or hex values.
+
+```scss
+.task-card {
+  background: var(--mat-sys-surface-container);
+  color: var(--mat-sys-on-surface);
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: var(--mat-sys-corner-medium);
+  font: var(--mat-sys-body-large);
+  padding: 16px;
+}
+
+.task-card__title {
+  color: var(--mat-sys-primary);
+  font: var(--mat-sys-title-medium);
+}
+```
+
+Common system token groups:
+
+- **Color roles:** `--mat-sys-primary`, `--mat-sys-on-primary`, `--mat-sys-primary-container`, `--mat-sys-on-primary-container`, `--mat-sys-secondary`, `--mat-sys-tertiary`, `--mat-sys-error`, `--mat-sys-surface`, `--mat-sys-surface-container`, `--mat-sys-on-surface`, `--mat-sys-outline`, `--mat-sys-outline-variant`
+- **Typography:** `--mat-sys-display-large`, `--mat-sys-headline-medium`, `--mat-sys-title-large`, `--mat-sys-body-large`, `--mat-sys-body-medium`, `--mat-sys-label-large`
+- **Shape:** `--mat-sys-corner-small`, `--mat-sys-corner-medium`, `--mat-sys-corner-large`
+
+## 4. Component Theming
+
+Material components automatically pick up the theme. For component-specific token overrides, use the per-component override mixins:
+
+```scss
+@use '@angular/material' as mat;
+
+.special-button {
+  @include mat.button-overrides((
+    container-color: var(--mat-sys-tertiary-container),
+    label-text-color: var(--mat-sys-on-tertiary-container),
+  ));
+}
+```
+
+## 5. SCSS Usage Rules
+
+- **Always use `@use`** — never `@import` for `@angular/material`.
+- **Never use legacy APIs:** `mat-palette`, `mat-light-theme`, `mat-dark-theme`, `angular-material-theme`, `mat-typography-config`, `define-palette` are all forbidden.
+- **Never hardcode colors or fonts** in component styles. Always reference `--mat-sys-*` tokens.
+- **No `!important`** in theme or component styles.
+- **No SCSS color manipulation** (`lighten()`, `darken()`, `mix()`) on theme colors — use the appropriate `-container` / `on-` token instead.
+
+## 6. Dark Mode
+
+With `color-scheme: light dark` and the `mat.theme()` mixin, dark mode is automatic — Material emits `light-dark(lightValue, darkValue)` CSS for every color token. Do **not** create a separate dark theme block or toggle a `.dark-theme` class.
+
+To force a specific scheme on a subtree:
+
+```scss
+.force-dark {
+  color-scheme: dark;
+}
+```
 
 ## 7. Do's and Don'ts
 
 **Do:**
-
-- Centralize all theming logic in SCSS theme files
-- Use Material mixins and tokens for all component theming
-- Support both light and dark themes
-- Use CSS classes to toggle themes
-- Document custom palettes and typography in the theme file
+- Configure all theming in one central file via `mat.theme()`
+- Consume colors and typography exclusively through `--mat-sys-*` CSS variables
+- Rely on `color-scheme: light dark` for automatic dark mode
+- Use per-component override mixins (`mat.button-overrides()`, etc.) when specific instances need different tokens
 
 **Don't:**
-
-- Hardcode colors or typography in components
-- Use inline styles for theming
-- Use legacy `@import` for Material SCSS
-- Mix multiple theme definitions in a single file
-
-## 8. Integration & Maintenance
-
-- **Import Order:**
-  - Always import theme files before component styles in `styles.scss`.
-- **Documentation:**
-  - Document all customizations and overrides in the theme file.
+- Use `mat-palette`, `mat-light-theme`, `angular-material-theme`, or any other legacy theming API
+- Hardcode colors, fonts, or sizes in component styles
+- Maintain separate light and dark theme blocks
+- Use `@import` for `@angular/material`

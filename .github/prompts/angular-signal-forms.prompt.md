@@ -39,18 +39,33 @@ Generate a complete Angular Signal Form component with schema validation:
 #### Core Imports and Dependencies
 ```typescript
 import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/core';
-import { form, schema, FormField, required, email, minLength, maxLength, min, max, pattern, applyEach } from '@angular/forms/signals';
+import {
+  form,
+  FormField,
+  required,
+  email,
+  minLength,
+  maxLength,
+  min,
+  max,
+  pattern,
+  applyEach,
+} from '@angular/forms/signals';
 import { JsonPipe } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+
+// Material 21+: import individual components, not *Module umbrellas
+import { MatButton } from '@angular/material/button';
+import { MatCard, MatCardHeader, MatCardTitle, MatCardContent } from '@angular/material/card';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatSelect, MatOption } from '@angular/material/select';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
 ```
 
-#### Schema Definition
-Create a comprehensive validation schema using Angular's built-in validators:
+#### Form Definition with Inline Schema
+
+Define the form by passing the model signal and a schema function directly to `form()`. The schema function receives a `fieldPath` for type-safe validator wiring:
 
 ```typescript
 interface [EntityType] {
@@ -64,22 +79,13 @@ interface [EntityType] {
   tags: string[];
 }
 
-const [entityName]Schema = schema<[EntityType]>((f) => {
-  required(f.name, { message: 'Name is required' });
-  minLength(f.name, 2, { message: 'Name must be at least 2 characters' });
-  required(f.email, { message: 'Email is required' });
-  email(f.email, { message: 'Invalid email format' });
-  maxLength(f.description, 500, { message: 'Description cannot exceed 500 characters' });
-
-  // For nested objects
-  required(f.address.street, { message: 'Street is required' });
-  required(f.address.city, { message: 'City is required' });
-
-  // For arrays
-  applyEach(f.tags, (tag) => {
-    minLength(tag, 1, { message: 'Tag cannot be empty' });
-  });
-});
+const EMPTY_[ENTITY_NAME]: [EntityType] = {
+  name: '',
+  email: '',
+  description: '',
+  address: { street: '', city: '' },
+  tags: [],
+};
 ```
 
 #### Component Structure
@@ -87,36 +93,54 @@ const [entityName]Schema = schema<[EntityType]>((f) => {
 @Component({
   selector: 'app-[entity-name]-form',
   imports: [
-    MatCardModule,
-    MatButtonModule,
-    MatInputModule,
-    MatSelectModule,
-    MatCheckboxModule,
-    MatDatepickerModule,
+    MatCard, MatCardHeader, MatCardTitle, MatCardContent,
+    MatButton,
+    MatFormField, MatLabel, MatError,
+    MatInput,
+    MatSelect, MatOption,
+    MatCheckbox,
+    MatDatepicker, MatDatepickerInput, MatDatepickerToggle,
     FormField,
-    JsonPipe
+    JsonPipe,
   ],
   templateUrl: './[entity-name]-form.html',
-  styleUrls: ['./[entity-name]-form.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './[entity-name]-form.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class [EntityName]Form {
-  // Signal for form data with proper typing
-  [entityName] = signal<[EntityType]>({
-    // Initialize with default values matching the interface structure
+  // Signal-backed form model
+  protected readonly [entityName]Model = signal<[EntityType]>(EMPTY_[ENTITY_NAME]);
+
+  // Form with inline schema function (preferred Angular 21+ API)
+  protected readonly [entityName]Form = form(this.[entityName]Model, (path) => {
+    required(path.name, { message: 'Name is required' });
+    minLength(path.name, 2, { message: 'Name must be at least 2 characters' });
+
+    required(path.email, { message: 'Email is required' });
+    email(path.email, { message: 'Enter a valid email address' });
+
+    maxLength(path.description, 500, { message: 'Description cannot exceed 500 characters' });
+
+    // Nested objects
+    required(path.address.street, { message: 'Street is required' });
+    required(path.address.city, { message: 'City is required' });
+
+    // Arrays
+    applyEach(path.tags, (tag) => {
+      minLength(tag, 1, { message: 'Tag cannot be empty' });
+    });
   });
 
-  // Signal form with schema validation
-  readonly [entityName]Form = form(this.[entityName], [entityName]Schema);
+  // Computed form state
+  protected readonly canSubmit = computed(() =>
+    this.[entityName]Form().valid() && this.[entityName]Form().dirty(),
+  );
 
-  // Computed signals for form state management
-  readonly isValid = computed(() => this.[entityName]Form().valid());
-  readonly isDirty = computed(() => this.[entityName]Form.name().dirty() || this.[entityName]Form.email().dirty());
-  readonly canSubmit = computed(() => this.isValid() && this.isDirty());
-
-  // Dynamic field management methods
-  // Form submission handler
-  // Utility methods
+  protected onSubmit(): void {
+    if (!this.canSubmit()) return;
+    const value = this.[entityName]Model();
+    // ... call store / API
+  }
 }
 ```
 
