@@ -9,24 +9,43 @@
   "prettier.configPath": ".prettierrc",
   "prettier.requireConfig": true,
 
+  // --- Copilot: Inline Suggestions ---
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "github.copilot.editor.enableCodeActions": true,
+  "github.copilot.renameSuggestions.triggerAutomatically": true,
+
   // --- Copilot Chat: Core ---
   "github.copilot.chat.localeOverride": "en",
   "github.copilot.chat.codeGeneration.useInstructionFiles": true,
+  "github.copilot.chat.codesearch.enabled": true,
+  "github.copilot.chat.agent.autoFix": true,
   "github.copilot.chat.commitMessageGeneration.instructions": [
     { "file": ".github/guidelines/commit-convention.md" }
   ],
   "github.copilot.chat.reviewSelection.enabled": true,
   "github.copilot.chat.reviewSelection.instructions": [
     { "file": ".github/instructions/angular.instructions.md" },
+    { "file": ".github/instructions/angular-material.instructions.md" },
+    { "file": ".github/instructions/angular-signal-forms.instructions.md" },
+    { "file": ".github/instructions/angular-testing.instructions.md" },
+    { "file": ".github/instructions/architecture.instructions.md" },
+    { "file": ".github/instructions/ngrx-signals.instructions.md" },
+    { "file": ".github/instructions/ngrx-signals-testing.instructions.md" },
     { "file": ".github/instructions/typescript.instructions.md" }
+  ],
+  "github.copilot.chat.pullRequestDescriptionGeneration.instructions": [
+    { "file": ".github/guidelines/commit-convention.md" }
   ],
 
   // --- Agents, Skills, AGENTS.md ---
   "chat.agent.enabled": true,
+  "chat.agent.maxRequests": 25,
+  "chat.agent.thinkingStyle": "fixedScrolling",
   "chat.useAgentsMdFile": true,
   "chat.useNestedAgentsMdFiles": true,
   "chat.useAgentSkills": true,
   "chat.customAgentInSubagent.enabled": true,
+  "chat.useClaudeMdFile": false,
 
   // --- Custom file locations (Copilot-only paths) ---
   "chat.instructionsFilesLocations": {
@@ -40,7 +59,6 @@
   },
 
   // --- Hooks: load only Copilot-native location ---
-  "chat.useHooks": true,
   "chat.hookFilesLocations": {
     ".github/hooks": true,
     ".claude/settings.json": false,
@@ -57,8 +75,9 @@
   },
 
   // --- UX ---
-  "chat.agent.thinkingStyle": "fixedScrolling",
   "chat.editRequests": "inline",
   "chat.sendElementsToChat.enabled": true,
-  "chat.viewSessions.enabled": true
+  "chat.viewSessions.enabled": true,
+  "chat.checkpoints.enabled": true,
+  "chat.detectParticipant.enabled": true
 }

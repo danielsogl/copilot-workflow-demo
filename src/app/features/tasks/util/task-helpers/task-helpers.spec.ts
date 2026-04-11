@@ -1,4 +1,3 @@
-import { describe, expect, it } from "vitest";
 import { isOverdue, formatDueDate, getPriorityOrder } from "./task-helpers";
 import { Task } from "../../data/models/task.model";
 

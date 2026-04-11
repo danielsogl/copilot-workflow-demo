@@ -7,11 +7,12 @@ import {
 } from "@angular/core";
 import { TitleCasePipe } from "@angular/common";
 import {
-  form,
   FormField,
+  form,
   maxLength,
   minLength,
   required,
+  schema,
 } from "@angular/forms/signals";
 import { MatButton } from "@angular/material/button";
 import {
@@ -41,6 +42,17 @@ interface TaskFormModel {
   priority: TaskPriority;
   dueDate: Date | null;
 }
+
+const taskFormSchema = schema<TaskFormModel>((f) => {
+  required(f.title, { message: "Title is required" });
+  minLength(f.title, 3, { message: "Title must be at least 3 characters" });
+  maxLength(f.title, 100, { message: "Title cannot exceed 100 characters" });
+  required(f.description, { message: "Description is required" });
+  maxLength(f.description, 500, {
+    message: "Description cannot exceed 500 characters",
+  });
+  required(f.dueDate, { message: "Due date is required" });
+});
 
 @Component({
   selector: "app-task-form-dialog",
@@ -86,22 +98,7 @@ export class TaskFormDialog {
       : null,
   });
 
-  protected readonly taskForm = form(this.model, (path) => {
-    required(path.title, { message: "Title is required" });
-    minLength(path.title, 3, {
-      message: "Title must be at least 3 characters",
-    });
-    maxLength(path.title, 100, {
-      message: "Title cannot exceed 100 characters",
-    });
-
-    required(path.description, { message: "Description is required" });
-    maxLength(path.description, 500, {
-      message: "Description cannot exceed 500 characters",
-    });
-
-    required(path.dueDate, { message: "Due date is required" });
-  });
+  protected readonly taskForm = form(this.model, taskFormSchema);
 
   protected readonly canSubmit = computed(() => this.taskForm().valid());
 

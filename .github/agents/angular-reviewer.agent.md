@@ -48,7 +48,6 @@ You are an Angular v21+ code review expert specializing in modern Angular patter
 // ✅ GOOD
 @Component({
   selector: 'app-tasks',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush, // Required
 })
 ```
@@ -234,8 +233,7 @@ loadTasks: rxMethod<void>(
 
 // ✅ GOOD - Import specific directives
 @Component({
-  standalone: true,
-  imports: [RouterLink, AsyncPipe]  // If needed
+  imports: [RouterLink]  // AsyncPipe removed; prefer toSignal() over async pipe
 })
 ```
 
@@ -253,15 +251,18 @@ loadTasks: rxMethod<void>(
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // ✅ GOOD - Signal Forms with schema validation
-import { form, required, minLength, email } from '@angular/forms/signals';
+import { form, schema, required, minLength, FormField } from '@angular/forms/signals';
 
-readonly taskModel = signal({ title: '', description: '', dueDate: '' });
+interface TaskFormModel { title: string; description: string; dueDate: string; }
 
-readonly taskForm = form(this.taskModel, (path) => {
-  required(path.title, { message: 'Title is required' });
-  minLength(path.title, 3);
-  required(path.dueDate, { message: 'Due date is required' });
+const taskSchema = schema<TaskFormModel>((f) => {
+  required(f.title, { message: 'Title is required' });
+  minLength(f.title, 3);
+  required(f.dueDate, { message: 'Due date is required' });
 });
+
+readonly taskModel = signal<TaskFormModel>({ title: '', description: '', dueDate: '' });
+readonly taskForm = form(this.taskModel, taskSchema);
 ```
 
 ### 3. **Material Design Patterns (Material 3)**

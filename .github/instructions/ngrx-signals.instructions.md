@@ -231,7 +231,6 @@ export const UserStore = signalStore(
 ```typescript
 // Component integration patterns
 @Component({
-  standalone: true,
   imports: [UserListComponent],
   template: `
     @if (userStore.users().length > 0) {

@@ -143,6 +143,7 @@ import { provideZonelessChangeDetection } from "@angular/core";
 import { MyDirective } from "./my";
 
 @Component({
+  imports: [MyDirective],
   template: `
     <div [myDirective]="value">Test</div>
   `,
@@ -157,8 +158,7 @@ describe("MyDirective", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MyDirective],
-      declarations: [TestHost],
+      imports: [TestHost],
       providers: [provideZonelessChangeDetection()],
     }).compileComponents();
 

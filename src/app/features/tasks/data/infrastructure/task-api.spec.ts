@@ -1,11 +1,9 @@
-import { describe, expect, it, beforeEach } from "vitest";
 import { TestBed } from "@angular/core/testing";
 import { provideZonelessChangeDetection } from "@angular/core";
 import {
   HttpTestingController,
   provideHttpClientTesting,
 } from "@angular/common/http/testing";
-import { provideHttpClient } from "@angular/common/http";
 import { TaskApi } from "./task-api";
 import { Task } from "../models/task.model";
 
@@ -28,11 +26,7 @@ describe("TaskApi", () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        provideZonelessChangeDetection(),
-        provideHttpClient(),
-        provideHttpClientTesting(),
-      ],
+      providers: [provideZonelessChangeDetection(), provideHttpClientTesting()],
     });
     service = TestBed.inject(TaskApi);
     httpTesting = TestBed.inject(HttpTestingController);

@@ -38,11 +38,12 @@ describe("MoviesStore", () => {
 
 ```typescript
 import { TestBed } from "@angular/core/testing";
+import { provideZonelessChangeDetection } from "@angular/core";
 
 describe("MoviesStore", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [MoviesStore],
+      providers: [MoviesStore, provideZonelessChangeDetection()],
     });
   });
 
@@ -57,10 +58,17 @@ describe("MoviesStore", () => {
 
 ```typescript
 import { TestBed } from "@angular/core/testing";
+import { provideZonelessChangeDetection } from "@angular/core";
 import { unprotected } from "@ngrx/signals/testing";
 import { patchState } from "@ngrx/signals";
 
 describe("CounterStore", () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [CounterStore, provideZonelessChangeDetection()],
+    });
+  });
+
   it("recomputes doubleCount on count changes", () => {
     const counterStore = TestBed.inject(CounterStore);
     patchState(unprotected(counterStore), { count: 10 });
@@ -72,8 +80,14 @@ describe("CounterStore", () => {
 ## 4. Testing Computed Properties
 
 ```typescript
+import { TestBed } from "@angular/core/testing";
+import { provideZonelessChangeDetection } from "@angular/core";
+
 describe("MoviesStore", () => {
   it("should compute movies count correctly", () => {
+    TestBed.configureTestingModule({
+      providers: [MoviesStore, provideZonelessChangeDetection()],
+    });
     const store = TestBed.inject(MoviesStore);
     expect(store.moviesCount()).toBe(3);
   });
@@ -99,6 +113,7 @@ describe("MoviesStore", () => {
     TestBed.configureTestingModule({
       providers: [
         MoviesStore,
+        provideZonelessChangeDetection(),
         {
           provide: MoviesService,
           useValue: moviesService,
@@ -139,6 +154,7 @@ describe("MoviesStore with rxMethod", () => {
     TestBed.configureTestingModule({
       providers: [
         MoviesStore,
+        provideZonelessChangeDetection(),
         {
           provide: MoviesService,
           useValue: moviesService,
@@ -206,7 +222,7 @@ describe("MoviesStore with Signal input", () => {
 import { signal } from "@angular/core";
 
 it("should show movies (native mocking)", () => {
-  const load = vi.fn<void, [Signal<string>]>();
+  const load = vi.fn<(studio: Signal<string>) => void>();
   const moviesStore = {
     movies: signal(new Array<Movie>()),
     loading: signal(false),
@@ -216,6 +232,7 @@ it("should show movies (native mocking)", () => {
   TestBed.configureTestingModule({
     imports: [MoviesComponent],
     providers: [
+      provideZonelessChangeDetection(),
       {
         provide: MoviesStore,
         useValue: moviesStore,
@@ -247,6 +264,7 @@ it("should show movies (spy approach)", () => {
     imports: [MoviesComponent],
     providers: [
       MoviesStore,
+      provideZonelessChangeDetection(),
       {
         provide: MoviesService,
         useValue: {},
@@ -257,7 +275,7 @@ it("should show movies (spy approach)", () => {
   const moviesStore = TestBed.inject(MoviesStore);
   const loadSpy = vi.spyOn(moviesStore, "load");
 
-  patchState(moviesStore, {
+  patchState(unprotected(moviesStore), {
     movies: [
       { id: 1, name: "Harry Potter" },
       { id: 2, name: "The Dark Knight" },
@@ -280,7 +298,7 @@ it("should show movies (spy approach)", () => {
 it("should show movies with MoviesStore", async () => {
   const fixture = TestBed.configureTestingModule({
     imports: [MoviesComponent],
-    providers: [provideHttpClientTesting()],
+    providers: [provideZonelessChangeDetection(), provideHttpClientTesting()],
   }).createComponent(MoviesComponent);
 
   const ctrl = TestBed.inject(HttpTestingController);

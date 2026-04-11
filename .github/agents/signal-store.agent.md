@@ -101,18 +101,27 @@ export const FeatureStore = signalStore(
 
 ### Testing Pattern
 ```typescript
+import { TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 import { unprotected } from '@ngrx/signals/testing';
+import { patchState } from '@ngrx/signals';
 
 describe('FeatureStore', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [FeatureStore, provideZonelessChangeDetection()],
+    });
+  });
+
   it('should initialize with default state', () => {
-    const store = new FeatureStore();
+    const store = TestBed.inject(FeatureStore);
     expect(store.loading()).toBe(false);
   });
 
-  it('should update state via method', () => {
-    const store = new FeatureStore();
-    store.someMethod(value);
-    expect(store.someState()).toBe(expectedValue);
+  it('should update state via patchState', () => {
+    const store = TestBed.inject(FeatureStore);
+    patchState(unprotected(store), { loading: true });
+    expect(store.loading()).toBe(true);
   });
 });
 ```

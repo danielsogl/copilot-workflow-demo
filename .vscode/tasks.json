@@ -33,7 +33,7 @@
             "regexp": "(.*?)"
           },
           "endsPattern": {
-            "regexp": "bundle generation complete"
+            "regexp": "Tests\\s+\\d+"
           }
         }
       }

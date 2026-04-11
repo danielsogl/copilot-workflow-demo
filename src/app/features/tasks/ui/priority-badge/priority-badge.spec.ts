@@ -1,4 +1,3 @@
-import { describe, expect, it, beforeEach } from "vitest";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { provideZonelessChangeDetection } from "@angular/core";
 import { PriorityBadge } from "./priority-badge";

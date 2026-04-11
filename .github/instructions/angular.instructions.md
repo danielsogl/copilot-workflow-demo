@@ -257,7 +257,7 @@ ALWAYS use the new Angular control flow syntax. NEVER use legacy structural dire
 
 - **Track Functions:** Always provide track functions in `@for` loops for performance
 - **Conditional Access:** Use `as` keyword with `@if` for safe value access
-- **Async Pipe:** Use async pipe to handle observables in templates
+- **Signal Interop:** Prefer `toSignal()` over the async pipe for consuming Observables in templates; only use the async pipe as a last resort
 - **Template Simplicity:** Keep templates simple - delegate complex logic to computed signals or methods
 - **Class Bindings:** Use `[class.className]` instead of `ngClass`
 - **Style Bindings:** Use `[style.property]` instead of `ngStyle`

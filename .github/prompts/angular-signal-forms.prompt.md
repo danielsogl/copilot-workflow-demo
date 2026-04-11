@@ -41,6 +41,7 @@ Generate a complete Angular Signal Form component with schema validation:
 import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import {
   form,
+  schema,
   FormField,
   required,
   email,
@@ -111,29 +112,33 @@ export class [EntityName]Form {
   // Signal-backed form model
   protected readonly [entityName]Model = signal<[EntityType]>(EMPTY_[ENTITY_NAME]);
 
-  // Form with inline schema function (preferred Angular 21+ API)
-  protected readonly [entityName]Form = form(this.[entityName]Model, (path) => {
-    required(path.name, { message: 'Name is required' });
-    minLength(path.name, 2, { message: 'Name must be at least 2 characters' });
+  // Validation schema (defined at module level for reuse and memoization)
+  private readonly [entityName]Schema = schema<[EntityType]>((f) => {
+    required(f.name, { message: 'Name is required' });
+    minLength(f.name, 2, { message: 'Name must be at least 2 characters' });
 
-    required(path.email, { message: 'Email is required' });
-    email(path.email, { message: 'Enter a valid email address' });
+    required(f.email, { message: 'Email is required' });
+    email(f.email, { message: 'Enter a valid email address' });
 
-    maxLength(path.description, 500, { message: 'Description cannot exceed 500 characters' });
+    maxLength(f.description, 500, { message: 'Description cannot exceed 500 characters' });
 
     // Nested objects
-    required(path.address.street, { message: 'Street is required' });
-    required(path.address.city, { message: 'City is required' });
+    required(f.address.street, { message: 'Street is required' });
+    required(f.address.city, { message: 'City is required' });
 
     // Arrays
-    applyEach(path.tags, (tag) => {
+    applyEach(f.tags, (tag) => {
       minLength(tag, 1, { message: 'Tag cannot be empty' });
     });
   });
 
-  // Computed form state
+  // Form with schema
+  protected readonly [entityName]Form = form(this.[entityName]Model, this.[entityName]Schema);
+
+  // Computed form state — dirty check at field level, not form level
   protected readonly canSubmit = computed(() =>
-    this.[entityName]Form().valid() && this.[entityName]Form().dirty(),
+    this.[entityName]Form().valid() &&
+    (this.[entityName]Form.name().dirty() || this.[entityName]Form.email().dirty()),
   );
 
   protected onSubmit(): void {
@@ -377,12 +382,12 @@ src/app/[domain]/
 
 ## Best Practices
 
-1. **Schema-Based Validation**: Always use Angular's built-in `schema()` function for declarative validation following `angular-signal-forms.instructions.md`
+1. **Schema-Based Validation**: Always use Angular's built-in `schema()` function for declarative validation following `angular-signal-forms.instructions.md`. Define schemas at module level (not inside the class) for memoization and reusability.
 2. **Modern Angular Patterns**: Use standalone components, function-based DI with `inject()`, and modern control flow (`@if`, `@for`)
 3. **Signal-First Approach**: Leverage signals for all reactive state management
 4. **Material Design**: Use Angular Material components for consistent UI and built-in accessibility
 5. **Type Safety**: Maintain strict TypeScript typing throughout the form with proper interfaces
-6. **Schema Organization**: Store validation schemas in dedicated files for reusability across components
+6. **Dirty Check at Field Level**: Use `field().dirty()` on individual fields — the form-level `form()` object only exposes `valid()`, not `dirty()`
 7. **Responsive Design**: Ensure forms work well on all device sizes
 8. **Error Handling**: Provide clear, user-friendly error messages with custom messages in validators
 9. **Performance**: Use OnPush change detection and efficient signal updates with computed signals

@@ -127,6 +127,6 @@ src/app/
 
 - **Feature Isolation:** Each domain is self-contained with its own features, UI, data, and utilities
 - **Clear Boundaries:** Domains communicate through well-defined interfaces
-- **Shared Code:** Only truly shared code goes in `src/app/shared/`
+- **Shared Code:** Only truly shared code lives in `src/app/core/` — there is no `shared/` folder
 - **Scalability:** The structure supports growth without reorganization
 - **Discoverability:** Developers can easily find code by following the domain/layer/component pattern
