@@ -1,3 +1,7 @@
 .content {
   padding: 80px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 80px);
+  box-sizing: border-box;
 }

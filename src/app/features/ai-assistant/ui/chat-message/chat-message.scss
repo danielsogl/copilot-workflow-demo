@@ -1,0 +1,76 @@
+:host {
+  display: block;
+}
+
+.chat-message {
+  display: flex;
+  gap: 12px;
+  max-width: 80%;
+  margin-bottom: 16px;
+
+  &.user {
+    flex-direction: row-reverse;
+    align-self: flex-end;
+    margin-left: auto;
+
+    .avatar {
+      background: var(--mat-sys-primary);
+      color: var(--mat-sys-on-primary);
+    }
+
+    .bubble {
+      background: var(--mat-sys-primary-container);
+      color: var(--mat-sys-on-primary-container);
+    }
+  }
+
+  &.assistant {
+    align-self: flex-start;
+
+    .avatar {
+      background: var(--mat-sys-secondary-container);
+      color: var(--mat-sys-on-secondary-container);
+    }
+
+    .bubble {
+      background: var(--mat-sys-surface-container);
+      color: var(--mat-sys-on-surface);
+    }
+  }
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  align-self: flex-end;
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.bubble {
+  border-radius: 16px;
+  padding: 10px 16px;
+  max-width: 100%;
+}
+
+.content {
+  margin: 0 0 4px;
+  font: var(--mat-sys-body-medium);
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+.timestamp {
+  font: var(--mat-sys-label-small);
+  opacity: 0.6;
+}

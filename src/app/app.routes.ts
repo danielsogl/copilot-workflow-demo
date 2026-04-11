@@ -9,5 +9,12 @@ export const routes: Routes = [
         (m) => m.TaskDashboard,
       ),
   },
+  {
+    path: "assistant",
+    loadComponent: () =>
+      import("./features/ai-assistant/feature/assistant-page/assistant-page").then(
+        (m) => m.AssistantPage,
+      ),
+  },
   { path: "**", redirectTo: "/board" },
 ];

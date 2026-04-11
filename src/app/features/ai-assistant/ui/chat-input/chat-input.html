@@ -1,0 +1,24 @@
+<mat-form-field appearance="outline" class="input-field">
+  <mat-label>Ask your assistant...</mat-label>
+  <input
+    matInput
+    [(ngModel)]="text"
+    [disabled]="disabled()"
+    (keydown)="onKeydown($event)"
+    placeholder="e.g. What are my high priority tasks?"
+    autocomplete="off"
+  />
+  <button
+    matSuffix
+    mat-icon-button
+    [disabled]="!text().trim() || disabled()"
+    (click)="onSubmit()"
+    aria-label="Send message"
+  >
+    @if (disabled()) {
+      <mat-progress-spinner mode="indeterminate" diameter="20" />
+    } @else {
+      <mat-icon>send</mat-icon>
+    }
+  </button>
+</mat-form-field>

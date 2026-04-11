@@ -1,0 +1,26 @@
+<div class="assistant-page">
+  <div class="page-header">
+    <div class="header-title">
+      <span class="icon">🤖</span>
+      <h1>AI Task Assistant</h1>
+      <span class="badge">Powered by GitHub Copilot</span>
+    </div>
+    <button
+      mat-icon-button
+      (click)="onClear()"
+      matTooltip="Clear conversation"
+      [disabled]="store.messages().length === 0"
+    >
+      <mat-icon>delete_sweep</mat-icon>
+    </button>
+  </div>
+
+  <div class="chat-container">
+    <app-chat-panel
+      [messages]="store.messages()"
+      [streamingContent]="store.streamingContent()"
+      [loading]="store.loading()"
+      (send)="onSend($event)"
+    />
+  </div>
+</div>

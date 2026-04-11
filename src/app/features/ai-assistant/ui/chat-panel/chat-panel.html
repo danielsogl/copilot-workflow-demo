@@ -1,0 +1,44 @@
+<div class="chat-panel">
+  <div class="messages" #messagesContainer>
+    @if (messages().length === 0 && !loading()) {
+      <div class="empty-state">
+        <p class="hint">👋 Ask me anything about your tasks!</p>
+        <p class="example">
+          Try:
+          <em>"What are my high priority tasks?"</em>
+        </p>
+        <p class="example">
+          Or:
+          <em>
+            "Create a task: Deploy to production, high priority, due 2026-05-01"
+          </em>
+        </p>
+      </div>
+    }
+
+    @for (message of messages(); track message.id) {
+      <app-chat-message [message]="message" />
+    }
+
+    @if (streamingContent()) {
+      <div class="streaming-message">
+        <div class="avatar assistant">
+          <span class="icon">🤖</span>
+        </div>
+        <div class="bubble">
+          <p class="content">{{ streamingContent() }}</p>
+          <span class="cursor">▌</span>
+        </div>
+      </div>
+    } @else if (loading()) {
+      <div class="typing-indicator">
+        <div class="avatar assistant"></div>
+        <mat-progress-spinner mode="indeterminate" diameter="24" />
+      </div>
+    }
+  </div>
+
+  <div class="input-area">
+    <app-chat-input [disabled]="loading()" (send)="send.emit($event)" />
+  </div>
+</div>

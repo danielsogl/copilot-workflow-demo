@@ -15,3 +15,27 @@ mat-toolbar {
 .spacer {
   flex: 1 1 auto;
 }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 20px;
+    opacity: 0.75;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &.active-link {
+      opacity: 1;
+      background: color-mix(in srgb, currentColor 15%, transparent);
+    }
+  }
+}

@@ -1,0 +1,17 @@
+<div
+  class="chat-message"
+  [class.user]="message().role === 'user'"
+  [class.assistant]="message().role === 'assistant'"
+>
+  <div class="avatar">
+    @if (message().role === "assistant") {
+      <mat-icon>smart_toy</mat-icon>
+    } @else {
+      <mat-icon>person</mat-icon>
+    }
+  </div>
+  <div class="bubble">
+    <p class="content">{{ message().content }}</p>
+    <span class="timestamp">{{ message().timestamp | date: "HH:mm" }}</span>
+  </div>
+</div>
