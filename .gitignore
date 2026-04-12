@@ -50,3 +50,6 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /.playwright-mcp
+
+# Playwright BDD generated tests
+/.features-gen/

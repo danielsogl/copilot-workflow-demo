@@ -1,7 +1,7 @@
 {
   "tasks": [
     {
-      "id": "1",
+      "id": "dcVrV1obXL4",
       "title": "Complete project proposal",
       "description": "Draft and finalize the Q1 project proposal for the new client engagement",
       "status": "completed",
@@ -12,7 +12,7 @@
       "order": 0
     },
     {
-      "id": "2",
+      "id": "tOHHuqfnpNY",
       "title": "Review team performance",
       "description": "Conduct quarterly performance reviews for all team members",
       "status": "in_progress",
@@ -22,7 +22,7 @@
       "order": 0
     },
     {
-      "id": "3",
+      "id": "r4DcHl4nM4w",
       "title": "Update website content",
       "description": "Refresh homepage and about page content with new branding",
       "status": "todo",
@@ -32,7 +32,7 @@
       "order": 1
     },
     {
-      "id": "4",
+      "id": "B71LmkH1SV0",
       "title": "Prepare budget report",
       "description": "Compile Q4 budget analysis and projections for management review",
       "status": "completed",
@@ -43,7 +43,7 @@
       "order": 1
     },
     {
-      "id": "5",
+      "id": "Ex153FWuIjw",
       "title": "Schedule team meeting",
       "description": "Organize monthly team sync meeting and prepare agenda",
       "status": "todo",
@@ -53,7 +53,7 @@
       "order": 2
     },
     {
-      "id": "6",
+      "id": "jmFMJw06I4c",
       "title": "Fix critical bug",
       "description": "Resolve login authentication issue reported by QA team",
       "status": "in_progress",
@@ -63,7 +63,7 @@
       "order": 1
     },
     {
-      "id": "7",
+      "id": "D15mxbPw-ng",
       "title": "Code review session",
       "description": "Review pull requests from development team for the sprint",
       "status": "completed",
@@ -74,7 +74,7 @@
       "order": 2
     },
     {
-      "id": "8",
+      "id": "pOArVMEynEo",
       "title": "Client presentation",
       "description": "Present project progress to stakeholders and gather feedback",
       "status": "todo",
@@ -83,5 +83,6 @@
       "createdAt": "2026-02-06",
       "order": 0
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
