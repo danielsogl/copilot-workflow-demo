@@ -54,9 +54,11 @@ async function main() {
 
   try {
     const session = await client.createSession({
-      model: "claude-sonnet-4.6",
+      model: "gpt-4.1",
       streaming: true,
       tools: [getPullRequest],
+      skillDirectories: [".agents/skills"],
+      enableConfigDiscovery: true,
       systemMessage: {
         content: `You are an expert code reviewer specializing in Angular 21, TypeScript, and NgRx Signals.
 When reviewing a pull request:
@@ -66,6 +68,28 @@ When reviewing a pull request:
 4. End with an overall verdict: ✅ Approve / ⚠️ Needs Changes / ❌ Request Changes`,
       },
       onPermissionRequest: approveAll,
+      onEvent: (event) => {
+        if (event.type === "session.info") {
+          const { infoType, message } = event.data;
+          if (["mcp", "configuration", "skill"].includes(infoType)) {
+            console.log(`\x1b[36m[${infoType}]\x1b[0m ${message}`);
+          }
+        } else if (event.type === "session.warning") {
+          console.log(
+            `\x1b[33m[warning:${event.data.warningType}]\x1b[0m ${event.data.message}`,
+          );
+        } else if (event.type === "tool.execution_start") {
+          const mcp = event.data.mcpServerName
+            ? ` \x1b[35m(MCP: ${event.data.mcpServerName})\x1b[0m`
+            : "";
+          console.log(`\x1b[32m[tool]\x1b[0m ▶ ${event.data.toolName}${mcp}`);
+        } else if (event.type === "tool.execution_complete") {
+          const status = event.data.success ? "✓" : "✗";
+          console.log(
+            `\x1b[32m[tool]\x1b[0m ${status} ${event.data.toolCallId}`,
+          );
+        }
+      },
     });
 
     session.on("assistant.message_delta", (event) => {
@@ -76,9 +100,12 @@ When reviewing a pull request:
       `\n🔍 \x1b[1mCopilot PR Review Bot\x1b[0m — reviewing PR #${prNumber}...\n`,
     );
 
-    await session.sendAndWait({
-      prompt: `Please review pull request #${prNumber} in this repository. Fetch it using the tool and provide a thorough but concise code review.`,
-    });
+    await session.sendAndWait(
+      {
+        prompt: `Please review pull request #${prNumber} in this repository. Fetch it using the tool and provide a thorough but concise code review.`,
+      },
+      300_000,
+    );
 
     console.log("\n");
     await session.disconnect();
