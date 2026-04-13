@@ -50,14 +50,14 @@
     "eslint-plugin-playwright": "^2.10.1",
     "eslint-plugin-prettier": "^5.5.5",
     "jsdom": "^29.0.1",
-    "lefthook": "^2.1.4",
+    "lefthook": "^2.1.5",
     "ng-mocks": "^14.15.2",
     "playwright": "^1.59.1",
     "playwright-bdd": "^8.5.0",
-    "prettier": "^3.8.1",
+    "prettier": "^3.8.2",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.57.2",
+    "typescript-eslint": "^8.58.1",
     "vitest": "^4.1.2"
   },
   "overrides": {
