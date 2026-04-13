@@ -30,6 +30,6 @@ Feature: Task Helper Utilities
 
     Examples:
       | priority | order |
-      | high     | 0     |
-      | medium   | 1     |
-      | low      | 2     |
+      | high     |     0 |
+      | medium   |     1 |
+      | low      |     2 |

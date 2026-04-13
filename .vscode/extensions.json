@@ -6,6 +6,7 @@
     "esbenp.prettier-vscode",
     "dbaeumer.vscode-eslint",
     "vitest.explorer",
-    "ms-playwright.playwright"
+    "ms-playwright.playwright",
+    "CucumberOpen.cucumber-official"
   ]
 }

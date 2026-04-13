@@ -8,6 +8,8 @@
   "editor.trimAutoWhitespace": true,
   "prettier.configPath": ".prettierrc",
   "prettier.requireConfig": true,
+  "cucumber.glue": ["tests/bdd/steps/*.ts", "src/**/*.bdd.spec.ts"],
+  "cucumber.features": ["tests/bdd/features/*.feature", "src/**/*.feature"],
   // --- Copilot: Inline Suggestions ---
   "github.copilot.nextEditSuggestions.enabled": true,
   "github.copilot.editor.enableCodeActions": true,
@@ -93,5 +95,8 @@
   "chat.sendElementsToChat.enabled": true,
   "chat.viewSessions.enabled": true,
   "chat.checkpoints.enabled": true,
-  "chat.detectParticipant.enabled": true
+  "chat.detectParticipant.enabled": true,
+  "[cucumber]": {
+    "editor.defaultFormatter": "CucumberOpen.cucumber-official"
+  }
 }
