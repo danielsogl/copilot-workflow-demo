@@ -57,6 +57,7 @@
     }
   ],
   "github.copilot.chat.agentDebugLog.enabled": true,
+  "github.copilot.chat.tools.memory.enabled": true,
   // --- Agents, Skills, AGENTS.md ---
   "chat.agent.enabled": true,
   "chat.agent.maxRequests": 25,
