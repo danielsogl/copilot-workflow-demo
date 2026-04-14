@@ -2,6 +2,21 @@
   <mat-icon>dashboard</mat-icon>
   <span class="title">Task Board</span>
   <span class="spacer"></span>
+  <mat-button-toggle-group
+    class="theme-toggle"
+    [value]="theme.mode()"
+    aria-label="Theme mode"
+  >
+    <mat-button-toggle value="light" (click)="setTheme('light')">
+      <mat-icon>light_mode</mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle value="dark" (click)="setTheme('dark')">
+      <mat-icon>dark_mode</mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle value="system" (click)="setTheme('system')">
+      <mat-icon>settings_brightness</mat-icon>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
   <nav class="nav-links">
     <a mat-button routerLink="/board" routerLinkActive="active-link">
       <mat-icon>view_kanban</mat-icon>
