@@ -7,6 +7,7 @@
     "dbaeumer.vscode-eslint",
     "vitest.explorer",
     "ms-playwright.playwright",
-    "CucumberOpen.cucumber-official"
+    "CucumberOpen.cucumber-official",
+    "ms-vscode.vscode-chat-customizations-evaluations"
   ]
 }
