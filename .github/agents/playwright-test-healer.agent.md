@@ -12,7 +12,7 @@ tools:
   - playwright-test/test_debug
   - playwright-test/test_list
   - playwright-test/test_run
-model: Claude Sonnet 4
+model: Claude Opus 4.7 (copilot)
 mcp-servers:
   playwright-test:
     type: stdio
