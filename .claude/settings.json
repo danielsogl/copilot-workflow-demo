@@ -27,5 +27,8 @@
     "angular-cli",
     "playwright-test",
     "eslint"
-  ]
+  ],
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true
+  }
 }
