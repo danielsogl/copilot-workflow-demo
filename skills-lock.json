@@ -5,13 +5,7 @@
       "source": "angular/skills",
       "sourceType": "github",
       "skillPath": "angular-developer/SKILL.md",
-      "computedHash": "c5d9759b9e39a49a382dedda3bb4b79a9d952c9d1aedbf07905272baa0e389ab"
-    },
-    "bdd": {
-      "source": "danielsogl/skills",
-      "sourceType": "github",
-      "skillPath": "skills/bdd/SKILL.md",
-      "computedHash": "e57026b50c0293378bb1a2d7898f546d54c298ee1dd3ac0a199b706eef8ea78f"
+      "computedHash": "28eb592b92e5a24c4e3a1c0229a854069f0b8c49bed7b8d2bf6b852812dbe214"
     },
     "ngrx-signals": {
       "source": "danielsogl/skills",
@@ -19,11 +13,11 @@
       "skillPath": "skills/ngrx-signals/SKILL.md",
       "computedHash": "85f61bd87e29de6fb9ba19a5011d5ec7c8fda8786b5089f69166f0aeb24b6335"
     },
-    "skill-creator": {
-      "source": "anthropics/skills",
+    "playwright-cli": {
+      "source": "microsoft/playwright-cli",
       "sourceType": "github",
-      "skillPath": "skills/skill-creator/SKILL.md",
-      "computedHash": "5ea13a6d9f0d4bb694405d79acd00cadec0d21bb138c4dd10fcf3c500cb835c2"
+      "skillPath": "skills/playwright-cli/SKILL.md",
+      "computedHash": "84495cfda62b6c012afc4cc34a0c35bfc7923ba35983b8c04ce4cace0f35a5d8"
     }
   }
 }

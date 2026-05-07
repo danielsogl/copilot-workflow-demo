@@ -33,7 +33,7 @@ test.describe("AI Assistant", () => {
       await expect(
         page.getByRole("heading", { name: "AI Task Assistant" }),
       ).toBeVisible();
-      await expect(page.getByText("Powered by GitHub Copilot")).toBeVisible();
+      await expect(page.getByText("Powered by Claude")).toBeVisible();
     });
 
     test("should show empty state initially", async ({ page }) => {

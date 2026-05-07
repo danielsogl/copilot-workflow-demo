@@ -45,14 +45,21 @@ Three rules every Signal Store author needs to internalize:
 For 80% of feature stores, this is the shape. Copy it, adapt it, then read the references for anything non-obvious.
 
 ```typescript
-import { computed, inject } from '@angular/core';
+import { computed, inject } from "@angular/core";
 import {
-  patchState, signalStore, withComputed, withMethods, withState,
-} from '@ngrx/signals';
-import { FooApi } from './foo.api';
+  patchState,
+  signalStore,
+  withComputed,
+  withMethods,
+  withState,
+} from "@ngrx/signals";
+import { FooApi } from "./foo.api";
 import {
-  setError, setFulfilled, setPending, withRequestStatus,
-} from './with-request-status';
+  setError,
+  setFulfilled,
+  setPending,
+  withRequestStatus,
+} from "./with-request-status";
 
 type FooState = {
   items: Foo[];
@@ -61,16 +68,16 @@ type FooState = {
 
 const initialState: FooState = {
   items: [],
-  filter: '',
+  filter: "",
 };
 
 export const FooStore = signalStore(
-  { providedIn: 'root' },
+  { providedIn: "root" },
   withState<FooState>(initialState),
   withRequestStatus(),
   withComputed(({ items, filter }) => ({
     filteredItems: computed(() =>
-      items().filter((i) => i.name.includes(filter()))
+      items().filter((i) => i.name.includes(filter())),
     ),
     count: computed(() => items().length),
   })),
@@ -84,7 +91,7 @@ export const FooStore = signalStore(
         const items = await api.getAll();
         patchState(store, { items }, setFulfilled());
       } catch (e) {
-        patchState(store, setError(e instanceof Error ? e.message : 'Failed'));
+        patchState(store, setError(e instanceof Error ? e.message : "Failed"));
       }
     },
   })),
@@ -115,24 +122,36 @@ These are the mistakes that show up most often. Keep these patterns visible when
 // ❌ Wrong: read entityMap manually then patch with a partial — race-prone
 //          and leaks store internals into the method body.
 const current = store.entityMap()[id];
-patchState(store, updateEntity({ id, changes: { completed: !current.completed } }));
+patchState(
+  store,
+  updateEntity({ id, changes: { completed: !current.completed } }),
+);
 
 // ✅ Right: function-form changes — atomic, no manual lookup.
-patchState(store, updateEntity({
-  id,
-  changes: (todo) => ({ completed: !todo.completed }),
-}));
+patchState(
+  store,
+  updateEntity({
+    id,
+    changes: (todo) => ({ completed: !todo.completed }),
+  }),
+);
 ```
 
 ### 2. `removeEntities` — predicate form, not filter+map
 
 ```typescript
 // ❌ Wrong: pulls everything into the method body, fragile if signal shape changes.
-const ids = store.entities().filter((t) => t.completed).map((t) => t.id);
+const ids = store
+  .entities()
+  .filter((t) => t.completed)
+  .map((t) => t.id);
 patchState(store, removeEntities(ids));
 
 // ✅ Right: predicate is evaluated against each entity by the updater.
-patchState(store, removeEntities((todo) => todo.completed));
+patchState(
+  store,
+  removeEntities((todo) => todo.completed),
+);
 ```
 
 ### 3. Optimistic update — snapshot with `getState`, restore on error
@@ -157,11 +176,17 @@ try {
 
 ```typescript
 // ❌ Wrong: reaching into the store from the feature, can't compose into patchState calls.
-withMethods((store) => ({ setPending() { patchState(store, { requestStatus: 'pending' }); } }))
+withMethods((store) => ({
+  setPending() {
+    patchState(store, { requestStatus: "pending" });
+  },
+}));
 
 // ✅ Right: standalone updater functions that return Partial<State>.
 //          Compose with other updaters in a single patchState call.
-export function setPending(): RequestStatusState { return { requestStatus: 'pending' }; }
+export function setPending(): RequestStatusState {
+  return { requestStatus: "pending" };
+}
 patchState(store, setAllEntities(items), setFulfilled());
 ```
 
@@ -170,7 +195,7 @@ patchState(store, setAllEntities(items), setFulfilled());
 ```typescript
 // ❌ Wrong: bare signalStoreFeature — no compile error if used without withEntities.
 export function withSelectedEntity<T>() {
-  return signalStoreFeature(withState({ selectedId: null }), /* ... */);
+  return signalStoreFeature(withState({ selectedId: null }) /* ... */);
 }
 
 // ✅ Right: declare prerequisite via { state: type<EntityState<T>>() }.
@@ -186,8 +211,12 @@ export function withSelectedEntity<T extends { id: EntityId }>() {
       }),
     })),
     withMethods((store) => ({
-      select(id: EntityId): void { patchState(store, { selectedId: id }); },
-      clearSelection(): void { patchState(store, { selectedId: null }); },
+      select(id: EntityId): void {
+        patchState(store, { selectedId: id });
+      },
+      clearSelection(): void {
+        patchState(store, { selectedId: null });
+      },
     })),
   );
 }
@@ -195,14 +224,14 @@ export function withSelectedEntity<T extends { id: EntityId }>() {
 
 ### 6. Refactoring `BehaviorSubject` — what maps to what
 
-| Before                                | After                                                 |
-| ------------------------------------- | ----------------------------------------------------- |
-| `BehaviorSubject<T>` field            | state slice in `withState<FooState>(...)`             |
-| `.next(...)`                          | `patchState(store, ...)`                              |
-| `.value`                              | signal getter `store.foo()` (or `getState(store)`)    |
-| `combineLatest` / `map` derived obs   | `withComputed(...)` returning `computed(...)`         |
-| HTTP method on the service            | new `FooApi` service injected by the store            |
-| Component subscribes via `\| async`   | reads signal: `{{ store.foo() }}` (no async pipe)     |
+| Before                              | After                                              |
+| ----------------------------------- | -------------------------------------------------- |
+| `BehaviorSubject<T>` field          | state slice in `withState<FooState>(...)`          |
+| `.next(...)`                        | `patchState(store, ...)`                           |
+| `.value`                            | signal getter `store.foo()` (or `getState(store)`) |
+| `combineLatest` / `map` derived obs | `withComputed(...)` returning `computed(...)`      |
+| HTTP method on the service          | new `FooApi` service injected by the store         |
+| Component subscribes via `\| async` | reads signal: `{{ store.foo() }}` (no async pipe)  |
 
 ## Output contract
 
@@ -220,14 +249,14 @@ When generating code:
 
 Read the **one** reference file that matches the task. Most tasks need only one.
 
-| Task                                        | Read                              |
-| ------------------------------------------- | --------------------------------- |
-| Plain feature store, computed, methods      | `references/api-reference.md`     |
-| `rxMethod` / `signalMethod` / RxJS bridge   | `references/api-reference.md`     |
-| Entity collection (CRUD with IDs)           | `references/entities.md`          |
-| Custom reusable feature (`withXxx`)         | `references/custom-features.md`   |
+| Task                                           | Read                            |
+| ---------------------------------------------- | ------------------------------- |
+| Plain feature store, computed, methods         | `references/api-reference.md`   |
+| `rxMethod` / `signalMethod` / RxJS bridge      | `references/api-reference.md`   |
+| Entity collection (CRUD with IDs)              | `references/entities.md`        |
+| Custom reusable feature (`withXxx`)            | `references/custom-features.md` |
 | Architecture: scoping, optimistic, BS-refactor | `references/patterns.md`        |
-| Tests: TestBed, mocks, signalMethod tests   | `references/testing.md`           |
+| Tests: TestBed, mocks, signalMethod tests      | `references/testing.md`         |
 
 If a task spans patterns (e.g., "entity store with optimistic updates and request status"), the scaffold above plus `entities.md` is usually enough.
 

@@ -1,5 +1,4 @@
 {
-  // Editor
   "editor.formatOnSave": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.tabSize": 2,
@@ -10,89 +9,6 @@
   "prettier.requireConfig": true,
   "cucumber.glue": ["tests/bdd/steps/*.ts", "src/**/*.bdd.spec.ts"],
   "cucumber.features": ["tests/bdd/features/*.feature", "src/**/*.feature"],
-
-  // --- Copilot: inline suggestions ---
-  "github.copilot.nextEditSuggestions.enabled": true,
-  "github.copilot.editor.enableCodeActions": true,
-  "github.copilot.renameSuggestions.triggerAutomatically": true,
-
-  // --- Copilot Chat: core ---
-  "github.copilot.chat.localeOverride": "en",
-  "github.copilot.chat.codesearch.enabled": true,
-  "github.copilot.chat.agent.autoFix": true,
-  "github.copilot.chat.reviewSelection.enabled": true,
-  "github.copilot.chat.agentDebugLog.fileLogging.enabled": true,
-  "github.copilot.chat.tools.memory.enabled": true,
-  "github.copilot.chat.commitMessageGeneration.instructions": [
-    { "file": ".github/guidelines/commit-convention.md" }
-  ],
-  "github.copilot.chat.pullRequestDescriptionGeneration.instructions": [
-    { "file": ".github/guidelines/commit-convention.md" }
-  ],
-
-  // --- AGENTS.md + Agent Skills (single source of project conventions) ---
-  "chat.agent.enabled": true,
-  "chat.agent.maxRequests": 25,
-  "chat.agent.thinkingStyle": "fixedScrolling",
-  "chat.useAgentsMdFile": true,
-  "chat.useNestedAgentsMdFiles": true,
-  "chat.customAgentInSubagent.enabled": true,
-  "chat.useClaudeMdFile": false,
-
-  // No legacy instruction files — explicitly disable discovery
-  "github.copilot.chat.codeGeneration.useInstructionFiles": false,
-  "chat.instructionsFilesLocations": {
-    ".github/instructions": false,
-    ".claude/rules": false,
-    "~/.copilot/instructions": false,
-    "~/.claude/rules": false
-  },
-
-  // Skills: project-local locations
-  "chat.agentSkillsLocations": {
-    ".github/skills": true,
-    ".agents/skills": true,
-    ".claude/skills": false,
-    "~/.copilot/skills": true,
-    "~/.claude/skills": false,
-    "~/.agents/skills": true
-  },
-
-  // Custom agents and prompts
-  "chat.agentFilesLocations": {
-    ".github/agents": true
-  },
-  "chat.promptFilesLocations": {
-    ".github/prompts": true
-  },
-
-  // --- Hooks: Copilot-native location only ---
-  "chat.hookFilesLocations": {
-    ".github/hooks": true,
-    ".claude/settings.json": false,
-    ".claude/settings.local.json": false,
-    "~/.claude/settings.json": false
-  },
-  // Require manual approval before the agent can edit any hook script (docs-recommended safety).
-  "chat.tools.edits.autoApprove": {
-    ".github/hooks/**": false,
-    ".github/scripts/**": false
-  },
-
-  // --- Disable foreign MCP discovery (we manage MCP via .vscode/mcp.json + .mcp.json) ---
-  "chat.mcp.discovery.enabled": {
-    "claude-desktop": false,
-    "windsurf": false,
-    "cursor-global": false,
-    "cursor-workspace": false
-  },
-
-  // --- UX ---
-  "chat.sendElementsToChat.enabled": true,
-  "chat.viewSessions.enabled": true,
-  "chat.checkpoints.enabled": true,
-  "chat.detectParticipant.enabled": true,
-
   "[cucumber]": {
     "editor.defaultFormatter": "CucumberOpen.cucumber-official"
   }

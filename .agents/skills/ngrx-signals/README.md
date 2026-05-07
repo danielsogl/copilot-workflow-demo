@@ -25,14 +25,14 @@ It does **not** trigger for:
 
 Benchmarked on 5 substantive tasks (41 assertions total) against the same model with no skill loaded:
 
-| Eval | with_skill | baseline | Δ |
-|---|---:|---:|---:|
-| Cart store with optimistic updates + rollback | 100% | 70% | **+30pp** |
-| Refactor `BehaviorSubject` service to Signal Store | 100% | 87.5% | +12.5pp |
-| Typed `withSelectedEntity<T>()` custom feature | 100% | 87.5% | +12.5pp |
-| `rxMethod` typeahead with debounce + cancellation | 100% | 100% | ±0 |
-| `TodosStore` with `@ngrx/signals/entities` updaters | 100% | 75% | +25pp |
-| **Aggregate** | **100%** | **84%** | **+16pp** |
+| Eval                                                | with_skill | baseline |         Δ |
+| --------------------------------------------------- | ---------: | -------: | --------: |
+| Cart store with optimistic updates + rollback       |       100% |      70% | **+30pp** |
+| Refactor `BehaviorSubject` service to Signal Store  |       100% |    87.5% |   +12.5pp |
+| Typed `withSelectedEntity<T>()` custom feature      |       100% |    87.5% |   +12.5pp |
+| `rxMethod` typeahead with debounce + cancellation   |       100% |     100% |        ±0 |
+| `TodosStore` with `@ngrx/signals/entities` updaters |       100% |      75% |     +25pp |
+| **Aggregate**                                       |   **100%** |  **84%** | **+16pp** |
 
 Cost per invocation: ~+14 seconds wall time, ~+12,000 tokens (~$0.04 at Sonnet 4.6 input pricing).
 

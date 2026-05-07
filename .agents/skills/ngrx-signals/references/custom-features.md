@@ -13,32 +13,36 @@
 The canonical example. Every store with async loading wants this.
 
 ```typescript
-import { computed } from '@angular/core';
-import { signalStoreFeature, withComputed, withState } from '@ngrx/signals';
+import { computed } from "@angular/core";
+import { signalStoreFeature, withComputed, withState } from "@ngrx/signals";
 
-export type RequestStatus = 'idle' | 'pending' | 'fulfilled' | { error: string };
+export type RequestStatus =
+  | "idle"
+  | "pending"
+  | "fulfilled"
+  | { error: string };
 export type RequestStatusState = { requestStatus: RequestStatus };
 
 export function withRequestStatus() {
   return signalStoreFeature(
-    withState<RequestStatusState>({ requestStatus: 'idle' }),
+    withState<RequestStatusState>({ requestStatus: "idle" }),
     withComputed(({ requestStatus }) => ({
-      isPending: computed(() => requestStatus() === 'pending'),
-      isFulfilled: computed(() => requestStatus() === 'fulfilled'),
+      isPending: computed(() => requestStatus() === "pending"),
+      isFulfilled: computed(() => requestStatus() === "fulfilled"),
       error: computed(() => {
         const s = requestStatus();
-        return typeof s === 'object' ? s.error : null;
+        return typeof s === "object" ? s.error : null;
       }),
-    }))
+    })),
   );
 }
 
 // Standalone updaters — return Partial<State>, callable via patchState(store, setX()).
 export function setPending(): RequestStatusState {
-  return { requestStatus: 'pending' };
+  return { requestStatus: "pending" };
 }
 export function setFulfilled(): RequestStatusState {
-  return { requestStatus: 'fulfilled' };
+  return { requestStatus: "fulfilled" };
 }
 export function setError(error: string): RequestStatusState {
   return { requestStatus: { error } };
@@ -48,7 +52,11 @@ export function setError(error: string): RequestStatusState {
 Use it:
 
 ```typescript
-import { withRequestStatus, setPending, setFulfilled } from './with-request-status';
+import {
+  withRequestStatus,
+  setPending,
+  setFulfilled,
+} from "./with-request-status";
 
 export const BooksStore = signalStore(
   withState<BooksState>({ books: [] }),
@@ -59,7 +67,7 @@ export const BooksStore = signalStore(
       const books = await api.getAll();
       patchState(store, { books }, setFulfilled());
     },
-  }))
+  })),
 );
 ```
 
@@ -68,8 +76,8 @@ export const BooksStore = signalStore(
 Logs every state change in dev. Good intro to `withHooks` + `effect`.
 
 ```typescript
-import { effect } from '@angular/core';
-import { getState, signalStoreFeature, withHooks } from '@ngrx/signals';
+import { effect } from "@angular/core";
+import { getState, signalStoreFeature, withHooks } from "@ngrx/signals";
 
 export function withLogger(name: string) {
   return signalStoreFeature(
@@ -80,7 +88,7 @@ export function withLogger(name: string) {
           console.log(`[${name}]`, state);
         });
       },
-    })
+    }),
   );
 }
 ```
@@ -92,9 +100,16 @@ Add it as the **last** feature so it sees the fully-assembled state.
 Sometimes a feature only makes sense on top of another (`withSelectedEntity` needs `withEntities`). Use the typed `signalStoreFeature` overload to declare what you require.
 
 ```typescript
-import { computed } from '@angular/core';
-import { signalStoreFeature, type, withComputed, withMethods, withState, patchState } from '@ngrx/signals';
-import { EntityId, EntityState } from '@ngrx/signals/entities';
+import { computed } from "@angular/core";
+import {
+  signalStoreFeature,
+  type,
+  withComputed,
+  withMethods,
+  withState,
+  patchState,
+} from "@ngrx/signals";
+import { EntityId, EntityState } from "@ngrx/signals/entities";
 
 type SelectedEntityState = { selectedId: EntityId | null };
 
@@ -116,14 +131,14 @@ export function withSelectedEntity<T extends { id: EntityId }>() {
       clearSelection(): void {
         patchState(store, { selectedId: null });
       },
-    }))
+    })),
   );
 }
 
 // Usage — order matters: withEntities first.
 export const BooksStore = signalStore(
   withEntities<Book>(),
-  withSelectedEntity<Book>()
+  withSelectedEntity<Book>(),
 );
 ```
 
@@ -134,11 +149,11 @@ Compile-time error if you put `withSelectedEntity` on a store without `withEntit
 Sometimes a feature needs something computed from the store at composition time (e.g. an injected token configured by the caller). `withFeature(callback)` gives you a function that receives the store-so-far and returns a feature.
 
 ```typescript
-import { withFeature } from '@ngrx/signals';
+import { withFeature } from "@ngrx/signals";
 
 export const BooksStore = signalStore(
   withState<BooksState>({ books: [] }),
-  withFeature((store) => withLogger(`Books(${store.books().length})`))
+  withFeature((store) => withLogger(`Books(${store.books().length})`)),
 );
 ```
 

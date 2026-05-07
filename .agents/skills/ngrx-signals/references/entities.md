@@ -5,8 +5,8 @@ Use `@ngrx/signals/entities` whenever the data is a collection of items with a s
 ## Setup
 
 ```typescript
-import { signalStore } from '@ngrx/signals';
-import { withEntities } from '@ngrx/signals/entities';
+import { signalStore } from "@ngrx/signals";
+import { withEntities } from "@ngrx/signals/entities";
 
 type Todo = { id: number; text: string; completed: boolean };
 
@@ -17,11 +17,11 @@ Default contract: each entity needs an `id: string | number` (a `EntityId`). For
 
 What you get on the store:
 
-| Signal       | Type                         | Notes                                  |
-| ------------ | ---------------------------- | -------------------------------------- |
-| `ids`        | `Signal<EntityId[]>`         | Insertion order is preserved.          |
-| `entityMap`  | `Signal<EntityMap<Todo>>`    | Keyed map.                             |
-| `entities`   | `Signal<Todo[]>`             | Computed, derived from `ids` + `map`.  |
+| Signal      | Type                      | Notes                                 |
+| ----------- | ------------------------- | ------------------------------------- |
+| `ids`       | `Signal<EntityId[]>`      | Insertion order is preserved.         |
+| `entityMap` | `Signal<EntityMap<Todo>>` | Keyed map.                            |
+| `entities`  | `Signal<Todo[]>`          | Computed, derived from `ids` + `map`. |
 
 `ids` and `entityMap` are state slices (mutable via `patchState`). `entities` is a computed.
 
@@ -34,7 +34,7 @@ Always combine with `patchState`. All updaters are immutable.
 ```typescript
 patchState(store, addEntity(todo));
 patchState(store, addEntities([todo1, todo2]));
-patchState(store, prependEntity(todo));     // pushes to start
+patchState(store, prependEntity(todo)); // pushes to start
 patchState(store, prependEntities([t1, t2]));
 ```
 
@@ -43,9 +43,9 @@ patchState(store, prependEntities([t1, t2]));
 ### Set / replace
 
 ```typescript
-patchState(store, setEntity(todo));            // add or replace one
-patchState(store, setEntities([t1, t2]));      // add or replace many
-patchState(store, setAllEntities(newList));    // replace the whole collection
+patchState(store, setEntity(todo)); // add or replace one
+patchState(store, setEntities([t1, t2])); // add or replace many
+patchState(store, setAllEntities(newList)); // replace the whole collection
 ```
 
 Use `setAllEntities` after a fresh server fetch.
@@ -55,20 +55,29 @@ Use `setAllEntities` after a fresh server fetch.
 ```typescript
 patchState(store, updateEntity({ id: 1, changes: { completed: true } }));
 
-patchState(store, updateEntity({
-  id: 1,
-  changes: (todo) => ({ completed: !todo.completed }),
-}));
+patchState(
+  store,
+  updateEntity({
+    id: 1,
+    changes: (todo) => ({ completed: !todo.completed }),
+  }),
+);
 
-patchState(store, updateEntities({
-  ids: [1, 2],
-  changes: { completed: true },
-}));
+patchState(
+  store,
+  updateEntities({
+    ids: [1, 2],
+    changes: { completed: true },
+  }),
+);
 
-patchState(store, updateEntities({
-  predicate: ({ text }) => text.endsWith('✅'),
-  changes: { text: '' },
-}));
+patchState(
+  store,
+  updateEntities({
+    predicate: ({ text }) => text.endsWith("✅"),
+    changes: { text: "" },
+  }),
+);
 
 patchState(store, updateAllEntities({ archived: true }));
 ```
@@ -89,7 +98,10 @@ patchState(store, upsertEntities([t1, t2]));
 ```typescript
 patchState(store, removeEntity(1));
 patchState(store, removeEntities([1, 2]));
-patchState(store, removeEntities((todo) => todo.completed));
+patchState(
+  store,
+  removeEntities((todo) => todo.completed),
+);
 patchState(store, removeAllEntities());
 ```
 
@@ -103,7 +115,7 @@ type User = { uuid: string; name: string };
 const idKey = (u: User) => u.uuid;
 
 export const UsersStore = signalStore(
-  withEntities({ entity: type<User>(), idKey })
+  withEntities({ entity: type<User>(), idKey }),
 );
 
 // Updaters require the same idKey when adding:
@@ -117,26 +129,26 @@ Stick the `idKey` in a constant in the same file so calls stay terse.
 When one store holds two or more entity types, name each collection. The collection name shows up in the signal names and is required on every updater call.
 
 ```typescript
-import { type, signalStore, patchState, withMethods } from '@ngrx/signals';
-import { addEntity, removeEntity, withEntities } from '@ngrx/signals/entities';
+import { type, signalStore, patchState, withMethods } from "@ngrx/signals";
+import { addEntity, removeEntity, withEntities } from "@ngrx/signals/entities";
 
 type Book = { id: string; title: string };
 type Author = { id: string; name: string };
 
 export const LibraryStore = signalStore(
-  withEntities({ entity: type<Book>(), collection: 'book' }),
-  withEntities({ entity: type<Author>(), collection: 'author' }),
+  withEntities({ entity: type<Book>(), collection: "book" }),
+  withEntities({ entity: type<Author>(), collection: "author" }),
   withMethods((store) => ({
     addBook(book: Book): void {
-      patchState(store, addEntity(book, { collection: 'book' }));
+      patchState(store, addEntity(book, { collection: "book" }));
     },
     addAuthor(author: Author): void {
-      patchState(store, addEntity(author, { collection: 'author' }));
+      patchState(store, addEntity(author, { collection: "author" }));
     },
     removeBook(id: string): void {
-      patchState(store, removeEntity(id, { collection: 'book' }));
+      patchState(store, removeEntity(id, { collection: "book" }));
     },
-  }))
+  })),
 );
 
 // Signals:
@@ -151,8 +163,12 @@ Always pass the `collection` option on every updater — forgetting it operates 
 Combine entities + request status (see `custom-features.md`):
 
 ```typescript
-import { setAllEntities, withEntities } from '@ngrx/signals/entities';
-import { setFulfilled, setPending, withRequestStatus } from './with-request-status';
+import { setAllEntities, withEntities } from "@ngrx/signals/entities";
+import {
+  setFulfilled,
+  setPending,
+  withRequestStatus,
+} from "./with-request-status";
 
 export const BooksStore = signalStore(
   withEntities<Book>(),
@@ -163,7 +179,7 @@ export const BooksStore = signalStore(
       const books = await booksService.getAll();
       patchState(store, setAllEntities(books), setFulfilled());
     },
-  }))
+  })),
 );
 ```
 

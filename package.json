@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "concurrently \"ng serve\" \"npx json-server db.json\" \"npx tsx copilot-server.ts\"",
+    "start": "concurrently \"ng serve\" \"npx json-server db.json\" \"npx tsx claude-server.ts\"",
     "review-bot": "npx tsx review-bot.ts",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
@@ -13,6 +13,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^22.0.0",
     "@angular/cdk": "^22.0.0",
     "@angular/common": "^22.0.0",
     "@angular/compiler": "^22.0.0",
@@ -22,7 +23,7 @@
     "@angular/platform-browser": "^22.0.0",
     "@angular/platform-browser-dynamic": "^22.0.0",
     "@angular/router": "^22.0.0",
-    "@github/copilot-sdk": "^1.0.0",
+    "@anthropic-ai/claude-agent-sdk": "^0.2.132",
     "@ngrx/operators": "^21.1.0",
     "@ngrx/signals": "^21.1.0",
     "cors": "^2.8.6",

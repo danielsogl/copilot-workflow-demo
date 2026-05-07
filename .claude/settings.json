@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm:*)",
+      "Bash(npx:*)",
+      "Bash(ng:*)",
+      "Bash(node:*)",
+      "Bash(git diff:*)",
+      "Bash(git status)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(lsof -iTCP -sTCP:LISTEN -P)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs",
+      "mcp__angular-cli__list_projects",
+      "mcp__angular-cli__get_best_practices",
+      "mcp__angular-cli__search_documentation",
+      "mcp__angular-cli__find_examples",
+      "mcp__eslint__lint-files",
+      "mcp__playwright-test__test_list",
+      "mcp__playwright-test__test_run"
+    ],
+    "deny": []
+  },
+  "enabledMcpjsonServers": [
+    "context7",
+    "angular-cli",
+    "playwright-test",
+    "eslint"
+  ]
+}

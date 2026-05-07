@@ -1,80 +1,109 @@
-# GitHub Copilot for Angular & NgRx - Workshop Demo
+# Claude Code for Angular & NgRx — Workshop Demo
 
-This repository demonstrates how to set up and configure **GitHub Copilot** in **Visual Studio Code** for Angular development with NgRx Signals Store. It showcases a complete task management application built using modern Angular 21 patterns, enhanced by intelligent Copilot assistance.
+This branch (`claude-code`) demonstrates how to set up and configure **[Claude Code](https://docs.claude.com/en/docs/claude-code)** for Angular development with NgRx Signals Store. It showcases a complete task management application built using modern Angular 21 patterns, enhanced by Claude Code subagents, slash commands, MCP servers, and the Claude Agent SDK.
 
-## 🚀 GitHub Copilot Setup for Visual Studio Code
+> The `main` branch shows the same project with **GitHub Copilot** instead. Compare both branches side-by-side in your workshops.
+
+## Claude Code setup
 
 ### Prerequisites
 
-1. **GitHub Copilot subscription** — Individual, Business, or Enterprise
-2. **Visual Studio Code** with the GitHub Copilot extension installed
-3. **Node.js 22+** and **npm**
+1. **Anthropic account** with access to Claude Code (or a compatible provider)
+2. **Node.js 22+** and **npm**
+3. **Claude Code CLI** — install once: `npm install -g @anthropic-ai/claude-code`
+4. (For the review bot) `ANTHROPIC_API_KEY` environment variable + GitHub CLI (`gh`)
 
-### Step 1: Install Required Extensions
-
-Install these VS Code extensions for the best Angular + Copilot experience:
+### Step 1: Open the project
 
 ```bash
-# GitHub Copilot (chat + completions in one extension)
-code --install-extension GitHub.copilot-chat
-
-# Angular language support
-code --install-extension Angular.ng-template
-code --install-extension ms-vscode.vscode-typescript-next
+git clone https://github.com/danielsogl/copilot-workflow-demo.git
+cd copilot-workflow-demo
+git checkout claude-code
+npm install
+claude
 ```
 
-### Step 2: Configure Copilot for Angular & NgRx
+The first `claude` invocation in this directory loads:
 
-Copy `.vscode/settings.json` and `.vscode/mcp.json` from this repo. The setup:
+- [`CLAUDE.md`](./CLAUDE.md) — primary project memory (conventions, stack, architecture)
+- [`.claude/settings.json`](./.claude/settings.json) — committed permission allowlist + enabled MCP servers
+- [`.mcp.json`](./.mcp.json) — project-scope MCP server configuration
 
-- **`AGENTS.md`** at the repo root is the single source of project conventions, loaded by every agent (Copilot, Copilot CLI, Claude Code, Codex).
-- **Agent skills** (portable across VS Code, Copilot CLI and the cloud agent) live in `.github/skills/` and `.agents/skills/` and are loaded automatically.
-- **No `.github/copilot-instructions.md`** and no `.github/instructions/**` — everything is either in `AGENTS.md` or in a skill.
+### Step 2: Project memory — `CLAUDE.md`
 
-### Step 3: Skills
+A single file at the repo root captures everything Claude needs to know about the project (stack, DDD layout, signal-first conventions, Material 3 rules, testing patterns). Claude loads it automatically into every session — no manual `@`-references required.
 
-Project-local skills (`.github/skills/`):
+### Step 3: Subagents — `.claude/agents/`
 
-| Skill                      | When it fires                                                             |
-| -------------------------- | ------------------------------------------------------------------------- |
-| `project-architecture`     | Scaffolding a feature, component, store, moving files                     |
-| `angular-material-theming` | Editing `theme.scss` or component styles, Material 3 token work           |
-| `vitest-angular-testing`   | Writing `*.spec.ts` for components / services / directives / pipes / HTTP |
-| `pr-review`                | Reviewing a pull request                                                  |
+Specialized agents Claude can dispatch to. Invoke with `/agents` or let Claude pick one based on the task.
 
-Library skills (auto-discovered, locked via `skills-lock.json`):
+| Agent                           | Purpose                                                                   |
+| ------------------------------- | ------------------------------------------------------------------------- |
+| **`angular-reviewer`**          | Comprehensive Angular 21 / NgRx / Material 3 / DDD code review            |
+| **`feature-scaffolder`**        | Scaffold an entire DDD domain feature end-to-end                          |
+| **`signal-store-creator`**      | Generate NgRx Signal Stores with entity collections                       |
+| **`unit-test-writer`**          | Vitest specs for components, stores, services, utilities                  |
+| **`refactor-to-signals`**       | Migrate legacy patterns (`@Input`, `*ngIf`, `BehaviorSubject`) to signals |
+| **`material-theme-advisor`**    | Material 3 theming via `mat.theme()` and `--mat-sys-*` tokens             |
+| **`playwright-test-planner`**   | Build a structured E2E test plan by exploring the app                     |
+| **`playwright-test-generator`** | Generate a single Playwright spec from a plan item                        |
+| **`playwright-test-healer`**    | Debug and fix failing Playwright tests                                    |
 
-| Skill                    | Source               |
-| ------------------------ | -------------------- |
-| `angular-developer`      | `angular/angular`    |
-| `angular-new-app`        | `angular/angular`    |
-| `ngrx-signals`           | NgRx skills lib      |
-| `reference-core`         | `angular/angular`    |
-| `reference-compiler-cli` | `angular/angular`    |
-| `reference-signal-forms` | `angular/angular`    |
-| `adev-writing-guide`     | `angular/angular`    |
-| `find-skills`            | `vercel-labs/skills` |
+### Step 4: Slash commands — `.claude/commands/`
 
-### Step 4: Reusable Prompts
+Type `/` in Claude Code to see them.
 
-Ready-to-use prompt templates in `.github/prompts/`:
+| Command                                    | What it does                                                      |
+| ------------------------------------------ | ----------------------------------------------------------------- |
+| `/code-review`                             | Review the changes on the active branch against project standards |
+| `/scaffold-signal-form <entity>`           | Scaffold an Angular Signal Form with schema validation            |
+| `/scaffold-signal-store <entity> [domain]` | Generate an NgRx Signal Store with full CRUD                      |
 
-- **`angular-signal-forms.prompt.md`** — Scaffold a complete Signal Forms component
-- **`ngrx-signals-store-crud.prompt.md`** — Generate a full NgRx Signal Store with CRUD
-- **`code-review.prompt.md`** — Angular code review checklist
+### Step 5: MCP servers — `.mcp.json`
 
-### Step 5: Custom Agents
+Project-scope MCP servers, auto-enabled via `.claude/settings.json`:
 
-Specialized agents in `.github/agents/` for automated tasks:
+| Server                | Purpose                                                                   |
+| --------------------- | ------------------------------------------------------------------------- |
+| **`context7`**        | Live docs for Angular, NgRx, Material, Playwright, …                      |
+| **`angular-cli`**     | Project-aware Angular CLI tooling (`get_best_practices`, `find_examples`) |
+| **`playwright-test`** | Browser automation for the Playwright agents                              |
+| **`eslint`**          | Lint files via the official ESLint MCP server                             |
 
-- **`angular-reviewer`** — Full Angular 21 code review
-- **`feature-scaffolder`** — Scaffold a DDD domain feature end-to-end
-- **`signal-store-creator`** — Generate NgRx Signal Stores
-- **`unit-test-writer`** — Write Vitest tests for components, stores, services
-- **`playwright-test-generator`** — Generate E2E tests
-- **`refactor-to-signals`** — Migrate legacy Angular patterns to signals
+### Step 6: Skills (optional)
 
-## 📁 Project Structure & Architecture
+Install community Claude skills cleanly with the [skills CLI](https://www.npmjs.com/package/skills):
+
+```bash
+npx skills
+```
+
+Pick only the ones you actually need — `angular-developer`, `ngrx-signals`, `pr-review`, `playwright-cli` — then commit the generated `skills-lock.json`.
+
+## Workshop demos: Claude Agent SDK
+
+Two small Node scripts show the [`@anthropic-ai/claude-agent-sdk`](https://www.npmjs.com/package/@anthropic-ai/claude-agent-sdk) in action.
+
+### `claude-server.ts`
+
+Express server on `:3001` that exposes a chat endpoint backed by Claude. Custom MCP tools (`get_tasks`, `create_task`, `update_task_status`) talk to the local `json-server` so the assistant can answer "show me all open tasks", "create a high-priority task", etc.
+
+```bash
+npm start
+# Angular dev :4200 + json-server :3000 + claude-server :3001
+```
+
+### `review-bot.ts`
+
+CLI PR reviewer using the Agent SDK + `gh` CLI. Run with:
+
+```bash
+ANTHROPIC_API_KEY=... npm run review-bot -- 123
+```
+
+It fetches the diff via a custom MCP tool and prints a structured review (summary, issues, suggestions, verdict).
+
+## Project structure & architecture
 
 This project follows **Domain-Driven Design (DDD)**. Each domain under `src/app/features/<domain>/` is split into four layers:
 
@@ -87,7 +116,7 @@ This project follows **Domain-Driven Design (DDD)**. Each domain under `src/app/
 | `data/state/`          | NgRx Signal Stores (`*-store.ts`)                            |
 | `util/`                | Pure helper functions                                        |
 
-### Example Folder Structure
+### Example folder structure
 
 ```text
 src/app/
@@ -130,7 +159,7 @@ src/app/
 
 > **Note:** Barrel files (`index.ts`) are strictly prohibited. Import directly from the source file.
 
-## 🛠️ Tech Stack
+## Tech stack
 
 | Technology               | Version | Role                                                         |
 | ------------------------ | ------- | ------------------------------------------------------------ |
@@ -145,51 +174,45 @@ src/app/
 | **ESLint**               | 9       | Flat config with `angular-eslint`, `@ngrx/eslint-plugin`     |
 | **Prettier**             | 3       | Code formatting                                              |
 | **Lefthook**             | 2       | Git hooks — auto-format & auto-lint on commit                |
+| **Claude Agent SDK**     | 0.1+    | Workshop server / review bot                                 |
 
-## ✨ Demo Application
+## Demo application
 
 A task management app demonstrating real-world Angular 21 + NgRx patterns:
 
-- **Kanban Board**: Tasks organized by status — _To Do_, _In Progress_, _Completed_
-- **Task CRUD**: Create, edit, delete tasks via a Signal Forms dialog
-- **Drag & Drop**: Reorder tasks within and across columns
-- **Filters**: Filter tasks by priority and search term
-- **Dashboard Stats**: Live computed statistics (total, overdue, completion rate)
+- **Kanban board:** tasks organized by status — _To Do_, _In Progress_, _Completed_
+- **Task CRUD:** create, edit, delete tasks via a Signal Forms dialog
+- **Drag & drop:** reorder tasks within and across columns
+- **Filters:** filter tasks by priority and search term
+- **Dashboard stats:** live computed statistics (total, overdue, completion rate)
+- **Claude assistant:** ask the in-app assistant for tasks ("show me all open tasks", "create a high-priority task for tomorrow")
 
-## 🔧 Development
+## Development
 
 ```bash
-# Install dependencies
-npm install
-
-# Start dev server + mock API (concurrently)
-npm start           # Angular dev server on :4200, json-server on :3000
-
-# Run unit tests
-npm test
-
-# Run E2E tests
-npm run test:e2e
-
-# Build for production
-npm run build
-
-# Lint
-npm run lint
+npm install         # Install dependencies
+npm start           # Angular :4200 + json-server :3000 + claude-server :3001
+npm test            # Vitest unit tests
+npm run test:e2e    # Playwright E2E
+npm run build       # Production build
+npm run lint        # ESLint
 ```
 
-### Git Hooks (Lefthook)
+### Git hooks (Lefthook)
 
 Lefthook runs automatically on `git commit`:
 
 - **Prettier** formats all staged files (`.ts`, `.html`, `.scss`, `.json`, `.md`, …)
 - **ESLint** auto-fixes staged `.ts` and `.html` files
 
-## 📚 Resources
+Never bypass with `--no-verify`.
 
-- [Angular Documentation](https://angular.dev)
-- [NgRx Signals Documentation](https://ngrx.io/guide/signals)
+## Resources
+
+- [Claude Code documentation](https://docs.claude.com/en/docs/claude-code)
+- [Claude Agent SDK](https://www.npmjs.com/package/@anthropic-ai/claude-agent-sdk)
+- [Angular documentation](https://angular.dev)
+- [NgRx Signals documentation](https://ngrx.io/guide/signals)
 - [Angular Material](https://material.angular.io)
-- [GitHub Copilot for VS Code](https://docs.github.com/en/copilot/using-github-copilot/using-github-copilot-in-your-ide)
 - [Vitest](https://vitest.dev)
 - [Playwright](https://playwright.dev)

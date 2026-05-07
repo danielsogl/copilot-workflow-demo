@@ -18,11 +18,11 @@ The single most important architectural rule: **the store holds reactive state, 
 
 ```typescript
 // books.service.ts — pure I/O
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class BooksService {
   private readonly http = inject(HttpClient);
   getAll(): Promise<Book[]> {
-    return firstValueFrom(this.http.get<Book[]>('/api/books'));
+    return firstValueFrom(this.http.get<Book[]>("/api/books"));
   }
   getById(id: string): Observable<Book> {
     return this.http.get<Book>(`/api/books/${id}`);
@@ -31,7 +31,7 @@ export class BooksService {
 
 // books.store.ts — state, computed, orchestration
 export const BooksStore = signalStore(
-  { providedIn: 'root' },
+  { providedIn: "root" },
   withState<BooksState>({ books: [], isLoading: false }),
   withMethods((store, books = inject(BooksService)) => ({
     async loadAll(): Promise<void> {
@@ -39,7 +39,7 @@ export const BooksStore = signalStore(
       const list = await books.getAll();
       patchState(store, { books: list, isLoading: false });
     },
-  }))
+  })),
 );
 ```
 
@@ -53,12 +53,12 @@ If you find `inject(HttpClient)` inside `withMethods`, the code has skipped the 
 
 ## Scoping: root vs route vs component
 
-| Scope                    | Provider                                          | Use when                                            |
-| ------------------------ | ------------------------------------------------- | --------------------------------------------------- |
-| App-wide singleton       | `signalStore({ providedIn: 'root' }, ...)`        | Auth, current user, app-wide settings, cart        |
-| Route-scoped             | `providers: [Store]` on the route                | State that should reset when navigating away        |
-| Component-scoped         | `providers: [Store]` on the component            | Per-instance editor state, per-modal state          |
-| Component-local only     | `signalState({...})` inside the component        | Trivially local, never shared                       |
+| Scope                | Provider                                   | Use when                                     |
+| -------------------- | ------------------------------------------ | -------------------------------------------- |
+| App-wide singleton   | `signalStore({ providedIn: 'root' }, ...)` | Auth, current user, app-wide settings, cart  |
+| Route-scoped         | `providers: [Store]` on the route          | State that should reset when navigating away |
+| Component-scoped     | `providers: [Store]` on the component      | Per-instance editor state, per-modal state   |
+| Component-local only | `signalState({...})` inside the component  | Trivially local, never shared                |
 
 Common mistake: putting per-page state in `root`. The store survives navigation and leaks stale data to the next visit. If state should die when the page unmounts, scope it to the route or component.
 
@@ -70,7 +70,10 @@ Three steps: snapshot, patch optimistically, rollback on failure.
 withMethods((store, todos = inject(TodosService)) => ({
   async toggleComplete(id: string): Promise<void> {
     const previous = getState(store);
-    patchState(store, updateEntity({ id, changes: (t) => ({ completed: !t.completed }) }));
+    patchState(
+      store,
+      updateEntity({ id, changes: (t) => ({ completed: !t.completed }) }),
+    );
     try {
       await todos.toggleComplete(id);
     } catch (err) {
@@ -78,7 +81,7 @@ withMethods((store, todos = inject(TodosService)) => ({
       throw err;
     }
   },
-}))
+}));
 ```
 
 Notes:
@@ -93,7 +96,7 @@ Common Angular legacy pattern:
 
 ```typescript
 // before
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class CartService {
   private readonly _items$ = new BehaviorSubject<CartItem[]>([]);
   readonly items$ = this._items$.asObservable();
@@ -110,7 +113,7 @@ Idiomatic Signal Store version:
 type CartState = { items: CartItem[] };
 
 export const CartStore = signalStore(
-  { providedIn: 'root' },
+  { providedIn: "root" },
   withState<CartState>({ items: [] }),
   withComputed(({ items }) => ({
     total: computed(() => items().reduce((s, i) => s + i.price, 0)),
@@ -121,12 +124,14 @@ export const CartStore = signalStore(
       patchState(store, ({ items }) => ({ items: [...items, item] }));
     },
     remove(id: string): void {
-      patchState(store, ({ items }) => ({ items: items.filter((i) => i.id !== id) }));
+      patchState(store, ({ items }) => ({
+        items: items.filter((i) => i.id !== id),
+      }));
     },
     clear(): void {
       patchState(store, { items: [] });
     },
-  }))
+  })),
 );
 ```
 
@@ -144,14 +149,14 @@ Common need: load data once when the store is created. Use `withHooks`:
 
 ```typescript
 export const BooksStore = signalStore(
-  { providedIn: 'root' },
+  { providedIn: "root" },
   withState<BooksState>({ books: [], isLoading: false }),
   withMethods(/* ... loadAll() ... */),
   withHooks({
     onInit(store) {
       store.loadAll();
     },
-  })
+  }),
 );
 ```
 
@@ -183,10 +188,13 @@ withMethods((store, api = inject(BooksService)) => ({
       const books = await api.getAll();
       patchState(store, { books }, setFulfilled());
     } catch (e) {
-      patchState(store, setError(e instanceof Error ? e.message : 'Failed to load'));
+      patchState(
+        store,
+        setError(e instanceof Error ? e.message : "Failed to load"),
+      );
     }
   },
-}))
+}));
 ```
 
 `setPending`, `setFulfilled`, `setError` are the standard names from the `withRequestStatus` custom feature. See `references/custom-features.md`.
@@ -194,10 +202,16 @@ withMethods((store, api = inject(BooksService)) => ({
 In the component:
 
 ```html
-@if (store.isPending()) { <app-spinner /> }
-@if (store.error(); as msg) { <app-error [message]="msg" /> }
-@if (store.isFulfilled()) {
-  <ul>@for (book of store.books(); track book.id) { <li>{{ book.title }}</li> }</ul>
+@if (store.isPending()) {
+<app-spinner />
+} @if (store.error(); as msg) {
+<app-error [message]="msg" />
+} @if (store.isFulfilled()) {
+<ul>
+  @for (book of store.books(); track book.id) {
+  <li>{{ book.title }}</li>
+  }
+</ul>
 }
 ```
 
