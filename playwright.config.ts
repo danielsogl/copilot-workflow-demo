@@ -4,13 +4,14 @@ import { defineBddConfig } from "playwright-bdd";
 const bddTestDir = defineBddConfig({
   features: "tests/bdd/features/**/*.feature",
   steps: "tests/bdd/steps/**/*.ts",
+  importTestFrom: "tests/fixtures/api-mock.ts",
 });
 
 export default defineConfig({
-  fullyParallel: false,
+  fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: 1,
+  workers: process.env.CI ? 2 : undefined,
   reporter: "html",
   use: {
     baseURL: "http://localhost:4200",

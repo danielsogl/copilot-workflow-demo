@@ -1,9 +1,7 @@
-import { test, expect } from "@playwright/test";
-import { resetDatabase } from "./helpers/reset-db";
+import { test, expect } from "./fixtures/api-mock";
 
 test.describe("Task CRUD", () => {
   test.beforeEach(async ({ page }) => {
-    await resetDatabase();
     await page.goto("/");
     await expect(page.locator(".task-card").first()).toBeVisible();
   });
@@ -53,7 +51,10 @@ test.describe("Task CRUD", () => {
       await page.getByLabel("Due Date").pressSequentially("03/15/2026");
       await page.getByLabel("Due Date").press("Tab");
 
-      await page.getByRole("button", { name: "Create" }).click();
+      const createDialog = page.locator("mat-dialog-container");
+      await createDialog
+        .getByRole("button", { name: "Create", exact: true })
+        .click();
 
       // Verify task appears in Todo column
       const todoColumn = page.locator(".column").filter({ hasText: "To Do" });

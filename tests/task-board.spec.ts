@@ -1,9 +1,7 @@
-import { test, expect } from "@playwright/test";
-import { resetDatabase } from "./helpers/reset-db";
+import { test, expect } from "./fixtures/api-mock";
 
 test.describe("Task Board", () => {
   test.beforeEach(async ({ page }) => {
-    await resetDatabase();
     await page.goto("/");
     await expect(page.locator(".task-card").first()).toBeVisible();
   });

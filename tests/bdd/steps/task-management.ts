@@ -1,11 +1,9 @@
-import { expect } from "@playwright/test";
 import { createBdd } from "playwright-bdd";
-import { resetDatabase } from "../../helpers/reset-db";
+import { test, expect } from "../../fixtures/api-mock";
 
-const { Given, When, Then } = createBdd();
+const { Given, When, Then } = createBdd(test);
 
 Given("the task board is loaded with seed data", async ({ page }) => {
-  await resetDatabase();
   await page.goto("/");
   await expect(page.locator(".task-card").first()).toBeVisible();
 });
@@ -49,7 +47,8 @@ When("I set the due date to {string}", async ({ page }, date: string) => {
 });
 
 When("I submit the form", async ({ page }) => {
-  await page.getByRole("button", { name: "Create" }).click();
+  const dialog = page.locator("mat-dialog-container");
+  await dialog.getByRole("button", { name: "Create", exact: true }).click();
 });
 
 Then(

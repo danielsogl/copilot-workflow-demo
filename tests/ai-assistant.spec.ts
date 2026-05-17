@@ -1,4 +1,5 @@
-import { test, expect, Route } from "@playwright/test";
+import { type Route } from "@playwright/test";
+import { test, expect } from "./fixtures/api-mock";
 
 const CHAT_API = "http://localhost:3001/api/assistant/chat";
 

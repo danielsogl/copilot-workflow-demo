@@ -1,9 +1,7 @@
-import { test, expect } from "@playwright/test";
-import { resetDatabase } from "./helpers/reset-db";
+import { test, expect } from "./fixtures/api-mock";
 
 test.describe("Dashboard Statistics", () => {
   test.beforeEach(async ({ page }) => {
-    await resetDatabase();
     await page.goto("/");
     await expect(page.locator(".task-card").first()).toBeVisible();
   });
@@ -46,7 +44,8 @@ test.describe("Dashboard Statistics", () => {
     await page.getByLabel("Due Date").pressSequentially("03/15/2026");
     await page.getByLabel("Due Date").press("Tab");
 
-    await page.getByRole("button", { name: "Create" }).click();
+    const dialog = page.locator("mat-dialog-container");
+    await dialog.getByRole("button", { name: "Create", exact: true }).click();
 
     // Total should now be 9
     const totalCard = page.locator(".stat-card").filter({ hasText: "Total" });
