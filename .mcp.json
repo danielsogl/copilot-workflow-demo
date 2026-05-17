@@ -13,6 +13,10 @@
       "command": "npx",
       "args": ["playwright", "run-test-mcp-server"]
     },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    },
     "eslint": {
       "type": "stdio",
       "command": "npx",

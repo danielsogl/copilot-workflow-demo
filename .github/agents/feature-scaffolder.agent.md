@@ -86,4 +86,5 @@ You are an Angular 21+ architecture expert. Your task is to scaffold complete do
 - Store: `src/app/features/tasks/data/state/task-store.ts`
 - API: `src/app/features/tasks/data/infrastructure/task-api.ts`
 - Models: `src/app/features/tasks/data/models/task.model.ts`
-- Instructions: `.github/instructions/architecture.instructions.md`
+- Skill: `project-architecture`
+- Project conventions: `AGENTS.md`

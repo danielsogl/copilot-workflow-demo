@@ -25,33 +25,35 @@ code --install-extension ms-vscode.vscode-typescript-next
 
 ### Step 2: Configure Copilot for Angular & NgRx
 
-Copy the `.vscode/settings.json` configuration from this repository. Key settings:
+Copy `.vscode/settings.json` and `.vscode/mcp.json` from this repo. The setup:
 
-```json
-{
-  "github.copilot.chat.codeGeneration.useInstructionFiles": true,
-  "github.copilot.chat.commitMessageGeneration.instructions": [
-    { "file": ".github/guidelines/commit-convention.md" }
-  ],
-  "github.copilot.chat.generateTests.codeLens": true
-}
-```
+- **`AGENTS.md`** at the repo root is the single source of project conventions, loaded by every agent (Copilot, Copilot CLI, Claude Code, Codex).
+- **Agent skills** (portable across VS Code, Copilot CLI and the cloud agent) live in `.github/skills/` and `.agents/skills/` and are loaded automatically.
+- **No `.github/copilot-instructions.md`** and no `.github/instructions/**` — everything is either in `AGENTS.md` or in a skill.
 
-### Step 3: Custom Instructions for Angular & NgRx
+### Step 3: Skills
 
-Specialized Copilot instructions live in `.github/instructions/` and are automatically applied via `applyTo` globs:
+Project-local skills (`.github/skills/`):
 
-| File                                   | Scope                           | Content                                                              |
-| -------------------------------------- | ------------------------------- | -------------------------------------------------------------------- |
-| `angular.instructions.md`              | `**/*.ts, **/*.html, **/*.scss` | Angular 21 standalone, signals, control flow                         |
-| `angular-material.instructions.md`     | `**/*.ts, **/*.html, **/*.scss` | Material 3 theming with `mat.theme()` and `--mat-sys-*` tokens       |
-| `angular-signal-forms.instructions.md` | `**/*.ts, **/*.html`            | Signal Forms API with `schema()`, `form()`, `FormField`              |
-| `angular-testing.instructions.md`      | `**/*.spec.ts`                  | Vitest + TestBed, `provideZonelessChangeDetection()`                 |
-| `architecture.instructions.md`         | `**`                            | DDD structure: `feature/`, `ui/`, `data/`, `util/`                   |
-| `ngrx-signals.instructions.md`         | `**/*-store.ts`                 | Signal Store patterns with `signalStore`, `withEntities`, `rxMethod` |
-| `ngrx-signals-testing.instructions.md` | `**/*-store.spec.ts`            | Store testing with `unprotected()`, `fakeAsync`                      |
-| `techstack.instructions.md`            | `**`                            | Full tech stack reference                                            |
-| `typescript.instructions.md`           | `**/*.ts`                       | Strict TypeScript, naming conventions, no `any`                      |
+| Skill                      | When it fires                                                             |
+| -------------------------- | ------------------------------------------------------------------------- |
+| `project-architecture`     | Scaffolding a feature, component, store, moving files                     |
+| `angular-material-theming` | Editing `theme.scss` or component styles, Material 3 token work           |
+| `vitest-angular-testing`   | Writing `*.spec.ts` for components / services / directives / pipes / HTTP |
+| `pr-review`                | Reviewing a pull request                                                  |
+
+Library skills (auto-discovered, locked via `skills-lock.json`):
+
+| Skill                    | Source               |
+| ------------------------ | -------------------- |
+| `angular-developer`      | `angular/angular`    |
+| `angular-new-app`        | `angular/angular`    |
+| `ngrx-signals`           | NgRx skills lib      |
+| `reference-core`         | `angular/angular`    |
+| `reference-compiler-cli` | `angular/angular`    |
+| `reference-signal-forms` | `angular/angular`    |
+| `adev-writing-guide`     | `angular/angular`    |
+| `find-skills`            | `vercel-labs/skills` |
 
 ### Step 4: Reusable Prompts
 

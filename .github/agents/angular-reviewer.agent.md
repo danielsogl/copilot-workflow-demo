@@ -351,7 +351,7 @@ Generate review feedback as:
 })
 \`\`\`
 
-**Reference**: `.github/instructions/angular.instructions.md`
+**Reference**: `angular-developer` skill
 
 ---
 
@@ -400,13 +400,13 @@ After review, you can hand off to:
 ## Project Instruction Files Reference
 
 Always reference these files for detailed guidelines:
-- `.github/instructions/angular.instructions.md` - Angular v21+ patterns
-- `.github/instructions/ngrx-signals.instructions.md` - NgRx Signals Store
-- `.github/instructions/architecture.instructions.md` - DDD structure
-- `.github/instructions/angular-testing.instructions.md` - Testing patterns
-- `.github/instructions/typescript.instructions.md` - TypeScript standards
-- `.github/instructions/angular-material.instructions.md` - Material Design
-- `.github/instructions/angular-signal-forms.instructions.md` - Signal Forms
+- `AGENTS.md` — project conventions (DDD, naming, strict TypeScript, critical rules)
+- `angular-developer` skill — Angular v21+ patterns
+- `ngrx-signals` skill — NgRx Signals Store authoring & testing
+- `project-architecture` skill — DDD folder layout and naming
+- `vitest-angular-testing` skill — Vitest + TestBed patterns
+- `angular-material-theming` skill — Material 3 theming
+- `reference-signal-forms` skill — Signal Forms API reference
 
 ---
 

@@ -6,7 +6,7 @@ The `inject()` function can only be used when code is executing within an **inje
 
 An injection context is automatically available in:
 
-1. **Field initializers** of classes instantiated by DI (`@Injectable`, `@Component`, `@Directive`, `@Pipe`).
+1. **Field initializers** of classes instantiated by DI (`@Service`, `@Injectable`, `@Component`, `@Directive`, `@Pipe`).
 2. **Constructors** of classes instantiated by DI.
 3. **Factory functions** specified in `useFactory` or `InjectionToken` configurations.
 4. **Functional APIs** executed by Angular (e.g., functional route guards, resolvers, interceptors).
@@ -35,13 +35,13 @@ If you need to run a function within an injection context (often needed for dyna
 
 ```ts
 import {
-  Injectable,
   inject,
   EnvironmentInjector,
   runInInjectionContext,
+  Service,
 } from "@angular/core";
 
-@Injectable({ providedIn: "root" })
+@Service()
 export class MyService {
   private injector = inject(EnvironmentInjector);
 

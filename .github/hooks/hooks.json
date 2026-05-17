@@ -1,15 +1,24 @@
 {
   "hooks": {
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "./.github/hooks/scripts/session-context.sh",
+        "timeout": 5
+      }
+    ],
+    "PreToolUse": [
+      {
+        "type": "command",
+        "command": "./.github/hooks/scripts/guard-destructive-bash.sh",
+        "timeout": 5
+      }
+    ],
     "PostToolUse": [
       {
         "type": "command",
-        "command": "if [ -n \"$TOOL_INPUT_FILE_PATH\" ]; then case \"$TOOL_INPUT_FILE_PATH\" in *.ts) npx eslint --fix \"$TOOL_INPUT_FILE_PATH\" >/dev/null 2>&1 || true ;; esac; fi",
+        "command": "./.github/hooks/scripts/format-changed-files.sh",
         "timeout": 30
-      },
-      {
-        "type": "command",
-        "command": "if [ -n \"$TOOL_INPUT_FILE_PATH\" ]; then case \"$TOOL_INPUT_FILE_PATH\" in *.ts|*.html|*.scss|*.css|*.json|*.md) npx prettier --write \"$TOOL_INPUT_FILE_PATH\" >/dev/null 2>&1 || true ;; esac; fi",
-        "timeout": 15
       }
     ]
   }

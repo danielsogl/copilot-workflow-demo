@@ -38,6 +38,8 @@
     "@angular/build": "^21.2.8",
     "@angular/cli": "^21.2.8",
     "@angular/compiler-cli": "^21.2.10",
+    "@angular/language-server": "^21.2.13",
+    "@angular/language-service": "^21.2.13",
     "@ngrx/eslint-plugin": "^21.0.1",
     "@playwright/test": "^1.59.1",
     "@types/cors": "^2.8.19",

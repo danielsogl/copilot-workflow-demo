@@ -74,6 +74,6 @@ describe('MyComponent', () => {
 
 ## Reference
 
-- Testing guide: `.github/instructions/angular-testing.instructions.md`
-- Store testing: `.github/instructions/ngrx-signals-testing.instructions.md`
+- Testing skill: `vitest-angular-testing`
+- Store testing skill: `ngrx-signals`
 - Example test: `src/app/features/tasks/ui/task-card/task-card.spec.ts`

@@ -89,5 +89,6 @@ readonly selected = linkedSignal<Option[], Option | null>({
 
 ## Reference
 
-- Angular patterns: `.github/instructions/angular.instructions.md`
-- Testing updates: `.github/instructions/angular-testing.instructions.md`
+- Angular patterns: `angular-developer`
+- Testing updates: `vitest-angular-testing`
+- Project conventions: `AGENTS.md`

@@ -1,45 +1,17 @@
 {
   "version": 1,
   "skills": {
-    "PR Review": {
-      "source": "angular/angular",
-      "sourceType": "github",
-      "computedHash": "d442fc48460c6907ad3fa6719068e0f344581ab7fe02e1af29796a4111a3012b"
-    },
-    "adev-writing-guide": {
-      "source": "angular/angular",
-      "sourceType": "github",
-      "computedHash": "0da9315d3f7e86f7d80300a36b2a8c85ed64ed318f3512c24324a173d3a6a839"
-    },
     "angular-developer": {
       "source": "angular/angular",
       "sourceType": "github",
-      "computedHash": "b7764c591c965d85f95f1d4f6d3620b6ab92a1b1fedbcdead7d59e946fc3fd2e"
+      "skillPath": "skills/dev-skills/angular-developer/SKILL.md",
+      "computedHash": "36f7f57e1485c994de62eae5b00f54c12f81d1d16661afa6d3c214dd9bcf7269"
     },
-    "angular-new-app": {
-      "source": "angular/angular",
+    "ngrx-signals": {
+      "source": "danielsogl/skills",
       "sourceType": "github",
-      "computedHash": "49bd84ab08bd3498c52f476bed48fbb942dc6dbc0925607e84549adbed34bccf"
-    },
-    "find-skills": {
-      "source": "vercel-labs/skills",
-      "sourceType": "github",
-      "computedHash": "9e1c8b3103f92fa8092568a44fe64858de7c5c9dc65ce4bea8f168080e889cfd"
-    },
-    "reference-compiler-cli": {
-      "source": "angular/angular",
-      "sourceType": "github",
-      "computedHash": "ce937230b5374cf04b00a76251c3545b3dd43797407ef67ebd44b21229a33bd8"
-    },
-    "reference-core": {
-      "source": "angular/angular",
-      "sourceType": "github",
-      "computedHash": "16783417eeebecc4c35f5253872c2155967de10bd3e6b5d26f0bf950ff9347d0"
-    },
-    "reference-signal-forms": {
-      "source": "angular/angular",
-      "sourceType": "github",
-      "computedHash": "c48a51a68ab96d93ce98a7a3b55995208c70436423523ea64ae983a1ffa23020"
+      "skillPath": "skills/ngrx-signals/SKILL.md",
+      "computedHash": "85f61bd87e29de6fb9ba19a5011d5ec7c8fda8786b5089f69166f0aeb24b6335"
     }
   }
 }

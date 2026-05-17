@@ -93,5 +93,5 @@ html {
 
 ## Reference
 
-- Detailed rules: `.github/instructions/angular-material.instructions.md`
+- Detailed rules: `angular-material-theming` skill
 - Project theme: `src/app/theme/theme.scss`

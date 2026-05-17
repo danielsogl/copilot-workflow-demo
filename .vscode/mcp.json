@@ -5,6 +5,7 @@
       "url": "https://mcp.context7.com/mcp/oauth"
     },
     "angular-cli": {
+      "type": "stdio",
       "command": "npx",
       "args": ["-y", "@angular/cli", "mcp"]
     },
@@ -14,6 +15,7 @@
       "args": ["playwright", "run-test-mcp-server"]
     },
     "playwright": {
+      "type": "stdio",
       "command": "npx",
       "args": ["@playwright/mcp@latest"]
     },

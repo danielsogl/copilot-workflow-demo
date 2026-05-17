@@ -137,9 +137,9 @@ describe('FeatureStore', () => {
 - **Signal Interop**: Use `toSignal` and `toObservable` for conversions; expose observables via `withProps` if needed
 - **Atomic Entity Ops**: Use `addEntity`, `updateEntity`, `removeEntity`, `setAllEntities`, `updateAllEntities`, `removeEntities`
 
-Refer to these instruction files for detailed patterns:
-- `.github/instructions/ngrx-signals.instructions.md`
-- `.github/instructions/ngrx-signals-testing.instructions.md`
-- `.github/instructions/architecture.instructions.md`
+Refer to these skills for detailed patterns:
+- `ngrx-signals`
+- `vitest-angular-testing`
+- `project-architecture`
 
 ---
