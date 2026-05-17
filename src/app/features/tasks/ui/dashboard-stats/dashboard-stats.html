@@ -1,53 +1,73 @@
 <div class="stats-row">
-  <mat-card class="stat-card">
-    <mat-icon class="stat-icon stat-icon--total">assignment</mat-icon>
+  <article class="stat-card stat-card--primary">
+    <div class="stat-icon-wrap">
+      <mat-icon class="stat-icon stat-icon--total">assignment</mat-icon>
+    </div>
     <div class="stat-content">
       <span class="stat-value">{{ total() }}</span>
       <span class="stat-label">Total</span>
     </div>
-  </mat-card>
+  </article>
 
-  <mat-card class="stat-card">
-    <mat-icon class="stat-icon stat-icon--todo">
-      radio_button_unchecked
-    </mat-icon>
+  <article class="stat-card">
+    <div class="stat-icon-wrap stat-icon-wrap--todo">
+      <mat-icon class="stat-icon stat-icon--todo">
+        radio_button_unchecked
+      </mat-icon>
+    </div>
     <div class="stat-content">
       <span class="stat-value">{{ todo() }}</span>
       <span class="stat-label">To Do</span>
     </div>
-  </mat-card>
+  </article>
 
-  <mat-card class="stat-card">
-    <mat-icon class="stat-icon stat-icon--progress">autorenew</mat-icon>
+  <article class="stat-card">
+    <div class="stat-icon-wrap stat-icon-wrap--progress">
+      <mat-icon class="stat-icon stat-icon--progress">autorenew</mat-icon>
+    </div>
     <div class="stat-content">
       <span class="stat-value">{{ inProgress() }}</span>
       <span class="stat-label">In Progress</span>
     </div>
-  </mat-card>
+  </article>
 
-  <mat-card class="stat-card">
-    <mat-icon class="stat-icon stat-icon--done">check_circle</mat-icon>
+  <article class="stat-card">
+    <div class="stat-icon-wrap stat-icon-wrap--done">
+      <mat-icon class="stat-icon stat-icon--done">check_circle</mat-icon>
+    </div>
     <div class="stat-content">
       <span class="stat-value">{{ completed() }}</span>
       <span class="stat-label">Done</span>
     </div>
-  </mat-card>
+  </article>
 
   @if (overdue() > 0) {
-    <mat-card class="stat-card stat-card--overdue">
-      <mat-icon class="stat-icon stat-icon--overdue">warning</mat-icon>
+    <article class="stat-card stat-card--overdue">
+      <div class="stat-icon-wrap stat-icon-wrap--overdue">
+        <mat-icon class="stat-icon stat-icon--overdue">warning</mat-icon>
+      </div>
       <div class="stat-content">
         <span class="stat-value">{{ overdue() }}</span>
         <span class="stat-label">Overdue</span>
       </div>
-    </mat-card>
+    </article>
   }
 
-  <mat-card class="stat-card">
-    <mat-icon class="stat-icon stat-icon--rate">pie_chart</mat-icon>
+  <article class="stat-card stat-card--rate">
+    <div class="stat-icon-wrap stat-icon-wrap--rate">
+      <mat-icon class="stat-icon stat-icon--rate">donut_large</mat-icon>
+    </div>
     <div class="stat-content">
       <span class="stat-value">{{ completionRate() }}%</span>
       <span class="stat-label">Complete</span>
     </div>
-  </mat-card>
+    <div
+      class="stat-progress"
+      [style.--rate]="completionRate() + '%'"
+      role="progressbar"
+      [attr.aria-valuenow]="completionRate()"
+      aria-valuemin="0"
+      aria-valuemax="100"
+    ></div>
+  </article>
 </div>

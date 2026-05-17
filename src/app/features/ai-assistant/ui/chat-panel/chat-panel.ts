@@ -7,7 +7,7 @@ import {
   output,
   viewChild,
 } from "@angular/core";
-import { MatProgressSpinner } from "@angular/material/progress-spinner";
+import { MatIcon } from "@angular/material/icon";
 import { ChatMessage as ChatMessageModel } from "../../data/models/chat.model";
 import { ChatMessage } from "../chat-message/chat-message";
 import { ChatInput } from "../chat-input/chat-input";
@@ -17,7 +17,7 @@ import { ChatInput } from "../chat-input/chat-input";
   templateUrl: "./chat-panel.html",
   styleUrl: "./chat-panel.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ChatMessage, ChatInput, MatProgressSpinner],
+  imports: [ChatMessage, ChatInput, MatIcon],
 })
 export class ChatPanel implements AfterViewChecked {
   readonly messages = input.required<ChatMessageModel[]>();

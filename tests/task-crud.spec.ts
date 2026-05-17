@@ -20,7 +20,10 @@ test.describe("Task CRUD", () => {
       page,
     }) => {
       await page.locator("button.fab-add").click();
-      await expect(page.getByRole("button", { name: "Create" })).toBeDisabled();
+      const dialog = page.locator("mat-dialog-container");
+      await expect(
+        dialog.getByRole("button", { name: "Create", exact: true }),
+      ).toBeDisabled();
     });
 
     test("should close dialog on Cancel", async ({ page }) => {
@@ -68,7 +71,11 @@ test.describe("Task CRUD", () => {
       page,
     }) => {
       await page.locator("button.fab-add").click();
-      const createBtn = page.getByRole("button", { name: "Create" });
+      const dialog = page.locator("mat-dialog-container");
+      const createBtn = dialog.getByRole("button", {
+        name: "Create",
+        exact: true,
+      });
 
       // Only title filled - still disabled
       await page.getByLabel("Title").fill("Test");

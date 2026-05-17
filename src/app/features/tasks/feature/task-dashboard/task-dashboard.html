@@ -1,7 +1,7 @@
 <div class="dashboard">
   @if (store.loading()) {
     <div class="loading-overlay">
-      <mat-spinner diameter="48" />
+      <mat-spinner diameter="40" />
     </div>
   }
 
@@ -31,6 +31,12 @@
   />
 </div>
 
-<button mat-fab class="fab-add" (click)="openCreateDialog()">
+<button
+  mat-fab
+  class="fab-add"
+  type="button"
+  aria-label="Create new task"
+  (click)="openCreateDialog()"
+>
   <mat-icon>add</mat-icon>
 </button>

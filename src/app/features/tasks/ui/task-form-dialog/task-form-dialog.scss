@@ -1,8 +1,22 @@
+:host {
+  display: block;
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+  padding: 8px;
+}
+
+h2[mat-dialog-title] {
+  font-family: "Roboto Flex", Roboto, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
 .form-fields {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  min-width: 400px;
+  gap: 8px;
+  min-width: 420px;
   padding-top: 8px;
 
   mat-form-field {
@@ -12,11 +26,16 @@
 
 .form-row {
   display: flex;
-  gap: 12px;
+  gap: 14px;
 }
 
 .half-width {
   flex: 1;
+}
+
+mat-dialog-actions {
+  padding: 12px 24px 16px !important;
+  gap: 6px;
 }
 
 @media (max-width: 600px) {

@@ -1,19 +1,25 @@
 <div class="assistant-page">
-  <div class="page-header">
+  <header class="page-header">
     <div class="header-title">
-      <span class="icon">🤖</span>
-      <h1>AI Task Assistant</h1>
-      <span class="badge">Powered by GitHub Copilot</span>
+      <span class="icon" aria-hidden="true">
+        <mat-icon>auto_awesome</mat-icon>
+      </span>
+      <div class="header-text">
+        <h1>AI Task Assistant</h1>
+        <span class="badge">Powered by GitHub Copilot</span>
+      </div>
     </div>
     <button
       mat-icon-button
+      class="clear-btn"
       (click)="onClear()"
       matTooltip="Clear conversation"
+      aria-label="Clear conversation"
       [disabled]="store.messages().length === 0"
     >
       <mat-icon>delete_sweep</mat-icon>
     </button>
-  </div>
+  </header>
 
   <div class="chat-container">
     <app-chat-panel

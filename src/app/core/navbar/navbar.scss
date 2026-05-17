@@ -1,15 +1,102 @@
-mat-toolbar {
+:host {
+  display: contents;
+}
+
+.app-toolbar-scrim {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  height: 92px;
+  z-index: 999;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    var(--mat-sys-surface) 0%,
+    color-mix(in srgb, var(--mat-sys-surface) 92%, transparent) 55%,
+    color-mix(in srgb, var(--mat-sys-surface) 0%, transparent) 100%
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+}
+
+.app-toolbar {
+  position: fixed;
+  inset: 12px 16px auto 16px;
   z-index: 1000;
-  gap: 8px;
+  height: 64px;
+  padding: 0 16px;
+  gap: 16px;
+  border-radius: 24px;
+  background: color-mix(
+    in srgb,
+    var(--mat-sys-surface-container) 88%,
+    transparent
+  );
+  backdrop-filter: saturate(1.4) blur(18px);
+  -webkit-backdrop-filter: saturate(1.4) blur(18px);
+  border: 1px solid color-mix(in srgb, var(--mat-sys-outline) 18%, transparent);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--mat-sys-on-surface) 4%, transparent),
+    0 12px 32px -16px color-mix(in srgb, var(--mat-sys-shadow) 60%, transparent);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  background: linear-gradient(
+    135deg,
+    var(--mat-sys-primary) 0%,
+    var(--mat-sys-tertiary) 110%
+  );
+  color: var(--mat-sys-on-primary);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 25%, transparent),
+    0 6px 14px -8px color-mix(in srgb, var(--mat-sys-primary) 60%, transparent);
+
+  mat-icon {
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+    font-variation-settings:
+      "FILL" 1,
+      "wght" 500;
+  }
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
 }
 
 .title {
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  color: var(--mat-sys-on-surface);
+}
+
+.subtitle {
+  margin-top: 3px;
+  font-size: 11px;
   font-weight: 500;
-  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--mat-sys-on-surface-variant);
 }
 
 .spacer {
@@ -19,23 +106,71 @@ mat-toolbar {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--mat-sys-surface-container-low);
 
   a {
-    display: flex;
+    --mdc-text-button-label-text-color: var(--mat-sys-on-surface-variant);
+    display: inline-flex;
     align-items: center;
-    gap: 6px;
-    border-radius: 20px;
-    opacity: 0.75;
-    transition: opacity 0.2s;
+    gap: 8px;
+    height: 40px;
+    padding: 0 16px 0 14px;
+    border-radius: 999px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--mat-sys-on-surface-variant);
+    transition:
+      background-color 200ms cubic-bezier(0.2, 0, 0, 1),
+      color 200ms cubic-bezier(0.2, 0, 0, 1);
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
 
     &:hover {
-      opacity: 1;
+      background: color-mix(in srgb, var(--mat-sys-on-surface) 6%, transparent);
+      color: var(--mat-sys-on-surface);
     }
 
     &.active-link {
-      opacity: 1;
-      background: color-mix(in srgb, currentColor 15%, transparent);
+      background: var(--mat-sys-secondary-container);
+      color: var(--mat-sys-on-secondary-container);
+
+      mat-icon {
+        font-variation-settings:
+          "FILL" 1,
+          "wght" 500;
+      }
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .app-toolbar-scrim {
+    height: 80px;
+  }
+
+  .app-toolbar {
+    inset: 8px 8px auto 8px;
+    padding: 0 10px;
+    height: 60px;
+    gap: 8px;
+  }
+
+  .subtitle {
+    display: none;
+  }
+
+  .nav-links a {
+    padding: 0 12px;
+
+    span {
+      display: none;
     }
   }
 }

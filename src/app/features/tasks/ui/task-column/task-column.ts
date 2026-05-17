@@ -6,6 +6,7 @@ import {
   output,
 } from "@angular/core";
 import { CdkDrag, CdkDragDrop, CdkDropList } from "@angular/cdk/drag-drop";
+import { MatIcon } from "@angular/material/icon";
 import { Task, TaskStatus } from "../../data/models/task.model";
 import { TaskCard } from "../task-card/task-card";
 
@@ -14,7 +15,7 @@ import { TaskCard } from "../task-card/task-card";
   templateUrl: "./task-column.html",
   styleUrl: "./task-column.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CdkDropList, CdkDrag, TaskCard],
+  imports: [CdkDropList, CdkDrag, MatIcon, TaskCard],
 })
 export class TaskColumn {
   readonly title = input.required<string>();

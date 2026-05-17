@@ -3,9 +3,9 @@
   [class.user]="message().role === 'user'"
   [class.assistant]="message().role === 'assistant'"
 >
-  <div class="avatar">
+  <div class="avatar" aria-hidden="true">
     @if (message().role === "assistant") {
-      <mat-icon>smart_toy</mat-icon>
+      <mat-icon>auto_awesome</mat-icon>
     } @else {
       <mat-icon>person</mat-icon>
     }

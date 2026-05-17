@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, input } from "@angular/core";
-import { MatCard } from "@angular/material/card";
 import { MatIcon } from "@angular/material/icon";
 
 @Component({
@@ -7,7 +6,7 @@ import { MatIcon } from "@angular/material/icon";
   templateUrl: "./dashboard-stats.html",
   styleUrl: "./dashboard-stats.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatCard, MatIcon],
+  imports: [MatIcon],
 })
 export class DashboardStats {
   readonly total = input.required<number>();

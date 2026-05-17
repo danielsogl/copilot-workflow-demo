@@ -1,7 +1,13 @@
 .content {
-  padding: 80px 24px 24px;
+  padding: 100px 24px 32px;
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - 100px);
   box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  .content {
+    padding: 88px 12px 24px;
+  }
 }

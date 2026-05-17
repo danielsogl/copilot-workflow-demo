@@ -1,8 +1,9 @@
 .dashboard {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  max-width: 1200px;
+  gap: 24px;
+  max-width: 1280px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -11,10 +12,13 @@
   bottom: 24px;
   right: 24px;
   z-index: 100;
+  box-shadow:
+    0 6px 14px -6px color-mix(in srgb, var(--mat-sys-primary) 50%, transparent),
+    0 18px 36px -12px color-mix(in srgb, var(--mat-sys-shadow) 60%, transparent);
 }
 
 .loading-overlay {
   display: flex;
   justify-content: center;
-  padding: 24px;
+  padding: 16px;
 }

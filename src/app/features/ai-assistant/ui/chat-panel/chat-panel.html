@@ -2,17 +2,23 @@
   <div class="messages" #messagesContainer>
     @if (messages().length === 0 && !loading()) {
       <div class="empty-state">
+        <span class="empty-icon" aria-hidden="true">
+          <mat-icon>auto_awesome</mat-icon>
+        </span>
         <p class="hint">👋 Ask me anything about your tasks!</p>
-        <p class="example">
-          Try:
-          <em>"What are my high priority tasks?"</em>
-        </p>
-        <p class="example">
-          Or:
-          <em>
-            "Create a task: Deploy to production, high priority, due 2026-05-01"
-          </em>
-        </p>
+        <div class="suggestions">
+          <p class="example">
+            Try:
+            <em>"What are my high priority tasks?"</em>
+          </p>
+          <p class="example">
+            Or:
+            <em>
+              "Create a task: Deploy to production, high priority, due
+              2026-05-01"
+            </em>
+          </p>
+        </div>
       </div>
     }
 
@@ -23,7 +29,7 @@
     @if (streamingContent()) {
       <div class="streaming-message">
         <div class="avatar assistant">
-          <span class="icon">🤖</span>
+          <mat-icon>auto_awesome</mat-icon>
         </div>
         <div class="bubble">
           <p class="content">{{ streamingContent() }}</p>
@@ -32,8 +38,14 @@
       </div>
     } @else if (loading()) {
       <div class="typing-indicator">
-        <div class="avatar assistant"></div>
-        <mat-progress-spinner mode="indeterminate" diameter="24" />
+        <div class="avatar assistant">
+          <mat-icon>auto_awesome</mat-icon>
+        </div>
+        <div class="typing-bubble" aria-label="Assistant is typing">
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+        </div>
       </div>
     }
   </div>
