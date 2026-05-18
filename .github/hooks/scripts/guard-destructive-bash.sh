@@ -33,11 +33,7 @@ deny() {
 
 case "$CMD" in
   *"rm -rf /"*|*"rm -rf /*"*)         deny "Refusing destructive rm -rf on root." ;;
-  *"git push --force"*|*"git push -f "*)
-    case "$CMD" in
-      *"main"*|*"master"*) deny "Refusing force-push to main/master." ;;
-    esac
-    ;;
+  *"git push"*)                       deny "Refusing git push from an agent — pushing to remote is a human-driven action." ;;
   *"git reset --hard"*)               deny "Refusing git reset --hard from an agent — confirm with the user first." ;;
   *"npm publish"*)                    deny "Refusing npm publish from an agent — releases are human-driven." ;;
   *"--no-verify"*)                    deny "Refusing to bypass git hooks (--no-verify). Fix the failure instead." ;;
