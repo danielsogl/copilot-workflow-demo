@@ -82,13 +82,6 @@ src/app/
     util/<helper>/<helper>.ts
 ```
 
-## Tools available to agents
-
-- **MCP servers** (`.mcp.json`): `context7` (current library docs), `angular-cli` (project introspection), `playwright-test`, `playwright`, `eslint`.
-- **LSP** (`.github/lsp.json`): TypeScript, Angular Language Service, HTML/CSS/JSON, YAML. Used by **Copilot CLI in the terminal** and by the **cloud agent** — the only diagnostics path when no IDE is attached. The VS Code Copilot Chat extension and the Claude Code IDE bridge ignore this file and rely on the IDE's own language servers instead, so this config is portable and IDE-agnostic.
-- **Hooks** (`.github/hooks/hooks.json`): `SessionStart` injects project context, `PreToolUse` blocks destructive bash, `PostToolUse` auto-formats with Prettier + auto-fixes with ESLint.
-- **Always reach for `context7` first** when the user asks about a library, framework, or API — prefer current docs over training data.
-
 ## Don'ts
 
 - No code comments unless explicitly requested.
