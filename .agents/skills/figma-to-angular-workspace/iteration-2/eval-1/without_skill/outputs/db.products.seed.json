@@ -1,0 +1,31 @@
+{
+  "products": [
+    {
+      "id": "leather-boots-1",
+      "title": "Leather boots",
+      "price": 27.5,
+      "currency": "USD",
+      "description": "Great warm shoes from the artificial leather. You can buy this model only in our shop",
+      "imageUrl": "https://images.unsplash.com/photo-1520639888713-7851133b1ed0?auto=format&fit=crop&w=720&q=80",
+      "isFavourite": false
+    },
+    {
+      "id": "leather-boots-2",
+      "title": "Leather boots",
+      "price": 27.5,
+      "currency": "USD",
+      "description": "Great warm shoes from the artificial leather. You can buy this model only in our shop",
+      "imageUrl": "https://images.unsplash.com/photo-1605812860427-4024433a70fd?auto=format&fit=crop&w=720&q=80",
+      "isFavourite": false
+    },
+    {
+      "id": "leather-boots-3",
+      "title": "Leather boots",
+      "price": 27.5,
+      "currency": "USD",
+      "description": "Great warm shoes from the artificial leather. You can buy this model only in our shop",
+      "imageUrl": "https://images.unsplash.com/photo-1542840411-9a8be9a6d4b1?auto=format&fit=crop&w=720&q=80",
+      "isFavourite": true
+    }
+  ]
+}

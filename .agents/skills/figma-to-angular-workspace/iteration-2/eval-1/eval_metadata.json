@@ -1,0 +1,51 @@
+{
+  "eval_id": 1,
+  "eval_name": "no-user-story-community-file-authed-mcp",
+  "prompt": "Please build this Figma screen as a new feature in our Angular app: https://www.figma.com/design/zxKV5PL63p3nDkbR62MR03/Material-3-You--Sample-App-with-great-Prototype--Community-?node-id=24-3285&t=SaRBq3tmWNC9JpTy-4",
+  "assertions": [
+    {
+      "id": "asks-for-user-story",
+      "text": "Output explicitly asks the developer for a user story / behavior description before generating finalized code"
+    },
+    {
+      "id": "actually-extracts-from-mcp",
+      "text": "Output shows evidence the agent successfully called mcp__figma__get_metadata / get_design_context / get_variable_defs and used the returned data (not just claimed it would)"
+    },
+    {
+      "id": "names-real-frame",
+      "text": "Output correctly identifies the frame as a stacked-card feed (3× stacked-card + FAB + top-app-bar, mobile 411×731), NOT a Profile screen"
+    },
+    {
+      "id": "produces-real-audit",
+      "text": "Output contains a structured audit with actual numbers from the Figma extract: token census (bound vs raw counts from real data), component identification (named real instances like stacked-card), inconsistencies if any"
+    },
+    {
+      "id": "surfaces-open-questions",
+      "text": "Output contains a numbered list of open questions for the developer to answer before final code generation"
+    },
+    {
+      "id": "names-the-five-risks",
+      "text": "Output addresses or at least names each of the five risks: missing tokens, token gaps, inconsistencies, hierarchy, missing states"
+    },
+    {
+      "id": "no-silent-guessing",
+      "text": "Output does NOT generate code based on guesses about behavior or invented data when Figma did not specify"
+    },
+    {
+      "id": "proposes-project-structure",
+      "text": "Output proposes a feature folder name, route, and component breakdown that fits src/app/features/<feature>/{feature,ui,data,util}, with the ui component derived from the real stacked-card instance"
+    },
+    {
+      "id": "covers-responsive-explicitly",
+      "text": "Output explicitly addresses how tablet and desktop should adapt — either by extracting variant frames from Figma or asking the developer (since the visible frame is mobile-only)"
+    },
+    {
+      "id": "references-mat-sys-tokens",
+      "text": "Output references --mat-sys-* tokens and shows the gap-closure ritual (// gap-closed: comment) for any tokens Figma uses that lack a Material role match"
+    },
+    {
+      "id": "mentions-validation-plan",
+      "text": "Output mentions a validation plan: ng lint, ng build, playwright-cli visual checks across mobile/tablet/desktop"
+    }
+  ]
+}

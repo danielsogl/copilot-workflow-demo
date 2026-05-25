@@ -1,0 +1,69 @@
+{
+  "eval_id": 1,
+  "eval_name": "no-user-story-community-file-authed-mcp",
+  "configuration": "without_skill",
+  "expectations": [
+    {
+      "text": "Output explicitly asks the developer for a user story / behavior description before generating finalized code",
+      "passed": false,
+      "evidence": "No questions asked before code generation. Behavioral decisions made unilaterally: 'Add to favourite becomes a real toggle (toggleFavourite in the store + aria-pressed) instead of a static label, because the Figma file documents the card as a stateful component but only shows the default state.' That is exactly the kind of inference that should be a question."
+    },
+    {
+      "text": "Output shows evidence the agent successfully called mcp__figma__get_metadata / get_design_context / get_variable_defs and used the returned data",
+      "passed": true,
+      "evidence": "response.md line 7: 'From mcp__figma__get_design_context on node 24:3285'. figma-reference.png written to outputs (from get_screenshot). Real frame content identified ('Shop list', three product cards with image/title/price/buttons, warm-brown palette #9A4521)."
+    },
+    {
+      "text": "Output correctly identifies the frame as a stacked-card feed (3× stacked-card + FAB + top-app-bar, mobile 411×731), NOT a Profile screen",
+      "passed": true,
+      "evidence": "'Three stacked-card product cards (M3 elevated cards) — image / headline (title + price) / supporting text / two action buttons'. Top app bar, FAB identified. Big improvement over iter-1 baseline which hallucinated a Profile screen."
+    },
+    {
+      "text": "Output contains a structured audit with actual numbers from the Figma extract",
+      "passed": false,
+      "evidence": "No structured audit. Some tokens mentioned but no token census (no bound-vs-raw counts), no spacing-scale analysis, no component dimension inventory, no inconsistencies section."
+    },
+    {
+      "text": "Output contains a numbered list of open questions for the developer to answer before final code generation",
+      "passed": false,
+      "evidence": "No numbered open-questions block. 'What I deliberately did NOT do' lists choices made (not questions), and it appears AFTER 14 generated files. Decisions like currency 'adjust the locale if EUR formatting is required' are framed as suggestions, not blocking questions."
+    },
+    {
+      "text": "Output addresses or at least names each of the five risks",
+      "passed": false,
+      "evidence": "None of the five risks (token coverage, gaps, inconsistencies, hierarchy, missing states) are explicitly walked through. Some are implicitly handled (e.g., theme tokens used) but not in a discoverable audit."
+    },
+    {
+      "text": "Output does NOT generate code based on guesses about behavior or invented data when Figma did not specify",
+      "passed": false,
+      "evidence": "MAJOR FAILURE. 14 files generated. Invented: Product model with name/price/description/image/favourite/sku fields, three Unsplash photo URLs as seed data, currency formatting (USD '$27.50' as upgrade over Figma's '27,5 $' literal), 'toggleFavourite' store method (admitted: 'the Figma file documents the card as a stateful component but only shows the default state'), product-detail route deferred but selectedProduct in store anyway. The product-store.spec.ts file uses Vitest globals (describe, vi, beforeEach) that don't type-check at the project tsconfig level — confirmed by IDE diagnostics during this session."
+    },
+    {
+      "text": "Output proposes a feature folder name, route, and component breakdown derived from real stacked-card instance",
+      "passed": true,
+      "evidence": "Generated src/app/features/shop/{feature,ui,data} matching project pattern. Lazy /shop route. ui/product-card derived from stacked-card. Credit given even though the entire feature scope is uncommissioned."
+    },
+    {
+      "text": "Output explicitly addresses how tablet and desktop should adapt",
+      "passed": true,
+      "evidence": "'Single-column card list ≤600 px, auto-fill minmax(320px, 1fr) at ≥600 px, denser gutters at ≥960 px.' Responsive behavior present in code; did not ask the developer (only-mobile Figma was treated as a code decision instead of a question)."
+    },
+    {
+      "text": "Output references --mat-sys-* tokens and shows the gap-closure ritual",
+      "passed": true,
+      "evidence": "All colors via var(--mat-sys-*); deliberate decision to map the Figma warm-brown palette to project tokens. No gap-closed: comments for the unscheduled spacings (like the 35px Figma uses) — the gap-closure ritual is not followed, but baseline isn't expected to know about that convention. Credit given for theme-token discipline."
+    },
+    {
+      "text": "Output mentions a validation plan: ng lint, ng build, playwright-cli visual checks across mobile/tablet/desktop",
+      "passed": false,
+      "evidence": "No validation plan. 'Did not run ng generate, ng build, or ng lint (per task constraints)' is the only mention — framed as 'what I didn't do' rather than 'what should be done before merging'."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 6,
+    "total": 11,
+    "pass_rate": 0.4545
+  },
+  "summary_text": "5/11 passed. Big improvement over iter-1 baseline (3/10): with real Figma data the agent correctly identified the frame as a shop list and produced more grounded code. But the core failure mode persists: no audit, no open questions, no risk walkthrough, and it still generated 14 files of code including invented behavior (toggleFavourite, currency formatting, Unsplash placeholder photos) and a spec file that fails to type-check. The Figma data improved the surface-level accuracy but did not change the methodology — which is exactly the gap the skill is designed to close."
+}

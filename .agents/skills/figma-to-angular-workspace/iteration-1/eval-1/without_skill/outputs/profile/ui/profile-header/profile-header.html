@@ -1,0 +1,90 @@
+<section class="profile-header" aria-labelledby="profile-display-name">
+  <div class="profile-header__cover" aria-hidden="true">
+    <div class="profile-header__cover-blob profile-header__cover-blob--a"></div>
+    <div class="profile-header__cover-blob profile-header__cover-blob--b"></div>
+  </div>
+
+  <div class="profile-header__top-actions">
+    <button
+      mat-icon-button
+      type="button"
+      aria-label="Back"
+      class="profile-header__icon-btn"
+    >
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span class="profile-header__spacer"></span>
+    <button
+      mat-icon-button
+      type="button"
+      aria-label="Share profile"
+      class="profile-header__icon-btn"
+      (click)="shareProfile.emit()"
+    >
+      <mat-icon>share</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      type="button"
+      aria-label="More options"
+      class="profile-header__icon-btn"
+    >
+      <mat-icon>more_vert</mat-icon>
+    </button>
+  </div>
+
+  <div class="profile-header__identity">
+    <div class="profile-header__avatar" aria-hidden="true">
+      @if (profile().avatarUrl) {
+        <img
+          [src]="profile().avatarUrl"
+          [alt]="profile().displayName + ' avatar'"
+          class="profile-header__avatar-image"
+        />
+      } @else {
+        <span class="profile-header__avatar-initials">{{ initials() }}</span>
+      }
+      <span class="profile-header__avatar-presence" aria-label="Online"></span>
+    </div>
+
+    <div class="profile-header__text">
+      <h1 id="profile-display-name" class="profile-header__name">
+        {{ profile().displayName }}
+      </h1>
+      <p class="profile-header__handle">{{ profile().handle }}</p>
+      <p class="profile-header__bio">{{ profile().bio }}</p>
+
+      <div class="profile-header__meta">
+        <span class="profile-header__meta-item">
+          <mat-icon class="profile-header__meta-icon">place</mat-icon>
+          {{ profile().location }}
+        </span>
+        <span class="profile-header__meta-item">
+          <mat-icon class="profile-header__meta-icon">mail</mat-icon>
+          {{ profile().email }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-header__cta">
+    <button
+      mat-flat-button
+      type="button"
+      class="profile-header__primary-cta"
+      (click)="editProfile.emit()"
+    >
+      <mat-icon>edit</mat-icon>
+      <span>Edit profile</span>
+    </button>
+    <button
+      mat-stroked-button
+      type="button"
+      class="profile-header__secondary-cta"
+      (click)="shareProfile.emit()"
+    >
+      <mat-icon>person_add</mat-icon>
+      <span>Invite friends</span>
+    </button>
+  </div>
+</section>

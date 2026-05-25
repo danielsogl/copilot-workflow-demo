@@ -1,0 +1,187 @@
+{
+  "metadata": {
+    "skill_name": "figma-to-angular",
+    "skill_path": "/Users/danielsogl/Developer/Personal/workshops/copilot-workflow-demo/.agents/skills/figma-to-angular",
+    "executor_model": "claude-opus-4-7",
+    "timestamp": "2026-05-25T13:50:00Z",
+    "evals_run": [1],
+    "runs_per_configuration": 1
+  },
+  "runs": [
+    {
+      "eval_id": 1,
+      "eval_name": "no-user-story-community-file",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 10,
+        "failed": 0,
+        "total": 10,
+        "time_seconds": 299.9,
+        "tokens": 63786,
+        "tool_calls": 29,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output explicitly asks the developer for a user story / behavior description before generating code",
+          "passed": true,
+          "evidence": "response.md §5A1 explicitly asks for a one-sentence user story."
+        },
+        {
+          "text": "Output shows evidence the agent attempted to fetch the frame via the Figma MCP server (mcp__figma__* tools) rather than guessing from the URL",
+          "passed": true,
+          "evidence": "response.md §1: agent called mcp__figma__authenticate, surfaced the OAuth URL, refused to proceed without it."
+        },
+        {
+          "text": "Output contains a structured audit covering at minimum: token census, component identification, inconsistencies, and missing states",
+          "passed": true,
+          "evidence": "response.md §4: literal audit template laid out per skill spec; empty numbers because MCP could not be read, structure fully present."
+        },
+        {
+          "text": "Output contains a numbered list of open questions for the developer to answer before coding",
+          "passed": true,
+          "evidence": "response.md §5: 16 numbered questions grouped A–H."
+        },
+        {
+          "text": "Output addresses each of the five risks: missing tokens, token gaps, inconsistencies, hierarchy, missing states",
+          "passed": true,
+          "evidence": "response.md §5 sections C/D/F/G explicitly cite 'skill's risk #5', 'risks #1, #2', 'risk #4'."
+        },
+        {
+          "text": "Output does NOT generate finalized Angular code that silently invents tokens, layouts, or behavior",
+          "passed": true,
+          "evidence": "No code generated. proposed-tokens.scss is a skeleton with no values filled."
+        },
+        {
+          "text": "Output proposes a feature folder name, route, and component breakdown matching src/app/features/<feature>/{feature,ui,data,util}",
+          "passed": true,
+          "evidence": "response.md §6 proposed folder layout matches project pattern; lazy route example provided."
+        },
+        {
+          "text": "Output explicitly addresses how tablet and desktop should adapt",
+          "passed": true,
+          "evidence": "response.md §5D9: explicit questions for tablet (≥768px) and desktop (≥1280px) with three concrete options each."
+        },
+        {
+          "text": "Output references --mat-sys-* tokens or mat.<component>-overrides for theming, not raw hex",
+          "passed": true,
+          "evidence": "Multiple --mat-sys-* references; cites existing mat.card-overrides in styles.scss; proposed-tokens.scss demonstrates // gap-closed: --app-* pattern."
+        },
+        {
+          "text": "Output mentions a validation plan: ng lint, ng build, playwright-cli visual checks across breakpoints",
+          "passed": true,
+          "evidence": "response.md §6 lists all four gates: ng lint, ng build, playwright-cli at 390/768/1440, resize sweep 360→1920, dark mode."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "eval_name": "no-user-story-community-file",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.3,
+        "passed": 3,
+        "failed": 7,
+        "total": 10,
+        "time_seconds": 337.7,
+        "tokens": 79069,
+        "tool_calls": 56,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output explicitly asks the developer for a user story / behavior description before generating code",
+          "passed": false,
+          "evidence": "Agent guessed: 'Rather than block the task, I built the screen this node consistently represents in the published community file: a Profile / You screen.'"
+        },
+        {
+          "text": "Output shows evidence the agent attempted to fetch the frame via the Figma MCP server (mcp__figma__* tools) rather than guessing from the URL",
+          "passed": false,
+          "evidence": "Tried a plain HTTP fetch of the public URL; never called mcp__figma__authenticate to initiate the OAuth flow."
+        },
+        {
+          "text": "Output contains a structured audit covering at minimum: token census, component identification, inconsistencies, and missing states",
+          "passed": false,
+          "evidence": "No audit produced. No token census. No bound-vs-raw analysis."
+        },
+        {
+          "text": "Output contains a numbered list of open questions for the developer to answer before coding",
+          "passed": false,
+          "evidence": "No questions before code generation. 'Suggested next steps' appears after the code as post-hoc reconciliation."
+        },
+        {
+          "text": "Output addresses each of the five risks: missing tokens, token gaps, inconsistencies, hierarchy, missing states",
+          "passed": false,
+          "evidence": "None of the five risks are explicitly addressed."
+        },
+        {
+          "text": "Output does NOT generate finalized Angular code that silently invents tokens, layouts, or behavior",
+          "passed": false,
+          "evidence": "17 files generated including invented user 'Ava Thompson' as stub data, invented 'squircle 36px radius avatar + tertiary presence dot', invented stats numbers, invented bio, invented Berlin location, invented joinedAt date — all because the actual Figma frame could not be read."
+        },
+        {
+          "text": "Output proposes a feature folder name, route, and component breakdown matching src/app/features/<feature>/{feature,ui,data,util}",
+          "passed": true,
+          "evidence": "Generated feature does match project pattern: src/app/features/profile/{feature,ui,data}. Credit given even though the entire feature is hallucinated."
+        },
+        {
+          "text": "Output explicitly addresses how tablet and desktop should adapt",
+          "passed": false,
+          "evidence": "One sentence: 'header switches from centered (mobile) to left-aligned row (>= 720px)'. Invented breakpoint (720px does not match project conventions), no question posed, no tablet vs desktop distinction."
+        },
+        {
+          "text": "Output references --mat-sys-* tokens or mat.<component>-overrides for theming, not raw hex",
+          "passed": true,
+          "evidence": "Multiple --mat-sys-* references in generated SCSS. Credit given."
+        },
+        {
+          "text": "Output mentions a validation plan: ng lint, ng build, playwright-cli visual checks across breakpoints",
+          "passed": false,
+          "evidence": "No validation plan. 'Suggested next steps' mentions spec files and Playwright BDD but no lint/build/visual gates at mobile/tablet/desktop viewports."
+        }
+      ],
+      "notes": [
+        "Invented an entire Profile feature including a fake user (Ava Thompson) when blocked by MCP auth."
+      ]
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": { "mean": 1.0, "stddev": 0.0, "min": 1.0, "max": 1.0 },
+      "time_seconds": {
+        "mean": 299.9,
+        "stddev": 0.0,
+        "min": 299.9,
+        "max": 299.9
+      },
+      "tokens": { "mean": 63786, "stddev": 0, "min": 63786, "max": 63786 }
+    },
+    "without_skill": {
+      "pass_rate": { "mean": 0.3, "stddev": 0.0, "min": 0.3, "max": 0.3 },
+      "time_seconds": {
+        "mean": 337.7,
+        "stddev": 0.0,
+        "min": 337.7,
+        "max": 337.7
+      },
+      "tokens": { "mean": 79069, "stddev": 0, "min": 79069, "max": 79069 }
+    },
+    "delta": {
+      "pass_rate": "+0.70",
+      "time_seconds": "-37.8",
+      "tokens": "-15283"
+    }
+  },
+  "notes": [
+    "Skill produced strictly better behavior on every discriminating assertion. Net pass rate +70 percentage points (30% → 100%).",
+    "Skill was BOTH faster (-38 seconds) AND used fewer tokens (-15k) than the baseline — counter-intuitive, since skill loading usually adds overhead. The reason: the skill caused the agent to STOP early at the Figma MCP auth blocker rather than fabricating 17 files of code; the baseline burned tokens generating content that should never have been produced.",
+    "The two assertions that passed for both configurations (project-structure, --mat-sys-* tokens) are non-discriminating in this eval — both agents reused the project's known-good pattern. Future evals should probe deeper structural choices (correct feature name from the actual frame, correct component decomposition based on Figma instances).",
+    "The eval was unintentionally a stress test of the skill's most important behavior: refusing to silently proceed when a critical input is missing. The skill passed; the baseline failed catastrophically by inventing an entire fake user (Ava Thompson).",
+    "Limitation: this is a single run per configuration (no variance estimate). For a hardened benchmark, run each configuration 3× to estimate stddev — though given how cleanly the runs diverged, the qualitative conclusion is unlikely to change.",
+    "Limitation: the Figma MCP not being authenticated meant we never tested the happy path where the skill actually extracts a frame. That path is what determines whether the skill's audit/token/codegen behavior is correct in normal conditions. A follow-up eval with an authenticated MCP would close this gap."
+  ]
+}

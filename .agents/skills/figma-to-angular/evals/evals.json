@@ -1,0 +1,13 @@
+{
+  "skill_name": "figma-to-angular",
+  "evals": [
+    {
+      "id": 1,
+      "name": "no-user-story-community-file",
+      "prompt": "Please build this Figma screen as a new feature in our Angular app: https://www.figma.com/design/zxKV5PL63p3nDkbR62MR03/Material-3-You--Sample-App-with-great-Prototype--Community-?node-id=24-3285&t=SaRBq3tmWNC9JpTy-4",
+      "expected_output": "Skill should: (1) recognize no user story was provided and ask the developer for one before coding; (2) fetch the frame via the Figma MCP server; (3) produce a written audit covering token census, components, inconsistencies, missing variants, and missing states (empty/loading/error/overflow); (4) surface an explicit numbered list of open questions; (5) NOT silently generate code that papers over the unknowns; (6) propose a feature folder name, route, and component breakdown consistent with src/app/features/*. Baseline (no skill) will likely jump straight to code without asking and without auditing token coverage.",
+      "files": [],
+      "assertions": []
+    }
+  ]
+}

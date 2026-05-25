@@ -1,0 +1,49 @@
+.profile-stats {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: center;
+  padding: 16px 8px;
+  border-radius: 24px;
+  background: var(--mat-sys-surface-container);
+  border: 1px solid
+    color-mix(in srgb, var(--mat-sys-outline-variant) 60%, transparent);
+}
+
+.profile-stats__item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  min-width: 0;
+}
+
+.profile-stats__value {
+  font-family: "Roboto Flex", Roboto, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--mat-sys-on-surface);
+  font-variation-settings: "opsz" 24;
+  letter-spacing: -0.01em;
+}
+
+.profile-stats__label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.profile-stats__divider {
+  width: 1px;
+  height: 32px;
+  background: color-mix(
+    in srgb,
+    var(--mat-sys-outline-variant) 80%,
+    transparent
+  );
+  align-self: center;
+}

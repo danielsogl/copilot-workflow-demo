@@ -1,0 +1,69 @@
+{
+  "eval_id": 1,
+  "eval_name": "no-user-story-community-file-authed-mcp",
+  "configuration": "with_skill",
+  "expectations": [
+    {
+      "text": "Output explicitly asks the developer for a user story / behavior description before generating finalized code",
+      "passed": true,
+      "evidence": "response.md asks 8 numbered questions; Q3 (FAB behavior), Q4 (Post model fields), Q5 (states: empty/loading/error/overflow), Q8 (navigation entry) are all behavior-level questions that must be answered before code. Section 'What I need from you' explicitly requires Q1, Q3, Q5, Q6, Q7 minimum before scaffolding."
+    },
+    {
+      "text": "Output shows evidence the agent successfully called mcp__figma__get_metadata / get_design_context / get_variable_defs and used the returned data",
+      "passed": true,
+      "evidence": "response.md §1: 'whoami, get_metadata on the page frame, and get_variable_defs succeeded.' 11 published variables listed with their actual Figma names (M3/sys/light/primary #9A4521, etc.) and mapped to --mat-sys-* roles. figma-extract.json contains the raw data."
+    },
+    {
+      "text": "Output correctly identifies the frame as a stacked-card feed (3× stacked-card + FAB + top-app-bar, mobile 411×731), NOT a Profile screen",
+      "passed": true,
+      "evidence": "Component inventory correctly enumerates: 'top-app-bar — 1× instance at (-1, 0) 412 × 64', '3× instances of the same master at y=99, 614, 1129, each 360 × 480', 'FAB — 1× plain frame (NOT a Figma component) at (331, 651), 56 × 56'. Frame called out as 'mobile only (411 × 731, Google Pixel 2 - 1)'. No Profile/Ava-Thompson hallucination."
+    },
+    {
+      "text": "Output contains a structured audit with actual numbers from the Figma extract",
+      "passed": true,
+      "evidence": "Audit has real numbers throughout: '100% bound at the page level' (11/11 variables), '24-25px side gutter', '35px vertical gap between consecutive stacked-card instances', '24px inset from the right and bottom edges for the FAB'. Names actual Figma variables (M3/sys/light/primary #9A4521)."
+    },
+    {
+      "text": "Output contains a numbered list of open questions for the developer to answer before final code generation",
+      "passed": true,
+      "evidence": "Section 'Risks I want you to resolve before I code': 8 numbered questions Q1–Q8."
+    },
+    {
+      "text": "Output addresses or at least names each of the five risks",
+      "passed": true,
+      "evidence": "Q1 = hierarchy / opaque card master (risk #4). Q5 = missing states (risk #5). Q6 = token gap on 35px (risk #2). Q7 = mobile-only Figma frame, responsive adaptation (covered). Inconsistencies section addresses risk #3 ('None visible at the page level'). Token census covers risk #1."
+    },
+    {
+      "text": "Output does NOT generate code based on guesses about behavior or invented data when Figma did not specify",
+      "passed": true,
+      "evidence": "Zero Angular code files written. Explicit 'won't write code until you ack'. proposed-tokens.scss is annotated declarations, not finalized. Behavioral defaults are stated explicitly ('Without answers I'll default to: empty = ...') giving the developer the chance to override."
+    },
+    {
+      "text": "Output proposes a feature folder name, route, and component breakdown derived from real stacked-card instance",
+      "passed": true,
+      "evidence": "'ui/stacked-card' proposed as 1:1 mapping with the Figma instance. 'feature/post-feed-page' as the routable container. Reuses the existing PostStore. Lazy route /posts shown."
+    },
+    {
+      "text": "Output explicitly addresses how tablet and desktop should adapt",
+      "passed": true,
+      "evidence": "Q7: 'Figma only has mobile. Three options on tablet/desktop: (a) keep a single centered column at ~640px wide, (b) two columns at tablet, three at desktop, (c) full-bleed list with wider cards.' Default stated, developer asked."
+    },
+    {
+      "text": "Output references --mat-sys-* tokens and shows the gap-closure ritual for tokens lacking a Material role match",
+      "passed": true,
+      "evidence": "All 11 Figma variables mapped to --mat-sys-* roles in a table. Three gap-closed declarations proposed with full annotations: --app-feed-side-gutter (24px), --app-feed-card-gap (35px, marked PROVISIONAL pending Q6), --app-fab-edge-inset (24px)."
+    },
+    {
+      "text": "Output mentions a validation plan: ng lint, ng build, playwright-cli visual checks across mobile/tablet/desktop",
+      "passed": true,
+      "evidence": "'Validation gates (per the skill)' section: 'After implementation: npx ng lint, npx ng build, Playwright visual check at mobile / tablet / desktop, behavior check (load → open card → FAB → create).'"
+    }
+  ],
+  "summary": {
+    "passed": 11,
+    "failed": 0,
+    "total": 11,
+    "pass_rate": 1.0
+  },
+  "summary_text": "11/11 passed. The skill performed as designed against real Figma data: extracted via MCP, produced a quantitative audit (real numbers and real variable names), correctly identified the component hierarchy without inventing semantics for the card master (which it couldn't read due to a Figma plan rate limit), addressed all five risks, asked 8 specific questions, and stopped short of code generation. It also correctly handled the rate-limit edge case: surfaced it to the developer rather than guessing the card's internal structure."
+}

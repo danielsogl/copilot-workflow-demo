@@ -1,0 +1,16 @@
+<div class="profile-stats" role="list" aria-label="Profile statistics">
+  <div class="profile-stats__item" role="listitem">
+    <span class="profile-stats__value">{{ stats().posts | number }}</span>
+    <span class="profile-stats__label">Posts</span>
+  </div>
+  <div class="profile-stats__divider" aria-hidden="true"></div>
+  <div class="profile-stats__item" role="listitem">
+    <span class="profile-stats__value">{{ stats().followers | number }}</span>
+    <span class="profile-stats__label">Followers</span>
+  </div>
+  <div class="profile-stats__divider" aria-hidden="true"></div>
+  <div class="profile-stats__item" role="listitem">
+    <span class="profile-stats__value">{{ stats().following | number }}</span>
+    <span class="profile-stats__label">Following</span>
+  </div>
+</div>

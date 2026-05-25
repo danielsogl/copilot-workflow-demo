@@ -1,0 +1,62 @@
+<div class="shop">
+  <mat-toolbar class="shop__app-bar" color="surface">
+    <button
+      mat-icon-button
+      type="button"
+      class="shop__menu-btn"
+      aria-label="Open navigation menu"
+      (click)="onOpenMenu()"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <h1 class="shop__title">Shop list</h1>
+
+    <span class="shop__spacer"></span>
+
+    <button
+      mat-icon-button
+      type="button"
+      class="shop__account-btn"
+      aria-label="Open account"
+      (click)="onOpenAccount()"
+    >
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <main class="shop__content">
+    @if (store.loading() && store.isEmpty()) {
+      <div class="shop__loading">
+        <mat-spinner diameter="40" />
+      </div>
+    } @else if (store.isEmpty()) {
+      <div class="shop__empty" role="status">
+        <mat-icon class="shop__empty-icon">storefront</mat-icon>
+        <p>No products available right now.</p>
+      </div>
+    } @else {
+      <ul class="shop__list" role="list">
+        @for (product of store.productsEntities(); track product.id) {
+          <li class="shop__list-item">
+            <app-product-card
+              [product]="product"
+              (buy)="onBuy($event)"
+              (favourite)="onToggleFavourite($event)"
+            />
+          </li>
+        }
+      </ul>
+    }
+  </main>
+
+  <button
+    mat-fab
+    type="button"
+    class="shop__fab"
+    aria-label="Open messages"
+    (click)="onOpenMessages()"
+  >
+    <mat-icon>chat_bubble</mat-icon>
+  </button>
+</div>

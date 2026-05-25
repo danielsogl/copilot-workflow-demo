@@ -1,0 +1,43 @@
+@let p = product();
+
+<mat-card class="product-card" appearance="raised">
+  <div class="product-card__media">
+    <img
+      class="product-card__image"
+      [src]="p.imageUrl"
+      [alt]="p.title"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="product-card__headline">
+    <h3 class="product-card__title">{{ p.title }}</h3>
+    <p class="product-card__price">
+      {{ p.price | currency: p.currency : "symbol" : "1.2-2" }}
+    </p>
+  </div>
+
+  <mat-card-content class="product-card__supporting">
+    <p class="product-card__description">{{ p.description }}</p>
+  </mat-card-content>
+
+  <div class="product-card__actions">
+    <button
+      mat-stroked-button
+      type="button"
+      class="product-card__action"
+      [attr.aria-pressed]="p.isFavourite"
+      (click)="favourite.emit(p)"
+    >
+      {{ favouriteLabel() }}
+    </button>
+    <button
+      mat-flat-button
+      type="button"
+      class="product-card__action"
+      (click)="buy.emit(p)"
+    >
+      Buy
+    </button>
+  </div>
+</mat-card>

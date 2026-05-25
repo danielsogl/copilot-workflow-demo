@@ -1,0 +1,129 @@
+:host {
+  display: block;
+  min-height: 100%;
+  background: var(--mat-sys-surface-container-low);
+}
+
+.shop {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+
+  &__app-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 64px;
+    padding: 0 4px;
+    background: var(--mat-sys-surface);
+    color: var(--mat-sys-on-surface);
+  }
+
+  &__title {
+    flex: 1 1 auto;
+    margin: 0;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0;
+    text-align: center;
+    color: var(--mat-sys-on-surface);
+  }
+
+  &__menu-btn,
+  &__account-btn {
+    color: var(--mat-sys-on-surface);
+  }
+
+  &__spacer {
+    display: none;
+  }
+
+  &__content {
+    flex: 1 1 auto;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    justify-items: center;
+  }
+
+  &__list-item {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  &__loading,
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 64px 16px;
+    color: var(--mat-sys-on-surface-variant);
+    text-align: center;
+  }
+
+  &__empty-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  &__fab {
+    position: fixed;
+    right: 16px;
+    bottom: 24px;
+    z-index: 20;
+    background-color: var(--mat-sys-secondary-container);
+    color: var(--mat-sys-on-secondary-container);
+  }
+}
+
+@media (min-width: 600px) {
+  .shop {
+    &__list {
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      justify-items: stretch;
+      gap: 24px;
+    }
+
+    &__list-item {
+      max-width: 100%;
+    }
+
+    &__fab {
+      right: 32px;
+      bottom: 32px;
+    }
+  }
+}
+
+@media (min-width: 960px) {
+  .shop {
+    &__list {
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 32px;
+    }
+
+    &__content {
+      padding: 32px;
+    }
+  }
+}

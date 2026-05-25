@@ -1,0 +1,29 @@
+<div class="profile-page">
+  @if (store.loading()) {
+    <div class="profile-page__loading">
+      <mat-spinner diameter="40" />
+    </div>
+  }
+
+  @let profile = store.profile();
+  @let stats = store.stats();
+
+  @if (profile) {
+    <app-profile-header
+      [profile]="profile"
+      [initials]="store.initials()"
+      (editProfile)="onEditProfile()"
+      (shareProfile)="onShareProfile()"
+    />
+  }
+
+  @if (stats) {
+    <app-profile-stats [stats]="stats" />
+  }
+
+  <app-settings-list
+    [groups]="store.settingGroups()"
+    (selectSetting)="onSelectSetting($event)"
+    (signOut)="onSignOut()"
+  />
+</div>

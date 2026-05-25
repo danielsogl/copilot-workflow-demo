@@ -1,0 +1,47 @@
+@for (group of groups(); track group.id) {
+  <section
+    class="settings-group"
+    [attr.aria-labelledby]="'settings-' + group.id"
+  >
+    <h2 [id]="'settings-' + group.id" class="settings-group__title">
+      {{ group.title }}
+    </h2>
+
+    <ul class="settings-group__list" role="list">
+      @for (item of group.items; track item.id; let last = $last) {
+        <li class="settings-group__item" role="listitem">
+          <button
+            type="button"
+            class="settings-row"
+            mat-ripple
+            [class.settings-row--last]="last"
+            (click)="selectSetting.emit(item)"
+          >
+            <span class="settings-row__icon-wrap" aria-hidden="true">
+              <mat-icon class="settings-row__icon">{{ item.icon }}</mat-icon>
+            </span>
+            <span class="settings-row__text">
+              <span class="settings-row__label">{{ item.label }}</span>
+              <span class="settings-row__description">
+                {{ item.description }}
+              </span>
+            </span>
+            <mat-icon class="settings-row__chevron" aria-hidden="true">
+              chevron_right
+            </mat-icon>
+          </button>
+        </li>
+      }
+    </ul>
+  </section>
+}
+
+<button
+  type="button"
+  class="settings-signout"
+  mat-ripple
+  (click)="signOut.emit()"
+>
+  <mat-icon class="settings-signout__icon">logout</mat-icon>
+  <span class="settings-signout__label">Sign out</span>
+</button>

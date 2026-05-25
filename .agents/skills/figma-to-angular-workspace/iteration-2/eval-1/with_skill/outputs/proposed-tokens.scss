@@ -1,0 +1,66 @@
+// Proposed additions to src/styles.scss for the "Posts feed" screen
+// (Figma file zxKV5PL63p3nDkbR62MR03, node 24:3285 — "Google Pixel 2 - 1").
+//
+// Mapping summary (extracted via mcp__figma__get_variable_defs):
+//
+//   Figma variable                     -> already covered by --mat-sys-*
+//   ------------------------------------------------------------------
+//   M3/sys/light/on-surface            -> --mat-sys-on-surface
+//   M3/sys/light/on-surface-variant    -> --mat-sys-on-surface-variant
+//   M3/sys/light/primary               -> --mat-sys-primary
+//   M3/sys/light/on-primary            -> --mat-sys-on-primary
+//   M3/sys/light/surface               -> --mat-sys-surface
+//   M3/sys/light/outline               -> --mat-sys-outline
+//   M3/sys/light/secondary-container   -> --mat-sys-secondary-container
+//   M3/body/medium                     -> --mat-sys-body-medium
+//   M3/label/large                     -> --mat-sys-label-large
+//   M3/title/large                     -> --mat-sys-title-large
+//   M3/Elevation Light/2               -> --mat-sys-level2
+//   M3/Elevation Light/3               -> --mat-sys-level3
+//
+// All eleven values resolve to existing --mat-sys-* roles. No new color, typography,
+// or shadow tokens are required for this frame. Hex values do not appear in component
+// SCSS — always reach for the mapped --mat-sys-* token.
+//
+// The only outliers are SPACING values that are not in the project scale (4/8/12/16/24/32):
+//   * 35px gap between consecutive stacked-cards
+//   * 35px gap between the top app bar and the first card
+//
+// These are token gaps. Close them once, here, and reuse in the feature SCSS.
+
+html {
+  // gap-closed: app-feed-card-gap — source: Figma "Google Pixel 2 - 1" (24:3285),
+  // raw value 35px (cards at y=99, 614, 1129 over the 480px-tall card master).
+  // Not on the project's 4/8/12/16/24/32 spacing scale.
+  // PROVISIONAL: the developer should confirm canonical value (35 / 32 / 36).
+  // Reuse via var(--app-feed-card-gap).
+  --app-feed-card-gap: 35px;
+
+  // gap-closed: app-feed-side-gutter — source: Figma "Google Pixel 2 - 1" (24:3285),
+  // raw value 25px (card x=25 against 411-wide frame; mirrored on the right).
+  // Material's standard mobile margin is 16dp, but this design uses 24-25dp.
+  // PROVISIONAL: confirm 24 vs 25. Reuse via var(--app-feed-side-gutter).
+  --app-feed-side-gutter: 24px;
+
+  // gap-closed: app-fab-edge-inset — source: Figma "Google Pixel 2 - 1" (24:3285),
+  // FAB at (331,651) on a 411x731 viewport = 24px from right edge and 24px from
+  // bottom edge. Matches Material 3's recommended FAB inset, so this is just an
+  // alias for clarity. Reuse via var(--app-fab-edge-inset).
+  --app-fab-edge-inset: 24px;
+}
+
+// NOTE: We do NOT add new color tokens for #9A4521, #FCFCFC, #201A18 etc.
+// They are already produced by the project's mat.theme palette (the generated
+// _theme-colors.scss). The Figma palette is identical-by-role to the Material 3
+// reference, so we use the system roles directly.
+
+// NOTE: Elevation. The Figma "stacked-card" appears at elevation 2 or 3 (cannot
+// confirm without inspecting the master, which was rate-limited). The
+// --mat-sys-level2 and --mat-sys-level3 tokens are already wired in by mat.theme
+// — no override needed in styles.scss for the card shadow itself.
+
+// NOTE: mat.card-overrides() in src/styles.scss currently sets
+//   elevated-container-shape: 16px
+//   elevated-container-color: var(--mat-sys-surface-container-low)
+// This is consistent with M3 large rounded cards. Once the stacked-card master
+// is inspected, verify radius (Material 3 default 12dp vs project 16dp).

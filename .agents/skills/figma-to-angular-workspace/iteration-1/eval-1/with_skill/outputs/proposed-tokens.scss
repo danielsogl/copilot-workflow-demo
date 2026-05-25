@@ -1,0 +1,98 @@
+// proposed-tokens.scss
+//
+// PLACEHOLDER — token gaps cannot be confirmed yet because the Figma MCP is
+// not authenticated and node 24:3285 has not been read. Once the frame is
+// extracted, every value that does NOT map to an existing --mat-sys-* token
+// will be closed here following the skill's gap-closure ritual:
+//
+//   1. Name it descriptively (--app-<kind>-<descriptor>), not numerically.
+//   2. Add it once, inside the html { ... } block in src/styles.scss
+//      (or, if it is a Material component property, via the matching
+//      mat.<component>-overrides() block).
+//   3. Annotate it with the exact comment form the skill requires:
+//        // gap-closed: <name> — source: Figma <frame>, raw value <value>.
+//        // Reuse via var(--app-<name>).
+//   4. Consume it from component SCSS via var(--app-<name>) — never the
+//      raw value at the call site.
+//
+// What follows is the SHAPE of what would be appended to src/styles.scss
+// inside the existing html { ... } block. Replace every <…> with real
+// values from the Figma extract.
+//
+// Existing overrides already in src/styles.scss (do NOT redeclare):
+//   mat.card-overrides       elevated-container-shape: 16px;
+//                            elevated-container-color: var(--mat-sys-surface-container-low);
+//   mat.fab-overrides        container-shape: 16px;
+//   mat.chips-overrides      container-shape-radius: 999px;
+//   mat.dialog-overrides     container-shape: 28px;
+//   mat.toolbar-overrides    container-background-color / container-text-color
+//
+// So those values are NOT gaps — only divergences from them are.
+
+// ---------------------------------------------------------------------------
+// EXAMPLES of how each gap kind would land. These are illustrative only.
+// Delete the ones that do not apply once the audit is complete.
+// ---------------------------------------------------------------------------
+
+html {
+  // -------------------------------------------------------------------------
+  // Spacing gaps — values outside the 4 / 8 / 12 / 16 / 24 / 32 scale.
+  // -------------------------------------------------------------------------
+
+  // gap-closed: app-space-2xs — source: Figma <frame name>, raw value 6px. Reuse via var(--app-space-2xs).
+  // --app-space-2xs: 6px;
+
+  // gap-closed: app-space-xs-plus — source: Figma <frame name>, raw value 14px. Reuse via var(--app-space-xs-plus).
+  // --app-space-xs-plus: 14px;
+
+  // -------------------------------------------------------------------------
+  // Corner / radius gaps — only when NOT already covered by an existing
+  // mat.<component>-overrides() shape (card 16px, dialog 28px, fab 16px,
+  // chips 999px). For Material primitives, prefer adding to the override
+  // block rather than minting a new CSS var.
+  // -------------------------------------------------------------------------
+
+  // gap-closed: app-corner-soft — source: Figma <frame>, raw value <Npx>. Reuse via var(--app-corner-soft).
+  // --app-corner-soft: <Npx>;
+
+  // -------------------------------------------------------------------------
+  // Shadow gaps — only when the Figma drop-shadow does NOT match any
+  // --mat-sys-level0..5 elevation token.
+  // -------------------------------------------------------------------------
+
+  // gap-closed: app-shadow-card-soft — source: Figma <frame/PostCard>, raw value 0 2px 14px -4px rgba(0,0,0,.12). Reuse via var(--app-shadow-card-soft).
+  // --app-shadow-card-soft: 0 2px 14px -4px rgb(0 0 0 / 12%);
+
+  // -------------------------------------------------------------------------
+  // Custom typography gaps — only when a Figma text style does NOT map to
+  // --mat-sys-display-*, -headline-*, -title-*, -body-*, or -label-*.
+  // Use the full font shorthand so it can be applied with one declaration.
+  // -------------------------------------------------------------------------
+
+  // gap-closed: app-text-hero — source: Figma <frame>, raw style "Roboto Flex 56/64, weight 600". Reuse via font: var(--app-text-hero).
+  // --app-text-hero: 600 3.5rem/1.143 "Roboto Flex", system-ui, sans-serif;
+
+  // -------------------------------------------------------------------------
+  // Color gaps — only when a fill or stroke is a raw hex AND does NOT
+  // semantically belong to a --mat-sys-* role. Prefer mapping to a
+  // --mat-sys-* token first; ONLY mint an --app-* color when no role fits.
+  // -------------------------------------------------------------------------
+
+  // gap-closed: app-accent-soft — source: Figma <frame>, raw value #FFC857. Reuse via var(--app-accent-soft).
+  // --app-accent-soft: #ffc857;
+}
+
+// ---------------------------------------------------------------------------
+// Material component-property gaps go here (NOT inside :root / html). Add to
+// the matching existing mat.<component>-overrides() block in styles.scss; do
+// not start a second block for the same component.
+// ---------------------------------------------------------------------------
+//
+// Example (DO NOT apply until extraction confirms the divergence):
+//
+//   @include mat.button-overrides((
+//     // gap-closed: button-filled-shape — source: Figma <frame>, primary button radius 14px.
+//     filled-container-shape: 14px,
+//     // gap-closed: button-filled-padding — source: Figma <frame>, primary button px 20.
+//     filled-horizontal-padding: 20px,
+//   ));

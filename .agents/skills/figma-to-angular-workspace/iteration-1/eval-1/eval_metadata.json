@@ -1,0 +1,47 @@
+{
+  "eval_id": 1,
+  "eval_name": "no-user-story-community-file",
+  "prompt": "Please build this Figma screen as a new feature in our Angular app: https://www.figma.com/design/zxKV5PL63p3nDkbR62MR03/Material-3-You--Sample-App-with-great-Prototype--Community-?node-id=24-3285&t=SaRBq3tmWNC9JpTy-4",
+  "assertions": [
+    {
+      "id": "asks-for-user-story",
+      "text": "Output explicitly asks the developer for a user story / behavior description before generating code"
+    },
+    {
+      "id": "fetches-via-figma-mcp",
+      "text": "Output shows evidence the agent attempted to fetch the frame via the Figma MCP server (mcp__figma__* tools) rather than guessing from the URL"
+    },
+    {
+      "id": "produces-audit",
+      "text": "Output contains a structured audit covering at minimum: token census (bound vs. raw counts), component identification, inconsistencies, and missing states"
+    },
+    {
+      "id": "surfaces-open-questions",
+      "text": "Output contains a numbered list of open questions for the developer to answer before coding"
+    },
+    {
+      "id": "names-the-five-risks",
+      "text": "Output addresses (or at least names) each of the five risks: missing tokens, token gaps, inconsistencies, hierarchy, missing states"
+    },
+    {
+      "id": "no-silent-guessing",
+      "text": "Output does NOT generate finalized Angular code that silently invents tokens, layouts, or behavior not present in the Figma file"
+    },
+    {
+      "id": "proposes-project-structure",
+      "text": "Output proposes a feature folder name, route, and component breakdown that fits src/app/features/<feature>/{feature,ui,data,util} structure"
+    },
+    {
+      "id": "covers-responsive-explicitly",
+      "text": "Output explicitly addresses how tablet and desktop should adapt (either using a variant from Figma or asking the developer)"
+    },
+    {
+      "id": "references-mat-sys-tokens",
+      "text": "Output references --mat-sys-* tokens or mat.<component>-overrides for theming, not raw hex"
+    },
+    {
+      "id": "mentions-validation-plan",
+      "text": "Output mentions a validation plan: ng lint, ng build, playwright-cli visual checks across breakpoints"
+    }
+  ]
+}

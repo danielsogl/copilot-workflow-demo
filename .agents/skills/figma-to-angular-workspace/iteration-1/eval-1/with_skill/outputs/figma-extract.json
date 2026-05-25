@@ -1,0 +1,89 @@
+{
+  "status": "blocked",
+  "reason": "Figma MCP server is installed but not authenticated in this session. Only mcp__figma__authenticate and mcp__figma__complete_authentication are exposed. Per the figma-to-angular skill, the skill must not work from screenshots or guess from the URL; it must call mcp__figma__authenticate, share the URL with the developer, and pause.",
+  "action_taken": "Called mcp__figma__authenticate; OAuth URL surfaced to the developer in response.md (section 1).",
+  "next_step_when_unblocked": [
+    "Developer authorizes via the OAuth URL.",
+    "Developer pastes the callback URL (http://localhost:63337/callback?code=…&state=…).",
+    "Call mcp__figma__complete_authentication with that callback_url.",
+    "Re-enumerate mcp__figma__* tools and call the node-read + variables/styles tools against node 24:3285.",
+    "Cache the raw JSON to /tmp/figma-24-3285.json.",
+    "Fill in the audit template in response.md section 4."
+  ],
+  "url_parse": {
+    "raw_url": "https://www.figma.com/design/zxKV5PL63p3nDkbR62MR03/Material-3-You--Sample-App-with-great-Prototype--Community-?node-id=24-3285&t=SaRBq3tmWNC9JpTy-4",
+    "url_kind": "design",
+    "file_key": "zxKV5PL63p3nDkbR62MR03",
+    "file_name_slug": "Material-3-You--Sample-App-with-great-Prototype--Community-",
+    "file_name_inferred": "Material 3 You — Sample App with great Prototype (Community)",
+    "node_id_url_form": "24-3285",
+    "node_id_canonical": "24:3285",
+    "tracking_param": "SaRBq3tmWNC9JpTy-4",
+    "points_at_single_frame": true,
+    "notes": "Community template. Likely contains many screens (settings, email, gallery, now playing, etc.). Without MCP access I will not assume which one node 24:3285 corresponds to."
+  },
+  "extraction_targets_when_unblocked": {
+    "frame_dimensions": null,
+    "variants_present": null,
+    "colors": {
+      "bound_to_variables": null,
+      "raw_hex": null,
+      "raw_hex_list": []
+    },
+    "typography": {
+      "bound_to_text_styles": null,
+      "local_styles": null,
+      "local_styles_list": []
+    },
+    "spacing": {
+      "scale_observed": [],
+      "outliers": []
+    },
+    "effects": {
+      "drop_shadows": [],
+      "match_elevation_token": []
+    },
+    "components": {
+      "instances": [],
+      "looks_like_component_but_isnt": [],
+      "detached_instances": []
+    },
+    "icons_observed": [],
+    "image_fills": []
+  },
+  "project_context_already_confirmed": {
+    "angular_prefix": "app",
+    "feature_folder_template": "src/app/features/<feature>/{data,feature,ui,util}",
+    "existing_features": ["ai-assistant", "auth", "posts", "tasks"],
+    "posts_feature_state": {
+      "has_data_layer": true,
+      "has_feature_or_ui": false,
+      "files_present": [
+        "src/app/features/posts/data/models/post.model.ts",
+        "src/app/features/posts/data/state/post-store.ts",
+        "src/app/features/posts/data/infrastructure/post-api.ts"
+      ],
+      "post_model_fields": ["userId", "id", "title", "body"]
+    },
+    "routes_registered": ["", "board", "assistant", "**"],
+    "routes_to_consider_adding": ["posts (or whatever the frame represents)"],
+    "global_material_overrides_in_styles_scss": {
+      "toolbar": {
+        "container-background-color": "--mat-sys-surface",
+        "container-text-color": "--mat-sys-on-surface"
+      },
+      "dialog": {
+        "container-shape": "28px",
+        "container-color": "--mat-sys-surface-container-high"
+      },
+      "card": {
+        "elevated-container-shape": "16px",
+        "elevated-container-color": "--mat-sys-surface-container-low"
+      },
+      "fab": { "container-shape": "16px" },
+      "chips": { "container-shape-radius": "999px" }
+    },
+    "body_background": "radial gradients tinted in --mat-sys-primary and --mat-sys-tertiary; new pages either let it show through or override explicitly",
+    "theme_palette_source": "src/theme/_theme-colors.scss (generated)"
+  }
+}

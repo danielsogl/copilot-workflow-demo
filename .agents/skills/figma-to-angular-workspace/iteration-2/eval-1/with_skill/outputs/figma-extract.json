@@ -1,0 +1,223 @@
+{
+  "source": {
+    "url": "https://www.figma.com/design/zxKV5PL63p3nDkbR62MR03/Material-3-You--Sample-App-with-great-Prototype--Community-?node-id=24-3285",
+    "fileKey": "zxKV5PL63p3nDkbR62MR03",
+    "nodeId": "24:3285",
+    "fileName": "Material-3-You--Sample-App-with-great-Prototype--Community-"
+  },
+  "authenticatedAs": {
+    "email": "daniel.sogl@thinktecture.com",
+    "handle": "Daniel Sogl",
+    "teams": [
+      "daniel.sogl's team (starter)",
+      "Thinktecture (pro)",
+      "KMS AG (org-view)"
+    ]
+  },
+  "rateLimitNote": "Figma MCP Starter-plan tool-call limit was hit after the first 3 successful calls (whoami, get_metadata for frame 24:3285, get_variable_defs). get_design_context, get_screenshot, and deeper get_metadata calls for the stacked-card/top-app-bar/FAB instances all returned 'tool call limit' errors. The data below is what we actually pulled; everything else is marked as an open question for the developer.",
+  "frame": {
+    "id": "24:3285",
+    "name": "Google Pixel 2 - 1",
+    "x": 2504,
+    "y": 1571,
+    "width": 411,
+    "height": 731,
+    "breakpoint": "mobile (matches Google Pixel 2 viewport, 411 logical px wide)",
+    "children": [
+      {
+        "id": "24:3279",
+        "type": "INSTANCE",
+        "name": "top-app-bar",
+        "x": -1,
+        "y": 0,
+        "width": 412,
+        "height": 64,
+        "notes": "Standard Material 3 top app bar (64dp). Slight 1px x-offset suggests full-bleed across the frame. Master component not inspected (rate-limited)."
+      },
+      {
+        "id": "17:377",
+        "type": "INSTANCE",
+        "name": "stacked-card",
+        "x": 25,
+        "y": 99,
+        "width": 360,
+        "height": 480,
+        "notes": "First stacked-card instance. Same master as the two below."
+      },
+      {
+        "id": "40:3368",
+        "type": "INSTANCE",
+        "name": "stacked-card",
+        "x": 25,
+        "y": 614,
+        "width": 360,
+        "height": 480,
+        "notes": "Second stacked-card instance. Vertical gap from previous card: 614 - (99+480) = 35px."
+      },
+      {
+        "id": "40:3381",
+        "type": "INSTANCE",
+        "name": "stacked-card",
+        "x": 25,
+        "y": 1129,
+        "width": 360,
+        "height": 480,
+        "notes": "Third stacked-card instance. Vertical gap from previous card: 1129 - (614+480) = 35px. Card extends past frame height (1609 > 731) -> the frame is a scroll container, not the visible viewport."
+      },
+      {
+        "id": "49:3709",
+        "type": "FRAME",
+        "name": "FAB",
+        "x": 331,
+        "y": 651,
+        "width": 56,
+        "height": 56,
+        "children": [
+          {
+            "id": "49:3710",
+            "name": "container",
+            "x": 0,
+            "y": 0,
+            "width": 56,
+            "height": 56
+          },
+          {
+            "id": "49:3713",
+            "name": "icon",
+            "x": 16,
+            "y": 16,
+            "width": 24,
+            "height": 24
+          }
+        ],
+        "notes": "Floating action button: 56x56 surface with 24x24 icon at 16,16 inset. NOT a Figma component instance, just a frame -> risk #4 candidate. Position 331,651 = 24px from right edge, 24px from bottom edge of the visible 411x731 viewport (since 411-(331+56)=24 and 731-(651+56)=24). Treat as the standard FAB anchored bottom-right with 24px insets."
+      }
+    ],
+    "layoutInference": {
+      "scroll": "Children at y=99, 614, 1129 with 480px tall cards means content height >= 1609px against a 731px viewport -> page is vertically scrollable",
+      "horizontalPadding": "Cards sit at x=25, are 360px wide. 25 + 360 + 25 (mirror) = 410, matches the 411 frame width within 1px. So horizontal page padding = 24-25px (likely 24dp Material side margin)",
+      "cardGap": "35px between cards. NOT on the 4/8/12/16/24/32 scale -> token gap (closest scale: 32). Recommend asking designer; provisional close as --app-feed-card-gap: 32px or 35px.",
+      "topOffset": "First card y=99, top-app-bar ends at y=64 -> 35px clear below the app bar. Same 35px outlier."
+    }
+  },
+  "variables": {
+    "color": {
+      "M3/sys/light/on-surface": "#201A18",
+      "M3/sys/light/on-surface-variant": "#52433E",
+      "M3/sys/light/primary": "#9A4521",
+      "M3/sys/light/on-primary": "#FFFFFF",
+      "M3/sys/light/surface": "#FCFCFC",
+      "M3/sys/light/outline": "#85736D",
+      "M3/sys/light/secondary-container": "#FFDBCD"
+    },
+    "typography": {
+      "M3/body/medium": {
+        "fontFamily": "Roboto",
+        "style": "Regular",
+        "weight": 400,
+        "size": 14,
+        "lineHeight": 20,
+        "letterSpacing": 0.25,
+        "matSysToken": "--mat-sys-body-medium"
+      },
+      "M3/label/large": {
+        "fontFamily": "Roboto",
+        "style": "Medium",
+        "weight": 500,
+        "size": 14,
+        "lineHeight": 20,
+        "letterSpacing": 0.1,
+        "matSysToken": "--mat-sys-label-large"
+      },
+      "M3/title/large": {
+        "fontFamily": "Roboto",
+        "style": "Regular",
+        "weight": 400,
+        "size": 22,
+        "lineHeight": 28,
+        "letterSpacing": 0,
+        "matSysToken": "--mat-sys-title-large"
+      }
+    },
+    "effects": {
+      "M3/Elevation Light/2": {
+        "shadows": [
+          {
+            "type": "DROP_SHADOW",
+            "color": "#00000026",
+            "offset": [0, 2],
+            "radius": 6,
+            "spread": 2
+          },
+          {
+            "type": "DROP_SHADOW",
+            "color": "#0000004D",
+            "offset": [0, 1],
+            "radius": 2,
+            "spread": 0
+          }
+        ],
+        "matSysToken": "--mat-sys-level2",
+        "boxShadow": "0 2px 6px 2px rgba(0,0,0,0.15), 0 1px 2px 0 rgba(0,0,0,0.3)"
+      },
+      "M3/Elevation Light/3": {
+        "shadows": [
+          {
+            "type": "DROP_SHADOW",
+            "color": "#0000004D",
+            "offset": [0, 1],
+            "radius": 3,
+            "spread": 0
+          },
+          {
+            "type": "DROP_SHADOW",
+            "color": "#00000026",
+            "offset": [0, 4],
+            "radius": 8,
+            "spread": 3
+          }
+        ],
+        "matSysToken": "--mat-sys-level3",
+        "boxShadow": "0 1px 3px 0 rgba(0,0,0,0.3), 0 4px 8px 3px rgba(0,0,0,0.15)"
+      }
+    }
+  },
+  "tokenCensus": {
+    "totalVariablesObservedOnNode": 11,
+    "colorsBound": 7,
+    "colorsRaw": 0,
+    "typographyBound": 3,
+    "typographyRaw": 0,
+    "effectsBound": 2,
+    "effectsRaw": 0,
+    "boundPercentage": "100% of observed values on the frame node itself reference published M3 variables. Bound rate INSIDE the stacked-card master is unknown (rate limited).",
+    "spacingScaleOutliers": ["35px (card vertical gap and below-app-bar gap)"]
+  },
+  "componentInventory": {
+    "instances": [
+      {
+        "name": "top-app-bar",
+        "count": 1,
+        "master": "unresolved (rate-limited)"
+      },
+      {
+        "name": "stacked-card",
+        "count": 3,
+        "master": "same master across 3 instances - reuse candidate -> ui/stacked-card"
+      }
+    ],
+    "frames_not_instances": [
+      {
+        "name": "FAB",
+        "note": "Pure frame, not a Figma component. Treat as a single <button mat-fab> in the page; do not create a ui/ wrapper."
+      }
+    ]
+  },
+  "openQuestionsFromExtraction": [
+    "stacked-card internal structure (media area, title, supporting text, actions) was not inspected because get_design_context was rate-limited. Need to either upgrade the Figma plan or have the developer paste the master component's structure.",
+    "top-app-bar variant is unresolved (small / center-aligned / medium / large). 64dp height matches the small/center-aligned variants.",
+    "FAB icon glyph is unknown - 24x24 frame, no Material icon name extractable here.",
+    "Card vertical gap is 35px - not on the 4/8/12/16/24/32 scale. Confirm canonical value (likely 32 or 36).",
+    "No tablet/desktop frame in this URL - only mobile (411x731). Tablet/desktop adaptation strategy must come from the developer."
+  ]
+}

@@ -1,0 +1,15 @@
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 760px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 8px 0 32px;
+}
+
+.profile-page__loading {
+  display: flex;
+  justify-content: center;
+  padding: 24px 0;
+}

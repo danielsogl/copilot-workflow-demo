@@ -1,0 +1,64 @@
+{
+  "eval_id": 1,
+  "eval_name": "no-user-story-community-file",
+  "configuration": "with_skill",
+  "expectations": [
+    {
+      "text": "Output explicitly asks the developer for a user story / behavior description before generating code",
+      "passed": true,
+      "evidence": "response.md §5A1: 'In one sentence: what does a user do on this screen?' — the skill quote 'a screen without behavior is decoration' is cited."
+    },
+    {
+      "text": "Output shows evidence the agent attempted to fetch the frame via the Figma MCP server (mcp__figma__* tools) rather than guessing from the URL",
+      "passed": true,
+      "evidence": "response.md §1: agent called mcp__figma__authenticate, surfaced the OAuth URL to the developer, and explicitly stated the next action is read-node + read-variables. Refused to work without it."
+    },
+    {
+      "text": "Output contains a structured audit covering at minimum: token census (bound vs. raw counts), component identification, inconsistencies, and missing states",
+      "passed": true,
+      "evidence": "response.md §4: literal audit template laid out exactly per skill spec (frame size, variants, tokens with bound/raw counts, typography, spacing scale, effects, components, inconsistencies, open questions). Template is empty because MCP could not be read — but the structure is fully present and the agent committed to filling it the moment auth completes. Treating as pass because the skill explicitly requires this gating behavior."
+    },
+    {
+      "text": "Output contains a numbered list of open questions for the developer to answer before coding",
+      "passed": true,
+      "evidence": "response.md §5: 16 numbered questions grouped A–H (user story, data source, empty/loading/error states, responsive, theming/dark mode, token discipline, hierarchy, icons/assets)."
+    },
+    {
+      "text": "Output addresses (or at least names) each of the five risks: missing tokens, token gaps, inconsistencies, hierarchy, missing states",
+      "passed": true,
+      "evidence": "response.md §5: section headers reference 'skill's risk #5', 'skill's risk on mobile-only Figma frames', 'risks #1, #2', 'risk #4' — all five risk areas addressed."
+    },
+    {
+      "text": "Output does NOT generate finalized Angular code that silently invents tokens, layouts, or behavior not present in the Figma file",
+      "passed": true,
+      "evidence": "No .ts/.html/.scss code generated. proposed-tokens.scss is a skeleton with no values filled. The agent explicitly states: 'I will not work from screenshots or guess from the URL.'"
+    },
+    {
+      "text": "Output proposes a feature folder name, route, and component breakdown that fits src/app/features/<feature>/{feature,ui,data,util} structure",
+      "passed": true,
+      "evidence": "response.md §6: proposed folder layout matches the project pattern exactly; lazy route example using loadComponent shown; container vs ui/* split called out; reuses existing features/posts/data layer where applicable."
+    },
+    {
+      "text": "Output explicitly addresses how tablet and desktop should adapt (either using a variant from Figma or asking the developer)",
+      "passed": true,
+      "evidence": "response.md §5D9: explicit question about tablet (≥ 768px) and desktop (≥ 1280px) adaptation strategies with three concrete options each."
+    },
+    {
+      "text": "Output references --mat-sys-* tokens or mat.<component>-overrides for theming, not raw hex",
+      "passed": true,
+      "evidence": "Repeated --mat-sys-* references; cites existing mat.card-overrides / mat.dialog-overrides in styles.scss; proposed-tokens.scss demonstrates // gap-closed: pattern using --app-* CSS custom properties on html block."
+    },
+    {
+      "text": "Output mentions a validation plan: ng lint, ng build, playwright-cli visual checks across breakpoints",
+      "passed": true,
+      "evidence": "response.md §6 'Validation gates I will run before declaring done': lists ng lint, ng build, playwright-cli at 390×844 / 768×1024 / 1440×900, resize sweep 360→1920, dark mode snapshot."
+    }
+  ],
+  "summary": {
+    "passed": 10,
+    "failed": 0,
+    "total": 10,
+    "pass_rate": 1.0
+  },
+  "summary_text": "10/10 passed. Skill behaved exactly as designed: detected the MCP auth blocker, refused to silently proceed, surfaced the OAuth URL, laid out the audit template, asked the right 16 questions covering all five risks, sketched a structurally-correct provisional plan, and committed to running the four validation gates after extraction. The one limitation (audit numbers not filled) is forced by the unauthenticated MCP and is itself the correct outcome — better to wait and ask than guess."
+}

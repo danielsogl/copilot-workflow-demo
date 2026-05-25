@@ -1,0 +1,30 @@
+<!-- Proposed update to src/app/core/navbar/navbar.html — adds a Shop link. -->
+<div class="app-toolbar-scrim" aria-hidden="true"></div>
+<mat-toolbar class="app-toolbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">
+      <mat-icon>dashboard</mat-icon>
+    </span>
+    <div class="brand-text">
+      <span class="title">Task Board</span>
+      <span class="subtitle">Workflow demo</span>
+    </div>
+  </div>
+
+  <span class="spacer"></span>
+
+  <nav class="nav-links" aria-label="Primary">
+    <a mat-button routerLink="/board" routerLinkActive="active-link">
+      <mat-icon>view_kanban</mat-icon>
+      <span>Board</span>
+    </a>
+    <a mat-button routerLink="/shop" routerLinkActive="active-link">
+      <mat-icon>storefront</mat-icon>
+      <span>Shop</span>
+    </a>
+    <a mat-button routerLink="/assistant" routerLinkActive="active-link">
+      <mat-icon>auto_awesome</mat-icon>
+      <span>AI Assistant</span>
+    </a>
+  </nav>
+</mat-toolbar>

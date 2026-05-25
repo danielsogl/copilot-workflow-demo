@@ -1,0 +1,209 @@
+{
+  "metadata": {
+    "skill_name": "figma-to-angular",
+    "skill_path": "/Users/danielsogl/Developer/Personal/workshops/copilot-workflow-demo/.agents/skills/figma-to-angular",
+    "executor_model": "claude-opus-4-7",
+    "timestamp": "2026-05-25T14:05:00Z",
+    "evals_run": [1],
+    "runs_per_configuration": 1,
+    "iteration": 2,
+    "previous_iteration": "iteration-1"
+  },
+  "runs": [
+    {
+      "eval_id": 1,
+      "eval_name": "no-user-story-community-file-authed-mcp",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 11,
+        "failed": 0,
+        "total": 11,
+        "time_seconds": 269.5,
+        "tokens": 58583,
+        "tool_calls": 27,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output explicitly asks the developer for a user story / behavior description before generating finalized code",
+          "passed": true,
+          "evidence": "8 numbered questions before scaffolding; Q3/Q4/Q5/Q8 cover behavior. Section 'What I need from you' enumerates blocking questions."
+        },
+        {
+          "text": "Output shows evidence the agent successfully called mcp__figma__get_metadata / get_design_context / get_variable_defs and used the returned data",
+          "passed": true,
+          "evidence": "11 published variables listed with real Figma names and hex values (M3/sys/light/primary #9A4521); figma-extract.json contains raw data."
+        },
+        {
+          "text": "Output correctly identifies the frame as a stacked-card feed (3× stacked-card + FAB + top-app-bar, mobile 411×731)",
+          "passed": true,
+          "evidence": "Component inventory accurate to coordinates: top-app-bar at (-1,0) 412×64, 3× stacked-card at y=99/614/1129 360×480, FAB at (331,651) 56×56. Frame 411×731 'Google Pixel 2 - 1'."
+        },
+        {
+          "text": "Output contains a structured audit with actual numbers from the Figma extract",
+          "passed": true,
+          "evidence": "100% bound at page level (11/11), 24-25px side gutter, 35px gap outlier flagged, 24px FAB inset, M3 elevation 2/3 mapped."
+        },
+        {
+          "text": "Output contains a numbered list of open questions for the developer to answer before final code generation",
+          "passed": true,
+          "evidence": "Q1–Q8 explicit numbered list under 'Risks I want you to resolve before I code'."
+        },
+        {
+          "text": "Output addresses or at least names each of the five risks",
+          "passed": true,
+          "evidence": "Q1 = opaque card master (risk #4), Q5 = missing states (#5), Q6 = 35px token gap (#2), Q7 = mobile-only responsive (covered). Inconsistencies section addresses #3. Token census covers #1."
+        },
+        {
+          "text": "Output does NOT generate code based on guesses about behavior or invented data",
+          "passed": true,
+          "evidence": "Zero Angular code files. Explicit 'won't write code until you ack'. Defaults stated as defaults, not as decisions."
+        },
+        {
+          "text": "Output proposes a feature folder name, route, and component breakdown derived from real stacked-card instance",
+          "passed": true,
+          "evidence": "features/posts/{data,feature/post-feed-page,ui/stacked-card}, lazy /posts route, reuses existing PostStore."
+        },
+        {
+          "text": "Output explicitly addresses how tablet and desktop should adapt",
+          "passed": true,
+          "evidence": "Q7 offers three explicit options with a stated default and asks the developer to pick."
+        },
+        {
+          "text": "Output references --mat-sys-* tokens and shows the gap-closure ritual",
+          "passed": true,
+          "evidence": "11/11 Figma variables mapped to --mat-sys-*; three gap-closed declarations with annotations in proposed-tokens.scss."
+        },
+        {
+          "text": "Output mentions a validation plan: ng lint, ng build, playwright-cli visual checks across mobile/tablet/desktop",
+          "passed": true,
+          "evidence": "Validation gates section: ng lint, ng build, playwright at mobile/tablet/desktop, behavior check."
+        }
+      ],
+      "notes": [
+        "Figma Starter plan rate-limited after 3 tool calls. Agent surfaced this honestly and adapted: page-level audit complete, card master unread → Q1 makes that explicit blocker visible to the developer.",
+        "Agent's framing of the screen as 'Posts feed' (vs the baseline's 'Shop list') is grounded in the existing features/posts/data/ shell — a sensible default that the developer can correct via the open questions."
+      ]
+    },
+    {
+      "eval_id": 1,
+      "eval_name": "no-user-story-community-file-authed-mcp",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.4545,
+        "passed": 5,
+        "failed": 6,
+        "total": 11,
+        "time_seconds": 260.1,
+        "tokens": 79018,
+        "tool_calls": 43,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output explicitly asks the developer for a user story / behavior description before generating finalized code",
+          "passed": false,
+          "evidence": "Behavioral decisions made unilaterally (toggleFavourite, currency formatting, image URLs as Unsplash placeholders). No blocking questions."
+        },
+        {
+          "text": "Output shows evidence the agent successfully called mcp__figma__get_metadata / get_design_context / get_variable_defs and used the returned data",
+          "passed": true,
+          "evidence": "Called get_design_context; figma-reference.png from get_screenshot saved; real frame content (Shop list, warm-brown palette #9A4521) used."
+        },
+        {
+          "text": "Output correctly identifies the frame as a stacked-card feed (3× stacked-card + FAB + top-app-bar, mobile 411×731)",
+          "passed": true,
+          "evidence": "Identified as 'Shop list' with 3 product cards, top app bar, FAB. Mostly correct (interpreted cards as products vs posts — open question)."
+        },
+        {
+          "text": "Output contains a structured audit with actual numbers from the Figma extract",
+          "passed": false,
+          "evidence": "No structured audit. No token census, no inconsistencies section, no quantitative breakdown."
+        },
+        {
+          "text": "Output contains a numbered list of open questions for the developer to answer before final code generation",
+          "passed": false,
+          "evidence": "No questions. 'What I deliberately did NOT do' lists post-hoc choices, after 14 generated files."
+        },
+        {
+          "text": "Output addresses or at least names each of the five risks",
+          "passed": false,
+          "evidence": "No risk-by-risk walkthrough; some risks (token discipline) implicitly handled, others (missing states, hierarchy, behavior) not."
+        },
+        {
+          "text": "Output does NOT generate code based on guesses about behavior or invented data",
+          "passed": false,
+          "evidence": "14 files generated. Invented Product model fields (sku, favourite, description), Unsplash placeholder images, USD currency upgrade, toggleFavourite method ('the Figma file documents the card as a stateful component but only shows the default state'). product-store.spec.ts uses Vitest globals that don't type-check at the project tsconfig level."
+        },
+        {
+          "text": "Output proposes a feature folder name, route, and component breakdown derived from real stacked-card instance",
+          "passed": true,
+          "evidence": "Generated features/shop/{feature,ui,data} matches project pattern."
+        },
+        {
+          "text": "Output explicitly addresses how tablet and desktop should adapt",
+          "passed": true,
+          "evidence": "Responsive grid coded (≤600px single col, ≥600px auto-fill minmax, ≥960px denser). Not asked, decided unilaterally."
+        },
+        {
+          "text": "Output references --mat-sys-* tokens and shows the gap-closure ritual",
+          "passed": true,
+          "evidence": "Colors via var(--mat-sys-*); no gap-closed comments but token discipline acceptable."
+        },
+        {
+          "text": "Output mentions a validation plan: ng lint, ng build, playwright-cli visual checks across mobile/tablet/desktop",
+          "passed": false,
+          "evidence": "No validation plan; only 'did not run ng lint/build per task constraints' framed as what was skipped."
+        }
+      ],
+      "notes": [
+        "Major improvement on the 'names-real-frame' assertion over iter-1: iter-1 baseline hallucinated a Profile screen because it could not read Figma; iter-2 baseline correctly identified Shop list because the MCP returned real data. The diagnostic delta between the two iterations shows what Figma access alone buys (frame accuracy) and what only the skill methodology buys (audit, questions, no-fabrication discipline).",
+        "Spec file uses Vitest globals (describe, vi, beforeEach) without importing them or aligning to the project's tsconfig — confirmed by IDE diagnostics during this session. The code wouldn't pass ng lint or build without fixes."
+      ]
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": { "mean": 1.0, "stddev": 0.0, "min": 1.0, "max": 1.0 },
+      "time_seconds": {
+        "mean": 269.5,
+        "stddev": 0.0,
+        "min": 269.5,
+        "max": 269.5
+      },
+      "tokens": { "mean": 58583, "stddev": 0, "min": 58583, "max": 58583 }
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 0.4545,
+        "stddev": 0.0,
+        "min": 0.4545,
+        "max": 0.4545
+      },
+      "time_seconds": {
+        "mean": 260.1,
+        "stddev": 0.0,
+        "min": 260.1,
+        "max": 260.1
+      },
+      "tokens": { "mean": 79018, "stddev": 0, "min": 79018, "max": 79018 }
+    },
+    "delta": {
+      "pass_rate": "+0.5455",
+      "time_seconds": "+9.4",
+      "tokens": "-20435"
+    }
+  },
+  "notes": [
+    "Iter-2 comparison with real Figma data: +55 percentage points pass rate, fewer tokens (-20k), comparable wall time (+9s). The skill kept its discriminating value even though both runs now have access to ground truth.",
+    "What Figma MCP access alone changed: the baseline went from 30% → 45% pass rate. It correctly identified the frame ('Shop list' instead of the iter-1 hallucinated 'Profile / Ava Thompson'). It still failed the methodology assertions: no audit, no open questions, no validation plan, generated invented behavior (toggleFavourite, currency, photos).",
+    "What only the skill provides: the audit-first discipline. The skill identified the Figma Starter plan rate-limit, surfaced it as Q1 (opaque card master), and stopped — exactly the behavior the developer would want, since proceeding without the card master's internals would produce wrong code.",
+    "Discriminating assertions (passed only by with_skill): asks-for-user-story, produces-real-audit, surfaces-open-questions, names-the-five-risks, no-silent-guessing, mentions-validation-plan. These six assertions are the skill's signature.",
+    "Non-discriminating assertions (passed by both): proposes-project-structure, references-mat-sys-tokens, covers-responsive-explicitly (baseline passed by writing code, with-skill passed by asking — same surface symbol, different methodology). Consider replacing the non-discriminating ones in future evals with tighter checks (e.g., 'feature folder name matches the user's request' rather than 'follows the project pattern').",
+    "The skill cost less than the baseline (-20k tokens, -15k from iter-1 too) because stopping early avoids generating 14 files of code that would need to be discarded. Skills that gate-keep can be net-cheaper than baselines that overshoot.",
+    "The baseline's product-store.spec.ts triggers IDE diagnostics (Vitest globals undeclared) — confirming the 'just blast code' approach generated code that won't build without fixes. The skill's 'validation gates' section would have caught this before merge."
+  ]
+}

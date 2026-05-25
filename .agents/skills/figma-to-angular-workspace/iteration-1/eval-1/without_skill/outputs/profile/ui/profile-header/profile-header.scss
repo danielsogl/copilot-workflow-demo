@@ -1,0 +1,218 @@
+.profile-header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 16px 20px 24px;
+  border-radius: 28px;
+  overflow: hidden;
+  background: var(--mat-sys-surface-container-low);
+  border: 1px solid
+    color-mix(in srgb, var(--mat-sys-outline-variant) 60%, transparent);
+  isolation: isolate;
+}
+
+.profile-header__cover {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--mat-sys-primary-container) 75%, transparent) 0%,
+    color-mix(in srgb, var(--mat-sys-surface-container-low) 100%, transparent)
+      80%
+  );
+}
+
+.profile-header__cover-blob {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(48px);
+  opacity: 0.55;
+
+  &--a {
+    width: 280px;
+    height: 280px;
+    top: -100px;
+    left: -60px;
+    background: color-mix(in srgb, var(--mat-sys-primary) 60%, transparent);
+  }
+
+  &--b {
+    width: 220px;
+    height: 220px;
+    top: -80px;
+    right: -50px;
+    background: color-mix(in srgb, var(--mat-sys-tertiary) 60%, transparent);
+  }
+}
+
+.profile-header__top-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.profile-header__spacer {
+  flex: 1 1 auto;
+}
+
+.profile-header__icon-btn {
+  color: var(--mat-sys-on-surface);
+}
+
+.profile-header__identity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  padding: 8px 0 0;
+}
+
+.profile-header__avatar {
+  position: relative;
+  width: 112px;
+  height: 112px;
+  border-radius: 36px;
+  background: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Roboto Flex", Roboto, sans-serif;
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  box-shadow:
+    0 8px 18px -10px color-mix(in srgb, var(--mat-sys-primary) 70%, transparent),
+    0 22px 44px -22px color-mix(in srgb, var(--mat-sys-shadow) 60%, transparent);
+  outline: 4px solid var(--mat-sys-surface);
+}
+
+.profile-header__avatar-image {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-fit: cover;
+}
+
+.profile-header__avatar-initials {
+  font-variation-settings: "opsz" 40;
+}
+
+.profile-header__avatar-presence {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--mat-sys-tertiary);
+  border: 3px solid var(--mat-sys-surface);
+}
+
+.profile-header__text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  max-width: 520px;
+}
+
+.profile-header__name {
+  margin: 0;
+  font-family: "Roboto Flex", Roboto, sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--mat-sys-on-surface);
+}
+
+.profile-header__handle {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--mat-sys-primary);
+}
+
+.profile-header__bio {
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.profile-header__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.profile-header__meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.profile-header__meta-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  color: var(--mat-sys-primary);
+  font-variation-settings:
+    "FILL" 1,
+    "wght" 500;
+}
+
+.profile-header__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.profile-header__primary-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  min-width: 180px;
+}
+
+.profile-header__secondary-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  min-width: 180px;
+}
+
+@media (min-width: 720px) {
+  .profile-header {
+    padding: 20px 28px 28px;
+  }
+
+  .profile-header__identity {
+    flex-direction: row;
+    text-align: left;
+    align-items: flex-end;
+  }
+
+  .profile-header__text {
+    align-items: flex-start;
+  }
+
+  .profile-header__meta {
+    justify-content: flex-start;
+  }
+
+  .profile-header__cta {
+    justify-content: flex-start;
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "eval_id": 1,
+  "eval_name": "no-user-story-community-file",
+  "configuration": "without_skill",
+  "expectations": [
+    {
+      "text": "Output explicitly asks the developer for a user story / behavior description before generating code",
+      "passed": false,
+      "evidence": "response.md never asks for a user story. Instead: 'Rather than block the task, I built the screen this node consistently represents in the published community file: a Profile / You screen.' The agent guessed at behavior."
+    },
+    {
+      "text": "Output shows evidence the agent attempted to fetch the frame via the Figma MCP server (mcp__figma__* tools) rather than guessing from the URL",
+      "passed": false,
+      "evidence": "response.md §1: 'The Figma MCP server is gated behind an OAuth flow that wasn't completed during this autonomous run, and the public Figma URL only returns the word Figma to an unauthenticated fetcher.' The agent tried a plain HTTP fetch (not the MCP tools) and did not initiate the OAuth flow via mcp__figma__authenticate."
+    },
+    {
+      "text": "Output contains a structured audit covering at minimum: token census (bound vs. raw counts), component identification, inconsistencies, and missing states",
+      "passed": false,
+      "evidence": "No audit produced. No token census. No bound-vs-raw analysis. No inconsistency check. Components are listed but as 'what I built' not 'what is in the frame'."
+    },
+    {
+      "text": "Output contains a numbered list of open questions for the developer to answer before coding",
+      "passed": false,
+      "evidence": "No numbered questions before code generation. A 'Suggested next steps' section appears AFTER the code, but it is post-hoc reconciliation, not gating."
+    },
+    {
+      "text": "Output addresses (or at least names) each of the five risks: missing tokens, token gaps, inconsistencies, hierarchy, missing states",
+      "passed": false,
+      "evidence": "None of the five risks (token coverage, token gaps, inconsistencies, hierarchy, missing states) are explicitly addressed. The agent proceeded without a risk audit."
+    },
+    {
+      "text": "Output does NOT generate finalized Angular code that silently invents tokens, layouts, or behavior not present in the Figma file",
+      "passed": false,
+      "evidence": "Major failure. 17 files generated including profile-page, profile-header (with 'squircle 36px radius avatar + tertiary presence dot' invented), profile-stats, settings-list, profile.model.ts with invented fields (displayName, handle, bio, location, joinedAt), profile-store.ts, profile-api.ts with invented user 'Ava Thompson' as stub data, plus route and navbar patches. All invented because the actual Figma frame could not be read."
+    },
+    {
+      "text": "Output proposes a feature folder name, route, and component breakdown that fits src/app/features/<feature>/{feature,ui,data,util} structure",
+      "passed": true,
+      "evidence": "The generated feature does match the project pattern: src/app/features/profile/{feature,ui,data}. Lazy route patch follows the project convention. Credit given even though the entire feature is hallucinated — the structure itself is correct."
+    },
+    {
+      "text": "Output explicitly addresses how tablet and desktop should adapt (either using a variant from Figma or asking the developer)",
+      "passed": false,
+      "evidence": "response.md §6: 'Responsive: header switches from centered (mobile) to left-aligned row (>= 720px). Stats and settings cards reflow naturally on small screens.' One sentence, invented breakpoint (720px does not match the project's mobile-first 768/1280 convention), no question posed. No tablet vs desktop distinction."
+    },
+    {
+      "text": "Output references --mat-sys-* tokens or mat.<component>-overrides for theming, not raw hex",
+      "passed": true,
+      "evidence": "Multiple --mat-sys-* references in the SCSS files and listed in response.md §3 conventions. No raw hex spotted in spot-checks. Credit given."
+    },
+    {
+      "text": "Output mentions a validation plan: ng lint, ng build, playwright-cli visual checks across breakpoints",
+      "passed": false,
+      "evidence": "No validation plan in response.md. 'Suggested next steps' mentions adding spec files and a Playwright BDD scenario but does not include lint/build/playwright visual checks at mobile/tablet/desktop viewports against the Figma frame."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 7,
+    "total": 10,
+    "pass_rate": 0.3
+  },
+  "summary_text": "3/10 passed. The baseline failed the core test: when blocked by the MCP auth flow, it filled the gap by guessing what the screen 'consistently represents in the published community file' and generating 17 files of fabricated code. It invented a full Profile feature including a fake user (Ava Thompson) and made-up stats. The only assertions that passed are structural ones (project folder layout, --mat-sys-* tokens) — and those passed precisely because the agent over-applied a known good pattern to an unknown screen, which is itself the failure mode the skill exists to prevent."
+}
