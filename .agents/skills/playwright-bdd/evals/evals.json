@@ -1,0 +1,33 @@
+{
+  "skill_name": "playwright-bdd",
+  "evals": [
+    {
+      "id": 1,
+      "name": "feature-only-task-deletion",
+      "prompt": "I just added a delete-task feature to the kanban board — there's a trash icon on each task card that opens a confirm dialog, and after confirming the task disappears. Can you write a BDD feature file for this? The existing features live in tests/bdd/features/ and we already have steps for loading the board and seeing tasks in columns.",
+      "expected_output": "A new .feature file under tests/bdd/features/ that reuses the existing 'task board is loaded with seed data' background step, contains 2-3 scenarios (happy path delete, cancel from dialog, possibly delete-from-multiple-columns), reads declaratively (no CSS selectors in Gherkin), and has appropriate Feature/As-a-I-want-So-that header.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "generate-steps-for-feature",
+      "prompt": "Here's a feature file I wrote for filtering tasks by date range. Can you generate the Playwright step definitions? The file is at tests/bdd/features/task-date-filter.feature with these scenarios:\n\nFeature: Filter tasks by due date\n  Background:\n    Given the task board is loaded with seed data\n\n  Scenario: Filter tasks due this week\n    When I open the date filter\n    And I select the \"This week\" preset\n    Then I should only see tasks due this week\n\n  Scenario: Filter tasks by custom date range\n    When I open the date filter\n    And I set the start date to \"02/15/2026\"\n    And I set the end date to \"02/25/2026\"\n    And I apply the filter\n    Then every visible task should have a due date between \"02/15/2026\" and \"02/25/2026\"\n\nUse the existing fixture file at tests/fixtures/api-mock.ts.",
+      "expected_output": "A tests/bdd/steps/task-date-filter.ts file that: imports test+expect from ../../fixtures/api-mock, uses createBdd(test) like the existing task-management.ts, implements each undefined step (not the background — that already exists), uses getByRole/getByLabel/getByText over CSS, uses await expect(...) web-first assertions, and handles the Material datepicker pattern with pressSequentially+Tab.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "scenario-outline-end-to-end",
+      "prompt": "Write a complete BDD test (feature + steps) for editing a task's priority. The user clicks a task card to open an edit dialog, changes the priority dropdown, clicks Save. Use a Scenario Outline so we cover changing from low→medium, low→high, medium→high, high→low. Place files in tests/bdd/features/ and tests/bdd/steps/, and import from the existing api-mock fixtures.",
+      "expected_output": "Two files: a .feature with one Scenario Outline + Examples table covering 4 priority transitions (with parameterized scenario name for unique titles), and a steps .ts file that implements the open-edit/change-priority/save flow, scopes interactions to the mat-dialog-container, and asserts the priority badge updated. Step file uses createBdd(test) imported from the project's fixture module.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "tags-and-data-table",
+      "prompt": "We need a BDD scenario for bulk task creation. The user opens a 'Bulk add' dialog, pastes a list of titles (one per line), picks a priority for all of them, clicks Create All. Write the feature using a Gherkin data table for the titles, tag it @bulk and @slow because it triples the seed size, and generate the matching steps. Make sure the steps work with our route-mocked API in tests/fixtures/api-mock.ts.",
+      "expected_output": "Feature file with @bulk @slow tags, a scenario containing a Gherkin data table of titles (`| title |` rows), and step definitions that consume the DataTable parameter via .hashes() or similar. The 'create all' step iterates the rows. Step file uses the project's fixture import and Playwright web-first assertions. The @slow tag's implication (timeout bump) is either noted in the steps or handled via $test.setTimeout / a Before hook.",
+      "files": []
+    }
+  ]
+}

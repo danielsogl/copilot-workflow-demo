@@ -1,0 +1,60 @@
+import { createBdd } from "playwright-bdd";
+import { test, expect } from "../../fixtures/api-mock";
+
+const { Given, When, Then } = createBdd(test);
+
+Given("the task board is loaded with seed data", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".task-card").first()).toBeVisible();
+});
+
+When("I search for {string}", async ({ page }, term: string) => {
+  await page.getByRole("searchbox", { name: "Search tasks" }).fill(term);
+});
+
+When(
+  "I filter results by {string} priority",
+  async ({ page }, priority: string) => {
+    await page
+      .getByRole("group", { name: "Priority filter" })
+      .getByRole("button", { name: priority, exact: true })
+      .click();
+  },
+);
+
+Then(
+  "I should see {string} in the results",
+  async ({ page }, title: string) => {
+    await expect(
+      page.getByRole("list", { name: "Search results" }).getByText(title),
+    ).toBeVisible();
+  },
+);
+
+Then("I should see {int} search result(s)", async ({ page }, count: number) => {
+  await expect(
+    page.getByRole("list", { name: "Search results" }).getByRole("listitem"),
+  ).toHaveCount(count);
+});
+
+Then(
+  "every visible result should have priority {string}",
+  async ({ page }, priority: string) => {
+    const results = page
+      .getByRole("list", { name: "Search results" })
+      .getByRole("listitem");
+    const count = await results.count();
+    for (let i = 0; i < count; i++) {
+      await expect(results.nth(i).locator(`.badge--${priority}`)).toBeVisible();
+    }
+  },
+);
+
+Then(
+  "I should see the empty state message {string}",
+  async ({ page }, message: string) => {
+    await expect(
+      page.getByRole("status").filter({ hasText: message }),
+    ).toBeVisible();
+  },
+);
