@@ -25,6 +25,11 @@
     "figma": {
       "url": "https://mcp.figma.com/mcp",
       "type": "http"
+    },
+    "codegraph": {
+      "type": "stdio",
+      "command": "codegraph",
+      "args": ["serve", "--mcp"]
     }
   }
 }
