@@ -75,13 +75,23 @@
     },
     {
       "id": "pOArVMEynEo",
-      "title": "Client presentation",
+      "title": "Client presentation (mobile edit)",
       "description": "Present project progress to stakeholders and gather feedback",
       "status": "todo",
       "priority": "high",
       "dueDate": "2026-02-27",
       "createdAt": "2026-02-06",
       "order": 0
+    },
+    {
+      "title": "Mobile smoke test task",
+      "description": "Created from mobile viewport",
+      "priority": "medium",
+      "dueDate": "2026-12-31",
+      "status": "todo",
+      "order": 3,
+      "createdAt": "2026-05-28",
+      "id": "yPFZzVcQfxY"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
