@@ -1,22 +1,20 @@
 // spec: specs/mobile-view.plan.md
+// seed: tests/mobile/seed.spec.ts
 
 import { test, expect } from "@playwright/test";
 
 test.describe("mobile-layout", () => {
-  test.use({ viewport: { width: 390, height: 844 } });
+  test.use({ viewport: { width: 390, height: 844 }, hasTouch: true });
 
   test("Navbar collapses to icon-only on mobile", async ({ page }) => {
     // 1. Navigate to http://localhost:4200/ on a 390×844 mobile viewport
     await page.goto("http://localhost:4200/");
     await expect(page).toHaveURL(/\/board/);
-
     const toolbar = page.locator(".app-toolbar");
     await expect(toolbar).toBeVisible();
-
     const toolbarBox = await toolbar.boundingBox();
     expect(toolbarBox?.height).toBeGreaterThanOrEqual(55);
     expect(toolbarBox?.height).toBeLessThanOrEqual(70);
-
     const subtitle = page.locator(".subtitle");
     await expect(subtitle).toHaveCSS("display", "none");
 
@@ -25,7 +23,6 @@ test.describe("mobile-layout", () => {
     const assistantLink = page.getByRole("link", { name: "AI Assistant" });
     await expect(boardLink).toBeVisible();
     await expect(assistantLink).toBeVisible();
-
     const boardLabelSpan = page.locator(".nav-links a span").first();
     await expect(boardLabelSpan).toHaveCSS("display", "none");
 
