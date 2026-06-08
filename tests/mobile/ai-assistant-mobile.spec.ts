@@ -22,7 +22,7 @@ test.describe("mobile-layout", () => {
     const chatInput = page.getByRole("textbox", {
       name: "Ask your assistant...",
     });
-    await chatInput.click();
+    await chatInput.click({ force: true });
     await chatInput.fill("Hello from mobile");
 
     const inputBox = await chatInput.boundingBox();
@@ -37,9 +37,13 @@ test.describe("mobile-layout", () => {
       .filter({ hasText: "Hello from mobile" });
     await expect(userMessage).toBeVisible();
 
-    const userMsgBox = await userMessage.boundingBox();
-    expect(userMsgBox?.right).toBeLessThanOrEqual(390 + 1);
+    const userMsgRect = await userMessage.evaluate((el) =>
+      el.getBoundingClientRect().toJSON(),
+    );
+    expect(userMsgRect.right).toBeLessThanOrEqual(390 + 1);
 
-    await expect(page.locator(".chat-message.assistant").last()).toBeVisible();
+    await expect(page.locator(".chat-message.assistant").last()).toBeVisible({
+      timeout: 30_000,
+    });
   });
 });

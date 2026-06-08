@@ -29,8 +29,10 @@ test.describe("mobile-layout", () => {
     const dialog = page.getByRole("dialog", { name: "Create Task" });
     await expect(dialog).toBeVisible();
 
-    const dialogBox = await dialog.boundingBox();
-    expect(dialogBox?.right).toBeLessThanOrEqual(390 + 1);
+    const dialogRect = await dialog.evaluate((el) =>
+      el.getBoundingClientRect().toJSON(),
+    );
+    expect(dialogRect.right).toBeLessThanOrEqual(390 + 1);
 
     const dialogScrollWidth = await page
       .locator("html")

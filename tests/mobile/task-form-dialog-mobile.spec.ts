@@ -1,6 +1,6 @@
 // spec: specs/mobile-view.plan.md
 
-import { test, expect } from "@playwright/test";
+import { test, expect } from "../fixtures/api-mock";
 
 test.describe("mobile-layout", () => {
   test.use({ viewport: { width: 390, height: 844 } });
@@ -34,10 +34,14 @@ test.describe("mobile-layout", () => {
       .fill("Created from mobile viewport");
     await page.getByRole("textbox", { name: "Due Date" }).fill("06/15/2026");
 
-    await expect(page.getByRole("button", { name: "Create" })).toBeVisible();
+    const createBtn = dialog.getByRole("button", {
+      name: "Create",
+      exact: true,
+    });
+    await expect(createBtn).toBeVisible();
 
     // 3. Tap the Save / Create action
-    await page.getByRole("button", { name: "Create" }).click();
+    await createBtn.click();
     await expect(dialog).not.toBeVisible();
     await expect(
       page.getByRole("heading", { name: "Mobile smoke test task", level: 3 }),

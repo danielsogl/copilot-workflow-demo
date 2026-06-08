@@ -13,13 +13,23 @@
   <span class="spacer"></span>
 
   <nav class="nav-links" aria-label="Primary">
-    <a mat-button routerLink="/board" routerLinkActive="active-link">
+    <a
+      mat-button
+      routerLink="/board"
+      routerLinkActive="active-link"
+      aria-label="Board"
+    >
       <mat-icon>view_kanban</mat-icon>
-      <span>Board</span>
+      <span class="nav-label">Board</span>
     </a>
-    <a mat-button routerLink="/assistant" routerLinkActive="active-link">
+    <a
+      mat-button
+      routerLink="/assistant"
+      routerLinkActive="active-link"
+      aria-label="AI Assistant"
+    >
       <mat-icon>auto_awesome</mat-icon>
-      <span>AI Assistant</span>
+      <span class="nav-label">AI Assistant</span>
     </a>
   </nav>
 </mat-toolbar>

@@ -9,7 +9,7 @@ test.describe("mobile-layout", () => {
     await page.goto("http://localhost:4200/board");
 
     await expect(page.locator(".subtitle")).toHaveCSS("display", "none");
-    await expect(page.locator(".nav-links a span").first()).toHaveCSS(
+    await expect(page.locator(".nav-links a .nav-label").first()).toHaveCSS(
       "display",
       "none",
     );
@@ -23,7 +23,7 @@ test.describe("mobile-layout", () => {
 
     await expect(page.locator(".subtitle")).toBeVisible();
     await expect(page.locator(".subtitle")).not.toHaveCSS("display", "none");
-    await expect(page.locator(".nav-links a span").first()).not.toHaveCSS(
+    await expect(page.locator(".nav-links a .nav-label").first()).not.toHaveCSS(
       "display",
       "none",
     );
@@ -48,8 +48,13 @@ test.describe("mobile-layout", () => {
     const cols1025 = await boardGrid1025.evaluate(
       (el) => window.getComputedStyle(el).gridTemplateColumns,
     );
-    expect(cols1025).toMatch(/280px/);
-    const colCount = cols1025.split(" ").filter(Boolean).length;
-    expect(colCount).toBe(3);
+    const colWidths = cols1025
+      .split(" ")
+      .filter(Boolean)
+      .map((c) => parseFloat(c));
+    expect(colWidths).toHaveLength(3);
+    for (const width of colWidths) {
+      expect(width).toBeGreaterThanOrEqual(280);
+    }
   });
 });

@@ -26,7 +26,7 @@ test.describe("mobile-layout", () => {
     await expect(boardLink).toBeVisible();
     await expect(assistantLink).toBeVisible();
 
-    const boardLabelSpan = page.locator(".nav-links a span").first();
+    const boardLabelSpan = page.locator(".nav-links a .nav-label").first();
     await expect(boardLabelSpan).toHaveCSS("display", "none");
 
     // 3. Tap the 'AI Assistant' nav icon

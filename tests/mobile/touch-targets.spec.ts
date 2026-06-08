@@ -3,7 +3,7 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("mobile-layout", () => {
-  test.use({ viewport: { width: 390, height: 844 } });
+  test.use({ viewport: { width: 390, height: 844 }, hasTouch: true });
 
   test("Touch interactions and tap targets", async ({ page }) => {
     // 1. On mobile viewport at /board, measure bounding boxes of interactive controls

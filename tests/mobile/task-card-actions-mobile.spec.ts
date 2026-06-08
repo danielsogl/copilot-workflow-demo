@@ -1,6 +1,6 @@
 // spec: specs/mobile-view.plan.md
 
-import { test, expect } from "@playwright/test";
+import { test, expect } from "../fixtures/api-mock";
 
 test.describe("mobile-layout", () => {
   test.use({ viewport: { width: 390, height: 844 } });
