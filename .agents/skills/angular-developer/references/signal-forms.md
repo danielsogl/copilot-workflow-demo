@@ -45,7 +45,7 @@ import { form, FormField } from "@angular/forms/signals";
 })
 export class Example {
   // 1. Define your model with initial values (avoid undefined)
-  userModel = signal({
+  protected readonly userModel = signal({
     name: "", // CRITICAL: NEVER use null or undefined as initial values
     email: "",
     age: 0, // Use 0 for numbers, NOT null
@@ -64,7 +64,7 @@ export class Example {
   // });
 
   // 2. Create the form
-  userForm = form(this.userModel);
+  protected readonly userForm = form(this.userModel);
 }
 ```
 
@@ -153,15 +153,14 @@ import { disabled, readonly, hidden } from "@angular/forms/signals";
 
 userForm = form(this.userModel, (schemaPath) => {
   // Conditionally disabled
-  disabled(
-    schemaPath.password,
-    ({ valueOf }) => !valueOf(schemaPath.createAccount),
-  );
+  disabled(schemaPath.password, {
+    when: ({ valueOf }) => !valueOf(schemaPath.createAccount),
+  });
 
   // Conditionally hidden (does NOT remove from model, just marks as hidden)
-  hidden(schemaPath.shippingAddress, ({ valueOf }) =>
-    valueOf(schemaPath.sameAsBilling),
-  );
+  hidden(schemaPath.shippingAddress, {
+    when: ({ valueOf }) => valueOf(schemaPath.sameAsBilling),
+  });
 
   // Readonly
   readonly(schemaPath.username);
@@ -575,7 +574,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
-  model = signal({
+  protected readonly model = signal({
     personalInfo: {
       firstName: "",
       lastName: "",
@@ -593,7 +592,7 @@ export class App {
     companions: [] as Array<{ name: string; relation: string }>,
   });
 
-  bookingForm = form(this.model, (s) => {
+  protected readonly bookingForm = form(this.model, (s) => {
     required(s.personalInfo.firstName, { message: "First name is required" });
     required(s.personalInfo.lastName, { message: "Last name is required" });
     required(s.personalInfo.email, { message: "Email is required" });
@@ -617,10 +616,9 @@ export class App {
     });
 
     // valueOf is used to access values of other fields in rules
-    hidden(
-      s.package.extras,
-      ({ valueOf }) => valueOf(s.package.tier) === "economy",
-    );
+    hidden(s.package.extras, {
+      when: ({ valueOf }) => valueOf(s.package.tier) === "economy",
+    });
 
     applyEach(s.companions, (companion) => {
       required(companion.name, { message: "Companion name required" });
@@ -864,7 +862,7 @@ min(s.age, 18); max(s.age, 99); // Then just:
 </select>
 
 <!-- OR - Map to boolean fields in the model -->
-model = signal({ hasWifi: false, hasGym: false });
+protected readonly model = signal({ hasWifi: false, hasGym: false });
 <input type="checkbox" [formField]="form.hasWifi" />
 ```
 
@@ -917,7 +915,8 @@ import { FormState } from "@angular/forms/signals";
 {{ totalPrice() | number:'1.2-2' }}
 
 <!-- RIGHT - format in the component -->
-totalPriceFormatted = computed(() => this.totalPrice().toFixed(2));
+protected readonly totalPriceFormatted = computed(() =>
+this.totalPrice().toFixed(2));
 <!-- then: -->
 {{ totalPriceFormatted() }}
 ```

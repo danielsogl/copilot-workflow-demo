@@ -2,10 +2,10 @@
   "version": 1,
   "skills": {
     "angular-developer": {
-      "source": "angular/angular",
+      "source": "angular/skills",
       "sourceType": "github",
-      "skillPath": "skills/dev-skills/angular-developer/SKILL.md",
-      "computedHash": "36f7f57e1485c994de62eae5b00f54c12f81d1d16661afa6d3c214dd9bcf7269"
+      "skillPath": "angular-developer/SKILL.md",
+      "computedHash": "c5d9759b9e39a49a382dedda3bb4b79a9d952c9d1aedbf07905272baa0e389ab"
     },
     "ngrx-signals": {
       "source": "danielsogl/skills",

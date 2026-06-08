@@ -163,6 +163,6 @@ import {
   `,
 })
 export class OpenClose {
-  isOpen = signal(true);
+  protected readonly isOpen = signal(true);
 }
 ```
