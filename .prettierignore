@@ -2,3 +2,7 @@
 dist
 coverage
 .github
+.agents
+.claude
+.angular
+.codegraph
