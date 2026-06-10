@@ -9,17 +9,11 @@ Stores are Angular providers. Test them via `TestBed.inject(Store)` and the stor
 ## Basic store test
 
 ```typescript
-import { TestBed } from "@angular/core/testing";
-import {
-  signalStore,
-  withComputed,
-  withMethods,
-  withState,
-  patchState,
-} from "@ngrx/signals";
+import { TestBed } from '@angular/core/testing';
+import { signalStore, withComputed, withMethods, withState, patchState } from '@ngrx/signals';
 
 const CounterStore = signalStore(
-  { providedIn: "root" },
+  { providedIn: 'root' },
   withState({ count: 0 }),
   withComputed(({ count }) => ({
     doubleCount: () => count() * 2,
@@ -28,18 +22,18 @@ const CounterStore = signalStore(
     increment() {
       patchState(store, ({ count }) => ({ count: count + 1 }));
     },
-  })),
+  }))
 );
 
-describe("CounterStore", () => {
-  it("exposes initial state and derived doubleCount", () => {
+describe('CounterStore', () => {
+  it('exposes initial state and derived doubleCount', () => {
     const store = TestBed.inject(CounterStore);
 
     expect(store.count()).toBe(0);
     expect(store.doubleCount()).toBe(0);
   });
 
-  it("updates count and doubleCount on increment", () => {
+  it('updates count and doubleCount on increment', () => {
     const store = TestBed.inject(CounterStore);
 
     store.increment();
@@ -54,27 +48,21 @@ describe("CounterStore", () => {
 Provide the mock through `TestBed.configureTestingModule` — same as any Angular DI override.
 
 ```typescript
-@Injectable({ providedIn: "root" })
-class StepService {
-  getStep() {
-    return 1;
-  }
-}
+@Injectable({ providedIn: 'root' })
+class StepService { getStep() { return 1; } }
 
 const CounterStore = signalStore(
-  { providedIn: "root" },
+  { providedIn: 'root' },
   withState({ count: 0 }),
   withMethods((store, stepService = inject(StepService)) => ({
     increment() {
-      patchState(store, ({ count }) => ({
-        count: count + stepService.getStep(),
-      }));
+      patchState(store, ({ count }) => ({ count: count + stepService.getStep() }));
     },
-  })),
+  }))
 );
 
-describe("CounterStore", () => {
-  it("uses the injected step", () => {
+describe('CounterStore', () => {
+  it('uses the injected step', () => {
     TestBed.configureTestingModule({
       providers: [{ provide: StepService, useValue: { getStep: () => 3 } }],
     });
@@ -91,25 +79,17 @@ Passing the dependency via a default parameter (`stepService = inject(StepServic
 ## Testing async methods (Promise-based)
 
 ```typescript
-it("loadAll fills entities and flips status", async () => {
-  const fakeBooks = [
-    { id: "1", title: "A" },
-    { id: "2", title: "B" },
-  ];
+it('loadAll fills entities and flips status', async () => {
+  const fakeBooks = [{ id: '1', title: 'A' }, { id: '2', title: 'B' }];
   TestBed.configureTestingModule({
-    providers: [
-      {
-        provide: BooksService,
-        useValue: { getAll: () => Promise.resolve(fakeBooks) },
-      },
-    ],
+    providers: [{ provide: BooksService, useValue: { getAll: () => Promise.resolve(fakeBooks) } }],
   });
 
   const store = TestBed.inject(BooksStore);
 
-  expect(store.requestStatus()).toBe("idle");
+  expect(store.requestStatus()).toBe('idle');
   await store.loadAll();
-  expect(store.requestStatus()).toBe("fulfilled");
+  expect(store.requestStatus()).toBe('fulfilled');
   expect(store.entities()).toEqual(fakeBooks);
 });
 ```
@@ -119,21 +99,21 @@ it("loadAll fills entities and flips status", async () => {
 `signalMethod` reacts inside an injection context. For value calls, just call. For signal-driven calls, wrap in `TestBed.runInInjectionContext` and use `expect.poll` or `TestBed.tick()`.
 
 ```typescript
-import { signal } from "@angular/core";
-import { TestBed } from "@angular/core/testing";
+import { signal } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 
 const CounterStore = signalStore(
-  { providedIn: "root" },
+  { providedIn: 'root' },
   withState({ count: 0 }),
   withMethods((store) => ({
     increment: signalMethod<number>((step) => {
       patchState(store, ({ count }) => ({ count: count + step }));
     }),
-  })),
+  }))
 );
 
-describe("CounterStore.increment (signalMethod)", () => {
-  it("increments by a static step synchronously", () => {
+describe('CounterStore.increment (signalMethod)', () => {
+  it('increments by a static step synchronously', () => {
     const store = TestBed.inject(CounterStore);
     store.increment(1);
     expect(store.count()).toBe(1);
@@ -141,7 +121,7 @@ describe("CounterStore.increment (signalMethod)", () => {
     expect(store.count()).toBe(3);
   });
 
-  it("increments by a signal step after tick", async () => {
+  it('increments by a signal step after tick', async () => {
     const store = TestBed.inject(CounterStore);
     const step = signal(2);
 
@@ -162,19 +142,15 @@ describe("CounterStore.increment (signalMethod)", () => {
 Same idea — `rxMethod` runs inside an injection context, you trigger it by calling, and use `expect.poll` (or marble tests) for async assertions.
 
 ```typescript
-it("loadByQuery debounces and stores results", async () => {
-  const api = {
-    getByQuery: jest.fn().mockResolvedValue([{ id: "1", title: "A" }]),
-  };
-  TestBed.configureTestingModule({
-    providers: [{ provide: BooksService, useValue: api }],
-  });
+it('loadByQuery debounces and stores results', async () => {
+  const api = { getByQuery: jest.fn().mockResolvedValue([{ id: '1', title: 'A' }]) };
+  TestBed.configureTestingModule({ providers: [{ provide: BooksService, useValue: api }] });
 
   const store = TestBed.inject(BookSearchStore);
-  store.loadByQuery("ang");
+  store.loadByQuery('ang');
 
   await expect.poll(() => store.books().length).toBe(1);
-  expect(api.getByQuery).toHaveBeenCalledWith("ang");
+  expect(api.getByQuery).toHaveBeenCalledWith('ang');
 });
 ```
 
@@ -183,31 +159,22 @@ it("loadByQuery debounces and stores results", async () => {
 Wrap the feature in a tiny throwaway `signalStore` and assert on it. Features are best tested in isolation; once they pass here, they need no re-testing in every host store.
 
 ```typescript
-import { TestBed } from "@angular/core/testing";
-import {
-  signalStore,
-  signalStoreFeature,
-  withState,
-  withComputed,
-  withMethods,
-  patchState,
-} from "@ngrx/signals";
+import { TestBed } from '@angular/core/testing';
+import { signalStore, signalStoreFeature, withState, withComputed, withMethods, patchState } from '@ngrx/signals';
 
 function withCounter() {
   return signalStoreFeature(
     withState({ count: 0 }),
     withComputed(({ count }) => ({ doubleCount: () => count() * 2 })),
     withMethods((store) => ({
-      increment() {
-        patchState(store, ({ count }) => ({ count: count + 1 }));
-      },
-    })),
+      increment() { patchState(store, ({ count }) => ({ count: count + 1 })); },
+    }))
   );
 }
 
-describe("withCounter", () => {
-  it("initial state, computed, and increment all wired", () => {
-    const CounterStore = signalStore({ providedIn: "root" }, withCounter());
+describe('withCounter', () => {
+  it('initial state, computed, and increment all wired', () => {
+    const CounterStore = signalStore({ providedIn: 'root' }, withCounter());
     const store = TestBed.inject(CounterStore);
 
     expect(store.count()).toBe(0);

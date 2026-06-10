@@ -16,10 +16,10 @@ Always use **npm**. Never pnpm/yarn.
 
 ## Stack
 
-- **Angular 21** — standalone components, signals, `@if` / `@for` / `@switch` / `@let` control flow. No `NgModule`, no `*ngIf` / `*ngFor`.
-- **TypeScript 5.9** — strict mode. No `any`. Explicit return types on public APIs.
+- **Angular 22** — standalone components, signals, `@if` / `@for` / `@switch` / `@let` control flow. No `NgModule`, no `*ngIf` / `*ngFor`.
+- **TypeScript 6.0** — strict mode. No `any`. Explicit return types on public APIs.
 - **NgRx Signals Store 21** — `signalStore`, `withEntities`, `rxMethod`, `signalMethod`, `withFeature`, `withLinkedState`.
-- **Angular Material 21** — Material 3 via `mat.theme()` and `--mat-sys-*` tokens. Legacy palette/theme APIs are forbidden.
+- **Angular Material 22** — Material 3 via `mat.theme()` and `--mat-sys-*` tokens. Legacy palette/theme APIs are forbidden.
 - **Angular Signal Forms** — `form()`, `schema()`, `FormField`. Preferred over Reactive/Template-driven forms for new code.
 - **Vitest 4** (via `@angular/build:unit-test`) + Angular **TestBed** + **ng-mocks**.
 - **Playwright** for E2E.
@@ -56,7 +56,7 @@ These ship as agent skill libs and are auto-discovered:
 
 | Skill                    | When to use                                                                  |
 | ------------------------ | ---------------------------------------------------------------------------- |
-| `angular-developer`      | Generic Angular 21 guidance (components, DI, routing, ARIA, animations, CLI) |
+| `angular-developer`      | Generic Angular 22 guidance (components, DI, routing, ARIA, animations, CLI) |
 | `angular-new-app`        | Creating a new Angular workspace                                             |
 | `ngrx-signals`           | Authoring or testing any NgRx Signal Store (`*-store.ts`, `*-store.spec.ts`) |
 | `reference-core`         | Deep Angular core reference                                                  |

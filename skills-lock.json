@@ -7,6 +7,12 @@
       "skillPath": "angular-developer/SKILL.md",
       "computedHash": "c5d9759b9e39a49a382dedda3bb4b79a9d952c9d1aedbf07905272baa0e389ab"
     },
+    "bdd": {
+      "source": "danielsogl/skills",
+      "sourceType": "github",
+      "skillPath": "skills/bdd/SKILL.md",
+      "computedHash": "e57026b50c0293378bb1a2d7898f546d54c298ee1dd3ac0a199b706eef8ea78f"
+    },
     "ngrx-signals": {
       "source": "danielsogl/skills",
       "sourceType": "github",
