@@ -2,7 +2,7 @@
   "name": "angular-workshop-toolkit",
   "displayName": "Angular Workshop Toolkit",
   "version": "0.1.0",
-  "description": "Angular 21 + NgRx Signal Store + Material 3 subagents, slash commands, skills and LSP config bundled from this workshop demo repo.",
+  "description": "Angular 21 + NgRx Signal Store + Material 3 subagents, slash commands and skills bundled from this workshop demo repo.",
   "author": {
     "name": "Daniel Sogl",
     "url": "https://github.com/danielsogl"

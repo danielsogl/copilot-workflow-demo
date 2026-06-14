@@ -12,7 +12,7 @@
     {
       "name": "angular-workshop-toolkit",
       "source": "./",
-      "description": "Angular 21 + NgRx Signal Store + Material 3 subagents, slash commands, skills and LSP config used in this workshop demo.",
+      "description": "Angular 21 + NgRx Signal Store + Material 3 subagents, slash commands and skills used in this workshop demo.",
       "version": "0.1.0",
       "author": {
         "name": "Daniel Sogl"
