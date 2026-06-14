@@ -2,6 +2,8 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+Tool-agnostic baseline conventions live in @AGENTS.md; the deep architecture write-up is @docs/architecture.md. This file keeps the Claude-specific setup; domain folders carry their own scoped `CLAUDE.md` (e.g. `src/app/features/tasks/CLAUDE.md`), and path-scoped rules live in `.claude/rules/`.
+
 ## Project
 
 Workshop demo for Claude Code workflows on a modern Angular app. Kanban-style task management.
@@ -62,6 +64,12 @@ Lefthook runs Prettier + ESLint on pre-commit and is mandatory — **never bypas
 
 ## Claude Code setup (don't duplicate — read these directly)
 
-- `.claude/agents/` — 11 specialized subagents (`angular-reviewer`, `feature-scaffolder`, `signal-store-creator`, `unit-test-writer`, `refactor-to-signals`, `material-theme-advisor`, three `playwright-test-*`). Pick one when the task fits.
+- `.claude/agents/` — 9 specialized subagents (`angular-reviewer`, `feature-scaffolder`, `signal-store-creator`, `unit-test-writer`, `refactor-to-signals`, `material-theme-advisor`, three `playwright-test-*`). Pick one when the task fits.
 - `.claude/commands/` — slash commands: `/code-review`, `/scaffold-signal-store`, `/scaffold-signal-form`.
+- `.claude/skills/` — bundled skills (`angular-developer`, `ngrx-signals`, `bdd`, `playwright-cli`, `skill-creator`).
+- `.claude/rules/` — path-scoped rules auto-loaded by glob: `signal-store.md` (`**/*-store.ts`), `testing.md` (`**/*.spec.ts`, `tests/**`).
+- `.claude/output-styles/` — `Workshop Tutor` (teaching voice) and `Angular PR Reviewer` (terse review voice). Switch via `/output-style`.
+- `.claude/hooks/` — `session-context.sh` (SessionStart banner), `guard-destructive-bash.sh` (PreToolUse; blocks `rm -rf /`, `git push`, `git reset --hard`, `npm publish`, `--no-verify`), `format-changed-files.sh` (PostToolUse ESLint + Prettier). Wired in `.claude/settings.json`.
+- `.claude/statusline.sh` — custom status line (model · dir · branch · cost), wired via `statusLine` in `.claude/settings.json`.
 - `.mcp.json` — `context7` (live docs), `angular-cli` (project tools), `playwright-test` (browser automation), `eslint` (linting). Prefer these over manual lookups.
+- `.claude-plugin/` — `marketplace.json` + `plugin.json` package the above agents/commands/skills as the installable **angular-workshop-toolkit** plugin.

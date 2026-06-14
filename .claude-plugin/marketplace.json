@@ -1,0 +1,30 @@
+{
+  "name": "angular-workshop",
+  "owner": {
+    "name": "Daniel Sogl",
+    "url": "https://github.com/danielsogl"
+  },
+  "metadata": {
+    "description": "Marketplace for the AI-productivity workshop. Ships the Angular Workshop Toolkit plugin.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "angular-workshop-toolkit",
+      "source": "./",
+      "description": "Angular 21 + NgRx Signal Store + Material 3 subagents, slash commands, skills and LSP config used in this workshop demo.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Daniel Sogl"
+      },
+      "keywords": [
+        "angular",
+        "ngrx-signals",
+        "material",
+        "playwright",
+        "workshop"
+      ],
+      "category": "productivity"
+    }
+  ]
+}

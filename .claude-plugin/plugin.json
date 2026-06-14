@@ -1,0 +1,31 @@
+{
+  "name": "angular-workshop-toolkit",
+  "displayName": "Angular Workshop Toolkit",
+  "version": "0.1.0",
+  "description": "Angular 21 + NgRx Signal Store + Material 3 subagents, slash commands, skills and LSP config bundled from this workshop demo repo.",
+  "author": {
+    "name": "Daniel Sogl",
+    "url": "https://github.com/danielsogl"
+  },
+  "homepage": "https://github.com/danielsogl/copilot-workflow-demo",
+  "repository": "https://github.com/danielsogl/copilot-workflow-demo",
+  "license": "MIT",
+  "keywords": ["angular", "ngrx-signals", "material", "playwright", "workshop"],
+  "commands": [
+    "./.claude/commands/code-review.md",
+    "./.claude/commands/scaffold-signal-store.md",
+    "./.claude/commands/scaffold-signal-form.md"
+  ],
+  "agents": [
+    "./.claude/agents/angular-reviewer.md",
+    "./.claude/agents/feature-scaffolder.md",
+    "./.claude/agents/signal-store-creator.md",
+    "./.claude/agents/unit-test-writer.md",
+    "./.claude/agents/refactor-to-signals.md",
+    "./.claude/agents/material-theme-advisor.md",
+    "./.claude/agents/playwright-test-generator.md",
+    "./.claude/agents/playwright-test-healer.md",
+    "./.claude/agents/playwright-test-planner.md"
+  ],
+  "skills": "./.github/skills/"
+}
