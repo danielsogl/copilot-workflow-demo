@@ -23,7 +23,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   }
 
   // Redirect to login
-  return router.parseUrl("/login");
+  return router.parseUrl('/login');
 };
 ```
 

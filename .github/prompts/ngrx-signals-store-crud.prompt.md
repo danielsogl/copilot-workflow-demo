@@ -1,7 +1,7 @@
 ---
 description: A reusable prompt for generating NgRx Signal stores with complete CRUD operations for a specified entity.
 name: ngrx-signals-store-crud-generator
-agent: signal-store-creator
+agent: agent
 tools: ['edit', 'search', 'execute/runInTerminal', 'execute/getTerminalOutput', 'read/terminalLastCommand', 'execute/runTests', 'read/problems', 'read/readFile', 'search/usages', 'todo', 'eslint/*', 'context7/*', 'angular-cli/*']
 ---
 
@@ -132,4 +132,4 @@ src/app/features/[domain]/
 ## References
 
 - [NgRx Signals Patterns](../instructions/ngrx-signals.instructions.md) - Complete NgRx Signals v21+ architecture and patterns including `withFeature`, `withLinkedState`, `withProps`, `withHooks`
-- [Architecture (DDD)](../instructions/architecture.instructions.md) - DDD folder structure with `features/` wrapper
+- [Architecture (DDD)](../../.apm/instructions/architecture.instructions.md) - DDD folder structure with `features/` wrapper

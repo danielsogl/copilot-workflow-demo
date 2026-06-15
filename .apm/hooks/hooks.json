@@ -3,21 +3,21 @@
     "SessionStart": [
       {
         "type": "command",
-        "command": "./.github/hooks/scripts/session-context.sh",
+        "command": "${PLUGIN_ROOT}/.apm/hooks/scripts/session-context.sh",
         "timeout": 5
       }
     ],
     "PreToolUse": [
       {
         "type": "command",
-        "command": "./.github/hooks/scripts/guard-destructive-bash.sh",
+        "command": "${PLUGIN_ROOT}/.apm/hooks/scripts/guard-destructive-bash.sh",
         "timeout": 5
       }
     ],
     "PostToolUse": [
       {
         "type": "command",
-        "command": "./.github/hooks/scripts/format-changed-files.sh",
+        "command": "${PLUGIN_ROOT}/.apm/hooks/scripts/format-changed-files.sh",
         "timeout": 30
       }
     ]

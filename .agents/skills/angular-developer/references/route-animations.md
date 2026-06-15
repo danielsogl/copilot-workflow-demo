@@ -41,9 +41,9 @@ Use `onViewTransitionCreated` to skip transitions or customize behavior based on
 
 ```ts
 withViewTransitions({
-  onViewTransitionCreated: ({ transition, from, to }) => {
+  onViewTransitionCreated: ({transition, from, to}) => {
     // Skip animation for specific routes
-    if (to.url === "/no-animation") {
+    if (to.url === '/no-animation') {
       transition.skipTransition();
     }
   },

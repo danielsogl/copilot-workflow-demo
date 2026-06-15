@@ -1,0 +1,234 @@
+lockfile_version: '1'
+generated_at: '2026-06-15T16:28:50.136152+00:00'
+apm_version: 0.20.0
+dependencies:
+- repo_url: angular/skills
+  host: github.com
+  resolved_commit: 9effe085c86dd0054cb30cbf2f8e42f72f2966a0
+  virtual_path: angular-developer
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/angular-developer
+  - .agents/skills/angular-developer/SKILL.md
+  - .agents/skills/angular-developer/references/angular-animations.md
+  - .agents/skills/angular-developer/references/angular-aria.md
+  - .agents/skills/angular-developer/references/cli.md
+  - .agents/skills/angular-developer/references/component-harnesses.md
+  - .agents/skills/angular-developer/references/component-styling.md
+  - .agents/skills/angular-developer/references/components.md
+  - .agents/skills/angular-developer/references/creating-services.md
+  - .agents/skills/angular-developer/references/data-resolvers.md
+  - .agents/skills/angular-developer/references/define-routes.md
+  - .agents/skills/angular-developer/references/defining-providers.md
+  - .agents/skills/angular-developer/references/di-fundamentals.md
+  - .agents/skills/angular-developer/references/e2e-testing.md
+  - .agents/skills/angular-developer/references/effects.md
+  - .agents/skills/angular-developer/references/hierarchical-injectors.md
+  - .agents/skills/angular-developer/references/host-elements.md
+  - .agents/skills/angular-developer/references/injection-context.md
+  - .agents/skills/angular-developer/references/inputs.md
+  - .agents/skills/angular-developer/references/linked-signal.md
+  - .agents/skills/angular-developer/references/loading-strategies.md
+  - .agents/skills/angular-developer/references/mcp.md
+  - .agents/skills/angular-developer/references/migrations.md
+  - .agents/skills/angular-developer/references/navigate-to-routes.md
+  - .agents/skills/angular-developer/references/outputs.md
+  - .agents/skills/angular-developer/references/reactive-forms.md
+  - .agents/skills/angular-developer/references/rendering-strategies.md
+  - .agents/skills/angular-developer/references/resource.md
+  - .agents/skills/angular-developer/references/route-animations.md
+  - .agents/skills/angular-developer/references/route-guards.md
+  - .agents/skills/angular-developer/references/router-lifecycle.md
+  - .agents/skills/angular-developer/references/router-testing.md
+  - .agents/skills/angular-developer/references/show-routes-with-outlets.md
+  - .agents/skills/angular-developer/references/signal-forms.md
+  - .agents/skills/angular-developer/references/signals-overview.md
+  - .agents/skills/angular-developer/references/tailwind-css.md
+  - .agents/skills/angular-developer/references/template-driven-forms.md
+  - .agents/skills/angular-developer/references/testing-fundamentals.md
+  deployed_file_hashes:
+    .agents/skills/angular-developer/SKILL.md: sha256:faf49f2c11fb19085ff4cdfc985adc8bf27e888b122e309da6fb00b17b7b1e5b
+    .agents/skills/angular-developer/references/angular-animations.md: sha256:f21b798ed93e27318527ef7e74e63ef8c71cb74ff2b010d70dbb429883f0dbd0
+    .agents/skills/angular-developer/references/angular-aria.md: sha256:5f9cc5d323034c1fe3a3290031ffa95634e721e33725c5a8a88b68d8d50d8328
+    .agents/skills/angular-developer/references/cli.md: sha256:39468f1be907a1abff746e79cb9fabd9675956df00c87d9b8bd1517855b9fd7d
+    .agents/skills/angular-developer/references/component-harnesses.md: sha256:1761d33a65ecde690ca0c57081ff9d5871cafb8ff724738ccd711b5018e2d894
+    .agents/skills/angular-developer/references/component-styling.md: sha256:de3351fdb72174361c6eee150940193f20d148afaceab0f22107758a3cb2d787
+    .agents/skills/angular-developer/references/components.md: sha256:dbfb520f2dddd017acb617369c45544374440fcb0b178d9648fab7ada0178468
+    .agents/skills/angular-developer/references/creating-services.md: sha256:6e4353c2263a31ad3edcefc6c33fcb0e328b9d0421b124ba121feae84972701e
+    .agents/skills/angular-developer/references/data-resolvers.md: sha256:6525d6f9b90d4ac6bbd58489d6bc57ab024c407673ed0e1e46364a90d0b9b5da
+    .agents/skills/angular-developer/references/define-routes.md: sha256:1288b38bad6cc9749e9d0fd35a294771ea2181dd712bfc2887d80e8b40fab7e6
+    .agents/skills/angular-developer/references/defining-providers.md: sha256:e654c23a080c642cf7031b5cc5de1101b8c75030c15256f7e3b81b0336953c6d
+    .agents/skills/angular-developer/references/di-fundamentals.md: sha256:89041faaf44eca5af21be704c55ee5f47c18ccafdd56faec1f42d0735a1f09c5
+    .agents/skills/angular-developer/references/e2e-testing.md: sha256:c04a12aa5fb763b9b592aeb3b5dc68a1d6c707ccf94469095c193227d180d1e7
+    .agents/skills/angular-developer/references/effects.md: sha256:6edf8cc05daacc38de8cf534bfb56fb507351c0d76a16711608a85d4327ac7be
+    .agents/skills/angular-developer/references/hierarchical-injectors.md: sha256:967e472a1208c6e1f4b95bf7ee9162165904eb78ac6dab64643c67a9d1dac264
+    .agents/skills/angular-developer/references/host-elements.md: sha256:5c2eb324e7b84bd81334b6d262a61b873de208640aabe4be48b73600438bdaed
+    .agents/skills/angular-developer/references/injection-context.md: sha256:4435dfcec91bd9fb68d6c318802cac1b37424d4e76452e6f0f52ed0d2b6536fb
+    .agents/skills/angular-developer/references/inputs.md: sha256:f5dcdd2a69e7e5c0aad503b4deaea5cedb682130cc699c669128b8fadcc65ba8
+    .agents/skills/angular-developer/references/linked-signal.md: sha256:01f5395e4be4be7c642f4dacd5312d6cc82e641f3ff177f9283b26b79dd07e95
+    .agents/skills/angular-developer/references/loading-strategies.md: sha256:fa82c48573532a7f5e3ccf7eaa50dc7a2db1f23a8599638d9c18e023dbd73e2f
+    .agents/skills/angular-developer/references/mcp.md: sha256:38a5187f1e2e7eb9b20cd1f12d44f74faadeb8f4c71664e7f06b0c2ee65489cd
+    .agents/skills/angular-developer/references/migrations.md: sha256:47983ed2683dc10f692d254cdca9c97fc13dec9ad099b759f5d31886f3cbaa7a
+    .agents/skills/angular-developer/references/navigate-to-routes.md: sha256:ea3c3d53b5db47b4f8d8b05124330e72bea92fc908d42c06aa7edb9e652b425e
+    .agents/skills/angular-developer/references/outputs.md: sha256:4d6900ff9ab90168969c3d05b67d88f69bb6a46aa4b74a8a8290ba0643c6d8dd
+    .agents/skills/angular-developer/references/reactive-forms.md: sha256:edfc57c191d29a1549e9aa9b4ba0d1111a9792caa65918d62967920647717121
+    .agents/skills/angular-developer/references/rendering-strategies.md: sha256:329aa9aa35c85dd2048c899f26025439d3b0244067dbb508e724d291fdad7c97
+    .agents/skills/angular-developer/references/resource.md: sha256:2fad5a0aaf85b0b3193a492b706595962e247bc99aec1dcc1755d90d9c303545
+    .agents/skills/angular-developer/references/route-animations.md: sha256:eda1452f85ce05f3f28753cc77cd8c31c7a52515d7ccebbb35de0ec1e3beb374
+    .agents/skills/angular-developer/references/route-guards.md: sha256:491a93cb49fbcba04f7e8ffcd0f784fce7319ca3e2fe393c553f3d683a68424c
+    .agents/skills/angular-developer/references/router-lifecycle.md: sha256:4abc8cb8dfeb2e9f57dc11c117d5f4a5b756b39dc076910d9ced9da640effc2d
+    .agents/skills/angular-developer/references/router-testing.md: sha256:1b3e7f020ae7a7f335e92896089e3b8936fb767f5f906d11833ef6a8f9f61ed9
+    .agents/skills/angular-developer/references/show-routes-with-outlets.md: sha256:43a2ed62ea2edafa8569bf7045f20928110f8f844d5890bfb6a2f2dde45e754b
+    .agents/skills/angular-developer/references/signal-forms.md: sha256:28c1326ba6dce5a3621429b04a70b17697ea5f86e7b06bde596cc2b1a725bb42
+    .agents/skills/angular-developer/references/signals-overview.md: sha256:da07c58fdea2ab7d82a28faf9f3d117ccb98ccaf3eec06f103b898f557791146
+    .agents/skills/angular-developer/references/tailwind-css.md: sha256:bdb952d0dd2d415560a796ecaf843cacff5ac20d8ef961eaaf75656fef9b9263
+    .agents/skills/angular-developer/references/template-driven-forms.md: sha256:52e83e576b0c6dc05f854e903c4cfda1222bcd55c50ddee07344d1e53d02c1df
+    .agents/skills/angular-developer/references/testing-fundamentals.md: sha256:8f48c2392d99487934edf977c0d1b87a4e83ff9761db493bbcccc10f574bcb5a
+  content_hash: sha256:1332c18c811500515f00b32bac06ac779b14e4e1fb83b4dc79d92c79a99dceb6
+- repo_url: angular/skills
+  host: github.com
+  resolved_commit: 9effe085c86dd0054cb30cbf2f8e42f72f2966a0
+  virtual_path: angular-new-app
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/angular-new-app
+  - .agents/skills/angular-new-app/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/angular-new-app/SKILL.md: sha256:807120998cc2161b14963300fcb8fd594c71f3a527f67f0172123b458178631e
+  content_hash: sha256:49bd84ab08bd3498c52f476bed48fbb942dc6dbc0925607e84549adbed34bccf
+- repo_url: anthropics/skills
+  host: github.com
+  resolved_commit: 57546260929473d4e0d1c1bb75297be2fdfa1949
+  virtual_path: skills/skill-creator
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/skill-creator
+  - .agents/skills/skill-creator/LICENSE.txt
+  - .agents/skills/skill-creator/SKILL.md
+  - .agents/skills/skill-creator/agents/analyzer.md
+  - .agents/skills/skill-creator/agents/comparator.md
+  - .agents/skills/skill-creator/agents/grader.md
+  - .agents/skills/skill-creator/assets/eval_review.html
+  - .agents/skills/skill-creator/eval-viewer/generate_review.py
+  - .agents/skills/skill-creator/eval-viewer/viewer.html
+  - .agents/skills/skill-creator/references/schemas.md
+  - .agents/skills/skill-creator/scripts/__init__.py
+  - .agents/skills/skill-creator/scripts/aggregate_benchmark.py
+  - .agents/skills/skill-creator/scripts/generate_report.py
+  - .agents/skills/skill-creator/scripts/improve_description.py
+  - .agents/skills/skill-creator/scripts/package_skill.py
+  - .agents/skills/skill-creator/scripts/quick_validate.py
+  - .agents/skills/skill-creator/scripts/run_eval.py
+  - .agents/skills/skill-creator/scripts/run_loop.py
+  - .agents/skills/skill-creator/scripts/utils.py
+  deployed_file_hashes:
+    .agents/skills/skill-creator/LICENSE.txt: sha256:bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362
+    .agents/skills/skill-creator/SKILL.md: sha256:dcd4803e61e913e6fc27294184cd3a71f09f5e924ff20c8a9a20173e7b3c2bcf
+    .agents/skills/skill-creator/agents/analyzer.md: sha256:bf68f4cac5a56c673a928c2e6d619586c5b93ea364026ab37547772cb45a663a
+    .agents/skills/skill-creator/agents/comparator.md: sha256:fe1fc9787c495d864c5d6eada47396478572325fde1b33a96d78bf4b849b7a3e
+    .agents/skills/skill-creator/agents/grader.md: sha256:57134da0c1a4eea33fbd74a1c9c44aa814f07d6bc64de303edb586f941e5d21a
+    .agents/skills/skill-creator/assets/eval_review.html: sha256:ce477dcc74dc1c0d1d3352646a79167b5a63634e936b1019160025065974e452
+    .agents/skills/skill-creator/eval-viewer/generate_review.py: sha256:fc9d1b9243fe5ab6012ebd579bd76d0035de1b79fd3b969de114defab26478fb
+    .agents/skills/skill-creator/eval-viewer/viewer.html: sha256:a53213426ee1100441d701a3a0d49cda7a842f992d2c36463f4d3cc0258575fa
+    .agents/skills/skill-creator/references/schemas.md: sha256:8e8876180a8989b406a4d3edddf875b04cdfd5805cc8616686d552b11ce4455f
+    .agents/skills/skill-creator/scripts/__init__.py: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+    .agents/skills/skill-creator/scripts/aggregate_benchmark.py: sha256:123ef128ea5ccc01a4b1ac212ef5567f21e9c13d3d240609780beeb3200c49aa
+    .agents/skills/skill-creator/scripts/generate_report.py: sha256:13df7118a3c50c83c4c3250a606d5f2b20b25a3d44cbc392b3d669ec75281453
+    .agents/skills/skill-creator/scripts/improve_description.py: sha256:87d864570220b699fac52da309d2d6efdb060647bfebc74f768128e646accf80
+    .agents/skills/skill-creator/scripts/package_skill.py: sha256:1a33059b0db1ef73375d46d513e5ea81369d2e8838c970597b0d52ddef8d1c0f
+    .agents/skills/skill-creator/scripts/quick_validate.py: sha256:67cf5703402013936c8fb75ad6a1afecd8841d45cc5e606b634eb05825fde365
+    .agents/skills/skill-creator/scripts/run_eval.py: sha256:43e3b8f80dbf69c343967ba77e268fae991d9fa3ed68b32a0ff02532cd48657f
+    .agents/skills/skill-creator/scripts/run_loop.py: sha256:7bd6f674203168520517eec94c55f493c0d154339b061b4d7c0f0dad187d0f21
+    .agents/skills/skill-creator/scripts/utils.py: sha256:3af8ae62c40c73ab712207436a0d9a981e845f25c5a7040229eb189cc8e45bb1
+  content_hash: sha256:b2bfe91d69ca99994c0566baede889e7d2b9bb8791c6b6106c5d387392f717f6
+- repo_url: danielsogl/skills
+  host: github.com
+  resolved_commit: 293165a68e98b74eff7357de0b4039e4287411a6
+  virtual_path: skills/bdd
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/bdd
+  - .agents/skills/bdd/SKILL.md
+  - .agents/skills/bdd/bdd.skill
+  - .agents/skills/bdd/evals/evals.json
+  - .agents/skills/bdd/evals/trigger-eval.json
+  - .agents/skills/bdd/references/install-playwright.md
+  - .agents/skills/bdd/references/install-vitest.md
+  - .agents/skills/bdd/references/playwright.md
+  - .agents/skills/bdd/references/vitest.md
+  deployed_file_hashes:
+    .agents/skills/bdd/SKILL.md: sha256:f1182907bac8783d279eb92000fda417d59568faea99c6245b0450d913bae4a4
+    .agents/skills/bdd/bdd.skill: sha256:0db5844d9418460cf8a4b6b6d660939faaa4f00631ee519b4fb41e6d3e86a3ae
+    .agents/skills/bdd/evals/evals.json: sha256:3eeba01b2659b81b7db4185d62a3f3a7dfb84b67277846646acbfa815e2f2385
+    .agents/skills/bdd/evals/trigger-eval.json: sha256:7bf3220462ee1057eefe454736dd8d124dcce74e364b69155c5e8fc8333f2211
+    .agents/skills/bdd/references/install-playwright.md: sha256:fbf93481fc0ed57b258bfcb387fce69d1bfeafc9b59e89218e849b68831db040
+    .agents/skills/bdd/references/install-vitest.md: sha256:290bc1566c912cc6d8e4c6d727e8ab3c6f7822b9dc7956a074c018e41439141c
+    .agents/skills/bdd/references/playwright.md: sha256:a6e3d8f0508e1bd56b059e06a4e73757e47b799662ddaafaea4867745e1d49b6
+    .agents/skills/bdd/references/vitest.md: sha256:58add07899a60965da431922f722f7f479b8e9a1bfecc234cfdde8bf0db53fb4
+  content_hash: sha256:3f1f43711cf95ba76816b630192cc6590e3a6175c546dc123117a8b3ee4909ac
+- repo_url: danielsogl/skills
+  host: github.com
+  resolved_commit: 293165a68e98b74eff7357de0b4039e4287411a6
+  virtual_path: skills/ngrx-signals
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/ngrx-signals
+  - .agents/skills/ngrx-signals/README.md
+  - .agents/skills/ngrx-signals/SKILL.md
+  - .agents/skills/ngrx-signals/evals/evals.json
+  - .agents/skills/ngrx-signals/references/api-reference.md
+  - .agents/skills/ngrx-signals/references/custom-features.md
+  - .agents/skills/ngrx-signals/references/entities.md
+  - .agents/skills/ngrx-signals/references/patterns.md
+  - .agents/skills/ngrx-signals/references/testing.md
+  deployed_file_hashes:
+    .agents/skills/ngrx-signals/README.md: sha256:4e0460ea794cba098f4744346fc08afaa885fa42f8b6cdb634653b1f4d6c23b3
+    .agents/skills/ngrx-signals/SKILL.md: sha256:8d8dbb23ff0b41624bd7c7eb8c1ebca56b119accfe741526800a0a8b29b0ec2c
+    .agents/skills/ngrx-signals/evals/evals.json: sha256:19ca9ae4bf38d0a95cbcb25d10022a9a504ed04bbda955c44bef191b2b921f51
+    .agents/skills/ngrx-signals/references/api-reference.md: sha256:81c48183805fe635ff034c14dae71baa52033555137ed43f98ccd36db06d69ed
+    .agents/skills/ngrx-signals/references/custom-features.md: sha256:accbbc4a3ee1cabd7830fc45bf521e4220da590ebf9cc3ba4c1785d156f02ed7
+    .agents/skills/ngrx-signals/references/entities.md: sha256:ff04323cc4cd4702b71c906119567f867635aa122b03f5778e17412a6e5e2c58
+    .agents/skills/ngrx-signals/references/patterns.md: sha256:6fe096dbc19673281f92f478e503ffeb9a7cf5a205b8e59a64d8262afde093b7
+    .agents/skills/ngrx-signals/references/testing.md: sha256:d42999e00704ce58fdee70bd9cf1877300bb81cae14a19369fe655ca516377f0
+  content_hash: sha256:fb790201d6dde15d9884cd9bbe6a6b3d9cc115736c232feb1ad5cf3594f4eff0
+local_deployed_files:
+- .github/agents/playwright-test-generator.agent.md
+- .github/agents/playwright-test-healer.agent.md
+- .github/agents/playwright-test-planner.agent.md
+- .github/hooks/copilot-workflow-demo-hooks.json
+- .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh
+- .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh
+- .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh
+- .github/instructions/angular-components.instructions.md
+- .github/instructions/architecture.instructions.md
+- .github/instructions/commands.instructions.md
+- .github/instructions/project-overview.instructions.md
+- .github/instructions/styling.instructions.md
+- .github/instructions/typescript.instructions.md
+- .github/prompts/analyze-codebase-bugs.prompt.md
+- .github/prompts/angular-signal-forms.prompt.md
+- .github/prompts/code-review.prompt.md
+- .github/prompts/ngrx-signals-store-crud.prompt.md
+local_deployed_file_hashes:
+  .github/agents/playwright-test-generator.agent.md: sha256:367dd9eb6a7782035ea6e7eb6fde9ef36b07db903908888097265eee8d4991b3
+  .github/agents/playwright-test-healer.agent.md: sha256:ce74d9843a3cafe7ad400c2527c9ea5a037a5a0777399ee387e64fb6e2a78507
+  .github/agents/playwright-test-planner.agent.md: sha256:bcd3bd69d6dc952dd14e50b24a41bb6e21fef147abf54cdff952c1e69e290b55
+  .github/hooks/copilot-workflow-demo-hooks.json: sha256:e440423deda853e549adbd7bfa44f133d1a295ea2d92d0e52f0eaf38566b8503
+  .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh: sha256:668a244fbc40b8b707e3835c255ae078e3ea9843e7b76ce1fd4cf153c406386a
+  .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh: sha256:2816c914b9981c6461cf965e7aca899148570ac0cedeb1ff784683eabe745fc2
+  .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh: sha256:5fc7f6e51416af052f2c1d10cbcb0a9f031d6b41787c5727c50086d372657a7c
+  .github/instructions/angular-components.instructions.md: sha256:558967aaea58257a615e49abeef2bd7cd0ce0558d78e87a4fa445d95dc3ed9f8
+  .github/instructions/architecture.instructions.md: sha256:ef8e299d823e21a4e2197b2c437247d31bce4d979a52c7577c7402dcb5fa7160
+  .github/instructions/commands.instructions.md: sha256:b29d123d50f476fa3e41cb87be79adb8ea6ba84307758c706c6206a1403f92c4
+  .github/instructions/project-overview.instructions.md: sha256:260e0b940e6d34a56c71797d9ef9585884532eb08da1975b12bcdf305b36cae3
+  .github/instructions/styling.instructions.md: sha256:8a3478b9d440566bfe8e39f2bd072ff069f6592c6354e5d1a3ef3ed48007c4f9
+  .github/instructions/typescript.instructions.md: sha256:25ee789aae5bf131fc19d7dff38469b90f65abc0ed2cb25f8bcb0b93c6554d96
+  .github/prompts/analyze-codebase-bugs.prompt.md: sha256:ab145527784e8af6de8cd6d268d40d08c59e26802636f9acb4821c813e11aab2
+  .github/prompts/angular-signal-forms.prompt.md: sha256:7eb2ec60beeb227e59562d180c86245f2327b7da08bd089b521ad4db3adc106e
+  .github/prompts/code-review.prompt.md: sha256:af543ee9b28a1ac94987bb1a597d81f2ce5b435a51bf98e1e6dc59494f6a9187
+  .github/prompts/ngrx-signals-store-crud.prompt.md: sha256:fa0485fe0025a3219ba657bfa5fec3378f5e0e436bf9233e4c5615c2f9a2685e

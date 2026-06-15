@@ -4,7 +4,7 @@ description: Generates Angular code and provides architectural guidance. Trigger
 license: MIT
 metadata:
   author: Copyright 2026 Google LLC
-  version: "1.0"
+  version: '1.0'
 ---
 
 # Angular Developer Guidelines

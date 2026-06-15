@@ -11,13 +11,13 @@ The `RouterTestingHarness` is the primary tool for testing routing scenarios. Yo
 ### Example Setup
 
 ```ts
-import { TestBed } from "@angular/core/testing";
-import { provideRouter } from "@angular/router";
-import { RouterTestingHarness } from "@angular/router/testing";
-import { Dashboard } from "./dashboard.component";
-import { HeroDetail } from "./hero-detail.component";
+import {TestBed} from '@angular/core/testing';
+import {provideRouter} from '@angular/router';
+import {RouterTestingHarness} from '@angular/router/testing';
+import {Dashboard} from './dashboard.component';
+import {HeroDetail} from './hero-detail.component';
 
-describe("Dashboard Component Routing", () => {
+describe('Dashboard Component Routing', () => {
   let harness: RouterTestingHarness;
 
   beforeEach(async () => {
@@ -26,8 +26,8 @@ describe("Dashboard Component Routing", () => {
       providers: [
         // Use provideRouter with your test-specific routes
         provideRouter([
-          { path: "", component: Dashboard },
-          { path: "heroes/:id", component: HeroDetail },
+          {path: '', component: Dashboard},
+          {path: 'heroes/:id', component: HeroDetail},
         ]),
       ],
     });
@@ -50,30 +50,30 @@ Once the harness is created, you can use it to drive navigation and make asserti
 ### Example: Testing Navigation
 
 ```ts
-it("should navigate to a hero detail when a hero is selected", async () => {
+it('should navigate to a hero detail when a hero is selected', async () => {
   // 1. Navigate to the initial component and get its instance
-  const dashboard = await harness.navigateByUrl("/", Dashboard);
+  const dashboard = await harness.navigateByUrl('/', Dashboard);
 
   // Suppose the dashboard has a method to select a hero
-  const heroToSelect = { id: 42, name: "Test Hero" };
+  const heroToSelect = {id: 42, name: 'Test Hero'};
   dashboard.selectHero(heroToSelect);
 
   // Wait for stability after the action that triggers navigation
   await harness.fixture.whenStable();
 
   // 2. Assert on the URL
-  expect(harness.router.url).toEqual("/heroes/42");
+  expect(harness.router.url).toEqual('/heroes/42');
 
   // 3. Get the activated component after navigation
   const heroDetail = await harness.getHarness(HeroDetail);
 
   // 4. Assert on the state of the new component
-  expect(await heroDetail.componentInstance.hero.name).toBe("Test Hero");
+  expect(await heroDetail.componentInstance.hero.name).toBe('Test Hero');
 });
 
-it("should get the activated component directly", async () => {
+it('should get the activated component directly', async () => {
   // Navigate and get the component instance in one step
-  const dashboardInstance = await harness.navigateByUrl("/", Dashboard);
+  const dashboardInstance = await harness.navigateByUrl('/', Dashboard);
 
   expect(dashboardInstance).toBeInstanceOf(Dashboard);
 });

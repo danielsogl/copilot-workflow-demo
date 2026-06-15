@@ -1,0 +1,63 @@
+name: copilot-workflow-demo
+version: 1.0.0
+description: Angular 22 + NgRx Signals workshop demo — agent config managed via APM
+author: Daniel Sogl
+# This apm.yml is IDENTICAL on every branch. The branch only decides which target
+# you compile/commit — pass --target explicitly (it overrides the targets: list below):
+#   main branch  → apm install --only apm --target copilot && apm compile --target copilot --no-dedup   # commit .github/ + AGENTS.md
+#   claude-code  → apm install --only apm --target claude  && apm compile --target claude               # commit .claude/  + AGENTS.md
+# (A bare `apm install`/`compile` without --target would emit BOTH harnesses — always pass --target.)
+# MCP is the source of truth below; the copilot target writes .vscode/mcp.json (committed).
+# `apm install` (with MCP) also writes the read-only global ~/.copilot/mcp-config.json on this
+# machine and aborts — so deploy primitives with `apm install --only apm` and keep .vscode/mcp.json.
+# Which agent platforms this project supports (resolution order: --target flag > this field > auto-detect).
+targets:
+  - copilot
+  - claude
+# Local .apm/ primitives (instructions, skills, agents, prompts, hooks) deploy automatically.
+includes: auto
+dependencies:
+  # External library skills — replace the formerly-vendored .agents/skills/* copies.
+  # Tracks each repo's default branch; apm.lock.yaml pins the exact resolved SHA
+  # (use `apm install --frozen` to reproduce, `apm update` to refresh).
+  apm:
+    - anthropics/skills/skills/skill-creator
+    - angular/skills/angular-developer
+    - angular/skills/angular-new-app
+    - danielsogl/skills/skills/ngrx-signals
+    - danielsogl/skills/skills/bdd
+  # MCP servers — all self-defined (registry: false) command/url entries mirroring
+  # the previous .vscode/mcp.json. The copilot target writes .vscode/mcp.json.
+  mcp:
+    - name: context7
+      registry: false
+      transport: http
+      url: https://mcp.context7.com/mcp/oauth
+    - name: angular-cli
+      registry: false
+      transport: stdio
+      command: npx
+      args:
+        - -y
+        - "@angular/cli"
+        - mcp
+    - name: playwright-test
+      registry: false
+      transport: stdio
+      command: npx
+      args:
+        - playwright
+        - run-test-mcp-server
+    - name: playwright
+      registry: false
+      transport: stdio
+      command: npx
+      args:
+        - "@playwright/mcp@latest"
+    - name: eslint
+      registry: false
+      transport: stdio
+      command: npx
+      args:
+        - "@eslint/mcp@latest"
+scripts: {}

@@ -6,3 +6,9 @@ coverage
 .claude
 .angular
 .codegraph
+
+# APM: source primitives (managed verbatim) + generated lockfile/cache + generated AGENTS.md
+.apm
+apm.lock.yaml
+apm_modules
+AGENTS.md

@@ -28,7 +28,7 @@ import {
   validateStandardSchema,
   // Metadata
   metadata,
-} from "@angular/forms/signals";
+} from '@angular/forms/signals';
 ```
 
 ## Creating a Form
@@ -36,8 +36,8 @@ import {
 Use the `form()` function with a Signal model. The structure of the form is derived directly from the model.
 
 ```ts
-import { Component, signal } from "@angular/core";
-import { form, FormField } from "@angular/forms/signals";
+import {Component, signal} from '@angular/core';
+import {form, FormField} from '@angular/forms/signals';
 
 @Component({
   // ...
@@ -46,12 +46,12 @@ import { form, FormField } from "@angular/forms/signals";
 export class Example {
   // 1. Define your model with initial values (avoid undefined)
   protected readonly userModel = signal({
-    name: "", // CRITICAL: NEVER use null or undefined as initial values
-    email: "",
+    name: '', // CRITICAL: NEVER use null or undefined as initial values
+    email: '',
     age: 0, // Use 0 for numbers, NOT null
     address: {
-      street: "",
-      city: "",
+      street: '',
+      city: '',
     },
     hobbies: [] as string[], // Use [] for arrays, NOT null
   });
@@ -73,15 +73,7 @@ export class Example {
 Import validators from `@angular/forms/signals`.
 
 ```ts
-import {
-  required,
-  email,
-  min,
-  max,
-  minLength,
-  maxLength,
-  pattern,
-} from "@angular/forms/signals";
+import {required, email, min, max, minLength, maxLength, pattern} from '@angular/forms/signals';
 ```
 
 Use them in the schema function passed to `form()`:
@@ -89,11 +81,11 @@ Use them in the schema function passed to `form()`:
 ```ts
 userForm = form(this.userModel, (schemaPath) => {
   // Required
-  required(schemaPath.name, { message: "Name is required" });
+  required(schemaPath.name, {message: 'Name is required'});
 
   // Conditional required.
   required(schemaPath.name, {
-    when({ valueOf }) {
+    when({valueOf}) {
       return valueOf(schemaPath.age) > 10;
     },
   });
@@ -101,7 +93,7 @@ userForm = form(this.userModel, (schemaPath) => {
   // Do NOT do this: pattern(p.name, /xxx/, {when /* ERROR */)
 
   // Email
-  email(schemaPath.email, { message: "Invalid email" });
+  email(schemaPath.email, {message: 'Invalid email'});
 
   // Min/Max for numbers
   min(schemaPath.age, 18);
@@ -124,7 +116,7 @@ It's important to understand the difference between **FormField** (the structure
 
 ```ts
 // f is a FormField (structural)
-const f = form(signal({ cat: { name: "pirojok-the-cat", age: 5 } }));
+const f = form(signal({cat: {name: 'pirojok-the-cat', age: 5}}));
 
 f.cat.name; // FormField: You can't get flags from here!
 f.cat.name.touched(); // ERROR: touched() does not exist on FormField
@@ -149,18 +141,14 @@ Similarly in a template:
 Control field status using rules in the schema.
 
 ```ts
-import { disabled, readonly, hidden } from "@angular/forms/signals";
+import {disabled, readonly, hidden} from '@angular/forms/signals';
 
 userForm = form(this.userModel, (schemaPath) => {
   // Conditionally disabled
-  disabled(schemaPath.password, {
-    when: ({ valueOf }) => !valueOf(schemaPath.createAccount),
-  });
+  disabled(schemaPath.password, {when: ({valueOf}) => !valueOf(schemaPath.createAccount)});
 
   // Conditionally hidden (does NOT remove from model, just marks as hidden)
-  hidden(schemaPath.shippingAddress, {
-    when: ({ valueOf }) => valueOf(schemaPath.sameAsBilling),
-  });
+  hidden(schemaPath.shippingAddress, {when: ({valueOf}) => valueOf(schemaPath.sameAsBilling)});
 
   // Readonly
   readonly(schemaPath.username);
@@ -172,7 +160,7 @@ userForm = form(this.userModel, (schemaPath) => {
 Import `FormField` and use the `[formField]` directive.
 
 ```ts
-import { FormField } from "@angular/forms/signals";
+import {FormField} from '@angular/forms/signals';
 ```
 
 All props on state, such as `disabled`, `hidden`, `readonly` and `name` are bound automatically.
@@ -182,9 +170,19 @@ Do _NOT_ bind the `name` field.
 When using `[formField]`, you MUST NOT set the following attributes in the template (either static or bound):
 
 - `min`, `max` (Use validators in the schema instead)
-- `value`, `[value]`, `[attr.value]` (Already handled by `[formField]`)
+- `value`, `[value]`, `[attr.value]` on **text/number/date inputs** (Already handled by `[formField]`)
 - `[attr.min]`, `[attr.max]`
 - `[disabled]`, `[readonly]` (Already handled by `[formField]`)
+
+**Exception**: Static `value` on `<input type="radio">` and `<input type="checkbox">` is **allowed and required** — it identifies which option the input represents, not the bound field value.
+
+```html
+<!-- CORRECT: value on radio specifies which option this button represents -->
+<input type="radio" value="economy" [formField]="bookingForm.package.tier" />
+
+<!-- WRONG: value binding on a regular input -->
+<input [value]="someVar" [formField]="form.name" />
+```
 
 Do NOT do this: `<input min="1" [formField]>` or `<input [value]="val" [formField]>`.
 
@@ -312,8 +310,8 @@ validate(
     // WRONG: if (touched()) ... (touched is not in context)
     // RIGHT: if (state.touched()) ...
 
-    if (value() === "admin") {
-      return { kind: "reserved", message: "Username admin is reserved" };
+    if (value() === 'admin') {
+      return {kind: 'reserved', message: 'Username admin is reserved'};
     }
   },
 );
@@ -362,15 +360,14 @@ applyEach(s.items, (item, index) => {
 
 ```html
 <!-- WRONG - $parent does not exist -->
-@for (item of form.items; track $index) { @for (option of item.options; track
-$index) {
+@for (item of form.items; track $index) { @for (option of item.options; track $index) {
 <button (click)="removeOption($parent.$index, $index)">Remove</button>
 <!-- ERROR -->
 } }
 
 <!-- CORRECT - use let to store outer index -->
-@for (item of form.items; track $index; let outerIndex = $index) { @for (option
-of item.options; track $index) {
+@for (item of form.items; track $index; let outerIndex = $index) { @for (option of item.options;
+track $index) {
 <button (click)="removeOption(outerIndex, $index)">Remove</button>
 } }
 ```
@@ -397,32 +394,30 @@ Do not use `validate()` for async, instead use `validateAsync()`:
 2. The `onError` handler is **REQUIRED** - it is NOT optional!
 
 ```ts
-import { resource } from "@angular/core";
-import { validateAsync } from "@angular/forms/signals";
+import {resource} from '@angular/core';
+import {validateAsync} from '@angular/forms/signals';
 
 userForm = form(this.userModel, (s) => {
   validateAsync(s.username, {
     // 1. MUST be a function - params takes context and returns the value
-    params: ({ value }) => value(),
+    params: ({value}) => value(),
 
     // 2. Create the resource - factory receives a Signal
     factory: (username) =>
       resource({
         params: username, // Use 'params' in resource()
-        loader: async ({ params: value }) => {
+        loader: async ({params: value}) => {
           await new Promise((resolve) => setTimeout(resolve, 1000));
-          return value === "taken";
+          return value === 'taken';
         },
       }),
 
     // 3. Map success to errors
     onSuccess: (isTaken) =>
-      isTaken
-        ? { kind: "taken", message: "Username is already taken" }
-        : undefined,
+      isTaken ? {kind: 'taken', message: 'Username is already taken'} : undefined,
 
     // 4. Handle errors - THIS IS REQUIRED!
-    onError: () => ({ kind: "error", message: "Validation failed" }),
+    onError: () => ({kind: 'error', message: 'Validation failed'}),
   });
 });
 ```
@@ -438,12 +433,12 @@ validateAsync(s.username, {
 
 // WRONG - missing onError (it's required!)
 validateAsync(s.username, {
-  params: ({ value }) => value(),
+  params: ({value}) => value(),
   factory: (username) =>
     resource({
       /* ... */
     }),
-  onSuccess: (result) => (result ? { kind: "error" } : undefined),
+  onSuccess: (result) => (result ? {kind: 'error'} : undefined),
   // ERROR: 'onError' is missing but required!
 });
 ```
@@ -456,7 +451,7 @@ validateAsync(s.username, {
 // CORRECT
 resource({
   params: mySignal,
-  loader: async ({ params: value }) => {
+  loader: async ({params: value}) => {
     /* ... */
   },
 });
@@ -464,7 +459,7 @@ resource({
 // WRONG
 resource({
   request: mySignal, // ERROR: should be 'params'
-  loader: async ({ request }) => {
+  loader: async ({request}) => {
     /* ... */
   },
 });
@@ -473,7 +468,7 @@ resource({
 Use `debounce()` to delay synchronization between the UI and the model.
 
 ```ts
-import { debounce } from "@angular/forms/signals";
+import {debounce} from '@angular/forms/signals';
 
 userForm = form(this.userModel, (s) => {
   // Delay model updates by 300ms
@@ -489,14 +484,14 @@ form(
   (path) => {
     applyWhen(
       name,
-      ({ value }) => value() !== "admin",
+      ({value}) => value() !== 'admin',
       (namePath) => {
         validate(namePath.last /* ... */);
         disable(namePath.last /* ... */);
       },
     );
   },
-  { injector: TestBed.inject(Injector) },
+  {injector: TestBed.inject(Injector)},
 );
 ```
 
@@ -509,51 +504,51 @@ form(
   (path) => {
     applyWhen(
       cat,
-      ({ value }) => value().name !== "admin",
+      ({value}) => value().name !== 'admin',
       (catPath) => {
         require(cat.catPath /* ... */);
       },
     );
   },
-  { injector: TestBed.inject(Injector) },
+  {injector: TestBed.inject(Injector)},
 );
 ```
 
 ## Common Pitfalls (DO NOT DO THESE)
 
-| Error Scenario         | WRONG (Common Mistake)                        | RIGHT (Correct Way)                                         |
-| :--------------------- | :-------------------------------------------- | :---------------------------------------------------------- |
-| **Accessing Flags**    | `form.field.valid()`                          | `form.field().valid()`                                      |
-| **Accessing value**    | `form.field.value()`                          | `form.field().value()`                                      |
-| **Setting value**      | `form.field.set(x)`                           | Update model signal: `this.model.update(...)`               |
-| **Form root flags**    | `form.invalid()`                              | `form().invalid()`                                          |
-| **Double-calling**     | `form.field()()`                              | `form.field().value()`                                      |
-| **Rules Context**      | `({ touched }) => touched()`                  | `({ state }) => state.touched()`                            |
-| **Calling Paths**      | `applyWhen(p.foo, () => p.foo() === 'x')`     | `applyWhen(p.foo, ({ valueOf }) => valueOf(p.foo) === 'x')` |
-| **applyWhen args**     | `applyWhen(condition, () => {...})`           | `applyWhen(path, condition, schemaFn)` - needs 3 args       |
-| **Array length**       | `form.items().length`                         | `form.items.length` (structural)                            |
-| **Multi-select array** | `<select [formField]="form.tags">` (string[]) | Use checkboxes for array fields                             |
-| **readonly attribute** | `<input readonly [formField]>`                | Use `readonly()` rule in schema                             |
-| **min/max attributes** | `<input min="1" max="10">`                    | Use `min()` and `max()` rules in schema                     |
-| **value binding**      | `<input [value]="val">`                       | Do NOT use `[value]` with `[formField]`                     |
-| **when option**        | `pattern(p.x, /.../, {when: ...})`            | `when` only works with `required()`                         |
-| **Submit callback**    | `submit(form, () => { ... })`                 | `submit(form, async () => { ... })`                         |
-| **Async params**       | `params: s.field`                             | `params: ({ value }) => value()`                            |
-| **Async onError**      | Omitting `onError`                            | `onError` is REQUIRED in `validateAsync`                    |
-| **resource() API**     | `request: signal`                             | `params: signal`                                            |
-| **applyEach args**     | `applyEach(s.items, (item, index) => ...)`    | `applyEach(s.items, (item) => ...)`                         |
-| **Nested @for**        | `$parent.$index`                              | Use `let outerIndex = $index`                               |
-| **FormState import**   | `import { FormState }`                        | `FormState` does not exist, use `FieldState`                |
-| **Null in model**      | `signal({ name: null })`                      | `signal({ name: '' })` or `signal({ age: 0 })`              |
-| **Validate syntax**    | `validate(s.field, { value } => ...)`         | `validate(s.field, ({ value }) => ...)`                     |
-| **Checkbox Array**     | `[formField]="form.tags"` (string[])          | Checkboxes ONLY bind to `boolean`                           |
+| Error Scenario         | WRONG (Common Mistake)                        | RIGHT (Correct Way)                                                              |
+| :--------------------- | :-------------------------------------------- | :------------------------------------------------------------------------------- |
+| **Accessing Flags**    | `form.field.valid()`                          | `form.field().valid()`                                                           |
+| **Accessing value**    | `form.field.value()`                          | `form.field().value()`                                                           |
+| **Setting value**      | `form.field.set(x)`                           | Update model signal: `this.model.update(...)`                                    |
+| **Form root flags**    | `form.invalid()`                              | `form().invalid()`                                                               |
+| **Double-calling**     | `form.field()()`                              | `form.field().value()`                                                           |
+| **Rules Context**      | `({ touched }) => touched()`                  | `({ state }) => state.touched()`                                                 |
+| **Calling Paths**      | `applyWhen(p.foo, () => p.foo() === 'x')`     | `applyWhen(p.foo, ({ valueOf }) => valueOf(p.foo) === 'x')`                      |
+| **applyWhen args**     | `applyWhen(condition, () => {...})`           | `applyWhen(path, condition, schemaFn)` - needs 3 args                            |
+| **Array length**       | `form.items().length`                         | `form.items.length` (structural)                                                 |
+| **Multi-select array** | `<select [formField]="form.tags">` (string[]) | Use checkboxes for array fields                                                  |
+| **readonly attribute** | `<input readonly [formField]>`                | Use `readonly()` rule in schema                                                  |
+| **min/max attributes** | `<input min="1" max="10">`                    | Use `min()` and `max()` rules in schema                                          |
+| **value binding**      | `<input [value]="val">`                       | Do NOT use `[value]` with `[formField]` (static `value` on radio/checkbox is OK) |
+| **when option**        | `pattern(p.x, /.../, {when: ...})`            | `when` only works with `required()`                                              |
+| **Submit callback**    | `submit(form, () => { ... })`                 | `submit(form, async () => { ... })`                                              |
+| **Async params**       | `params: s.field`                             | `params: ({ value }) => value()`                                                 |
+| **Async onError**      | Omitting `onError`                            | `onError` is REQUIRED in `validateAsync`                                         |
+| **resource() API**     | `request: signal`                             | `params: signal`                                                                 |
+| **applyEach args**     | `applyEach(s.items, (item, index) => ...)`    | `applyEach(s.items, (item) => ...)`                                              |
+| **Nested @for**        | `$parent.$index`                              | Use `let outerIndex = $index`                                                    |
+| **FormState import**   | `import { FormState }`                        | `FormState` does not exist, use `FieldState`                                     |
+| **Null in model**      | `signal({ name: null })`                      | `signal({ name: '' })` or `signal({ age: 0 })`                                   |
+| **Validate syntax**    | `validate(s.field, { value } => ...)`         | `validate(s.field, ({ value }) => ...)`                                          |
+| **Checkbox Array**     | `[formField]="form.tags"` (string[])          | Checkboxes ONLY bind to `boolean`                                                |
 
 ## Big Form Example
 
 ### `src/app/app.ts`
 
 ```ts
-import { Component, signal, ChangeDetectionStrategy } from "@angular/core";
+import {Component, signal, ChangeDetectionStrategy} from '@angular/core';
 import {
   form,
   FormField,
@@ -564,72 +559,67 @@ import {
   hidden,
   applyEach,
   validate,
-} from "@angular/forms/signals";
+} from '@angular/forms/signals';
 
 @Component({
-  selector: "app-root",
+  selector: 'app-root',
   standalone: true,
   imports: [FormField],
-  templateUrl: "./app.html",
+  templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
   protected readonly model = signal({
     personalInfo: {
-      firstName: "",
-      lastName: "",
-      email: "",
+      firstName: '',
+      lastName: '',
+      email: '',
       age: 0,
     },
     tripDetails: {
-      destination: "Mars",
-      launchDate: "",
+      destination: 'Mars',
+      launchDate: '',
     },
     package: {
-      tier: "economy",
+      tier: 'economy',
       extras: [] as string[],
     },
-    companions: [] as Array<{ name: string; relation: string }>,
+    companions: [] as Array<{name: string; relation: string}>,
   });
 
   protected readonly bookingForm = form(this.model, (s) => {
-    required(s.personalInfo.firstName, { message: "First name is required" });
-    required(s.personalInfo.lastName, { message: "Last name is required" });
-    required(s.personalInfo.email, { message: "Email is required" });
-    email(s.personalInfo.email, { message: "Invalid email address" });
-    required(s.personalInfo.age, { message: "Age is required" });
-    min(s.personalInfo.age, 18, { message: "Must be at least 18" });
+    required(s.personalInfo.firstName, {message: 'First name is required'});
+    required(s.personalInfo.lastName, {message: 'Last name is required'});
+    required(s.personalInfo.email, {message: 'Email is required'});
+    email(s.personalInfo.email, {message: 'Invalid email address'});
+    required(s.personalInfo.age, {message: 'Age is required'});
+    min(s.personalInfo.age, 18, {message: 'Must be at least 18'});
 
     required(s.tripDetails.destination);
     required(s.tripDetails.launchDate);
-    validate(s.tripDetails.launchDate, ({ value }) => {
+    validate(s.tripDetails.launchDate, ({value}) => {
       const date = new Date(value());
       if (isNaN(date.getTime())) return undefined;
       const today = new Date();
       if (date < today) {
-        return {
-          kind: "pastData",
-          message: "Launch date must be in the future",
-        };
+        return {kind: 'pastData', message: 'Launch date must be in the future'};
       }
       return undefined;
     });
 
     // valueOf is used to access values of other fields in rules
-    hidden(s.package.extras, {
-      when: ({ valueOf }) => valueOf(s.package.tier) === "economy",
-    });
+    hidden(s.package.extras, {when: ({valueOf}) => valueOf(s.package.tier) === 'economy'});
 
     applyEach(s.companions, (companion) => {
-      required(companion.name, { message: "Companion name required" });
-      required(companion.relation, { message: "Relation required" });
+      required(companion.name, {message: 'Companion name required'});
+      required(companion.relation, {message: 'Relation required'});
     });
   });
 
   addCompanion() {
     this.model.update((m) => ({
       ...m,
-      companions: [...m.companions, { name: "", relation: "" }],
+      companions: [...m.companions, {name: '', relation: ''}],
     }));
   }
 
@@ -643,7 +633,7 @@ export class App {
   onSubmit() {
     // CRITICAL: submit callback MUST be async
     submit(this.bookingForm, async () => {
-      console.log("Booking Confirmed:", this.model());
+      console.log('Booking Confirmed:', this.model());
       // If you need to do async work:
       // await this.apiService.save(this.model());
     });
@@ -665,9 +655,7 @@ export class App {
       <input [formField]="bookingForm.personalInfo.firstName" />
       @if (bookingForm.personalInfo.firstName().touched() &&
       bookingForm.personalInfo.firstName().errors().length) {
-      <span>
-        {{ bookingForm.personalInfo.firstName().errors()[0].message }}
-      </span>
+      <span>{{ bookingForm.personalInfo.firstName().errors()[0].message }}</span>
       }
     </label>
 
@@ -716,9 +704,7 @@ export class App {
       <input type="date" [formField]="bookingForm.tripDetails.launchDate" />
       @if (bookingForm.tripDetails.launchDate().touched() &&
       bookingForm.tripDetails.launchDate().errors().length) {
-      <span>
-        {{ bookingForm.tripDetails.launchDate().errors()[0].message }}
-      </span>
+      <span>{{ bookingForm.tripDetails.launchDate().errors()[0].message }}</span>
       }
     </label>
   </section>
@@ -727,27 +713,15 @@ export class App {
     <h2>Package</h2>
 
     <label>
-      <input
-        type="radio"
-        value="economy"
-        [formField]="bookingForm.package.tier"
-      />
+      <input type="radio" value="economy" [formField]="bookingForm.package.tier" />
       Economy
     </label>
     <label>
-      <input
-        type="radio"
-        value="business"
-        [formField]="bookingForm.package.tier"
-      />
+      <input type="radio" value="business" [formField]="bookingForm.package.tier" />
       Business
     </label>
     <label>
-      <input
-        type="radio"
-        value="first"
-        [formField]="bookingForm.package.tier"
-      />
+      <input type="radio" value="first" [formField]="bookingForm.package.tier" />
       First Class
     </label>
 
@@ -775,8 +749,7 @@ export class App {
       }
 
       <input [formField]="companion.relation" placeholder="Relation" />
-      @if (companion.relation().touched() &&
-      companion.relation().errors().length) {
+      @if (companion.relation().touched() && companion.relation().errors().length) {
       <span>{{ companion.relation().errors()[0].message }}</span>
       }
 
@@ -810,12 +783,9 @@ const val = this.form.field().value();
 
 ```ts
 // WRONG
-this.form.address.street.set("Main St");
+this.form.address.street.set('Main St');
 // RIGHT - update the model signal instead
-this.model.update((m) => ({
-  ...m,
-  address: { ...m.address, street: "Main St" },
-}));
+this.model.update((m) => ({...m, address: {...m.address, street: 'Main St'}}));
 ```
 
 ### `Type 'string[]' is not assignable to type 'string'`
@@ -872,7 +842,7 @@ protected readonly model = signal({ hasWifi: false, hasGym: false });
 
 ```ts
 // WRONG - when only works with required
-pattern(s.ssn, /^\d{3}-\d{2}-\d{4}$/, { when: isJoint });
+pattern(s.ssn, /^\d{3}-\d{2}-\d{4}$/, {when: isJoint});
 
 // RIGHT - use applyWhen for conditional non-required validators
 applyWhen(s.ssn, isJoint, (ssnPath) => {
@@ -900,7 +870,7 @@ applyWhen(s.spouse, ({valueOf}) => valueOf(s.status) === 'joint', (spousePath) =
 
 ```ts
 // WRONG
-import { FormState } from "@angular/forms/signals";
+import {FormState} from '@angular/forms/signals';
 
 // FormState does not exist. If you need type access, the form
 // instance provides all necessary state through field().valid(), etc.
@@ -915,8 +885,7 @@ import { FormState } from "@angular/forms/signals";
 {{ totalPrice() | number:'1.2-2' }}
 
 <!-- RIGHT - format in the component -->
-protected readonly totalPriceFormatted = computed(() =>
-this.totalPrice().toFixed(2));
+protected readonly totalPriceFormatted = computed(() => this.totalPrice().toFixed(2));
 <!-- then: -->
 {{ totalPriceFormatted() }}
 ```
@@ -932,8 +901,7 @@ this.totalPrice().toFixed(2));
 } }
 
 <!-- RIGHT -->
-@for (item of items; track $index; let outerIdx = $index) { @for (sub of
-item.subs; track $index) {
+@for (item of items; track $index; let outerIdx = $index) { @for (sub of item.subs; track $index) {
 <button (click)="remove(outerIdx, $index)">X</button>
 } }
 ```

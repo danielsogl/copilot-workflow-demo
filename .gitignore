@@ -53,3 +53,7 @@ node_modules/
 
 # Playwright BDD generated tests
 /.features-gen/
+
+
+# APM dependencies
+apm_modules/

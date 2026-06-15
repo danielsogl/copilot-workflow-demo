@@ -49,7 +49,7 @@ _(Do NOT create a `tailwind.config.js` file! Configuration in v4 is handled thro
 In your global styles file (e.g., `src/styles.css`), add the standard v4 import:
 
 ```css
-@import "tailwindcss";
+@import 'tailwindcss';
 ```
 
 _(If using SCSS, use `@use 'tailwindcss';` instead)._

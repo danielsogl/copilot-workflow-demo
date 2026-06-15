@@ -22,8 +22,8 @@ You are a senior developer performing a comprehensive code review of the changes
 Reference the project's instruction files located in `.github/instructions/`:
 - [Project Conventions](../../AGENTS.md)
 - [Angular v21+](../instructions/angular.instructions.md)
-- [TypeScript](../instructions/typescript.instructions.md)
-- [Architecture (DDD)](../instructions/architecture.instructions.md)
+- [TypeScript](../../.apm/instructions/typescript.instructions.md)
+- [Architecture (DDD)](../../.apm/instructions/architecture.instructions.md)
 - [NgRx Signals v21+](../instructions/ngrx-signals.instructions.md)
 - [Angular Material 3](../instructions/angular-material.instructions.md)
 - [Signal Forms](../instructions/angular-signal-forms.instructions.md)
