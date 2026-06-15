@@ -1,4 +1,7 @@
 {
+  "env": {
+    "CLAUDE_CODE_NEW_INIT": "1"
+  },
   "permissions": {
     "allow": [
       "Bash(npm:*)",

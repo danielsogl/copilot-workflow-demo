@@ -23,15 +23,10 @@ Idiomatic, runnable examples of every primitive in the library. Read the section
 Factory that returns an injectable Angular service class assembled from the features you pass.
 
 ```typescript
-import {
-  signalStore,
-  withState,
-  withComputed,
-  withMethods,
-} from "@ngrx/signals";
+import { signalStore, withState, withComputed, withMethods } from '@ngrx/signals';
 
 export const CounterStore = signalStore(
-  { providedIn: "root" }, // optional
+  { providedIn: 'root' },        // optional
   withState({ count: 0 }),
   withComputed(({ count }) => ({
     doubleCount: () => count() * 2,
@@ -40,7 +35,7 @@ export const CounterStore = signalStore(
     increment(): void {
       patchState(store, ({ count }) => ({ count: count + 1 }));
     },
-  })),
+  }))
 );
 ```
 
@@ -48,9 +43,9 @@ Inject like any other service:
 
 ```typescript
 const counter = inject(CounterStore);
-counter.count(); // signal getter
-counter.doubleCount(); // computed getter
-counter.increment(); // method
+counter.count();        // signal getter
+counter.doubleCount();  // computed getter
+counter.increment();    // method
 ```
 
 ## withState
@@ -60,18 +55,18 @@ Declares state slices. Each top-level key becomes a `Signal<T>` on the store.
 **Always type the state explicitly.** This makes `patchState` errors point at the right place.
 
 ```typescript
-import { signalStore, withState } from "@ngrx/signals";
+import { signalStore, withState } from '@ngrx/signals';
 
 type BookSearchState = {
   books: Book[];
   isLoading: boolean;
-  filter: { query: string; order: "asc" | "desc" };
+  filter: { query: string; order: 'asc' | 'desc' };
 };
 
 const initialState: BookSearchState = {
   books: [],
   isLoading: false,
-  filter: { query: "", order: "asc" },
+  filter: { query: '', order: 'asc' },
 };
 
 export const BookSearchStore = signalStore(withState(initialState));
@@ -84,20 +79,18 @@ Nested state slices are exposed as deep signals (each key in the nested object b
 Creates derived signals. The factory runs in an injection context, so you can `inject(...)` services here too.
 
 ```typescript
-import { computed } from "@angular/core";
-import { signalStore, withComputed, withState } from "@ngrx/signals";
+import { computed } from '@angular/core';
+import { signalStore, withComputed, withState } from '@ngrx/signals';
 
 export const BookSearchStore = signalStore(
   withState(initialState),
   withComputed(({ books, filter }) => ({
     booksCount: computed(() => books().length),
     sortedBooks: computed(() => {
-      const direction = filter.order() === "asc" ? 1 : -1;
-      return books().toSorted(
-        (a, b) => direction * a.title.localeCompare(b.title),
-      );
+      const direction = filter.order() === 'asc' ? 1 : -1;
+      return books().toSorted((a, b) => direction * a.title.localeCompare(b.title));
     }),
-  })),
+  }))
 );
 ```
 
@@ -108,8 +101,8 @@ Computed values are memoized and only recompute when the underlying signals chan
 Adds methods to the store. The factory receives the store instance (with state, computed, and any earlier props) and runs in an injection context.
 
 ```typescript
-import { inject } from "@angular/core";
-import { patchState, signalStore, withMethods, withState } from "@ngrx/signals";
+import { inject } from '@angular/core';
+import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 
 export const BookSearchStore = signalStore(
   withState(initialState),
@@ -124,7 +117,7 @@ export const BookSearchStore = signalStore(
       const books = await booksService.getAll();
       patchState(store, { books, isLoading: false });
     },
-  })),
+  }))
 );
 ```
 
@@ -135,8 +128,8 @@ Inject services as default parameters — this keeps the method body free of `in
 Attaches non-reactive properties to the store. Useful for grouping injected dependencies that other features will use.
 
 ```typescript
-import { inject } from "@angular/core";
-import { signalStore, withProps, withState } from "@ngrx/signals";
+import { inject } from '@angular/core';
+import { signalStore, withProps, withState } from '@ngrx/signals';
 
 export const BooksStore = signalStore(
   withState<BooksState>({ books: [], isLoading: false }),
@@ -146,12 +139,12 @@ export const BooksStore = signalStore(
   })),
   withMethods(({ booksService, logger, ...store }) => ({
     async loadBooks(): Promise<void> {
-      logger.debug("Loading books...");
+      logger.debug('Loading books...');
       patchState(store, { isLoading: true });
       const books = await booksService.getAll();
       patchState(store, { books, isLoading: false });
     },
-  })),
+  }))
 );
 ```
 
@@ -160,18 +153,18 @@ export const BooksStore = signalStore(
 Lifecycle hooks called when the store is created/destroyed.
 
 ```typescript
-import { signalStore, withHooks, withProps } from "@ngrx/signals";
+import { signalStore, withHooks, withProps } from '@ngrx/signals';
 
 export const BooksStore = signalStore(
   withProps(() => ({ logger: inject(Logger) })),
   withHooks({
     onInit({ logger }) {
-      logger.debug("BooksStore initialized");
+      logger.debug('BooksStore initialized');
     },
     onDestroy({ logger }) {
-      logger.debug("BooksStore destroyed");
+      logger.debug('BooksStore destroyed');
     },
-  }),
+  })
 );
 ```
 
@@ -182,7 +175,7 @@ The hook callbacks receive the fully-assembled store, so you can call methods (e
 Immutable state update. Three forms:
 
 ```typescript
-import { patchState } from "@ngrx/signals";
+import { patchState } from '@ngrx/signals';
 
 // 1. Partial state object — shallow-merge.
 patchState(store, { isLoading: true });
@@ -191,14 +184,14 @@ patchState(store, { isLoading: true });
 patchState(store, (state) => ({ count: state.count + 1 }));
 
 // 3. Spread of named updaters (composable).
-patchState(store, setPending(), setQuery("angular"));
+patchState(store, setPending(), setQuery('angular'));
 ```
 
 Custom updaters are just functions that return one of forms 1 or 2:
 
 ```typescript
 function setPending(): Partial<RequestStatusState> {
-  return { requestStatus: "pending" };
+  return { requestStatus: 'pending' };
 }
 
 function setError(message: string): Partial<RequestStatusState> {
@@ -213,7 +206,7 @@ Custom updaters are the right tool when the same state shape is patched in many 
 Snapshot read of the entire state object — useful for capturing a "before" copy for rollback.
 
 ```typescript
-import { getState, patchState } from "@ngrx/signals";
+import { getState, patchState } from '@ngrx/signals';
 
 const previous = getState(store);
 patchState(store, { items: optimistic });
@@ -230,11 +223,11 @@ try {
 For pure component-local state where a full store is overkill, use `signalState`. It is a smaller version of `withState` you can use directly inside a component.
 
 ```typescript
-import { ChangeDetectionStrategy, Component } from "@angular/core";
-import { patchState, signalState } from "@ngrx/signals";
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { patchState, signalState } from '@ngrx/signals';
 
 @Component({
-  selector: "ngrx-counter",
+  selector: 'ngrx-counter',
   template: `
     <p>Count: {{ state.count() }}</p>
     <button (click)="increment()">+</button>
@@ -260,11 +253,11 @@ Bridges RxJS into the store. Use when you need RxJS operators — `debounceTime`
 - A `Signal<T>` (converted to an observable internally and re-emits on changes).
 
 ```typescript
-import { inject } from "@angular/core";
-import { debounceTime, distinctUntilChanged, pipe, switchMap, tap } from "rxjs";
-import { patchState, signalStore, withMethods, withState } from "@ngrx/signals";
-import { rxMethod } from "@ngrx/signals/rxjs-interop";
-import { tapResponse } from "@ngrx/operators";
+import { inject } from '@angular/core';
+import { debounceTime, distinctUntilChanged, pipe, switchMap, tap } from 'rxjs';
+import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
+import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { tapResponse } from '@ngrx/operators';
 
 export const BookSearchStore = signalStore(
   withState(initialState),
@@ -282,12 +275,12 @@ export const BookSearchStore = signalStore(
                 patchState(store, { isLoading: false });
                 console.error(err);
               },
-            }),
-          ),
-        ),
-      ),
+            })
+          )
+        )
+      )
     ),
-  })),
+  }))
 );
 ```
 
@@ -298,22 +291,16 @@ Use `tapResponse` from `@ngrx/operators` rather than a bare `subscribe` — it p
 Pure-signal alternative to `rxMethod` (v19+). Use when input is a value or signal and the body is synchronous (or just needs an `effect`-like reaction).
 
 ```typescript
-import {
-  signalStore,
-  signalMethod,
-  withMethods,
-  withState,
-  patchState,
-} from "@ngrx/signals";
+import { signalStore, signalMethod, withMethods, withState, patchState } from '@ngrx/signals';
 
 export const CounterStore = signalStore(
-  { providedIn: "root" },
+  { providedIn: 'root' },
   withState({ count: 0 }),
   withMethods((store) => ({
     incrementBy: signalMethod<number>((step) => {
       patchState(store, ({ count }) => ({ count: count + step }));
     }),
-  })),
+  }))
 );
 ```
 
@@ -328,13 +315,13 @@ export const CounterStore = signalStore(
   withState({ count: 0, _audit: [] as string[] }),
   withMethods((store) => ({
     increment(): void {
-      store._record("increment");
+      store._record('increment');
       patchState(store, ({ count }) => ({ count: count + 1 }));
     },
     _record(event: string): void {
       patchState(store, ({ _audit }) => ({ _audit: [..._audit, event] }));
     },
-  })),
+  }))
 );
 ```
 
