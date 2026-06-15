@@ -1,5 +1,5 @@
 lockfile_version: '1'
-generated_at: '2026-06-15T17:26:39.202215+00:00'
+generated_at: '2026-06-15T18:09:02.215396+00:00'
 apm_version: 0.20.0
 dependencies:
 - repo_url: angular/skills
@@ -347,6 +347,7 @@ dependencies:
   content_hash: sha256:fb790201d6dde15d9884cd9bbe6a6b3d9cc115736c232feb1ad5cf3594f4eff0
 mcp_servers:
 - angular-cli
+- codegraph
 - context7
 - eslint
 - playwright
@@ -361,6 +362,14 @@ mcp_configs:
     - mcp
     registry: false
     command: npx
+  codegraph:
+    name: codegraph
+    transport: stdio
+    args:
+    - serve
+    - --mcp
+    registry: false
+    command: codegraph
   context7:
     name: context7
     transport: http

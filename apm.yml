@@ -60,4 +60,15 @@ dependencies:
       command: npx
       args:
         - "@eslint/mcp@latest"
-scripts: {}
+    # CodeGraph — tree-sitter knowledge graph (not in the MCP registry → self-defined).
+    # `codegraph serve --mcp` is the stdio server; the index lives in .codegraph/ (gitignored).
+    - name: codegraph
+      registry: false
+      transport: stdio
+      command: codegraph
+      args:
+        - serve
+        - --mcp
+scripts:
+  # Build/refresh the CodeGraph index: `apm run codegraph-setup`
+  codegraph-setup: codegraph init

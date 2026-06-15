@@ -57,3 +57,6 @@ node_modules/
 
 # APM dependencies
 apm_modules/
+
+# CodeGraph index (local, rebuild via `apm run codegraph-setup`)
+.codegraph/
