@@ -42,7 +42,7 @@ Project-local skills (`.github/skills/`):
 | `vitest-angular-testing`   | Writing `*.spec.ts` for components / services / directives / pipes / HTTP |
 | `pr-review`                | Reviewing a pull request                                                  |
 
-Library skills (auto-discovered, locked via `skills-lock.json`):
+Library skills (managed by APM, locked via `apm.lock.yaml`):
 
 | Skill                    | Source               |
 | ------------------------ | -------------------- |
