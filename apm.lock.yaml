@@ -277,7 +277,7 @@ local_deployed_file_hashes:
   .github/instructions/angular-components.instructions.md: sha256:558967aaea58257a615e49abeef2bd7cd0ce0558d78e87a4fa445d95dc3ed9f8
   .github/instructions/architecture.instructions.md: sha256:ef8e299d823e21a4e2197b2c437247d31bce4d979a52c7577c7402dcb5fa7160
   .github/instructions/commands.instructions.md: sha256:b29d123d50f476fa3e41cb87be79adb8ea6ba84307758c706c6206a1403f92c4
-  .github/instructions/project-overview.instructions.md: sha256:260e0b940e6d34a56c71797d9ef9585884532eb08da1975b12bcdf305b36cae3
+  .github/instructions/project-overview.instructions.md: sha256:c242484cf7fd70eac77168071e31bb0764c3a0855793d42d722bde27b3d58dd7
   .github/instructions/styling.instructions.md: sha256:8a3478b9d440566bfe8e39f2bd072ff069f6592c6354e5d1a3ef3ed48007c4f9
   .github/instructions/typescript.instructions.md: sha256:25ee789aae5bf131fc19d7dff38469b90f65abc0ed2cb25f8bcb0b93c6554d96
   .github/prompts/analyze-codebase-bugs.prompt.md: sha256:ab145527784e8af6de8cd6d268d40d08c59e26802636f9acb4821c813e11aab2
