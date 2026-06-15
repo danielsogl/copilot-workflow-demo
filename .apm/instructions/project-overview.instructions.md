@@ -4,6 +4,8 @@ description: Project overview, stack summary, layout, and skill index for the An
 
 This repo is an Angular 22 + NgRx Signals workshop demo. Agent configuration is managed by **APM** — author primitives under `.apm/`, run `apm install` to compile harness-specific output. Never hand-edit generated dirs (`.github/`, `.agents/skills/`, `.claude/`, `AGENTS.md`).
 
+**CodeGraph:** the `codegraph_*` MCP tools are backed by a tree-sitter index. `apm install` only writes the MCP server config — the index is **not** built automatically. If `.codegraph/` is missing (the server reports "not initialized"), run `apm run codegraph-setup` (= `codegraph init`) once; CodeGraph's daemon keeps it in sync afterwards.
+
 ## Stack
 
 - **Angular 22** — standalone components, signals, `@if` / `@for` / `@switch` / `@let` control flow. No `NgModule`, no `*ngIf` / `*ngFor`.

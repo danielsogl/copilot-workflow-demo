@@ -67,6 +67,9 @@ Project-scope MCP servers (declared in `apm.yml › dependencies.mcp`), auto-ena
 | **`playwright-test`** | Test runner automation for the Playwright agents                          |
 | **`playwright`**      | Browser automation (accessibility-tree driven)                            |
 | **`eslint`**          | Lint files via the official ESLint MCP server                             |
+| **`codegraph`**       | Tree-sitter knowledge graph (`codegraph_*`: search, callers, impact, …)   |
+
+> **CodeGraph index:** `apm install` writes the `codegraph` MCP config, but the tree-sitter index is **not** built automatically. Run `apm run codegraph-setup` (= `codegraph init`) once to create the gitignored `.codegraph/` index — otherwise the `codegraph_*` tools report "not initialized".
 
 ### Step 6: Skills
 

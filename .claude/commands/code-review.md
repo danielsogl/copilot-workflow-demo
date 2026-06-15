@@ -1,74 +1,89 @@
 ---
-description: Review the changes on the current branch against project Angular 21 / NgRx Signals / Material 3 / DDD standards.
-allowed-tools: Bash(git diff:*), Bash(git log:*), Bash(git status), Bash(npm run lint:*), Bash(npm test:*), Read, Grep, Glob
+description: This prompt can be used to review code changes made on a given branch
 ---
 
-You are a senior developer performing a comprehensive code review of the changes made on the active branch compared to `main`. Goal: ensure code quality, adherence to project conventions, and maintainability.
+# Code Review for Active Branch
 
-## Context
+You are a senior developer performing a comprehensive code review of the changes made on the active branch compared to the source branch (typically `main` or `develop`). Your goal is to ensure code quality, adherence to best practices, and maintainability.
 
-Current branch status:
+## Review Process
 
-!`git status`
+1. **Identify Changed Files**: Get all changed files using the `changes` tool to see git diffs
+2. **Run Linter**: Check for linting errors using the `problems` tool
+3. **Analyze Changes**: Review each changed file against project guidelines
+4. **Check Tests**: Verify unit tests exist and run them using the `runTests` tool
+5. **Report Issues**: Output a structured report of all findings
 
-Diff summary against main:
+## Review Criteria
 
-!`git diff main...HEAD --stat`
+Reference the project's instruction files located in `.github/instructions/`:
+- [Project Conventions](../../AGENTS.md)
+- [Angular v21+](../instructions/angular.instructions.md)
+- [TypeScript](../../.apm/instructions/typescript.instructions.md)
+- [Architecture (DDD)](../../.apm/instructions/architecture.instructions.md)
+- [NgRx Signals v21+](../instructions/ngrx-signals.instructions.md)
+- [Angular Material 3](../instructions/angular-material.instructions.md)
+- [Signal Forms](../instructions/angular-signal-forms.instructions.md)
+- [Testing (Vitest)](../instructions/angular-testing.instructions.md)
 
-Project conventions live in @CLAUDE.md.
+Pay special attention to v21+ patterns: `linkedSignal`, `httpResource`, `@let` template variables, `withFeature`/`withLinkedState` in stores, Material 3 system tokens (`--mat-sys-*`), and Signal Forms via `@angular/forms/signals`.
 
-## Review process
+## Output Format
 
-1. **Identify changed files** — read each modified file from the diff above.
-2. **Run the linter** — `npm run lint` and surface any errors.
-3. **Analyze changes** — review each changed file against the criteria below.
-4. **Check tests** — verify spec files exist for changed components/stores/services and run `npm test` if reasonable.
-5. **Report issues** — produce a structured report.
+Generate a structured report with the following sections:
 
-## Review criteria
+### 1. Summary
+- Total files changed
+- Total issues found (Critical/High/Medium/Low)
+- Overall assessment (Ready to Merge / Needs Revision / Major Issues)
 
-Reference @CLAUDE.md for the full ruleset. Pay special attention to v21+ patterns: `linkedSignal`, `httpResource`, `@let` template variables, `withFeature`/`withLinkedState` in stores, Material 3 system tokens (`--mat-sys-*`), and Signal Forms via `@angular/forms/signals`.
+### 2. Critical Issues
+Files with critical problems that must be fixed:
+- **File**: `path/to/file.ts`
+  - **Issue**: Misleading function name `getData()` performs mutations
+  - **Rule**: Single Responsibility Principle
+  - **Fix**: Rename to `updateAndGetData()` or split into separate functions
 
-## Output format
+### 3. Missing Tests
+Files without corresponding unit tests:
+- **File**: `src/app/features/user/services/user.ts`
+  - **Missing**: `user.spec.ts`
+  - **Requirement**: All services must have unit tests
 
-```markdown
-# Code Review
+### 4. Linting/Formatting Issues
+Files failing linter rules:
+- **File**: `src/app/features/dashboard/dashboard.ts`
+  - **Rule**: `@typescript-eslint/no-explicit-any`
+  - **Line**: 42
+  - **Fix**: Replace `any` with proper type
 
-## 1. Summary
+### 5. Architecture Violations
+Files not following DDD structure:
+- **File**: `src/app/features/user/user-list.ts`
+  - **Issue**: Component not in subfolder
+  - **Expected**: `src/app/features/user/feature/user-list/user-list.ts`
 
-- Files changed: X
-- Issues: Critical Y · High Z · Medium W · Low V
-- Verdict: ✅ Ready to merge / ⚠️ Needs revision / ❌ Major issues
+### 6. Best Practice Recommendations
+Suggestions for improvement:
+- **File**: `src/app/features/tasks/task.ts`
+  - **Suggestion**: Consider using `rxMethod` instead of async/await for Observable-based operations
+  - **Priority**: Low
 
-## 2. Critical issues
+### 7. Passing Checks
+Acknowledge what was done well:
+- ✅ All components use function-based DI
+- ✅ Strong typing throughout
+- ✅ All tests pass successfully
 
-- **File:** `path/to/file.ts:LINE`
-  - **Issue:** ...
-  - **Rule:** ...
-  - **Fix:** ...
+## Instructions
 
-## 3. Missing tests
-
-- **File:** `src/app/features/.../user.ts`
-  - **Missing:** `user.spec.ts`
-
-## 4. Linting / formatting
-
-- **File:** `path:LINE` — rule, fix
-
-## 5. Architecture violations
-
-- ...
-
-## 6. Best-practice suggestions
-
-- ...
-
-## 7. Passing checks ✅
-
-- ...
-```
-
-Be specific: include file paths, line numbers, exact issues, and actionable fixes. Prioritize Critical > High > Medium > Low.
+1. Get the changed files and analyze diffs
+2. Check for linting errors
+3. Verify test coverage and run tests
+4. Review each file against the criteria above
+5. Generate the structured report
+6. Be specific: include file paths, line numbers, and exact issues
+7. Prioritize issues: Critical > High > Medium > Low
+8. Provide actionable fixes for each issue
 
 Begin the code review now.

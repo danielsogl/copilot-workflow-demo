@@ -398,8 +398,12 @@ mcp_configs:
     registry: false
     command: npx
 local_deployed_files:
+- .claude/agents/playwright-test-generator.md
+- .claude/agents/playwright-test-healer.md
+- .claude/agents/playwright-test-planner.md
 - .claude/commands/analyze-codebase-bugs.md
 - .claude/commands/angular-signal-forms.md
+- .claude/commands/code-review.md
 - .claude/commands/ngrx-signals-store-crud.md
 - .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh
 - .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh
@@ -428,8 +432,12 @@ local_deployed_files:
 - .github/prompts/code-review.prompt.md
 - .github/prompts/ngrx-signals-store-crud.prompt.md
 local_deployed_file_hashes:
+  .claude/agents/playwright-test-generator.md: sha256:367dd9eb6a7782035ea6e7eb6fde9ef36b07db903908888097265eee8d4991b3
+  .claude/agents/playwright-test-healer.md: sha256:ce74d9843a3cafe7ad400c2527c9ea5a037a5a0777399ee387e64fb6e2a78507
+  .claude/agents/playwright-test-planner.md: sha256:bcd3bd69d6dc952dd14e50b24a41bb6e21fef147abf54cdff952c1e69e290b55
   .claude/commands/analyze-codebase-bugs.md: sha256:8be10386f4099e3e8bf06d029be400439a2f295574a6b372df5e23269849db0f
   .claude/commands/angular-signal-forms.md: sha256:f4c330156c18b6b245781f9cad21261c7e9b84b7a6c92cbb741ef38bf0a2d7e5
+  .claude/commands/code-review.md: sha256:a793720842bf5c64ad26776968b844076e75e2232c3ac8d414f5cbcc99cc482c
   .claude/commands/ngrx-signals-store-crud.md: sha256:3dc0426a08cc2b0c4c665d10f71c15da2a995ced51364aed5f59eec445bebe18
   .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh: sha256:668a244fbc40b8b707e3835c255ae078e3ea9843e7b76ce1fd4cf153c406386a
   .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh: sha256:2816c914b9981c6461cf965e7aca899148570ac0cedeb1ff784683eabe745fc2
@@ -437,7 +445,7 @@ local_deployed_file_hashes:
   .claude/rules/angular-components.md: sha256:b2566675d1faaced2cee4ed326cc954a44bbce37dbfc2f001e5867ecf79c381f
   .claude/rules/architecture.md: sha256:d7dc3a97f28226d53188c053c5a19787293a5c541e955b85f7d46c7058dede36
   .claude/rules/commands.md: sha256:56950f31dda4ff2e56fdabe6bdb97340f370079078c11c0a773f29dd6424e882
-  .claude/rules/project-overview.md: sha256:c455228655a586016c1e3da885c89c6af04d76e5a4d5cf6414a9f9e2abbfb221
+  .claude/rules/project-overview.md: sha256:b5fe7daa502a4779873049905704aed18f7ff70d0cbb3c70fa6d571e0e247e61
   .claude/rules/styling.md: sha256:ddf96af3963bfaeb33953cd5e372457d3b1710ac843fde91fa992a22a506c883
   .claude/rules/typescript.md: sha256:53c33ac832aee9870c95fc5eceecafb291a1c5530b184dabc122b45c8d58ea9c
   .github/agents/playwright-test-generator.agent.md: sha256:367dd9eb6a7782035ea6e7eb6fde9ef36b07db903908888097265eee8d4991b3
