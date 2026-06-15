@@ -70,15 +70,13 @@ Project-scope MCP servers, auto-enabled via `.claude/settings.json`:
 | **`playwright-test`** | Browser automation for the Playwright agents                              |
 | **`eslint`**          | Lint files via the official ESLint MCP server                             |
 
-### Step 6: Skills (optional)
+### Step 6: Skills
 
-Install community Claude skills cleanly with the [skills CLI](https://www.npmjs.com/package/skills):
+Library skills are managed by **APM** — declared in `apm.yml`, version-pinned in `apm.lock.yaml`, and deployed to `.claude/skills/`:
 
-```bash
-npx skills
-```
+- `angular-developer`, `angular-new-app`, `ngrx-signals`, `bdd`, `skill-creator`
 
-Pick only the ones you actually need — `angular-developer`, `ngrx-signals`, `pr-review`, `playwright-cli` — then commit the generated `skills-lock.json`.
+Run `apm install` to (re)deploy them after editing `apm.yml`.
 
 ## Workshop demos: Claude Agent SDK
 
