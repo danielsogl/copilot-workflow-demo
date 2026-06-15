@@ -23,6 +23,12 @@
       "type": "stdio",
       "command": "npx",
       "args": ["@eslint/mcp@latest"]
+    },
+    "codegraph": {
+      "type": "stdio",
+      "command": "codegraph",
+      "args": ["serve", "--mcp"]
     }
-  }
+  },
+  "inputs": []
 }

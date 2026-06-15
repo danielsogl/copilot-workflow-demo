@@ -1,5 +1,5 @@
 lockfile_version: '1'
-generated_at: '2026-06-15T16:28:50.136152+00:00'
+generated_at: '2026-06-15T18:07:00.215177+00:00'
 apm_version: 0.20.0
 dependencies:
 - repo_url: angular/skills
@@ -196,6 +196,58 @@ dependencies:
     .agents/skills/ngrx-signals/references/patterns.md: sha256:6fe096dbc19673281f92f478e503ffeb9a7cf5a205b8e59a64d8262afde093b7
     .agents/skills/ngrx-signals/references/testing.md: sha256:d42999e00704ce58fdee70bd9cf1877300bb81cae14a19369fe655ca516377f0
   content_hash: sha256:fb790201d6dde15d9884cd9bbe6a6b3d9cc115736c232feb1ad5cf3594f4eff0
+mcp_servers:
+- angular-cli
+- codegraph
+- context7
+- eslint
+- playwright
+- playwright-test
+mcp_configs:
+  angular-cli:
+    name: angular-cli
+    transport: stdio
+    args:
+    - -y
+    - '@angular/cli'
+    - mcp
+    registry: false
+    command: npx
+  codegraph:
+    name: codegraph
+    transport: stdio
+    args:
+    - serve
+    - --mcp
+    registry: false
+    command: codegraph
+  context7:
+    name: context7
+    transport: http
+    registry: false
+    url: https://mcp.context7.com/mcp/oauth
+  eslint:
+    name: eslint
+    transport: stdio
+    args:
+    - '@eslint/mcp@latest'
+    registry: false
+    command: npx
+  playwright:
+    name: playwright
+    transport: stdio
+    args:
+    - '@playwright/mcp@latest'
+    registry: false
+    command: npx
+  playwright-test:
+    name: playwright-test
+    transport: stdio
+    args:
+    - playwright
+    - run-test-mcp-server
+    registry: false
+    command: npx
 local_deployed_files:
 - .github/agents/playwright-test-generator.agent.md
 - .github/agents/playwright-test-healer.agent.md
