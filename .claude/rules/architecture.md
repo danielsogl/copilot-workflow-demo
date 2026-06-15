@@ -1,6 +1,6 @@
 ---
-description: DDD layering, no barrel files, and file/class naming conventions for source code.
-applyTo: "src/app/**"
+paths:
+  - "src/app/**"
 ---
 
 - **DDD layering** — `feature/` (smart, route-level), `ui/` (presentational, OnPush), `data/` (`models/`, `infrastructure/`, `state/`), `util/`. Cross-domain code lives in `core/`.

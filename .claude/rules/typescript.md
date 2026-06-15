@@ -1,6 +1,6 @@
 ---
-description: TypeScript conventions — strict typing, function DI, immutable state.
-applyTo: "**/*.ts"
+paths:
+  - "**/*.ts"
 ---
 
 - **No `any`.** Prefer `unknown` + type guards. Strong types on public APIs.

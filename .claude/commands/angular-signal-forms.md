@@ -1,8 +1,6 @@
 ---
-description: A reusable prompt for generating Angular Signal Forms with complete validation and dynamic field management for a specified entity.
-name: angular-signal-forms-generator
-agent: agent
-tools: ['edit', 'search', 'execute/runInTerminal', 'execute/getTerminalOutput', 'execute/runTests', 'search/usages', 'read/problems', 'todo', 'context7/*', 'angular-cli/*']
+description: A reusable prompt for generating Angular Signal Forms with complete validation
+  and dynamic field management for a specified entity.
 ---
 
 # Angular Signal Forms Generator

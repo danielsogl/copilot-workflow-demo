@@ -1,6 +1,6 @@
 ---
-description: Styling conventions — Angular Material 3 theming via mat.theme() and system tokens.
-applyTo: "**/*.scss"
+paths:
+  - "**/*.scss"
 ---
 
 - **Material 3 only** — theme via the `mat.theme()` mixin and `--mat-sys-*` system tokens.

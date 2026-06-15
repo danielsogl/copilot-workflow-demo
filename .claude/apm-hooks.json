@@ -1,0 +1,26 @@
+{
+  "SessionStart": [
+    {
+      "type": "command",
+      "command": ".claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh",
+      "timeout": 5,
+      "_apm_source": "_local/copilot-workflow-demo"
+    }
+  ],
+  "PreToolUse": [
+    {
+      "type": "command",
+      "command": ".claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh",
+      "timeout": 5,
+      "_apm_source": "_local/copilot-workflow-demo"
+    }
+  ],
+  "PostToolUse": [
+    {
+      "type": "command",
+      "command": ".claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh",
+      "timeout": 30,
+      "_apm_source": "_local/copilot-workflow-demo"
+    }
+  ]
+}

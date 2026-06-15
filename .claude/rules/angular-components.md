@@ -1,6 +1,7 @@
 ---
-description: Angular component conventions — standalone, signals, OnPush, modern control flow, HTTP.
-applyTo: "**/*.ts,**/*.html"
+paths:
+  - "**/*.ts"
+  - "**/*.html"
 ---
 
 - **Standalone only.** No `NgModule`. No `CommonModule` / `RouterModule` imports — import specific directives (`RouterLink`).

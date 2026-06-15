@@ -1,8 +1,6 @@
 ---
-description: A reusable prompt for generating NgRx Signal stores with complete CRUD operations for a specified entity.
-name: ngrx-signals-store-crud-generator
-agent: agent
-tools: ['edit', 'search', 'execute/runInTerminal', 'execute/getTerminalOutput', 'read/terminalLastCommand', 'execute/runTests', 'read/problems', 'read/readFile', 'search/usages', 'todo', 'eslint/*', 'context7/*', 'angular-cli/*']
+description: A reusable prompt for generating NgRx Signal stores with complete CRUD
+  operations for a specified entity.
 ---
 
 # NgRx Signal Store CRUD Generator
