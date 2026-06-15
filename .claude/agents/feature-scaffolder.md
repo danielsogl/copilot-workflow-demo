@@ -1,25 +1,25 @@
 ---
 name: feature-scaffolder
-description: Use this agent to scaffold a complete DDD domain feature end-to-end (feature & UI components, NgRx Signal Store, API service, models, tests, route registration). Trigger when the user asks to "create a new feature", "scaffold a domain", "add a new module" or describes a new entity that needs the full layered structure.
+description: |
+  Use this agent to scaffold a complete DDD domain feature end-to-end (feature & UI components, NgRx Signal Store, API service, models, tests, route registration). Trigger when the user asks to "create a new feature", "scaffold a domain", "add a new module" or describes a new entity that needs the full layered structure.
 
-<example>
-Context: User wants to add a brand-new domain feature.
-user: "Scaffold a notifications feature with a list view and a Signal Store"
-assistant: "I'll use the feature-scaffolder agent to create the full DDD layout: feature/, ui/, data/{models,infrastructure,state}, util/, plus a lazy-loaded route."
-<commentary>
-End-to-end scaffolding of a new domain — exactly what feature-scaffolder is for.
-</commentary>
-</example>
+  <example>
+  Context: User wants to add a brand-new domain feature.
+  user: "Scaffold a notifications feature with a list view and a Signal Store"
+  assistant: "I'll use the feature-scaffolder agent to create the full DDD layout: feature/, ui/, data/{models,infrastructure,state}, util/, plus a lazy-loaded route."
+  <commentary>
+  End-to-end scaffolding of a new domain — exactly what feature-scaffolder is for.
+  </commentary>
+  </example>
 
-<example>
-Context: User describes a new entity informally.
-user: "I want to add user management with profile editing"
-assistant: "I'll launch the feature-scaffolder agent to set up the DDD structure for the users domain."
-<commentary>
-"Add a feature with X" maps to the scaffolder.
-</commentary>
-</example>
-
+  <example>
+  Context: User describes a new entity informally.
+  user: "I want to add user management with profile editing"
+  assistant: "I'll launch the feature-scaffolder agent to set up the DDD structure for the users domain."
+  <commentary>
+  "Add a feature with X" maps to the scaffolder.
+  </commentary>
+  </example>
 model: inherit
 color: green
 tools: Read, Write, Edit, Glob, Grep, Bash

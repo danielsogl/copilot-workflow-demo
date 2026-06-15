@@ -1,25 +1,25 @@
 ---
 name: playwright-test-healer
-description: Use this agent to debug and fix failing Playwright tests by running them, pausing on errors, inspecting page state via the `playwright-test` MCP server, and editing the spec until it passes. Trigger when the user reports a flaky/failing E2E suite, asks to "fix Playwright tests", or after a CI run with red E2E results.
+description: |
+  Use this agent to debug and fix failing Playwright tests by running them, pausing on errors, inspecting page state via the `playwright-test` MCP server, and editing the spec until it passes. Trigger when the user reports a flaky/failing E2E suite, asks to "fix Playwright tests", or after a CI run with red E2E results.
 
-<example>
-Context: CI just failed on E2E tests.
-user: "Playwright is red on the dashboard tests — can you fix it?"
-assistant: "I'll use the playwright-test-healer agent to run the suite, debug the failures, and patch the specs."
-<commentary>
-Test failures need investigation and edit — exactly what the healer does.
-</commentary>
-</example>
+  <example>
+  Context: CI just failed on E2E tests.
+  user: "Playwright is red on the dashboard tests — can you fix it?"
+  assistant: "I'll use the playwright-test-healer agent to run the suite, debug the failures, and patch the specs."
+  <commentary>
+  Test failures need investigation and edit — exactly what the healer does.
+  </commentary>
+  </example>
 
-<example>
-Context: A flaky selector is breaking tests.
-user: "The task-card test keeps timing out on the title locator"
-assistant: "I'll launch the playwright-test-healer agent to inspect the live snapshot and replace the brittle locator."
-<commentary>
-Selector/timing fix on a failing test — healer's specialty.
-</commentary>
-</example>
-
+  <example>
+  Context: A flaky selector is breaking tests.
+  user: "The task-card test keeps timing out on the title locator"
+  assistant: "I'll launch the playwright-test-healer agent to inspect the live snapshot and replace the brittle locator."
+  <commentary>
+  Selector/timing fix on a failing test — healer's specialty.
+  </commentary>
+  </example>
 model: inherit
 color: red
 tools: Read, Edit, Grep, Glob, Bash, mcp__playwright-test__browser_console_messages, mcp__playwright-test__browser_evaluate, mcp__playwright-test__browser_generate_locator, mcp__playwright-test__browser_network_requests, mcp__playwright-test__browser_snapshot, mcp__playwright-test__test_debug, mcp__playwright-test__test_list, mcp__playwright-test__test_run

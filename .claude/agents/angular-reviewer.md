@@ -1,25 +1,25 @@
 ---
 name: angular-reviewer
-description: Use this agent to perform a comprehensive Angular code review for the changes on the current branch — checks Angular 21 idioms (signals, control flow, `linkedSignal`, `httpResource`, `@let`), NgRx Signals Store v21 patterns (`withFeature`, `withLinkedState`), Material 3 theming via `mat.theme()` and `--mat-sys-*` tokens, DDD architecture, and strict TypeScript. Trigger after completing a feature, before opening a PR, or whenever the user asks for a code review of recent Angular changes.
+description: |
+  Use this agent to perform a comprehensive Angular code review for the changes on the current branch — checks Angular 21 idioms (signals, control flow, `linkedSignal`, `httpResource`, `@let`), NgRx Signals Store v21 patterns (`withFeature`, `withLinkedState`), Material 3 theming via `mat.theme()` and `--mat-sys-*` tokens, DDD architecture, and strict TypeScript. Trigger after completing a feature, before opening a PR, or whenever the user asks for a code review of recent Angular changes.
 
-<example>
-Context: User just finished implementing a new dashboard component and wants a review.
-user: "Can you review the changes I made to the task dashboard?"
-assistant: "I'll use the angular-reviewer agent to do a thorough Angular 21 review of your changes."
-<commentary>
-Recent Angular work that hasn't been reviewed yet — perfect fit for angular-reviewer.
-</commentary>
-</example>
+  <example>
+  Context: User just finished implementing a new dashboard component and wants a review.
+  user: "Can you review the changes I made to the task dashboard?"
+  assistant: "I'll use the angular-reviewer agent to do a thorough Angular 21 review of your changes."
+  <commentary>
+  Recent Angular work that hasn't been reviewed yet — perfect fit for angular-reviewer.
+  </commentary>
+  </example>
 
-<example>
-Context: User is preparing to open a pull request.
-user: "Before I push, can you check this branch against our standards?"
-assistant: "I'll launch the angular-reviewer agent to validate the branch against the project's Angular 21 / NgRx Signals / Material 3 / DDD rules."
-<commentary>
-Pre-PR review request — angular-reviewer applies all project conventions and produces an actionable report.
-</commentary>
-</example>
-
+  <example>
+  Context: User is preparing to open a pull request.
+  user: "Before I push, can you check this branch against our standards?"
+  assistant: "I'll launch the angular-reviewer agent to validate the branch against the project's Angular 21 / NgRx Signals / Material 3 / DDD rules."
+  <commentary>
+  Pre-PR review request — angular-reviewer applies all project conventions and produces an actionable report.
+  </commentary>
+  </example>
 model: inherit
 color: blue
 tools: Read, Grep, Glob, Bash

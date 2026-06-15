@@ -1,25 +1,25 @@
 ---
 name: refactor-to-signals
-description: Use this agent to migrate legacy Angular patterns to modern Angular 21+ signals, control flow (`@if`/`@for`/`@switch`), standalone components, and reactive HTTP (`httpResource`). Trigger when the user asks to "migrate to signals", "convert to standalone", "remove `*ngIf`/`*ngFor`", "modernize this component", or hands over legacy code with `@Input()`/`@Output()` decorators or `BehaviorSubject` patterns.
+description: |
+  Use this agent to migrate legacy Angular patterns to modern Angular 21+ signals, control flow (`@if`/`@for`/`@switch`), standalone components, and reactive HTTP (`httpResource`). Trigger when the user asks to "migrate to signals", "convert to standalone", "remove `*ngIf`/`*ngFor`", "modernize this component", or hands over legacy code with `@Input()`/`@Output()` decorators or `BehaviorSubject` patterns.
 
-<example>
-Context: User has a legacy component using decorator I/O and `*ngIf`.
-user: "Refactor user-profile.ts to signals"
-assistant: "I'll use the refactor-to-signals agent — it converts decorator I/O, `*ngIf`/`*ngFor`, observable state, and constructor DI in one pass."
-<commentary>
-Modernization request — refactor-to-signals is the specialist.
-</commentary>
-</example>
+  <example>
+  Context: User has a legacy component using decorator I/O and `*ngIf`.
+  user: "Refactor user-profile.ts to signals"
+  assistant: "I'll use the refactor-to-signals agent — it converts decorator I/O, `*ngIf`/`*ngFor`, observable state, and constructor DI in one pass."
+  <commentary>
+  Modernization request — refactor-to-signals is the specialist.
+  </commentary>
+  </example>
 
-<example>
-Context: Whole directory needs modernizing.
-user: "Migrate everything in src/app/features/user/ to the new patterns"
-assistant: "I'll launch the refactor-to-signals agent on the user feature."
-<commentary>
-Bulk migration — refactor-to-signals handles the migration order safely.
-</commentary>
-</example>
-
+  <example>
+  Context: Whole directory needs modernizing.
+  user: "Migrate everything in src/app/features/user/ to the new patterns"
+  assistant: "I'll launch the refactor-to-signals agent on the user feature."
+  <commentary>
+  Bulk migration — refactor-to-signals handles the migration order safely.
+  </commentary>
+  </example>
 model: inherit
 color: cyan
 tools: Read, Edit, Grep, Glob, Bash

@@ -1,25 +1,25 @@
 ---
 name: signal-store-creator
-description: Use this agent to create a new NgRx Signal Store for a domain feature following the project's DDD architecture and NgRx Signals v21+ patterns (entity collections, `withFeature`, `withLinkedState`, `rxMethod` + `tapResponse`). Trigger when the user asks to "create a Signal Store", "add state for X", or after `feature-scaffolder` hands off the store work.
+description: |
+  Use this agent to create a new NgRx Signal Store for a domain feature following the project's DDD architecture and NgRx Signals v21+ patterns (entity collections, `withFeature`, `withLinkedState`, `rxMethod` + `tapResponse`). Trigger when the user asks to "create a Signal Store", "add state for X", or after `feature-scaffolder` hands off the store work.
 
-<example>
-Context: User wants a new store for a domain.
-user: "Create a Signal Store for the orders domain with CRUD"
-assistant: "I'll use the signal-store-creator agent — it sets up the entity config, state, computed selectors, and `rxMethod` operations with proper error handling."
-<commentary>
-New store request — signal-store-creator is the specialist.
-</commentary>
-</example>
+  <example>
+  Context: User wants a new store for a domain.
+  user: "Create a Signal Store for the orders domain with CRUD"
+  assistant: "I'll use the signal-store-creator agent — it sets up the entity config, state, computed selectors, and `rxMethod` operations with proper error handling."
+  <commentary>
+  New store request — signal-store-creator is the specialist.
+  </commentary>
+  </example>
 
-<example>
-Context: Refactoring existing service-based state.
-user: "Convert this BehaviorSubject-based service to a Signal Store"
-assistant: "I'll launch the signal-store-creator agent to design the store with `withState`, `withEntities`, and `rxMethod` for the existing async ops."
-<commentary>
-Migration to Signal Store — fits this agent.
-</commentary>
-</example>
-
+  <example>
+  Context: Refactoring existing service-based state.
+  user: "Convert this BehaviorSubject-based service to a Signal Store"
+  assistant: "I'll launch the signal-store-creator agent to design the store with `withState`, `withEntities`, and `rxMethod` for the existing async ops."
+  <commentary>
+  Migration to Signal Store — fits this agent.
+  </commentary>
+  </example>
 model: inherit
 color: blue
 tools: Read, Write, Edit, Grep, Glob, Bash

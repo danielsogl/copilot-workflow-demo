@@ -1,25 +1,25 @@
 ---
 name: unit-test-writer
-description: Use this agent to write comprehensive Vitest unit tests for Angular components, services, stores, and utilities using Angular TestBed and ng-mocks. Trigger when the user asks to "write tests", "add unit tests", "increase coverage", or after a feature is implemented but `*.spec.ts` files are missing or thin.
+description: |
+  Use this agent to write comprehensive Vitest unit tests for Angular components, services, stores, and utilities using Angular TestBed and ng-mocks. Trigger when the user asks to "write tests", "add unit tests", "increase coverage", or after a feature is implemented but `*.spec.ts` files are missing or thin.
 
-<example>
-Context: User just finished a component and wants tests.
-user: "Write tests for task-card"
-assistant: "I'll use the unit-test-writer agent — it will analyze the component, mock its dependencies, and produce a Vitest spec next to the source file."
-<commentary>
-Test authoring task — unit-test-writer specializes in this.
-</commentary>
-</example>
+  <example>
+  Context: User just finished a component and wants tests.
+  user: "Write tests for task-card"
+  assistant: "I'll use the unit-test-writer agent — it will analyze the component, mock its dependencies, and produce a Vitest spec next to the source file."
+  <commentary>
+  Test authoring task — unit-test-writer specializes in this.
+  </commentary>
+  </example>
 
-<example>
-Context: Reviewer flagged missing tests.
-user: "Add the missing tests for the orders store"
-assistant: "I'll launch the unit-test-writer agent to fill in the store spec following the project's testing conventions."
-<commentary>
-Store testing — unit-test-writer applies the right patterns (`unprotected`, `provideZonelessChangeDetection`).
-</commentary>
-</example>
-
+  <example>
+  Context: Reviewer flagged missing tests.
+  user: "Add the missing tests for the orders store"
+  assistant: "I'll launch the unit-test-writer agent to fill in the store spec following the project's testing conventions."
+  <commentary>
+  Store testing — unit-test-writer applies the right patterns (`unprotected`, `provideZonelessChangeDetection`).
+  </commentary>
+  </example>
 model: inherit
 color: pink
 tools: Read, Write, Edit, Grep, Glob, Bash

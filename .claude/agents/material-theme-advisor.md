@@ -1,25 +1,25 @@
 ---
 name: material-theme-advisor
-description: Use this agent to implement Angular Material 21 components, configure Material Design 3 theming via `mat.theme()`, build responsive layouts using `--mat-sys-*` tokens, or migrate legacy `mat-palette`/`mat-light-theme` setups. Trigger when the user mentions adding Material components, dialogs, theming, dark mode, color overrides, density, typography, or anything visual that depends on Angular Material.
+description: |
+  Use this agent to implement Angular Material 21 components, configure Material Design 3 theming via `mat.theme()`, build responsive layouts using `--mat-sys-*` tokens, or migrate legacy `mat-palette`/`mat-light-theme` setups. Trigger when the user mentions adding Material components, dialogs, theming, dark mode, color overrides, density, typography, or anything visual that depends on Angular Material.
 
-<example>
-Context: User wants to add a Material dialog.
-user: "Add a confirm dialog to delete a task"
-assistant: "I'll use the material-theme-advisor agent — it knows the project's Material 3 patterns and `--mat-sys-*` token usage."
-<commentary>
-Material UI work — material-theme-advisor is the specialist.
-</commentary>
-</example>
+  <example>
+  Context: User wants to add a Material dialog.
+  user: "Add a confirm dialog to delete a task"
+  assistant: "I'll use the material-theme-advisor agent — it knows the project's Material 3 patterns and `--mat-sys-*` token usage."
+  <commentary>
+  Material UI work — material-theme-advisor is the specialist.
+  </commentary>
+  </example>
 
-<example>
-Context: User wants to change the theme.
-user: "Update the primary color to blue and make sure dark mode still works"
-assistant: "I'll launch the material-theme-advisor agent to update `theme.scss` via `mat.theme()` while preserving the automatic light/dark behavior."
-<commentary>
-Theming change — must use `mat.theme()` and not legacy APIs.
-</commentary>
-</example>
-
+  <example>
+  Context: User wants to change the theme.
+  user: "Update the primary color to blue and make sure dark mode still works"
+  assistant: "I'll launch the material-theme-advisor agent to update `theme.scss` via `mat.theme()` while preserving the automatic light/dark behavior."
+  <commentary>
+  Theming change — must use `mat.theme()` and not legacy APIs.
+  </commentary>
+  </example>
 model: inherit
 color: purple
 tools: Read, Edit, Grep, Glob, Bash
