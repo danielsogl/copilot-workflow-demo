@@ -1,6 +1,6 @@
 # Claude Code for Angular & NgRx — Workshop Demo
 
-This branch (`claude-code`) demonstrates how to set up and configure **[Claude Code](https://docs.claude.com/en/docs/claude-code)** for Angular development with NgRx Signals Store. It showcases a complete task management application built using modern Angular 21 patterns, enhanced by Claude Code subagents, slash commands, MCP servers, and the Claude Agent SDK.
+This branch (`claude-code`) demonstrates how to set up and configure **[Claude Code](https://docs.claude.com/en/docs/claude-code)** for Angular development with NgRx Signals Store. It showcases a complete task management application built using modern Angular 22 patterns, enhanced by Claude Code subagents, slash commands, MCP servers, and the Claude Agent SDK — all managed declaratively via [APM](https://microsoft.github.io/apm/).
 
 > The `main` branch shows the same project with **GitHub Copilot** instead. Compare both branches side-by-side in your workshops.
 
@@ -29,45 +29,43 @@ The first `claude` invocation in this directory loads:
 - [`.claude/settings.json`](./.claude/settings.json) — committed permission allowlist + enabled MCP servers
 - [`.mcp.json`](./.mcp.json) — project-scope MCP server configuration
 
+> **Managed by APM.** Everything below (`.claude/`, `.mcp.json`, `AGENTS.md`) is **generated** by the [Agent Package Manager](https://microsoft.github.io/apm/) from the sources in `.apm/` + `apm.yml`. Edit the sources, then run `apm install --target claude && apm compile --target claude` — never hand-edit the generated files. The `main` branch compiles the same `.apm/` for GitHub Copilot. `CLAUDE.md`, `.claude/output-styles/`, `.claude/statusline.sh` and `settings.json` permissions are Claude-only and stay hand-maintained.
+
 ### Step 2: Project memory — `CLAUDE.md`
 
 A single file at the repo root captures everything Claude needs to know about the project (stack, DDD layout, signal-first conventions, Material 3 rules, testing patterns). Claude loads it automatically into every session — no manual `@`-references required.
 
 ### Step 3: Subagents — `.claude/agents/`
 
-Specialized agents Claude can dispatch to. Invoke with `/agents` or let Claude pick one based on the task.
+Specialized agents Claude can dispatch to (authored in `.apm/agents/`). Invoke with `/agents` or let Claude pick one based on the task.
 
-| Agent                           | Purpose                                                                   |
-| ------------------------------- | ------------------------------------------------------------------------- |
-| **`angular-reviewer`**          | Comprehensive Angular 21 / NgRx / Material 3 / DDD code review            |
-| **`feature-scaffolder`**        | Scaffold an entire DDD domain feature end-to-end                          |
-| **`signal-store-creator`**      | Generate NgRx Signal Stores with entity collections                       |
-| **`unit-test-writer`**          | Vitest specs for components, stores, services, utilities                  |
-| **`refactor-to-signals`**       | Migrate legacy patterns (`@Input`, `*ngIf`, `BehaviorSubject`) to signals |
-| **`material-theme-advisor`**    | Material 3 theming via `mat.theme()` and `--mat-sys-*` tokens             |
-| **`playwright-test-planner`**   | Build a structured E2E test plan by exploring the app                     |
-| **`playwright-test-generator`** | Generate a single Playwright spec from a plan item                        |
-| **`playwright-test-healer`**    | Debug and fix failing Playwright tests                                    |
+| Agent                           | Purpose                                               |
+| ------------------------------- | ----------------------------------------------------- |
+| **`playwright-test-planner`**   | Build a structured E2E test plan by exploring the app |
+| **`playwright-test-generator`** | Generate a single Playwright spec from a plan item    |
+| **`playwright-test-healer`**    | Debug and fix failing Playwright tests                |
 
 ### Step 4: Slash commands — `.claude/commands/`
 
-Type `/` in Claude Code to see them.
+Type `/` in Claude Code to see them (authored as prompts in `.apm/prompts/`).
 
-| Command                                    | What it does                                                      |
-| ------------------------------------------ | ----------------------------------------------------------------- |
-| `/code-review`                             | Review the changes on the active branch against project standards |
-| `/scaffold-signal-form <entity>`           | Scaffold an Angular Signal Form with schema validation            |
-| `/scaffold-signal-store <entity> [domain]` | Generate an NgRx Signal Store with full CRUD                      |
+| Command                    | What it does                                                            |
+| -------------------------- | ----------------------------------------------------------------------- |
+| `/code-review`             | Review the changes on the active branch against project standards       |
+| `/ngrx-signals-store-crud` | Generate an NgRx Signal Store with full CRUD for an entity              |
+| `/angular-signal-forms`    | Scaffold an Angular Signal Form with schema validation                  |
+| `/analyze-codebase-bugs`   | Run a structured bug-focused review of files, folders, or the workspace |
 
 ### Step 5: MCP servers — `.mcp.json`
 
-Project-scope MCP servers, auto-enabled via `.claude/settings.json`:
+Project-scope MCP servers (declared in `apm.yml › dependencies.mcp`), auto-enabled via `.claude/settings.json`:
 
 | Server                | Purpose                                                                   |
 | --------------------- | ------------------------------------------------------------------------- |
 | **`context7`**        | Live docs for Angular, NgRx, Material, Playwright, …                      |
 | **`angular-cli`**     | Project-aware Angular CLI tooling (`get_best_practices`, `find_examples`) |
-| **`playwright-test`** | Browser automation for the Playwright agents                              |
+| **`playwright-test`** | Test runner automation for the Playwright agents                          |
+| **`playwright`**      | Browser automation (accessibility-tree driven)                            |
 | **`eslint`**          | Lint files via the official ESLint MCP server                             |
 
 ### Step 6: Skills
@@ -161,22 +159,23 @@ src/app/
 
 | Technology               | Version | Role                                                         |
 | ------------------------ | ------- | ------------------------------------------------------------ |
-| **Angular**              | 21      | Framework — standalone, signals, `@if`/`@for` control flow   |
-| **TypeScript**           | 5.9     | Strict mode, no `any`                                        |
+| **Angular**              | 22      | Framework — standalone, signals, `@if`/`@for` control flow   |
+| **TypeScript**           | 6.0     | Strict mode, no `any`                                        |
 | **NgRx Signals**         | 21      | State management (`signalStore`, `withEntities`, `rxMethod`) |
-| **Angular Material**     | 21      | UI — Material 3 via `mat.theme()` mixin                      |
-| **Angular Signal Forms** | 21      | `form()`, `schema()`, `FormField` directive                  |
+| **Angular Material**     | 22      | UI — Material 3 via `mat.theme()` mixin                      |
+| **Angular Signal Forms** | 22      | `form()`, `schema()`, `FormField` directive                  |
 | **Vitest**               | 4       | Unit testing via `@angular/build:unit-test`                  |
-| **Playwright**           | 1.59    | E2E testing                                                  |
+| **Playwright**           | 1.61    | E2E testing (+ `playwright-bdd`)                             |
 | **json-server**          | —       | Local mock REST API on `http://localhost:3000`               |
-| **ESLint**               | 9       | Flat config with `angular-eslint`, `@ngrx/eslint-plugin`     |
+| **ESLint**               | 10      | Flat config with `angular-eslint`, `@ngrx/eslint-plugin`     |
 | **Prettier**             | 3       | Code formatting                                              |
 | **Lefthook**             | 2       | Git hooks — auto-format & auto-lint on commit                |
-| **Claude Agent SDK**     | 0.1+    | Workshop server / review bot                                 |
+| **Claude Agent SDK**     | 0.3     | Workshop server / review bot                                 |
+| **APM**                  | 0.20    | Agent Package Manager — compiles `.apm/` → `.claude/`        |
 
 ## Demo application
 
-A task management app demonstrating real-world Angular 21 + NgRx patterns:
+A task management app demonstrating real-world Angular 22 + NgRx patterns:
 
 - **Kanban board:** tasks organized by status — _To Do_, _In Progress_, _Completed_
 - **Task CRUD:** create, edit, delete tasks via a Signal Forms dialog

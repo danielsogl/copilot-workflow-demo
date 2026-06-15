@@ -37,7 +37,7 @@ Cross-domain code lives in `src/app/core/` and `src/app/theme/`. Each component 
 
 ## Conventions
 
-- **Angular 21+ idioms only.** Standalone is the default — never set `standalone: true`. No `NgModule`, no `CommonModule`/`RouterModule` imports — bring in the specific directives/pipes you need.
+- **Angular 22+ idioms only.** Standalone is the default — never set `standalone: true`. No `NgModule`, no `CommonModule`/`RouterModule` imports — bring in the specific directives/pipes you need.
 - **Signals first.** `input()`, `input.required()`, `output()`, `model()`, `computed()`, `linkedSignal()`, `resource()`, `httpResource()`. Prefer `httpResource()` for component reads; `HttpClient` only for mutations or inside `rxMethod`.
 - **Control flow.** `@if` / `@for` (always with `track`) / `@switch` / `@let`. Never `*ngIf`, `*ngFor`, `*ngSwitch`.
 - **Components.** `changeDetection: ChangeDetectionStrategy.OnPush` always. No type suffixes (`TaskCard`, not `TaskCardComponent`). Inject via `inject()`, never constructor injection. Selector prefix `app-` (kebab) for components, `app` (camelCase) for directives — enforced by ESLint.
@@ -62,10 +62,12 @@ Lefthook runs Prettier + ESLint on pre-commit and is mandatory — **never bypas
 
 ## Claude Code setup (read these directly — don't duplicate)
 
-- `.claude/agents/` — 9 specialized subagents (`angular-reviewer`, `feature-scaffolder`, `signal-store-creator`, `unit-test-writer`, `refactor-to-signals`, `material-theme-advisor`, three `playwright-test-*`). Pick one when the task fits.
-- `.claude/commands/` — slash commands: `/code-review`, `/scaffold-signal-store`, `/scaffold-signal-form`.
-- `.claude/skills/` — bundled skills (`angular-developer`, `ngrx-signals`, `bdd`, `playwright-cli`, `skill-creator`).
-- `.claude/rules/` — path-scoped, auto-loaded by glob: `signal-store.md` (`**/*-store.ts`, `**/data/state/**`), `testing.md` (`**/*.spec.ts`, `tests/**`).
+> Managed by **APM**: `.claude/agents`, `.claude/commands`, `.claude/rules`, `.claude/skills`, the hooks in `.claude/settings.json`, `.mcp.json` and `AGENTS.md` are **generated** from `.apm/` + `apm.yml` via `apm install --target claude && apm compile --target claude`. Edit the `.apm/` sources, not the generated files. `output-styles`, `statusline.sh` and `settings.json` permissions are Claude-only and hand-maintained.
+
+- `.claude/agents/` — 3 subagents (`playwright-test-planner`, `playwright-test-generator`, `playwright-test-healer`). Pick one when the task fits.
+- `.claude/commands/` — slash commands: `/code-review`, `/ngrx-signals-store-crud`, `/angular-signal-forms`, `/analyze-codebase-bugs`.
+- `.claude/skills/` — library skills (`angular-developer`, `angular-new-app`, `ngrx-signals`, `bdd`, `skill-creator`).
+- `.claude/rules/` — path-scoped rules compiled from `.apm/instructions/` (`typescript`, `angular-components`, `styling`, `architecture`, plus global `commands`/`project-overview`).
 - `.claude/output-styles/` — `Workshop Tutor` (teaching voice) and `Angular PR Reviewer` (terse review voice). Switch via `/output-style`.
 - `.claude/hooks/` — `session-context.sh` (SessionStart banner), `guard-destructive-bash.sh` (PreToolUse; blocks `rm -rf /`, `git push`, `git reset --hard`, `npm publish`, `--no-verify`), `format-changed-files.sh` (PostToolUse ESLint + Prettier). Wired in `.claude/settings.json`.
 - `.mcp.json` — `context7` (live docs), `angular-cli` (project tools), `playwright-test` + `playwright` (browser automation), `eslint` (linting). Prefer these over manual lookups.
