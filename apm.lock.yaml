@@ -1,5 +1,5 @@
 lockfile_version: '1'
-generated_at: '2026-07-22T07:35:11.658322+00:00'
+generated_at: '2026-07-22T07:50:49.875941+00:00'
 apm_version: 0.26.0
 dependencies:
 - repo_url: angular/skills
@@ -1554,12 +1554,73 @@ deployments:
   - .
   active_owner: .
   content_hash: sha256:fa0485fe0025a3219ba657bfa5fec3378f5e0e436bf9233e4c5615c2f9a2685e
+- kind: uri
+  target: mcp
+  value: angular-cli
+  runtime: claude
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
+- kind: uri
+  target: mcp
+  value: codegraph
+  runtime: claude
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
+- kind: uri
+  target: mcp
+  value: playwright-test
+  runtime: claude
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
+- kind: uri
+  target: mcp
+  value: angular-cli
+  runtime: vscode
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
+- kind: uri
+  target: mcp
+  value: codegraph
+  runtime: vscode
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
+- kind: uri
+  target: mcp
+  value: context7
+  runtime: vscode
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
+- kind: uri
+  target: mcp
+  value: playwright-test
+  runtime: vscode
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
 mcp_servers:
 - angular-cli
 - codegraph
 - context7
-- eslint
-- playwright
 - playwright-test
 mcp_configs:
   angular-cli:
@@ -1584,20 +1645,6 @@ mcp_configs:
     transport: http
     registry: false
     url: https://mcp.context7.com/mcp/oauth
-  eslint:
-    name: eslint
-    transport: stdio
-    args:
-    - '@eslint/mcp@latest'
-    registry: false
-    command: npx
-  playwright:
-    name: playwright
-    transport: stdio
-    args:
-    - '@playwright/mcp@latest'
-    registry: false
-    command: npx
   playwright-test:
     name: playwright-test
     transport: stdio
@@ -1606,6 +1653,16 @@ mcp_configs:
     - run-test-mcp-server
     registry: false
     command: npx
+mcp_target_servers:
+  claude:
+  - angular-cli
+  - codegraph
+  - playwright-test
+  vscode:
+  - angular-cli
+  - codegraph
+  - context7
+  - playwright-test
 local_deployed_files:
 - .claude/agents/playwright-test-generator.md
 - .claude/agents/playwright-test-healer.md

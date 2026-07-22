@@ -13,7 +13,7 @@ author: Daniel Sogl
 #
 # Regenerate after editing any .apm/ primitive or this file (per-target compile is REQUIRED — a bare
 # `apm compile`/`--target copilot,claude` keeps a full AGENTS.md; only single-target compiles dedup it):
-#   apm install --only apm                # deploy primitives for both runtimes (no global MCP write)
+#   apm install                           # deps + MCP mirrors (.mcp.json + .vscode/mcp.json) — non-destructive in APM 0.26+
 #   apm compile --target copilot          # .github/instructions/ + copilot-instructions.md (AGENTS.md stays absent)
 #   apm compile --target claude           # .claude/rules/ (CLAUDE.md stays absent)
 # Do NOT pass --clean with these per-target compiles: with a single target it deletes the OTHER target's
@@ -21,8 +21,8 @@ author: Daniel Sogl
 # removed and single-target compiles never regenerate them; if a stale one ever reappears, delete it once
 # by hand (`rm -f AGENTS.md CLAUDE.md`), not with --clean.
 # Gotchas:
-#   - `apm install` WITH mcp writes the read-only global ~/.copilot/mcp-config.json and aborts;
-#     always use `--only apm`. Committed MCP config: .mcp.json (claude) + .vscode/mcp.json (copilot).
+#   - `apm install` also (re)configures the global ~/.copilot/mcp-config.json — that is how Copilot CLI
+#     discovers MCP servers; it is idempotent and no longer aborts (was a pre-0.25 issue).
 #   - `.claude/settings.json` is a MERGE target — APM (0.26+) manages only its own `matcher: "*"` hook
 #     blocks and never removes others. Author hooks ONCE in .apm/hooks/hooks.json; never hand-add hook
 #     blocks to settings.json (that is what caused the earlier double-firing).
@@ -42,10 +42,8 @@ dependencies:
     - angular/skills/angular-developer
     - danielsogl/skills/skills/ngrx-signals
     - danielsogl/skills/skills/bdd
-  # MCP servers — source of truth. NOTE: `apm install --only apm` (the safe flow) does NOT sync the
-  # committed mirror files .mcp.json (Claude) and .vscode/mcp.json (Copilot). `apm install --only mcp`
-  # would sync them but also triggers APM's destructive stale-file cleanup, so after editing this list
-  # update both mirrors BY HAND to match (they are plain 1:1 mirrors of the entries below).
+  # MCP servers — single source of truth. `apm install` regenerates the committed mirror files
+  # .mcp.json (Claude) + .vscode/mcp.json (Copilot) from this list, non-destructively (APM 0.26+).
   mcp:
     - name: context7
       registry: false
