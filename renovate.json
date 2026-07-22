@@ -60,6 +60,14 @@
       "matchPackageNames": ["/^@types\\//"]
     },
     {
+      "matchPackageNames": ["@types/node"],
+      "groupName": "TypeScript type definitions",
+      "automerge": true,
+      "platformAutomerge": true,
+      "allowedVersions": "<26",
+      "description": "Keep @types/node aligned with the Node 24 runtime; bump the cap when the runtime moves up"
+    },
+    {
       "groupName": "linting and formatting",
       "automerge": true,
       "platformAutomerge": true,
@@ -91,7 +99,9 @@
     {
       "matchPackageNames": ["typescript", "ts-node"],
       "groupName": "TypeScript core",
-      "automerge": false
+      "automerge": false,
+      "allowedVersions": "<7",
+      "description": "Angular 22 peer-caps TypeScript at <6.1; remove this cap once Angular certifies TS 7"
     },
     {
       "matchManagers": ["npm"],
