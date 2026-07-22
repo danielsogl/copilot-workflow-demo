@@ -1,10 +1,10 @@
 lockfile_version: '1'
-generated_at: '2026-06-16T07:36:01.246681+00:00'
+generated_at: '2026-07-22T06:38:26.763533+00:00'
 apm_version: 0.20.0
 dependencies:
 - repo_url: angular/skills
   host: github.com
-  resolved_commit: a9f8f06c9ed2bfad7a8c0aee9bd7adc717af8de0
+  resolved_commit: 3c7d1fd43d5341e040661e70504d02222d2f2f4d
   virtual_path: angular-developer
   is_virtual: true
   package_type: claude_skill
@@ -24,6 +24,7 @@ dependencies:
   - .agents/skills/angular-developer/references/di-fundamentals.md
   - .agents/skills/angular-developer/references/e2e-testing.md
   - .agents/skills/angular-developer/references/effects.md
+  - .agents/skills/angular-developer/references/environment-configuration.md
   - .agents/skills/angular-developer/references/hierarchical-injectors.md
   - .agents/skills/angular-developer/references/host-elements.md
   - .agents/skills/angular-developer/references/injection-context.md
@@ -62,6 +63,7 @@ dependencies:
   - .claude/skills/angular-developer/references/di-fundamentals.md
   - .claude/skills/angular-developer/references/e2e-testing.md
   - .claude/skills/angular-developer/references/effects.md
+  - .claude/skills/angular-developer/references/environment-configuration.md
   - .claude/skills/angular-developer/references/hierarchical-injectors.md
   - .claude/skills/angular-developer/references/host-elements.md
   - .claude/skills/angular-developer/references/injection-context.md
@@ -86,7 +88,7 @@ dependencies:
   - .claude/skills/angular-developer/references/template-driven-forms.md
   - .claude/skills/angular-developer/references/testing-fundamentals.md
   deployed_file_hashes:
-    .agents/skills/angular-developer/SKILL.md: sha256:faf49f2c11fb19085ff4cdfc985adc8bf27e888b122e309da6fb00b17b7b1e5b
+    .agents/skills/angular-developer/SKILL.md: sha256:36719c2cce989c87694ccf4c4f043a76302ffa7a04dfa9370eaf237c3d8c6f8a
     .agents/skills/angular-developer/references/angular-animations.md: sha256:f21b798ed93e27318527ef7e74e63ef8c71cb74ff2b010d70dbb429883f0dbd0
     .agents/skills/angular-developer/references/angular-aria.md: sha256:5f9cc5d323034c1fe3a3290031ffa95634e721e33725c5a8a88b68d8d50d8328
     .agents/skills/angular-developer/references/cli.md: sha256:39468f1be907a1abff746e79cb9fabd9675956df00c87d9b8bd1517855b9fd7d
@@ -97,9 +99,10 @@ dependencies:
     .agents/skills/angular-developer/references/data-resolvers.md: sha256:6525d6f9b90d4ac6bbd58489d6bc57ab024c407673ed0e1e46364a90d0b9b5da
     .agents/skills/angular-developer/references/define-routes.md: sha256:1288b38bad6cc9749e9d0fd35a294771ea2181dd712bfc2887d80e8b40fab7e6
     .agents/skills/angular-developer/references/defining-providers.md: sha256:e654c23a080c642cf7031b5cc5de1101b8c75030c15256f7e3b81b0336953c6d
-    .agents/skills/angular-developer/references/di-fundamentals.md: sha256:89041faaf44eca5af21be704c55ee5f47c18ccafdd56faec1f42d0735a1f09c5
-    .agents/skills/angular-developer/references/e2e-testing.md: sha256:c04a12aa5fb763b9b592aeb3b5dc68a1d6c707ccf94469095c193227d180d1e7
+    .agents/skills/angular-developer/references/di-fundamentals.md: sha256:ed5e4004aed214429de091d2b041cfd818c77a0ebfa24c23f01ec9bac7118a78
+    .agents/skills/angular-developer/references/e2e-testing.md: sha256:fd11d930ed081ca934fe83df06c9d965257ec817ebef59b918d4d814a65feca6
     .agents/skills/angular-developer/references/effects.md: sha256:6edf8cc05daacc38de8cf534bfb56fb507351c0d76a16711608a85d4327ac7be
+    .agents/skills/angular-developer/references/environment-configuration.md: sha256:5781ebc881f42fae1f15e67533b731d5913782c725ca420c32410a333d832666
     .agents/skills/angular-developer/references/hierarchical-injectors.md: sha256:967e472a1208c6e1f4b95bf7ee9162165904eb78ac6dab64643c67a9d1dac264
     .agents/skills/angular-developer/references/host-elements.md: sha256:5c2eb324e7b84bd81334b6d262a61b873de208640aabe4be48b73600438bdaed
     .agents/skills/angular-developer/references/injection-context.md: sha256:4435dfcec91bd9fb68d6c318802cac1b37424d4e76452e6f0f52ed0d2b6536fb
@@ -118,12 +121,12 @@ dependencies:
     .agents/skills/angular-developer/references/router-lifecycle.md: sha256:4abc8cb8dfeb2e9f57dc11c117d5f4a5b756b39dc076910d9ced9da640effc2d
     .agents/skills/angular-developer/references/router-testing.md: sha256:1b3e7f020ae7a7f335e92896089e3b8936fb767f5f906d11833ef6a8f9f61ed9
     .agents/skills/angular-developer/references/show-routes-with-outlets.md: sha256:43a2ed62ea2edafa8569bf7045f20928110f8f844d5890bfb6a2f2dde45e754b
-    .agents/skills/angular-developer/references/signal-forms.md: sha256:28c1326ba6dce5a3621429b04a70b17697ea5f86e7b06bde596cc2b1a725bb42
+    .agents/skills/angular-developer/references/signal-forms.md: sha256:5251585cadf72ab95e31377904db21a597b5e9b982c8e839dc098b48f69ac6b7
     .agents/skills/angular-developer/references/signals-overview.md: sha256:da07c58fdea2ab7d82a28faf9f3d117ccb98ccaf3eec06f103b898f557791146
     .agents/skills/angular-developer/references/tailwind-css.md: sha256:bdb952d0dd2d415560a796ecaf843cacff5ac20d8ef961eaaf75656fef9b9263
     .agents/skills/angular-developer/references/template-driven-forms.md: sha256:52e83e576b0c6dc05f854e903c4cfda1222bcd55c50ddee07344d1e53d02c1df
     .agents/skills/angular-developer/references/testing-fundamentals.md: sha256:8f48c2392d99487934edf977c0d1b87a4e83ff9761db493bbcccc10f574bcb5a
-    .claude/skills/angular-developer/SKILL.md: sha256:faf49f2c11fb19085ff4cdfc985adc8bf27e888b122e309da6fb00b17b7b1e5b
+    .claude/skills/angular-developer/SKILL.md: sha256:36719c2cce989c87694ccf4c4f043a76302ffa7a04dfa9370eaf237c3d8c6f8a
     .claude/skills/angular-developer/references/angular-animations.md: sha256:f21b798ed93e27318527ef7e74e63ef8c71cb74ff2b010d70dbb429883f0dbd0
     .claude/skills/angular-developer/references/angular-aria.md: sha256:5f9cc5d323034c1fe3a3290031ffa95634e721e33725c5a8a88b68d8d50d8328
     .claude/skills/angular-developer/references/cli.md: sha256:39468f1be907a1abff746e79cb9fabd9675956df00c87d9b8bd1517855b9fd7d
@@ -134,9 +137,10 @@ dependencies:
     .claude/skills/angular-developer/references/data-resolvers.md: sha256:6525d6f9b90d4ac6bbd58489d6bc57ab024c407673ed0e1e46364a90d0b9b5da
     .claude/skills/angular-developer/references/define-routes.md: sha256:1288b38bad6cc9749e9d0fd35a294771ea2181dd712bfc2887d80e8b40fab7e6
     .claude/skills/angular-developer/references/defining-providers.md: sha256:e654c23a080c642cf7031b5cc5de1101b8c75030c15256f7e3b81b0336953c6d
-    .claude/skills/angular-developer/references/di-fundamentals.md: sha256:89041faaf44eca5af21be704c55ee5f47c18ccafdd56faec1f42d0735a1f09c5
-    .claude/skills/angular-developer/references/e2e-testing.md: sha256:c04a12aa5fb763b9b592aeb3b5dc68a1d6c707ccf94469095c193227d180d1e7
+    .claude/skills/angular-developer/references/di-fundamentals.md: sha256:ed5e4004aed214429de091d2b041cfd818c77a0ebfa24c23f01ec9bac7118a78
+    .claude/skills/angular-developer/references/e2e-testing.md: sha256:fd11d930ed081ca934fe83df06c9d965257ec817ebef59b918d4d814a65feca6
     .claude/skills/angular-developer/references/effects.md: sha256:6edf8cc05daacc38de8cf534bfb56fb507351c0d76a16711608a85d4327ac7be
+    .claude/skills/angular-developer/references/environment-configuration.md: sha256:5781ebc881f42fae1f15e67533b731d5913782c725ca420c32410a333d832666
     .claude/skills/angular-developer/references/hierarchical-injectors.md: sha256:967e472a1208c6e1f4b95bf7ee9162165904eb78ac6dab64643c67a9d1dac264
     .claude/skills/angular-developer/references/host-elements.md: sha256:5c2eb324e7b84bd81334b6d262a61b873de208640aabe4be48b73600438bdaed
     .claude/skills/angular-developer/references/injection-context.md: sha256:4435dfcec91bd9fb68d6c318802cac1b37424d4e76452e6f0f52ed0d2b6536fb
@@ -155,15 +159,15 @@ dependencies:
     .claude/skills/angular-developer/references/router-lifecycle.md: sha256:4abc8cb8dfeb2e9f57dc11c117d5f4a5b756b39dc076910d9ced9da640effc2d
     .claude/skills/angular-developer/references/router-testing.md: sha256:1b3e7f020ae7a7f335e92896089e3b8936fb767f5f906d11833ef6a8f9f61ed9
     .claude/skills/angular-developer/references/show-routes-with-outlets.md: sha256:43a2ed62ea2edafa8569bf7045f20928110f8f844d5890bfb6a2f2dde45e754b
-    .claude/skills/angular-developer/references/signal-forms.md: sha256:28c1326ba6dce5a3621429b04a70b17697ea5f86e7b06bde596cc2b1a725bb42
+    .claude/skills/angular-developer/references/signal-forms.md: sha256:5251585cadf72ab95e31377904db21a597b5e9b982c8e839dc098b48f69ac6b7
     .claude/skills/angular-developer/references/signals-overview.md: sha256:da07c58fdea2ab7d82a28faf9f3d117ccb98ccaf3eec06f103b898f557791146
     .claude/skills/angular-developer/references/tailwind-css.md: sha256:bdb952d0dd2d415560a796ecaf843cacff5ac20d8ef961eaaf75656fef9b9263
     .claude/skills/angular-developer/references/template-driven-forms.md: sha256:52e83e576b0c6dc05f854e903c4cfda1222bcd55c50ddee07344d1e53d02c1df
     .claude/skills/angular-developer/references/testing-fundamentals.md: sha256:8f48c2392d99487934edf977c0d1b87a4e83ff9761db493bbcccc10f574bcb5a
-  content_hash: sha256:1332c18c811500515f00b32bac06ac779b14e4e1fb83b4dc79d92c79a99dceb6
+  content_hash: sha256:7f626f462c7579560d2d4fe386627d5d3a6e94bef03712843801c3e396ea06bb
 - repo_url: angular/skills
   host: github.com
-  resolved_commit: a9f8f06c9ed2bfad7a8c0aee9bd7adc717af8de0
+  resolved_commit: 3c7d1fd43d5341e040661e70504d02222d2f2f4d
   virtual_path: angular-new-app
   is_virtual: true
   package_type: claude_skill
@@ -178,7 +182,7 @@ dependencies:
   content_hash: sha256:49bd84ab08bd3498c52f476bed48fbb942dc6dbc0925607e84549adbed34bccf
 - repo_url: anthropics/skills
   host: github.com
-  resolved_commit: 57546260929473d4e0d1c1bb75297be2fdfa1949
+  resolved_commit: fa0fa64bdc967915dc8399e803be67759e1e62b8
   virtual_path: skills/skill-creator
   is_virtual: true
   package_type: claude_skill
@@ -451,7 +455,7 @@ local_deployed_file_hashes:
   .github/agents/playwright-test-generator.agent.md: sha256:367dd9eb6a7782035ea6e7eb6fde9ef36b07db903908888097265eee8d4991b3
   .github/agents/playwright-test-healer.agent.md: sha256:ce74d9843a3cafe7ad400c2527c9ea5a037a5a0777399ee387e64fb6e2a78507
   .github/agents/playwright-test-planner.agent.md: sha256:bcd3bd69d6dc952dd14e50b24a41bb6e21fef147abf54cdff952c1e69e290b55
-  .github/hooks/copilot-workflow-demo-hooks.json: sha256:e440423deda853e549adbd7bfa44f133d1a295ea2d92d0e52f0eaf38566b8503
+  .github/hooks/copilot-workflow-demo-hooks.json: sha256:fc33b87923c82b3395c429ef603582dd4dbe8eff19fd9550735fb859f37027d2
   .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh: sha256:668a244fbc40b8b707e3835c255ae078e3ea9843e7b76ce1fd4cf153c406386a
   .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh: sha256:2816c914b9981c6461cf965e7aca899148570ac0cedeb1ff784683eabe745fc2
   .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh: sha256:5fc7f6e51416af052f2c1d10cbcb0a9f031d6b41787c5727c50086d372657a7c

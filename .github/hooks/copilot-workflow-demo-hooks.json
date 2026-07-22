@@ -2,23 +2,38 @@
   "hooks": {
     "SessionStart": [
       {
-        "type": "command",
-        "command": ".github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh",
-        "timeout": 5
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "PreToolUse": [
       {
-        "type": "command",
-        "command": ".github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh",
-        "timeout": 5
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "PostToolUse": [
       {
-        "type": "command",
-        "command": ".github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh",
-        "timeout": 30
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh",
+            "timeout": 30
+          }
+        ]
       }
     ]
   }

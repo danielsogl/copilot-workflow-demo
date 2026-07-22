@@ -9,6 +9,16 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "PreToolUse": [
@@ -21,11 +31,31 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "PostToolUse": [
       {
         "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh",
+            "timeout": 30
+          }
+        ]
+      },
+      {
+        "matcher": "",
         "hooks": [
           {
             "type": "command",
