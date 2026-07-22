@@ -60,3 +60,7 @@ apm_modules/
 
 # CodeGraph index (local, rebuild via `apm run codegraph-setup`)
 .codegraph/
+
+# APM generic root LSP fallback — Copilot uses the committed .github/lsp.json; this generic
+# .lsp.json is a byproduct APM regenerates on every `apm install`, not needed for Claude/Copilot.
+.lsp.json

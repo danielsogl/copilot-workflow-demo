@@ -1,5 +1,5 @@
 lockfile_version: '1'
-generated_at: '2026-07-22T07:50:49.875941+00:00'
+generated_at: '2026-07-22T07:56:48.531863+00:00'
 apm_version: 0.26.0
 dependencies:
 - repo_url: angular/skills
@@ -1663,6 +1663,65 @@ mcp_target_servers:
   - codegraph
   - context7
   - playwright-test
+lsp_servers:
+- angular
+- css
+- json
+- typescript
+- yaml
+lsp_configs:
+  angular:
+    name: angular
+    command: ./.github/scripts/ngserver-launch.sh
+    extensionToLanguage:
+      .html: html
+      .ng.html: html
+  css:
+    name: css
+    command: npx
+    args:
+    - -y
+    - --package=vscode-langservers-extracted
+    - vscode-css-language-server
+    - --stdio
+    extensionToLanguage:
+      .css: css
+      .scss: scss
+  json:
+    name: json
+    command: npx
+    args:
+    - -y
+    - --package=vscode-langservers-extracted
+    - vscode-json-language-server
+    - --stdio
+    extensionToLanguage:
+      .json: json
+      .jsonc: jsonc
+  typescript:
+    name: typescript
+    command: npx
+    args:
+    - -y
+    - typescript-language-server
+    - --stdio
+    extensionToLanguage:
+      .ts: typescript
+      .tsx: typescriptreact
+      .js: javascript
+      .jsx: javascriptreact
+      .mjs: javascript
+      .cjs: javascript
+  yaml:
+    name: yaml
+    command: npx
+    args:
+    - -y
+    - yaml-language-server
+    - --stdio
+    extensionToLanguage:
+      .yaml: yaml
+      .yml: yaml
 local_deployed_files:
 - .claude/agents/playwright-test-generator.md
 - .claude/agents/playwright-test-healer.md

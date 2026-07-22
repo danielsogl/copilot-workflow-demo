@@ -2,7 +2,11 @@
   "lspServers": {
     "typescript": {
       "command": "npx",
-      "args": ["-y", "typescript-language-server", "--stdio"],
+      "args": [
+        "-y",
+        "typescript-language-server",
+        "--stdio"
+      ],
       "fileExtensions": {
         ".ts": "typescript",
         ".tsx": "typescriptreact",
@@ -14,15 +18,20 @@
     },
     "angular": {
       "command": "./.github/scripts/ngserver-launch.sh",
-      "args": [],
       "fileExtensions": {
         ".html": "html",
         ".ng.html": "html"
-      }
+      },
+      "args": []
     },
     "css": {
       "command": "npx",
-      "args": ["-y", "--package=vscode-langservers-extracted", "vscode-css-language-server", "--stdio"],
+      "args": [
+        "-y",
+        "--package=vscode-langservers-extracted",
+        "vscode-css-language-server",
+        "--stdio"
+      ],
       "fileExtensions": {
         ".css": "css",
         ".scss": "scss"
@@ -30,7 +39,12 @@
     },
     "json": {
       "command": "npx",
-      "args": ["-y", "--package=vscode-langservers-extracted", "vscode-json-language-server", "--stdio"],
+      "args": [
+        "-y",
+        "--package=vscode-langservers-extracted",
+        "vscode-json-language-server",
+        "--stdio"
+      ],
       "fileExtensions": {
         ".json": "json",
         ".jsonc": "jsonc"
@@ -38,10 +52,14 @@
     },
     "yaml": {
       "command": "npx",
-      "args": ["-y", "yaml-language-server", "--stdio"],
+      "args": [
+        "-y",
+        "yaml-language-server",
+        "--stdio"
+      ],
       "fileExtensions": {
-        ".yml": "yaml",
-        ".yaml": "yaml"
+        ".yaml": "yaml",
+        ".yml": "yaml"
       }
     }
   }

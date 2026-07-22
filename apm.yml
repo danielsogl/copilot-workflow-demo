@@ -13,7 +13,7 @@ author: Daniel Sogl
 #
 # Regenerate after editing any .apm/ primitive or this file (per-target compile is REQUIRED — a bare
 # `apm compile`/`--target copilot,claude` keeps a full AGENTS.md; only single-target compiles dedup it):
-#   apm install                           # deps + MCP mirrors (.mcp.json + .vscode/mcp.json) — non-destructive in APM 0.26+
+#   apm install                           # deps + MCP mirrors (.mcp.json + .vscode/mcp.json) + LSP (.github/lsp.json) — non-destructive in 0.26+
 #   apm compile --target copilot          # .github/instructions/ + copilot-instructions.md (AGENTS.md stays absent)
 #   apm compile --target claude           # .claude/rules/ (CLAUDE.md stays absent)
 # Do NOT pass --clean with these per-target compiles: with a single target it deletes the OTHER target's
@@ -21,11 +21,15 @@ author: Daniel Sogl
 # removed and single-target compiles never regenerate them; if a stale one ever reappears, delete it once
 # by hand (`rm -f AGENTS.md CLAUDE.md`), not with --clean.
 # Gotchas:
-#   - `apm install` also (re)configures the global ~/.copilot/mcp-config.json — that is how Copilot CLI
-#     discovers MCP servers; it is idempotent and no longer aborts (was a pre-0.25 issue).
+#   - `apm install` also tries to write the global ~/.copilot/mcp-config.json (Copilot CLI's user-level
+#     MCP list). On this machine that path is a read-only nix/home-manager symlink, so install prints
+#     `Permission denied` for it — HARMLESS: the committed project mirrors (.mcp.json / .vscode/mcp.json)
+#     are written fine and are authoritative. Manage the global copilot MCP list via nix if you need it.
 #   - `.claude/settings.json` is a MERGE target — APM (0.26+) manages only its own `matcher: "*"` hook
 #     blocks and never removes others. Author hooks ONCE in .apm/hooks/hooks.json; never hand-add hook
 #     blocks to settings.json (that is what caused the earlier double-firing).
+#   - `.github/copilot/settings.json` (mergeStrategy) is the ONE hand-owned file APM cannot model — no
+#     apm.yml field exists for it (verified against APM 0.26 source). Everything else is single-sourced.
 #   - Trade-off: no universal AGENTS.md means non-Claude/Copilot tools (Codex, Cursor, Windsurf, …)
 #     get no instructions. Acceptable here — this repo targets Claude Code + Copilot only.
 # Which agent platforms this project supports (resolution order: --target flag > this field > auto-detect).
@@ -73,6 +77,55 @@ dependencies:
       args:
         - serve
         - --mcp
+  # LSP servers — single source of truth for GitHub Copilot CLI's .github/lsp.json (written by
+  # `apm install`). Use `extensionToLanguage` here (camelCase); APM emits it as `fileExtensions` on disk.
+  # (html/css/json standalone server intentionally dropped — the `angular` server already handles .html.)
+  lsp:
+    - name: typescript
+      command: npx
+      args: ["-y", "typescript-language-server", "--stdio"]
+      extensionToLanguage:
+        ".ts": typescript
+        ".tsx": typescriptreact
+        ".js": javascript
+        ".jsx": javascriptreact
+        ".mjs": javascript
+        ".cjs": javascript
+    - name: angular
+      command: ./.github/scripts/ngserver-launch.sh
+      extensionToLanguage:
+        ".html": html
+        ".ng.html": html
+    - name: css
+      command: npx
+      args:
+        [
+          "-y",
+          "--package=vscode-langservers-extracted",
+          "vscode-css-language-server",
+          "--stdio",
+        ]
+      extensionToLanguage:
+        ".css": css
+        ".scss": scss
+    - name: json
+      command: npx
+      args:
+        [
+          "-y",
+          "--package=vscode-langservers-extracted",
+          "vscode-json-language-server",
+          "--stdio",
+        ]
+      extensionToLanguage:
+        ".json": json
+        ".jsonc": jsonc
+    - name: yaml
+      command: npx
+      args: ["-y", "yaml-language-server", "--stdio"]
+      extensionToLanguage:
+        ".yaml": yaml
+        ".yml": yaml
 scripts:
   # Build/refresh the CodeGraph index: `apm run codegraph-setup`
   codegraph-setup: codegraph init
