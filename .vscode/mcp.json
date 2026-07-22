@@ -15,16 +15,6 @@
       "command": "npx",
       "args": ["playwright", "run-test-mcp-server"]
     },
-    "playwright": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["@playwright/mcp@latest"]
-    },
-    "eslint": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["@eslint/mcp@latest"]
-    },
     "codegraph": {
       "type": "stdio",
       "command": "codegraph",

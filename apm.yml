@@ -39,13 +39,13 @@ dependencies:
   # Tracks each repo's default branch; apm.lock.yaml pins the exact resolved SHA
   # (use `apm install --frozen` to reproduce, `apm update` to refresh).
   apm:
-    - anthropics/skills/skills/skill-creator
     - angular/skills/angular-developer
-    - angular/skills/angular-new-app
     - danielsogl/skills/skills/ngrx-signals
     - danielsogl/skills/skills/bdd
-  # MCP servers — all self-defined (registry: false) command/url entries mirroring
-  # the previous .vscode/mcp.json. The copilot target writes .vscode/mcp.json.
+  # MCP servers — source of truth. NOTE: `apm install --only apm` (the safe flow) does NOT sync the
+  # committed mirror files .mcp.json (Claude) and .vscode/mcp.json (Copilot). `apm install --only mcp`
+  # would sync them but also triggers APM's destructive stale-file cleanup, so after editing this list
+  # update both mirrors BY HAND to match (they are plain 1:1 mirrors of the entries below).
   mcp:
     - name: context7
       registry: false
@@ -66,18 +66,6 @@ dependencies:
       args:
         - playwright
         - run-test-mcp-server
-    - name: playwright
-      registry: false
-      transport: stdio
-      command: npx
-      args:
-        - "@playwright/mcp@latest"
-    - name: eslint
-      registry: false
-      transport: stdio
-      command: npx
-      args:
-        - "@eslint/mcp@latest"
     # CodeGraph — tree-sitter knowledge graph (not in the MCP registry → self-defined).
     # `codegraph serve --mcp` is the stdio server; the index lives in .codegraph/ (gitignored).
     - name: codegraph

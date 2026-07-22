@@ -1,5 +1,3 @@
 {
-  "disabledSkills": [],
-  "mergeStrategy": "squash",
-  "extraKnownMarketplaces": []
+  "mergeStrategy": "squash"
 }

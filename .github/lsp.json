@@ -20,13 +20,6 @@
         ".ng.html": "html"
       }
     },
-    "html-css-json": {
-      "command": "npx",
-      "args": ["-y", "--package=vscode-langservers-extracted", "vscode-html-language-server", "--stdio"],
-      "fileExtensions": {
-        ".html": "html"
-      }
-    },
     "css": {
       "command": "npx",
       "args": ["-y", "--package=vscode-langservers-extracted", "vscode-css-language-server", "--stdio"],
