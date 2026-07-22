@@ -63,7 +63,7 @@
   },
   "overrides": {
     "@ngrx/signals": {
-      "@angular/core": "22"
+      "@angular/core": "22.0.7"
     }
   }
 }
