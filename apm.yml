@@ -2,14 +2,32 @@ name: copilot-workflow-demo
 version: 1.0.0
 description: Angular 22 + NgRx Signals workshop demo — agent config managed via APM
 author: Daniel Sogl
-# This apm.yml is IDENTICAL on every branch. The branch only decides which target
-# you compile/commit — pass --target explicitly (it overrides the targets: list below):
-#   main branch  → apm install --only apm --target copilot && apm compile --target copilot --no-dedup   # commit .github/ + AGENTS.md
-#   claude-code  → apm install --only apm --target claude  && apm compile --target claude               # commit .claude/  + AGENTS.md
-# (A bare `apm install`/`compile` without --target would emit BOTH harnesses — always pass --target.)
-# MCP is the source of truth below; the copilot target writes .vscode/mcp.json (committed).
-# `apm install` (with MCP) also writes the read-only global ~/.copilot/mcp-config.json on this
-# machine and aborts — so deploy primitives with `apm install --only apm` and keep .vscode/mcp.json.
+# Single-branch, NATIVE-ONLY setup: `main` serves BOTH harnesses (Claude Code + GitHub Copilot /
+# Copilot CLI) from these identical .apm/ sources. There is deliberately NO root AGENTS.md and NO
+# root CLAUDE.md — every instruction lives in the deterministic, path-scoped native files:
+#   Claude  → .claude/rules/*.md  (global rules load always; `paths:` rules load on matching files)
+#   Copilot → .github/copilot-instructions.md (global) + .github/instructions/*.instructions.md (applyTo)
+# Rationale: APM's root AGENTS.md is all-or-nothing (full inline incl. "## Files matching" or absent);
+# it cannot be trimmed to globals-only (microsoft/apm issue #1678). Non-deterministic "Files matching"
+# prose is exactly what we don't want, so we drop the root files entirely and rely on native rules.
+#
+# Regenerate after editing any .apm/ primitive or this file (per-target compile is REQUIRED — a bare
+# `apm compile`/`--target copilot,claude` keeps a full AGENTS.md; only single-target compiles dedup it):
+#   apm install --only apm                # deploy primitives for both runtimes (no global MCP write)
+#   apm compile --target copilot          # .github/instructions/ + copilot-instructions.md (AGENTS.md stays absent)
+#   apm compile --target claude           # .claude/rules/ (CLAUDE.md stays absent)
+# Do NOT pass --clean with these per-target compiles: with a single target it deletes the OTHER target's
+# deployed files (e.g. Claude's hook scripts under .claude/hooks/). Root AGENTS.md/CLAUDE.md are already
+# removed and single-target compiles never regenerate them; if a stale one ever reappears, delete it once
+# by hand (`rm -f AGENTS.md CLAUDE.md`), not with --clean.
+# Gotchas:
+#   - `apm install` WITH mcp writes the read-only global ~/.copilot/mcp-config.json and aborts;
+#     always use `--only apm`. Committed MCP config: .mcp.json (claude) + .vscode/mcp.json (copilot).
+#   - `.claude/settings.json` is a MERGE target — APM (0.26+) manages only its own `matcher: "*"` hook
+#     blocks and never removes others. Author hooks ONCE in .apm/hooks/hooks.json; never hand-add hook
+#     blocks to settings.json (that is what caused the earlier double-firing).
+#   - Trade-off: no universal AGENTS.md means non-Claude/Copilot tools (Codex, Cursor, Windsurf, …)
+#     get no instructions. Acceptable here — this repo targets Claude Code + Copilot only.
 # Which agent platforms this project supports (resolution order: --target flag > this field > auto-detect).
 targets:
   - copilot

@@ -2,16 +2,7 @@
   "hooks": {
     "SessionStart": [
       {
-        "hooks": [
-          {
-            "type": "command",
-            "command": ".claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "",
+        "matcher": "*",
         "hooks": [
           {
             "type": "command",
@@ -23,17 +14,7 @@
     ],
     "PreToolUse": [
       {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": ".claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "",
+        "matcher": "*",
         "hooks": [
           {
             "type": "command",
@@ -45,17 +26,7 @@
     ],
     "PostToolUse": [
       {
-        "matcher": "Edit|Write|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": ".claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh",
-            "timeout": 30
-          }
-        ]
-      },
-      {
-        "matcher": "",
+        "matcher": "*",
         "hooks": [
           {
             "type": "command",
@@ -67,10 +38,12 @@
     ],
     "UserPromptSubmit": [
       {
+        "matcher": "*",
         "hooks": [
           {
             "type": "command",
-            "command": "codegraph prompt-hook"
+            "command": "codegraph prompt-hook",
+            "timeout": 10
           }
         ]
       }

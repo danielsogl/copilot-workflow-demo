@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "codegraph prompt-hook",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

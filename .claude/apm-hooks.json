@@ -1,7 +1,7 @@
 {
   "SessionStart": [
     {
-      "matcher": "",
+      "matcher": "*",
       "hooks": [
         {
           "type": "command",
@@ -14,7 +14,7 @@
   ],
   "PreToolUse": [
     {
-      "matcher": "",
+      "matcher": "*",
       "hooks": [
         {
           "type": "command",
@@ -27,12 +27,25 @@
   ],
   "PostToolUse": [
     {
-      "matcher": "",
+      "matcher": "*",
       "hooks": [
         {
           "type": "command",
           "command": ".claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh",
           "timeout": 30
+        }
+      ],
+      "_apm_source": "_local/copilot-workflow-demo"
+    }
+  ],
+  "UserPromptSubmit": [
+    {
+      "matcher": "*",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "codegraph prompt-hook",
+          "timeout": 10
         }
       ],
       "_apm_source": "_local/copilot-workflow-demo"
