@@ -2,7 +2,7 @@
   "hooks": {
     "SessionStart": [
       {
-        "matcher": "*",
+        "matcher": "",
         "hooks": [
           {
             "type": "command",
@@ -12,9 +12,9 @@
         ]
       }
     ],
-    "PreToolUse": [
+    "preToolUse": [
       {
-        "matcher": "*",
+        "matcher": "",
         "hooks": [
           {
             "type": "command",
@@ -24,9 +24,9 @@
         ]
       }
     ],
-    "PostToolUse": [
+    "postToolUse": [
       {
-        "matcher": "*",
+        "matcher": "",
         "hooks": [
           {
             "type": "command",
@@ -35,23 +35,7 @@
           }
         ]
       }
-    ],
-    "UserPromptSubmit": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "codegraph prompt-hook",
-            "timeout": 10
-          }
-        ]
-      }
     ]
   },
-  "permissions": {
-    "allow": [
-      "mcp__codegraph__*"
-    ]
-  }
+  "version": 1
 }

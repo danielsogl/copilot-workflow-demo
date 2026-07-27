@@ -1,6 +1,6 @@
-This repo is an Angular 22 + NgRx Signals workshop demo. Agent configuration is managed by **APM** — author primitives under `.apm/`, run `apm install` to compile harness-specific output. Never hand-edit generated dirs (`.github/`, `.agents/skills/`, `.claude/`, `AGENTS.md`).
+This repo is an Angular 22 + NgRx Signals workshop demo with a .NET 10 backend under `backend/`. It is configured for **two harnesses at once**: GitHub Copilot reads `.github/`, Claude Code reads `.claude/`. Skills are shared — one copy in `.agents/skills/`, symlinked into `.claude/skills/`. Edit the harness files directly; there is no generator.
 
-**CodeGraph:** the `codegraph_*` MCP tools are backed by a tree-sitter index. `apm install` only writes the MCP server config — the index is **not** built automatically. If `.codegraph/` is missing (the server reports "not initialized"), run `apm run codegraph-setup` (= `codegraph init`) once; CodeGraph's daemon keeps it in sync afterwards.
+**CodeGraph:** the `codegraph_*` MCP tools are backed by a tree-sitter index that is **not** built automatically. If `.codegraph/` is missing (the server reports "not initialized"), run `codegraph init` once; CodeGraph's daemon keeps it in sync afterwards.
 
 ## Stack
 
@@ -33,7 +33,7 @@ src/app/
 
 ## Skills
 
-Skills come from external `apm` dependencies declared in `apm.yml`, deployed to `.agents/skills/` by `apm install` and auto-discovered by the harness.
+Skills are managed with the `skills` CLI (`npx skills add <owner>/<repo> -a claude-code github-copilot`), pinned in `skills-lock.json` and auto-discovered by both harnesses. `npx skills experimental_install` restores them from the lockfile.
 
 | Skill               | When to use                                                              |
 | ------------------- | ----------------------------------------------------------------------- |
@@ -42,3 +42,15 @@ Skills come from external `apm` dependencies declared in `apm.yml`, deployed to 
 | `ngrx-signals`      | Authoring or testing any NgRx Signal Store (`*-store.ts`)               |
 | `bdd`               | Gherkin/Cucumber specs, Playwright BDD, executable acceptance criteria   |
 | `skill-creator`     | Authoring or improving a skill                                           |
+| `dotnet-webapi`     | ASP.NET Core Minimal APIs under `backend/`                              |
+| `test-anti-patterns` | Auditing a suite for tests that pass but verify nothing — any language |
+| `find-untested-sources` | Locating production code with no test behind it                     |
+| `generate-testability-wrappers` | Cutting a seam into code that has none                      |
+| `coverage-analysis` | Coverage and CRAP score                                                  |
+| `grade-tests`       | Judging whether generated tests are worth keeping                        |
+| `grill-with-docs` → `to-spec` → `to-tickets` → `implement` | The spec-driven chain, in that order |
+| `tdd` · `code-review` | Red-green-refactor, and reviewing a diff                               |
+
+The .NET skills come from `dotnet/skills` (official, Microsoft-owned); the
+spec chain from `mattpocock/skills`. There is no official xUnit or Stryker
+skill — that gap is deliberate, it is a workshop exercise.

@@ -398,4 +398,4 @@ src/app/[domain]/
 ### Supporting References
 - [Angular Instructions](../instructions/angular.instructions.md) - Core Angular patterns and best practices
 - [Angular Material Instructions](../instructions/angular-material.instructions.md) - Material Design component usage
-- [TypeScript Instructions](../../.apm/instructions/typescript.instructions.md) - TypeScript conventions and typing
+- [TypeScript Instructions](../rules/typescript.md) - TypeScript conventions and typing

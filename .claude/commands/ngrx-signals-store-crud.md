@@ -130,4 +130,4 @@ src/app/features/[domain]/
 ## References
 
 - [NgRx Signals Patterns](../instructions/ngrx-signals.instructions.md) - Complete NgRx Signals v21+ architecture and patterns including `withFeature`, `withLinkedState`, `withProps`, `withHooks`
-- [Architecture (DDD)](../../.apm/instructions/architecture.instructions.md) - DDD folder structure with `features/` wrapper
+- [Architecture (DDD)](../rules/architecture.md) - DDD folder structure with `features/` wrapper
