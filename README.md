@@ -96,6 +96,12 @@ Two consequences of how `gh skill` works:
 > repo. It has no Stryker skill and its authoring guidance is MSTest-leaning —
 > a gap worth filling with a hand-built skill.
 
+### Demo walkthroughs
+
+`docs/demo-prompts.md` holds four rehearsed flows — context cost, the spec
+chain, the gate loop, and legacy-code testing — with copy-paste prompts, the
+expected outcome, and what to do when a skill does not fire.
+
 ### Step 4: Reusable Prompts
 
 Prompt templates in `.github/prompts/` for Copilot, mirrored as slash commands in `.claude/commands/` for Claude Code:
