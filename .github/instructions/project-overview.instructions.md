@@ -15,7 +15,7 @@ This repo is an Angular 22 + NgRx Signals workshop demo with a .NET 10 backend u
 - **Angular Signal Forms** — `form()`, `schema()`, `FormField`. Preferred over Reactive/Template-driven forms for new code.
 - **Vitest 4** (via `@angular/build:unit-test`) + Angular **TestBed** + **ng-mocks**.
 - **Playwright** for E2E.
-- **json-server** mock REST API on `http://localhost:3000`.
+- **.NET 10** Minimal API under `backend/` on `http://localhost:3000`, tested with xUnit v3.
 - **ESLint** + **Prettier** + **Lefthook** pre-commit hooks — do not bypass with `--no-verify`.
 
 ## Project layout

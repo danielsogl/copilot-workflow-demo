@@ -2,13 +2,16 @@
 
 ## Commands
 
-| Task                   | Command            |
-| ---------------------- | ------------------ |
-| Dev server + mock API  | `npm start`        |
-| Production build       | `npm run build`    |
-| Unit tests (Vitest)    | `npm test`         |
-| E2E tests (Playwright) | `npm run test:e2e` |
-| Lint                   | `npm run lint`     |
+| Task                     | Command             |
+| ------------------------ | ------------------- |
+| Dev server + API         | `npm start`         |
+| Backend only             | `npm run start:api` |
+| Production build         | `npm run build`     |
+| Backend build            | `npm run build:api` |
+| Unit tests (Vitest)      | `npm test`          |
+| Backend tests (xUnit v3) | `npm run test:api`  |
+| E2E tests (Playwright)   | `npm run test:e2e`  |
+| Lint                     | `npm run lint`      |
 
 Always use **npm**. Never pnpm/yarn.
 
@@ -16,7 +19,7 @@ Always use **npm**. Never pnpm/yarn.
 
 - No code comments unless explicitly requested.
 - No `console.log` in committed code.
-- No mocking the database in integration tests — they hit the real `json-server` instance.
+- No mocking the API in integration tests — they hit the real `TaskApi` instance on `:3000`.
 - No `--no-verify` on commits. Fix the failing hook instead.
 
 This repo is an Angular 22 + NgRx Signals workshop demo with a .NET 10 backend under `backend/`. It is configured for **two harnesses at once**: GitHub Copilot reads `.github/`, Claude Code reads `.claude/`. Skills are shared — one copy in `.agents/skills/`, symlinked into `.claude/skills/`. Edit the harness files directly; there is no generator.
@@ -32,7 +35,7 @@ This repo is an Angular 22 + NgRx Signals workshop demo with a .NET 10 backend u
 - **Angular Signal Forms** — `form()`, `schema()`, `FormField`. Preferred over Reactive/Template-driven forms for new code.
 - **Vitest 4** (via `@angular/build:unit-test`) + Angular **TestBed** + **ng-mocks**.
 - **Playwright** for E2E.
-- **json-server** mock REST API on `http://localhost:3000`.
+- **.NET 10** Minimal API under `backend/` on `http://localhost:3000`, tested with xUnit v3.
 - **ESLint** + **Prettier** + **Lefthook** pre-commit hooks — do not bypass with `--no-verify`.
 
 ## Project layout
