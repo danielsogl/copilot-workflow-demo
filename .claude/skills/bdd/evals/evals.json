@@ -1,0 +1,150 @@
+{
+  "skill_name": "bdd",
+  "evals": [
+    {
+      "id": 1,
+      "name": "acceptance-criteria-to-gherkin",
+      "prompt": "I'm a product manager working with my dev team on a new feature: 'A user can reset their forgotten password by email.' Our acceptance criteria are:\n\n1. A user who enters a registered email gets a reset link sent to that email within 60 seconds.\n2. The reset link expires after 30 minutes or after a single use, whichever comes first.\n3. An unregistered email shows the same generic success message (no account enumeration).\n4. Rate-limit: more than 5 reset requests per email per hour returns a generic 'try again later' message but still does NOT reveal whether the email is registered.\n5. After a successful reset, all existing sessions for that user are invalidated.\n\nTurn this into a well-structured Gherkin feature file my team can use as both the spec and the executable test. Group scenarios by business rule. Use declarative, business-readable language — no URLs, no CSS selectors, no UI verbs like 'clicks'. Include at least one Scenario Outline if it actually belongs (and explain why if it doesn't). Add tags where they help. Do NOT write step definitions yet — just the feature file plus a 3-4 sentence note explaining the structural choices you made (especially around Rule blocks and the no-enumeration scenarios).",
+      "expected_output": "A single .feature file with: business-name Feature, Background only if genuinely shared context exists, one Rule per acceptance criterion (or grouped logically), each Rule containing focused declarative scenarios. No UI/URL leakage. Account enumeration handled by parallel scenarios for registered vs unregistered emails asserting identical observable outcomes. Closing notes justify structural decisions.",
+      "files": [],
+      "expectations": [
+        "Output is valid Gherkin (Feature, Background?, Rule blocks, Scenario/Example/Scenario Outline, Given/When/Then)",
+        "Uses Rule: blocks to group scenarios by business rule (Gherkin 6 keyword)",
+        "Scenarios are declarative — no CSS selectors, no URLs, no 'clicks the button' UI verbs",
+        "Each scenario tests ONE behavior (no 'And ... And ...' chains stitching multiple outcomes)",
+        "No-account-enumeration is enforced by parallel scenarios for registered AND unregistered email asserting the SAME observable outcome (or an explicit equivalent)",
+        "Rate-limit (5/hour) is covered by a dedicated scenario or scenario outline — and the response still does not reveal account existence",
+        "Link expiry covers BOTH the 30-minute timeout AND the single-use property",
+        "Session invalidation after successful reset is covered as its own scenario",
+        "Uses tags meaningfully (at least one tag like @security, @smoke, @auth or similar — not just slapped on every scenario)",
+        "Closing explanatory note (3-4 sentences) justifies use/non-use of Scenario Outline, Rule grouping, or the parallel-success-message pattern"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "refactor-imperative-gherkin",
+      "prompt": "Refactor this feature file. It's a Selenium replay dressed up as Gherkin and our product manager refuses to read it. I want a declarative, business-readable version that survives a UI rewrite — but the behavior coverage MUST stay the same. Also explain what was wrong with the original (anti-patterns by name) in a short note at the end.\n\n```gherkin\nFeature: Login\n\n  Scenario: User logs in and sees dashboard and updates profile\n    Given I navigate to \"https://app.example.com/login\"\n    When I enter \"jane@acme.com\" in the \"#email\" input\n    And I enter \"hunter2\" in the \"#password\" input\n    And I tick the \"#remember-me\" checkbox\n    And I click the \"button.primary[type=submit]\" element\n    Then the URL should equal \"https://app.example.com/dashboard\"\n    And the element \"#welcome-banner\" should be visible\n    And I click the \"a[href='/profile']\" link\n    And I enter \"Jane Doe\" in the \"#display-name\" field\n    And I click the \"#save-profile\" button\n    Then the element \".toast-success\" should contain text \"Saved\"\n    And the value of the \"#display-name\" input should be \"Jane Doe\"\n\n  Scenario: User tries wrong password\n    Given I navigate to \"https://app.example.com/login\"\n    When I enter \"jane@acme.com\" in the \"#email\" input\n    And I enter \"wrong\" in the \"#password\" input\n    And I click the \"button.primary[type=submit]\" element\n    Then the URL should equal \"https://app.example.com/login\"\n    And the element \".error\" should contain text \"Invalid email or password\"\n```",
+      "expected_output": "A refactored feature with separate scenarios for login and profile-update (one behavior each), declarative language using domain verbs ('signs in', 'updates her display name'), no selectors or URLs, identical observable coverage. Closing note names anti-patterns: imperative/UI-coupled steps, conjunctive scenario, hardcoded environment URLs, brittle selectors, scenario testing two behaviors.",
+      "files": [],
+      "expectations": [
+        "Splits the original first scenario (login + profile update) into TWO separate scenarios — one behavior per scenario",
+        "Uses domain verbs ('signs in', 'updates her display name') NOT UI verbs ('clicks the button', 'enters in the field')",
+        "Removes all hardcoded URLs (https://app.example.com/...) from the feature file",
+        "Removes all CSS / DOM selectors (#email, button.primary, .toast-success) from the feature file",
+        "Login-fail scenario stays focused: 'Then she sees an invalid-credentials message' or equivalent — no URL assertion",
+        "Refactored scenarios still cover ALL original behaviors: successful login, profile update success, failed login feedback",
+        "Closing note explicitly names at least 3 anti-patterns by their canonical names (e.g. imperative/UI-coupled, conjunctive scenario, two-behaviors-per-scenario, brittle selectors, hardcoded environment)",
+        "The refactored Gherkin would survive a complete UI/CSS rewrite without modification (no element identifiers, no URLs)"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "scenario-outline-judgment",
+      "prompt": "I'm writing tests for a password-strength validator. My dev wrote this Gherkin and wants to commit it. Tell me honestly: is this good BDD or not? If yes, say why and leave it alone. If no, explain what's wrong and rewrite it the right way. Be specific — name the anti-patterns and explain WHY each one matters.\n\n```gherkin\nFeature: Password validation\n\n  Scenario Outline: Validate password\n    When I submit the password \"<pw>\"\n    Then the validator returns \"<result>\"\n\n    Examples:\n      | pw                | result  |\n      | a                 | invalid |\n      | abc               | invalid |\n      | abcdefg           | invalid |\n      | abcdefgh          | invalid |\n      | Abcdefgh          | invalid |\n      | Abcdefg1          | invalid |\n      | Abcdefg1!         | valid   |\n      | Abcdefg1!!        | valid   |\n      | aaaaaaaaaaaaaaaa1 | invalid |\n      | AAAAAAAAAAAAAA1!  | invalid |\n      | Pass1!            | invalid |\n      | LongStrongPass1!  | valid   |\n      | <empty>           | invalid |\n      | (16 more rows)    | ...     |\n    \n```",
+      "expected_output": "A 'no, this is bad BDD' verdict with named anti-patterns (Outline-as-unit-test, technical column names, exhaustive boundary testing in Gherkin, opaque rule attribution). A concrete rewrite: one Rule block ('Passwords must satisfy the corporate strength policy'), a Scenario Outline with domain-named columns describing the violated requirement ('too short', 'missing uppercase', 'missing digit', 'missing symbol'), and a positive scenario. An explicit note that exhaustive fuzzy boundary cases (e.g. character-by-character validation, all 50+ permutations) belong in a fast unit test of the validator, NOT in Gherkin.",
+      "files": [],
+      "expectations": [
+        "Verdict is 'this is not good BDD' (or equivalent — does NOT bless the original as-is)",
+        "Names at least 3 of: Outline-as-unit-test-substitute, technical column names, exhaustive-boundary-testing-in-Gherkin, opaque rule attribution, no Rule grouping",
+        "Explains WHY each anti-pattern matters (slow, opaque to stakeholders, can't tell which rule broke when one row fails, etc.)",
+        "Provides a rewrite that uses Rule: to group scenarios by business rule",
+        "Rewrite's Scenario Outline uses DOMAIN-named columns (e.g. 'missing requirement', 'rule violated') — NOT 'pw' and 'result'",
+        "Rewrite covers a small number (≈4) of representative business-rule violations, not 20+ rows of fuzz cases",
+        "Rewrite includes at least one positive (happy-path) scenario for an accepted strong password",
+        "Explicit recommendation that exhaustive boundary / character-level cases be moved to a unit test of the validator (NOT kept as Gherkin)"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "vitest-cucumber-domain-store",
+      "prompt": "Set up BDD testing with Vitest for a domain logic module. I have a `Cart` class in `src/cart/cart.ts` that exposes `add(item)`, `remove(id)`, `applyCoupon(code)`, and getters `lines`, `subtotal`, `total`. Coupons: 'SAVE10' = 10% off, 'FREESHIP' = $0 shipping (default $5), invalid codes throw `InvalidCouponError`. Use `@amiceli/vitest-cucumber` (the 2026-recommended library). Produce:\n\n1. `src/cart/cart.feature` — a feature file with a Background, two scenarios (one happy path, one error case), and a Scenario Outline for the coupon types. Declarative language, domain vocabulary.\n2. `src/cart/cart.steps.ts` — the step bindings. Use Cucumber Expressions (NOT regex). Use the typed `s.context` (NOT file-level `let` variables). Show at least one `BeforeEachScenario` hook resetting the cart.\n3. `vitest.config.ts` — include glob configured so it picks up `.steps.ts` files but NOT `.feature` files.\n4. A short comment in `cart.steps.ts` explaining why we use Cucumber Expressions over regex and why `s.context` matters.\n\nKeep things idiomatic for 2026 — TypeScript, ESM, `loadFeature` + `describeFeature`. Do NOT use deprecated APIs.",
+      "expected_output": "Three files: cart.feature with Background + happy path Scenario + error Scenario + Scenario Outline for coupons, cart.steps.ts using loadFeature/describeFeature with typed s.context<CartCtx> and BeforeEachScenario reset, vitest.config.ts with include: ['src/**/*.steps.ts'] (not .feature). Comment explaining the design choices.",
+      "files": [],
+      "expectations": [
+        "Imports come from '@amiceli/vitest-cucumber' (NOT @cucumber/cucumber, NOT vitest-cucumber-plugin)",
+        "Uses loadFeature() at module top-level with `await` and describeFeature(feature, ...)",
+        "Step parameters use Cucumber Expressions ({string}, {int}, {float}) — NOT regex patterns",
+        "Per-scenario state lives in a typed s.context<T> object — NOT in file-level `let` variables",
+        "Includes at least one BeforeEachScenario (or equivalent) hook that resets the cart",
+        "Feature file has a Background (Given an empty cart, or equivalent shared context)",
+        "Feature file includes a Scenario Outline for coupon types with an Examples table",
+        "Scenarios are declarative — no DOM selectors, no UI verbs; uses domain language ('a coupon is applied', 'the total is')",
+        "vitest.config.ts include glob targets .steps.ts files — NOT .feature files directly",
+        "Includes a comment explaining EITHER why Cucumber Expressions beat regex OR why s.context is preferred over let",
+        "Uses Vitest's `expect` (imported from 'vitest') inside Then-steps for assertions",
+        "Error case uses a dedicated scenario asserting on InvalidCouponError (not mixed into a happy-path scenario)",
+        "Feature file uses Rule: blocks (Gherkin 6+) to group scenarios by business rule — not bare top-level Scenarios",
+        "Scenarios use third-person/persona voice ('she adds', 'a shopper', a named user) — NOT first-person 'I add' / 'I apply'"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "playwright-bdd-checkout-pom",
+      "prompt": "Set up an end-to-end BDD test with playwright-bdd for an e-commerce checkout flow. Use the 2026 idiomatic setup. Produce:\n\n1. `features/checkout.feature` — a `@checkout` feature with Background, one `@smoke` happy-path scenario (visitor adds a Bluetooth Speaker to cart and pays as guest), and one `Scenario Outline` parameterized by shipping region (US, DE, JP) asserting tax rate. Declarative steps only.\n2. `pages/CheckoutPage.ts` and `pages/ProductPage.ts` — page objects exposing domain methods (`goto`, `search(query)`, `addFirstResultToCart`, `payAsGuest(card)`, `expectOrderTotal(amount)`, etc.) using Playwright's `getByRole`/`getByTestId` (NOT CSS selectors).\n3. `fixtures.ts` — custom Playwright fixtures exposing the page objects via `test.extend`, then `createBdd(test)` to derive Given/When/Then. This is the 2026-idiomatic World pattern.\n4. `steps/checkout.steps.ts` — step bindings importing Given/When/Then from `../fixtures` (NOT from playwright-bdd directly). Steps are thin glue — they call page-object methods, no selectors inline.\n5. `playwright.config.ts` — wired via `defineBddConfig({ features, steps })`, `testDir` set to the generated path, sensible defaults (trace on first retry, html reporter).\n\nUse Cucumber Expressions for parameters. Include a `Before` hook with `{ tags: '@auth' }` even though the feature isn't tagged — show me you know the syntax for tag-targeted hooks. Briefly note in a comment why page objects are injected via fixtures rather than imported and `new`'d inside steps.",
+      "expected_output": "Five files. checkout.feature with Background + @smoke happy-path scenario + Scenario Outline for tax-by-region. CheckoutPage/ProductPage using getByRole/getByTestId (no raw CSS). fixtures.ts using test.extend + createBdd(test). checkout.steps.ts importing Given/When/Then from ../fixtures, steps as thin glue. playwright.config.ts wired with defineBddConfig. Tag-targeted Before hook present.",
+      "files": [],
+      "expectations": [
+        "Imports come from 'playwright-bdd' for createBdd/defineBddConfig and from '@playwright/test' for expect/devices",
+        "fixtures.ts uses test.extend<Fixtures>({...}) to inject page objects and exports the result of createBdd(test)",
+        "Step definition files import Given/When/Then from the local fixtures file — NOT from 'playwright-bdd' directly",
+        "Page objects use Playwright's role/test-id locators (getByRole, getByTestId, getByLabel) — NOT raw CSS selectors like page.locator('div.x')",
+        "Steps are thin glue — they call page-object methods (e.g. await checkoutPage.search(query)); no Playwright locators are inlined inside step bodies",
+        "Feature file has a Background, exactly one Scenario tagged @smoke for the happy path, and one Scenario Outline with Examples for regions",
+        "Scenario Outline parameterizes by shipping region (US, DE, JP or equivalent) with domain-named columns",
+        "Step parameters use Cucumber Expressions ({string}, {int}, {float}) — NOT regex",
+        "playwright.config.ts uses defineBddConfig({ features, steps }) and passes the returned path as testDir — NO use of deprecated importTestFrom",
+        "Includes at least one Before({ tags: '@auth' }, async (...) => {...}) hook demonstrating tag-targeted hook syntax",
+        "A comment explains why page objects are provided as fixtures (test-scoped DI) rather than imported and `new`'d inside steps",
+        "Reporter config in playwright.config.ts includes 'html' (and ideally 'list'); trace setting is 'on-first-retry' or stricter",
+        "Page object locators are stored as private readonly Locator constructor fields (eager binding in the constructor) — NOT as lazy arrow-method getters like `private readonly foo = () => this.page.getByRole(...)`"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "install-vitest-bdd-from-zero",
+      "prompt": "I have an empty Node.js project (just a fresh `npm init -y`, nothing else). I want to set up BDD testing with Vitest end-to-end. Generate everything I need to go from zero to a passing test:\n\n1. The full `package.json` (overwriting the npm-init one) with the right scripts, `\"type\": \"module\"`, and devDependencies.\n2. The exact `npm install` command I should run.\n3. `vitest.config.ts` with the include/exclude globs set correctly so `.feature` files don't get executed as tests.\n4. `tsconfig.json` configured for ESM + top-level await + Vitest.\n5. A `.gitignore`.\n6. A minimal hello-world example I can use to verify the install actually works: one production file (`src/greeter/greeter.ts`), one `.feature` file, one `.steps.ts` binding file. Use a `greet(name: string)` function so the test is trivial to follow.\n7. A README-style note (3-5 bullets) telling me which command to run and what successful output looks like.\n\nUse `@amiceli/vitest-cucumber` (the 2026-recommended library, currently v6.x). Make the example follow the library's v6 conventions correctly so I don't waste an hour debugging — first arg of every step callback is the vitest test ctx (`_ctx`), shared state goes through the typed feature-level `FeatureDescriibeCallbackParams<T>` context (not file-level `let`), and step bindings use Cucumber Expressions (NOT regex).",
+      "expected_output": "A complete install bundle: package.json with type:module + scripts + devDependencies; npm install command; vitest.config.ts (include .steps.ts, exclude .feature); tsconfig.json (ESM/Bundler); .gitignore; greeter.ts + greeter.feature + greeter.steps.ts using @amiceli/vitest-cucumber@6 conventions; closing note explaining how to verify.",
+      "files": [],
+      "expectations": [
+        "package.json declares `\"type\": \"module\"`",
+        "package.json has `scripts.test` running Vitest (e.g. `vitest run`)",
+        "package.json devDependencies include both `vitest` and `@amiceli/vitest-cucumber` (any version pin OK)",
+        "The npm install command installs `vitest` and `@amiceli/vitest-cucumber` as devDependencies (uses `-D` or `--save-dev`)",
+        "vitest.config.ts `include` glob targets `**/*.steps.ts` (NOT `**/*.feature`)",
+        "vitest.config.ts `exclude` glob explicitly excludes `**/*.feature` so Vitest does not try to execute Gherkin files as tests",
+        "tsconfig.json uses `module: \"ESNext\"` (or `\"NodeNext\"`) and `moduleResolution: \"Bundler\"` (or `\"NodeNext\"`) — required for top-level `await loadFeature`",
+        "`.gitignore` includes node_modules and at least one build/output directory (e.g. dist, coverage, reports)",
+        "Hello-world step bindings import from `@amiceli/vitest-cucumber` (NOT @cucumber/cucumber)",
+        "Hello-world step bindings use `loadFeature` (top-level await) + `describeFeature`",
+        "Step callbacks take the vitest test ctx as their first argument (typically named `_ctx`); Cucumber Expression args come AFTER it",
+        "Hello-world example uses the typed feature-level context via `FeatureDescriibeCallbackParams<T>` (NOT a module-level `let` and NOT scenario-only `s.context`)",
+        "Step expressions use Cucumber Expressions (`{string}`, `{int}`, etc.) — NOT regex",
+        "Closing note tells the user how to verify (e.g. `npm install`, then `npm test`) and what passing output looks like",
+        "package.json pins a `vitest` version compatible with `@amiceli/vitest-cucumber@6.x`'s peer requirement (vitest `>=4`, NOT `^2` or `^3`); the install must succeed under `npm install`"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "install-playwright-bdd-from-zero",
+      "prompt": "I have an empty Node.js project (just a fresh `npm init -y`, nothing else). I want to set up end-to-end BDD testing with Playwright. Generate everything I need to go from zero to a passing test:\n\n1. The exact install commands (Playwright + playwright-bdd + browsers). Show the canonical `npm init playwright@latest` step if that's what you'd recommend.\n2. The full `package.json` with the right scripts — specifically the `bddgen && playwright test` pairing.\n3. `playwright.config.ts` wired via `defineBddConfig({features, steps})` with `testDir` set to the returned generated path. No deprecated `importTestFrom`. Sensible defaults: html + list reporter, `trace: 'on-first-retry'`, a chromium project.\n4. `tsconfig.json` covering features/, pages/, steps/, fixtures.ts, and playwright.config.ts. Exclude `.features-gen`.\n5. A `.gitignore` that excludes `.features-gen/`, `playwright-report/`, and `test-results/`.\n6. A minimal hello-world example to verify the install works: one `.feature` file in `features/`, a `fixtures.ts` that does `test.extend({})` + `createBdd(test)`, and a step file in `steps/` that imports `Given/Then` from `../fixtures` (NOT from playwright-bdd directly). The scenario should just open a URL and check the page title.\n7. A README-style note (3-5 bullets) on how to run + what passing output looks like + the CI command pair (`npx bddgen && npx playwright test`).\n\nUse `playwright-bdd` (the 2026-recommended library, currently v8.x).",
+      "expected_output": "A complete install bundle: install commands; package.json scripts wired around `bddgen && playwright test`; playwright.config.ts using defineBddConfig (no importTestFrom); tsconfig with @playwright/test + node types; .gitignore excluding .features-gen; smoke.feature + fixtures.ts (test.extend + createBdd) + smoke.steps.ts (imports from ../fixtures); README note.",
+      "files": [],
+      "expectations": [
+        "Install steps cover BOTH `npm init playwright@latest` (or equivalent) AND `npm install -D playwright-bdd`",
+        "Install steps include `npx playwright install --with-deps` (or note it's part of `npm init playwright`)",
+        "package.json `scripts.test` (or equivalent) chains `bddgen && playwright test` — NOT just `playwright test` alone",
+        "playwright.config.ts uses `defineBddConfig({features, steps})` and passes the returned path as `testDir` — NO deprecated `importTestFrom`",
+        "playwright.config.ts `steps` glob includes the file that exports the extended `test` (typically `fixtures.ts`)",
+        "playwright.config.ts reporter array includes `'html'` (and ideally `'list'`); trace setting is `'on-first-retry'` or stricter",
+        "tsconfig.json `types` includes both `\"@playwright/test\"` and `\"node\"`",
+        "tsconfig.json `exclude` lists `.features-gen` (or equivalent) so generated specs don't pollute typechecking",
+        "`.gitignore` excludes `.features-gen/`, `playwright-report/`, and `test-results/`",
+        "Hello-world `fixtures.ts` exports `test` via `base.extend({...})` AND exports `{ Given, When, Then, ... }` from `createBdd(test)`",
+        "Hello-world step file imports `Given/Then` from the local `../fixtures` file — NOT from `'playwright-bdd'` directly",
+        "Step expressions use Cucumber Expressions (`{string}`, etc.) — NOT regex",
+        "Closing note tells the user how to verify (`bddgen && playwright test` or `npm test`) and what passing output looks like",
+        "fixtures.ts imports `test as base` from `'playwright-bdd'` (NOT from `'@playwright/test'`) — otherwise `bddgen` fails with `createBdd() should use 'test' extended from \"playwright-bdd\"`"
+      ]
+    }
+  ]
+}

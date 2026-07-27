@@ -1,0 +1,91 @@
+{
+  "skill_name": "ngrx-signals",
+  "evals": [
+    {
+      "id": 1,
+      "name": "cart-store-optimistic-with-request-status",
+      "prompt": "I'm building an Angular 19 e-commerce frontend. I need a CartStore using @ngrx/signals that holds the user's cart items, exposes a total and item count, supports add/remove/clear, and uses optimistic updates with rollback when calling our CartApiService (it has add(item), remove(id), clear() — all returning Promises that may reject). The store should be app-wide (providedIn root). Also surface request status so the UI can show 'saving…' and error states. Generate the full TypeScript implementation: CartStore, the CartApiService interface, and the with-request-status custom feature. Also add a small Vitest/Jest test that verifies optimistic add works and that a rejected add rolls back the cart.",
+      "expected_output": "A CartStore using signalStore with withState (CartState typed), withComputed (total + count), withMethods that call inject(CartApiService), uses patchState with getState snapshot for rollback, includes withRequestStatus custom feature with setPending/setFulfilled/setError standalone updaters. Tests use TestBed.inject and a mocked service.",
+      "files": [],
+      "expectations": [
+        "Imports come from '@ngrx/signals' (not '@ngrx/store')",
+        "Declares an explicit CartState type passed to withState<CartState>",
+        "Uses signalStore with { providedIn: 'root' } config",
+        "Uses patchState (never direct .set on signals from outside)",
+        "HTTP / persistence is in a separate service injected via inject(), NOT inlined in withMethods using HttpClient",
+        "Implements optimistic update by snapshotting state with getState before the call and restoring it on the catch branch",
+        "Exposes a withRequestStatus custom feature defined via signalStoreFeature with setPending/setFulfilled/setError standalone updater functions",
+        "Computed total and count are defined inside withComputed (not as plain methods)",
+        "Test file uses TestBed.inject(CartStore) and overrides CartApiService via { provide: CartApiService, useValue: ... }",
+        "Test asserts that an add followed by a rejected promise restores the previous cart contents"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "refactor-behaviorsubject-to-signal-store",
+      "prompt": "Refactor this legacy Angular service to use @ngrx/signals. Keep the public API behavior the same so existing components don't break (they use products$ today via the async pipe — show me how to migrate the template too). Here is the service:\n\n```typescript\n@Injectable({ providedIn: 'root' })\nexport class ProductsService {\n  private readonly _products$ = new BehaviorSubject<Product[]>([]);\n  private readonly _isLoading$ = new BehaviorSubject<boolean>(false);\n  readonly products$ = this._products$.asObservable();\n  readonly isLoading$ = this._isLoading$.asObservable();\n  readonly inStockProducts$ = this.products$.pipe(map(p => p.filter(x => x.stock > 0)));\n\n  constructor(private http: HttpClient) {}\n\n  loadAll() {\n    this._isLoading$.next(true);\n    this.http.get<Product[]>('/api/products').subscribe({\n      next: products => { this._products$.next(products); this._isLoading$.next(false); },\n      error: () => this._isLoading$.next(false),\n    });\n  }\n\n  add(product: Product) {\n    this._products$.next([...this._products$.value, product]);\n  }\n}\n```\n\nProduce: (1) a new ProductsApiService that owns the HTTP call, (2) a ProductsStore using @ngrx/signals replacing the BehaviorSubject service, (3) a sample component snippet showing how a consumer migrates from `products$ | async` to the signal-based API.",
+      "expected_output": "Two files: ProductsApiService (just HTTP) and ProductsStore (signalStore with state, computed inStockProducts, loadAll method, add method). Component example uses store.products() and store.inStockProducts() in the template, drops async pipe.",
+      "files": [],
+      "expectations": [
+        "Splits the service into a ProductsApiService that owns HttpClient AND a ProductsStore that owns state",
+        "ProductsStore uses signalStore from '@ngrx/signals' with { providedIn: 'root' }",
+        "BehaviorSubjects are replaced by withState<ProductsState>({ products: [], isLoading: false }) — explicitly typed",
+        "inStockProducts is a withComputed (not a method, not piped through anything)",
+        "loadAll uses patchState for both the loading flag and the result, and calls the injected ProductsApiService",
+        "Add method uses patchState with a function-form updater (not direct mutation)",
+        "Component snippet calls store.products() and store.inStockProducts() as signals (no | async pipe)",
+        "ProductsStore does NOT import HttpClient directly"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "custom-feature-with-selected-entity",
+      "prompt": "I have a BooksStore using `@ngrx/signals` with `withEntities<Book>()`. I want to add a reusable custom feature called `withSelectedEntity<T>()` that I can compose into any entity-based store. It should: (1) add a `selectedId` state slice, (2) expose a `selectedEntity` computed that returns the entity from `entityMap` for the current `selectedId` (or null), (3) add `select(id)` and `clearSelection()` methods, (4) be type-safe so it gives a compile error if I try to add it to a store without `withEntities`. Show me the full feature implementation, the updated BooksStore composing it, and a unit test that wraps the feature in a minimal signalStore and proves it works.",
+      "expected_output": "A withSelectedEntity factory function returning signalStoreFeature with the typed { state: type<EntityState<T>>() } prerequisite declaration. Updated BooksStore composing withEntities<Book>() then withSelectedEntity<Book>(). A test wrapping the feature in a fresh signalStore.",
+      "files": [],
+      "expectations": [
+        "withSelectedEntity is implemented with signalStoreFeature from '@ngrx/signals'",
+        "The feature declares its prerequisite using the typed overload with { state: type<EntityState<T>>() } (or equivalent constraint) to require withEntities upstream",
+        "Adds a selectedId state slice with type EntityId | null",
+        "Exposes selectedEntity as a withComputed signal that reads from entityMap and returns null when selectedId is null",
+        "Provides select(id) and clearSelection() methods that use patchState",
+        "BooksStore composes withEntities<Book>() BEFORE withSelectedEntity<Book>() (order matters)",
+        "Test wraps the feature in a fresh signalStore (not the real BooksStore) and uses TestBed.inject",
+        "Test verifies select() updates selectedEntity and clearSelection() resets it to null"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "rxmethod-debounced-search",
+      "prompt": "Build a `BookSearchStore` using @ngrx/signals for a typeahead search. State: `query: string`, `results: Book[]`, `isLoading: boolean`. The component will call `store.searchByQuery(query)` on every keystroke. Requirements: debounce keystrokes by 300ms, drop duplicates, cancel in-flight requests when a new keystroke comes in (so an old slow response can't overwrite a newer one), and handle errors without breaking the stream. The backend is a `BooksApi.search(query: string): Observable<Book[]>`. Use the right tool for the job and explain in a short comment why you used it. Provide the store and a quick test.",
+      "expected_output": "Store using rxMethod with pipe(debounceTime, distinctUntilChanged, switchMap, tapResponse). Component calls store.searchByQuery(query) and signals are read in the template. Test uses TestBed.inject + mocked BooksApi and asserts state updates after the debounce window.",
+      "files": [],
+      "expectations": [
+        "Uses rxMethod from '@ngrx/signals/rxjs-interop'",
+        "Pipeline contains debounceTime(300), distinctUntilChanged, and switchMap (in that order or equivalent semantics)",
+        "Uses tapResponse (or equivalent error-isolating handling) so an inner error doesn't terminate the rxMethod stream",
+        "patchState updates isLoading before the HTTP call and resets it on both success and error paths",
+        "Does not use signalMethod for this case (RxJS operators required)",
+        "Includes a brief comment justifying the rxMethod choice over signalMethod / plain async",
+        "Test uses TestBed.inject(BookSearchStore), mocks BooksApi via providers, and asserts results after a wait/poll for the debounce"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "todos-entities-store-crud",
+      "prompt": "Build a TodosStore using `@ngrx/signals/entities` for a normal todo list. Each Todo has `{ id: string; text: string; completed: boolean; createdAt: Date }`. Methods needed: addTodo(text), removeTodo(id), toggleCompleted(id), removeAllCompleted(), and loadAll() that fetches from a TodosApiService. Add computed signals for: total count, active count (not completed), and completed count. The store is app-wide. Include a `withRequestStatus` feature for the load. Show me the full store, the request-status feature, and a unit test that exercises addTodo + toggleCompleted + the computed signals.",
+      "expected_output": "TodosStore using withEntities<Todo>() + withRequestStatus(). Methods use addEntity, removeEntity, updateEntity, removeEntities (predicate), setAllEntities. Computed counts use the entities() signal. Tests cover add + toggle + counts.",
+      "files": [],
+      "expectations": [
+        "Imports withEntities from '@ngrx/signals/entities' (not from '@ngrx/signals')",
+        "Uses entity updaters (addEntity, removeEntity, updateEntity) from '@ngrx/signals/entities' rather than hand-rolled array splicing",
+        "removeAllCompleted uses removeEntities with a predicate function (not a manual filter + setAllEntities)",
+        "toggleCompleted uses updateEntity with the function-form changes ((todo) => ({ completed: !todo.completed }))",
+        "loadAll uses setAllEntities together with setFulfilled / setPending request-status updaters",
+        "Computed counts use the entities() signal (or ids().length where appropriate) inside withComputed",
+        "withRequestStatus is implemented as signalStoreFeature in a separate function (reusable)",
+        "Test uses TestBed.inject(TodosStore), exercises addTodo + toggleCompleted, and asserts both the entities and the computed counts"
+      ]
+    }
+  ]
+}

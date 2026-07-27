@@ -5,13 +5,15 @@ set up for **two agent harnesses side by side**: GitHub Copilot and Claude Code.
 Same skills, same rules, two sets of harness files — which is the point of the
 demo, not an accident.
 
-| Harness            | Reads                                                                                                                           |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
-| **GitHub Copilot** | `.github/copilot-instructions.md`, `.github/instructions/**`, `.github/prompts/`, `.github/agents/`, `.github/hooks/hooks.json` |
-| **Claude Code**    | `.claude/CLAUDE.md`, `.claude/rules/`, `.claude/commands/`, `.claude/agents/`, `.claude/settings.json`                          |
-| **Both**           | `.agents/skills/` (Claude Code via symlinks in `.claude/skills/`), `scripts/hooks/`, `.mcp.json` / `.vscode/mcp.json`           |
+| Harness            | Reads                                                                                                                                              |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **GitHub Copilot** | `.github/copilot-instructions.md`, `.github/instructions/**`, `.github/prompts/`, `.github/agents/`, `.github/hooks/hooks.json`, `.agents/skills/` |
+| **Claude Code**    | `.claude/CLAUDE.md`, `.claude/rules/`, `.claude/commands/`, `.claude/agents/`, `.claude/settings.json`, `.claude/skills/`                          |
+| **Both**           | `scripts/hooks/` (one copy, both `settings.json` point at it), `.mcp.json` / `.vscode/mcp.json`                                                    |
 
-Everything is hand-owned — no generator, no compile step.
+Everything is hand-owned — no generator, no compile step. The price is visible
+duplication: rules exist twice, and `gh skill` installs each skill into both
+directories. That trade-off is the discussion this repo is meant to start.
 
 ### Prerequisites
 
@@ -50,19 +52,16 @@ as a team that only one harness is supported and delete the other.
 
 ### Step 3: Skills
 
-Skills are managed with the [`skills` CLI](https://skills.sh) — one copy in
-`.agents/skills/`, symlinked into `.claude/skills/`, pinned in
-`skills-lock.json`:
+Skills are installed with **`gh skill`** (GitHub CLI ≥ 2.90, public preview) —
+once per harness, because each writes to its own directory:
 
 ```bash
-# Restore everything from the lockfile
-npx skills experimental_install
+gh skill install dotnet/skills test-anti-patterns --agent github-copilot  # .agents/skills/
+gh skill install dotnet/skills test-anti-patterns --agent claude-code     # .claude/skills/
 
-# Add one, for both harnesses
-npx skills add dotnet/skills -s test-anti-patterns -a claude-code github-copilot
-
-npx skills ls          # what is installed, and where it came from
-npx skills update      # refresh against upstream
+gh skill list                                # installed skills, agent, scope, source
+gh skill preview dotnet/skills crap-score    # read it before you trust it
+gh skill update --all                        # refresh against upstream
 ```
 
 | Skill                                                                              | Source              | When it fires                                                                                    |
@@ -72,17 +71,27 @@ npx skills update      # refresh against upstream
 | `ngrx-signals`                                                                     | `danielsogl/skills` | Authoring or testing a NgRx Signal Store                                                         |
 | `bdd`                                                                              | `danielsogl/skills` | Gherkin/Cucumber specs, Playwright BDD                                                           |
 | `skill-creator`                                                                    | `anthropics/skills` | Authoring or improving a skill                                                                   |
-| `dotnet-webapi`                                                                    | `dotnet/skills`     | ASP.NET Core Minimal APIs under `backend/`                                                       |
 | `test-anti-patterns`                                                               | `dotnet/skills`     | Auditing a suite for tests that pass but verify nothing — language-agnostic, works on Vitest too |
-| `find-untested-sources`                                                            | `dotnet/skills`     | Locating production code with no test behind it                                                  |
+| `exp-test-gap-analysis`                                                            | `dotnet/skills`     | Pseudo-mutation analysis: would these tests catch the bug?                                       |
+| `crap-score` · `coverage-analysis`                                                 | `dotnet/skills`     | Where complex code meets thin tests                                                              |
 | `generate-testability-wrappers`                                                    | `dotnet/skills`     | Cutting a seam into code that has none                                                           |
-| `coverage-analysis`                                                                | `dotnet/skills`     | Coverage and CRAP score for a suite                                                              |
-| `grade-tests`                                                                      | `dotnet/skills`     | Judging whether generated tests are worth keeping                                                |
+| `migrate-xunit-to-xunit-v3`                                                        | `dotnet/skills`     | Moving a suite onto xUnit v3 / the Microsoft Testing Platform                                    |
+| `run-tests`                                                                        | `dotnet/skills`     | Running and filtering `dotnet test` correctly                                                    |
 | `to-spec` · `to-tickets` · `implement` · `grill-with-docs` · `tdd` · `code-review` | `mattpocock/skills` | The spec-driven chain: vague request → spec → tickets → implementation                           |
 
+Two consequences of how `gh skill` works:
+
+- **No lockfile.** Provenance sits in each `SKILL.md` frontmatter —
+  `github-repo`, `github-ref` (e.g. `refs/tags/v1.0.0`), `github-tree-sha`.
+  The installed files _are_ the record, so both directories are committed.
+- **It resolves to the latest release tag, not `main`.** For `dotnet/skills`
+  that is `v1.0.0` — a different set than the default branch. Skills that only
+  exist on `main` (`dotnet-webapi`, `find-untested-sources`, `grade-tests`) are
+  not installable this way yet.
+
 > The .NET skills come from **`dotnet/skills`**, the official Microsoft-owned
-> repo. It has no xUnit or Stryker skill (its test guidance is MSTest-leaning) —
-> those two are candidates for a hand-built skill.
+> repo. It has no Stryker skill and its authoring guidance is MSTest-leaning —
+> a gap worth filling with a hand-built skill.
 
 ### Step 4: Reusable Prompts
 
@@ -173,7 +182,7 @@ src/app/
 | **ESLint**               | 10      | Flat config with `angular-eslint`, `@ngrx/eslint-plugin`         |
 | **Prettier**             | 3       | Code formatting                                                  |
 | **Lefthook**             | 2       | Git hooks — auto-format & auto-lint on commit                    |
-| **skills CLI**           | —       | Skill management for both harnesses (`skills-lock.json`)         |
+| **`gh skill`**           | preview | Skill installation for both harnesses (GitHub CLI ≥ 2.90)        |
 
 ## ✨ Demo Application
 

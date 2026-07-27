@@ -37,7 +37,7 @@ src/app/
 
 ## Skills
 
-Skills are managed with the `skills` CLI (`npx skills add <owner>/<repo> -a claude-code github-copilot`), pinned in `skills-lock.json` and auto-discovered by both harnesses. `npx skills experimental_install` restores them from the lockfile.
+Skills are installed with `gh skill install <owner>/<repo> <skill> --agent github-copilot|claude-code` — Copilot reads `.agents/skills/`, Claude Code reads `.claude/skills/`, so each skill is installed twice. Provenance (repo, tag, tree SHA) sits in each `SKILL.md` frontmatter; `gh skill update --all` refreshes them.
 
 | Skill               | When to use                                                              |
 | ------------------- | ----------------------------------------------------------------------- |
@@ -46,15 +46,15 @@ Skills are managed with the `skills` CLI (`npx skills add <owner>/<repo> -a clau
 | `ngrx-signals`      | Authoring or testing any NgRx Signal Store (`*-store.ts`)               |
 | `bdd`               | Gherkin/Cucumber specs, Playwright BDD, executable acceptance criteria   |
 | `skill-creator`     | Authoring or improving a skill                                           |
-| `dotnet-webapi`     | ASP.NET Core Minimal APIs under `backend/`                              |
 | `test-anti-patterns` | Auditing a suite for tests that pass but verify nothing — any language |
-| `find-untested-sources` | Locating production code with no test behind it                     |
+| `exp-test-gap-analysis` | Pseudo-mutation analysis: would these tests catch the bug?          |
+| `crap-score` · `coverage-analysis` | Where complex code meets thin tests                      |
 | `generate-testability-wrappers` | Cutting a seam into code that has none                      |
-| `coverage-analysis` | Coverage and CRAP score                                                  |
-| `grade-tests`       | Judging whether generated tests are worth keeping                        |
+| `migrate-xunit-to-xunit-v3` | Moving a suite onto xUnit v3 / the Microsoft Testing Platform    |
+| `run-tests`         | Running and filtering `dotnet test` correctly                            |
 | `grill-with-docs` → `to-spec` → `to-tickets` → `implement` | The spec-driven chain, in that order |
 | `tdd` · `code-review` | Red-green-refactor, and reviewing a diff                               |
 
-The .NET skills come from `dotnet/skills` (official, Microsoft-owned); the
-spec chain from `mattpocock/skills`. There is no official xUnit or Stryker
-skill — that gap is deliberate, it is a workshop exercise.
+The .NET skills come from `dotnet/skills` (official, Microsoft-owned) at
+release tag `v1.0.0`; the spec chain from `mattpocock/skills`. There is no
+official Stryker skill — that gap is deliberate, it is a workshop exercise.
