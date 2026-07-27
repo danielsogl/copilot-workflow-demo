@@ -1,0 +1,30 @@
+@TaskApi_HostAddress = http://localhost:3000
+
+GET {{TaskApi_HostAddress}}/tasks
+Accept: application/json
+
+###
+
+POST {{TaskApi_HostAddress}}/tasks
+Content-Type: application/json
+
+{
+  "title": "Bundle the gates into one command",
+  "description": "build, test, lint — one exit code",
+  "priority": "high",
+  "status": "todo",
+  "order": 0
+}
+
+###
+
+PATCH {{TaskApi_HostAddress}}/tasks/dcVrV1obXL4
+Content-Type: application/json
+
+{
+  "status": "in_progress"
+}
+
+###
+
+DELETE {{TaskApi_HostAddress}}/tasks/dcVrV1obXL4

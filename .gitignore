@@ -64,3 +64,9 @@ apm_modules/
 # APM generic root LSP fallback — Copilot uses the committed .github/lsp.json; this generic
 # .lsp.json is a byproduct APM regenerates on every `apm install`, not needed for Claude/Copilot.
 .lsp.json
+
+# .NET (backend/)
+bin/
+obj/
+[Bb]ackend/**/bin/
+[Bb]ackend/**/obj/

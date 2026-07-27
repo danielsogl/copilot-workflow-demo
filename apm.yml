@@ -46,6 +46,23 @@ dependencies:
     - angular/skills/angular-developer
     - danielsogl/skills/skills/ngrx-signals
     - danielsogl/skills/skills/bdd
+    # --- Backend-Track (bosch): .NET 10 / C# unter backend/ ---
+    # Ausschließlich aus dotnet/skills — dem offiziellen, microsoft-owned Repo.
+    # Kein offizieller xUnit- oder Stryker-Skill vorhanden (dort MSTest-lastig);
+    # die beiden sind Kandidaten für einen selbstgebauten Skill im Workshop.
+    - dotnet/skills/plugins/dotnet-aspnetcore/skills/dotnet-webapi
+    - dotnet/skills/plugins/dotnet-test/skills/test-anti-patterns
+    - dotnet/skills/plugins/dotnet-test/skills/find-untested-sources
+    - dotnet/skills/plugins/dotnet-test/skills/generate-testability-wrappers
+    - dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+    - dotnet/skills/plugins/dotnet-test/skills/grade-tests
+    # --- Die SDD-Kette aus dem Deck (Tag 2), Matt Pocock ---
+    - mattpocock/skills/skills/engineering/grill-with-docs
+    - mattpocock/skills/skills/engineering/to-spec
+    - mattpocock/skills/skills/engineering/to-tickets
+    - mattpocock/skills/skills/engineering/implement
+    - mattpocock/skills/skills/engineering/tdd
+    - mattpocock/skills/skills/engineering/code-review
   # MCP servers — single source of truth. `apm install` regenerates the committed mirror files
   # .mcp.json (Claude) + .vscode/mcp.json (Copilot) from this list, non-destructively (APM 0.26+).
   mcp:

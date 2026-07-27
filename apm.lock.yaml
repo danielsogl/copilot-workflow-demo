@@ -1,5 +1,5 @@
 lockfile_version: '1'
-generated_at: '2026-07-22T07:56:48.531863+00:00'
+generated_at: '2026-07-27T19:18:43.915927+00:00'
 apm_version: 0.26.0
 dependencies:
 - repo_url: angular/skills
@@ -257,6 +257,266 @@ dependencies:
     .claude/skills/ngrx-signals/references/patterns.md: sha256:6fe096dbc19673281f92f478e503ffeb9a7cf5a205b8e59a64d8262afde093b7
     .claude/skills/ngrx-signals/references/testing.md: sha256:d42999e00704ce58fdee70bd9cf1877300bb81cae14a19369fe655ca516377f0
   content_hash: sha256:fb790201d6dde15d9884cd9bbe6a6b3d9cc115736c232feb1ad5cf3594f4eff0
+- repo_url: dotnet/skills
+  name: dotnet-webapi
+  host: github.com
+  resolved_commit: 9b2706630d2acc38728f6b0cb48ab9ffc5a676d0
+  version: unknown
+  virtual_path: plugins/dotnet-aspnetcore/skills/dotnet-webapi
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/dotnet-webapi
+  - .agents/skills/dotnet-webapi/SKILL.md
+  - .claude/skills/dotnet-webapi
+  - .claude/skills/dotnet-webapi/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/dotnet-webapi/SKILL.md: sha256:70e10d74aa367ee63060b64edc397c5998c03da0fbdaf120f5aa8c94d373b77d
+    .claude/skills/dotnet-webapi/SKILL.md: sha256:70e10d74aa367ee63060b64edc397c5998c03da0fbdaf120f5aa8c94d373b77d
+  content_hash: sha256:9f9ca386ddefb34ebeaf269c6a7dac0bd0a8e9ea901ad5c489cd4d5e7c61fb22
+- repo_url: dotnet/skills
+  name: coverage-analysis
+  host: github.com
+  resolved_commit: 9b2706630d2acc38728f6b0cb48ab9ffc5a676d0
+  version: unknown
+  virtual_path: plugins/dotnet-test/skills/coverage-analysis
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/coverage-analysis
+  - .agents/skills/coverage-analysis/SKILL.md
+  - .agents/skills/coverage-analysis/references/guidelines.md
+  - .agents/skills/coverage-analysis/references/output-format.md
+  - .agents/skills/coverage-analysis/scripts/Compute-CrapScores.ps1
+  - .agents/skills/coverage-analysis/scripts/Extract-MethodCoverage.ps1
+  - .claude/skills/coverage-analysis
+  - .claude/skills/coverage-analysis/SKILL.md
+  - .claude/skills/coverage-analysis/references/guidelines.md
+  - .claude/skills/coverage-analysis/references/output-format.md
+  - .claude/skills/coverage-analysis/scripts/Compute-CrapScores.ps1
+  - .claude/skills/coverage-analysis/scripts/Extract-MethodCoverage.ps1
+  deployed_file_hashes:
+    .agents/skills/coverage-analysis/SKILL.md: sha256:9b7714ede78411831bc2a4f6cd0eeddd8f34512206a9cfc57267cc218464c27e
+    .agents/skills/coverage-analysis/references/guidelines.md: sha256:8e7bced5e4deb5e11b008f1d6f8ee69bd5f9a2bb743c9ccceb75f54a7f2790f1
+    .agents/skills/coverage-analysis/references/output-format.md: sha256:f2328f0250002c25276f51373ab3b935b15b41be09c161db02d3e22316ad78c4
+    .agents/skills/coverage-analysis/scripts/Compute-CrapScores.ps1: sha256:5c43c1dedbd464500eab3380cf142176bd288d8652ae0aeba45d7fedf830f526
+    .agents/skills/coverage-analysis/scripts/Extract-MethodCoverage.ps1: sha256:37b3c6377dd5f654f2a0b88ceaeb4c77d8798134cbb0c9584532e7b2835f6f5b
+    .claude/skills/coverage-analysis/SKILL.md: sha256:9b7714ede78411831bc2a4f6cd0eeddd8f34512206a9cfc57267cc218464c27e
+    .claude/skills/coverage-analysis/references/guidelines.md: sha256:8e7bced5e4deb5e11b008f1d6f8ee69bd5f9a2bb743c9ccceb75f54a7f2790f1
+    .claude/skills/coverage-analysis/references/output-format.md: sha256:f2328f0250002c25276f51373ab3b935b15b41be09c161db02d3e22316ad78c4
+    .claude/skills/coverage-analysis/scripts/Compute-CrapScores.ps1: sha256:5c43c1dedbd464500eab3380cf142176bd288d8652ae0aeba45d7fedf830f526
+    .claude/skills/coverage-analysis/scripts/Extract-MethodCoverage.ps1: sha256:37b3c6377dd5f654f2a0b88ceaeb4c77d8798134cbb0c9584532e7b2835f6f5b
+  content_hash: sha256:8750b70862cf3b59935fda792f42967cc2c8a5ff3a482f55c1551ee9a9604d47
+- repo_url: dotnet/skills
+  name: find-untested-sources
+  host: github.com
+  resolved_commit: 9b2706630d2acc38728f6b0cb48ab9ffc5a676d0
+  version: unknown
+  virtual_path: plugins/dotnet-test/skills/find-untested-sources
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/find-untested-sources
+  - .agents/skills/find-untested-sources/SKILL.md
+  - .agents/skills/find-untested-sources/scripts/Find-UntestedSources.cs
+  - .agents/skills/find-untested-sources/scripts/find_untested_sources.py
+  - .claude/skills/find-untested-sources
+  - .claude/skills/find-untested-sources/SKILL.md
+  - .claude/skills/find-untested-sources/scripts/Find-UntestedSources.cs
+  - .claude/skills/find-untested-sources/scripts/find_untested_sources.py
+  deployed_file_hashes:
+    .agents/skills/find-untested-sources/SKILL.md: sha256:b9e8d509604469418d998e18eecdadda3ee7e9afec612f6e11770053a9eef445
+    .agents/skills/find-untested-sources/scripts/Find-UntestedSources.cs: sha256:b6f01c528bcfbeae5f4a88c5953ece8274850c902b90f9a591b4e62ed6161e70
+    .agents/skills/find-untested-sources/scripts/find_untested_sources.py: sha256:231dc55cd7558f54d09b292396370cb25f2430501bfb063266c62609ae55715f
+    .claude/skills/find-untested-sources/SKILL.md: sha256:b9e8d509604469418d998e18eecdadda3ee7e9afec612f6e11770053a9eef445
+    .claude/skills/find-untested-sources/scripts/Find-UntestedSources.cs: sha256:b6f01c528bcfbeae5f4a88c5953ece8274850c902b90f9a591b4e62ed6161e70
+    .claude/skills/find-untested-sources/scripts/find_untested_sources.py: sha256:231dc55cd7558f54d09b292396370cb25f2430501bfb063266c62609ae55715f
+  content_hash: sha256:d205ff7be3f82dbce45c7055431522b4b51795b195e40d00e7aab3b46eddfd7f
+- repo_url: dotnet/skills
+  name: generate-testability-wrappers
+  host: github.com
+  resolved_commit: 9b2706630d2acc38728f6b0cb48ab9ffc5a676d0
+  version: unknown
+  virtual_path: plugins/dotnet-test/skills/generate-testability-wrappers
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/generate-testability-wrappers
+  - .agents/skills/generate-testability-wrappers/SKILL.md
+  - .claude/skills/generate-testability-wrappers
+  - .claude/skills/generate-testability-wrappers/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/generate-testability-wrappers/SKILL.md: sha256:f7c2c3b9dc320bbe702e5c91ff9b0aa06a59285be0bc0c38cf4083bd538acabb
+    .claude/skills/generate-testability-wrappers/SKILL.md: sha256:f7c2c3b9dc320bbe702e5c91ff9b0aa06a59285be0bc0c38cf4083bd538acabb
+  content_hash: sha256:185da6e886c6165ded300daf6308437e744e756425b44c2d8dceb464cbf763f5
+- repo_url: dotnet/skills
+  name: grade-tests
+  host: github.com
+  resolved_commit: 9b2706630d2acc38728f6b0cb48ab9ffc5a676d0
+  version: unknown
+  virtual_path: plugins/dotnet-test/skills/grade-tests
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/grade-tests
+  - .agents/skills/grade-tests/SKILL.md
+  - .claude/skills/grade-tests
+  - .claude/skills/grade-tests/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/grade-tests/SKILL.md: sha256:1e14e1ae7749017b5183406a4e4369fed0eb662494e6774ac59e5007357fa03a
+    .claude/skills/grade-tests/SKILL.md: sha256:1e14e1ae7749017b5183406a4e4369fed0eb662494e6774ac59e5007357fa03a
+  content_hash: sha256:a6361bff92d587d3e88ed356690f4a14ef2d62db0c64d924e3edeefe88e81a05
+- repo_url: dotnet/skills
+  name: test-anti-patterns
+  host: github.com
+  resolved_commit: 9b2706630d2acc38728f6b0cb48ab9ffc5a676d0
+  version: unknown
+  virtual_path: plugins/dotnet-test/skills/test-anti-patterns
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/test-anti-patterns
+  - .agents/skills/test-anti-patterns/SKILL.md
+  - .claude/skills/test-anti-patterns
+  - .claude/skills/test-anti-patterns/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/test-anti-patterns/SKILL.md: sha256:7f2742ee23ca9c91d5c68fdd81e4e6b0bc21aaa4c570b4538454e0899a1b16ec
+    .claude/skills/test-anti-patterns/SKILL.md: sha256:7f2742ee23ca9c91d5c68fdd81e4e6b0bc21aaa4c570b4538454e0899a1b16ec
+  content_hash: sha256:8fc0e1ca4dc122d139d75e660215b08d305d6f168c3d265c3a24a995489d1432
+- repo_url: mattpocock/skills
+  name: code-review
+  host: github.com
+  resolved_commit: ed37663cc5fbef691ddfecd080dff42f7e7e350d
+  version: unknown
+  virtual_path: skills/engineering/code-review
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/code-review
+  - .agents/skills/code-review/SKILL.md
+  - .agents/skills/code-review/agents/openai.yaml
+  - .claude/skills/code-review
+  - .claude/skills/code-review/SKILL.md
+  - .claude/skills/code-review/agents/openai.yaml
+  deployed_file_hashes:
+    .agents/skills/code-review/SKILL.md: sha256:6a65cc61114f96db07ec41e3920e67c9c5bf70dd6e0901eb9460ebcb2bdc209f
+    .agents/skills/code-review/agents/openai.yaml: sha256:8229ca854e11dc8e6aef2131ee03f31fb1561cf905fab9ccc325180cf3331352
+    .claude/skills/code-review/SKILL.md: sha256:6a65cc61114f96db07ec41e3920e67c9c5bf70dd6e0901eb9460ebcb2bdc209f
+    .claude/skills/code-review/agents/openai.yaml: sha256:8229ca854e11dc8e6aef2131ee03f31fb1561cf905fab9ccc325180cf3331352
+  content_hash: sha256:a6793c743c579422d9340784bb0658d7e92827f8760b59abddad55eb4a9c68a5
+- repo_url: mattpocock/skills
+  name: grill-with-docs
+  host: github.com
+  resolved_commit: ed37663cc5fbef691ddfecd080dff42f7e7e350d
+  version: unknown
+  virtual_path: skills/engineering/grill-with-docs
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/grill-with-docs
+  - .agents/skills/grill-with-docs/SKILL.md
+  - .agents/skills/grill-with-docs/agents/openai.yaml
+  - .claude/skills/grill-with-docs
+  - .claude/skills/grill-with-docs/SKILL.md
+  - .claude/skills/grill-with-docs/agents/openai.yaml
+  deployed_file_hashes:
+    .agents/skills/grill-with-docs/SKILL.md: sha256:610d091047bcfb9db0f75c057d15538481a721111579fc5ec7f83ad9131a2165
+    .agents/skills/grill-with-docs/agents/openai.yaml: sha256:94cd0ab161fb468a836349f5ed482ba58ce8e709a05c57ce533d739dbd35cca9
+    .claude/skills/grill-with-docs/SKILL.md: sha256:610d091047bcfb9db0f75c057d15538481a721111579fc5ec7f83ad9131a2165
+    .claude/skills/grill-with-docs/agents/openai.yaml: sha256:94cd0ab161fb468a836349f5ed482ba58ce8e709a05c57ce533d739dbd35cca9
+  content_hash: sha256:c3a266bcc09eab29358eaae6e288f9a2cd492fd0af2bcaeeec55fd6207da9a89
+- repo_url: mattpocock/skills
+  name: implement
+  host: github.com
+  resolved_commit: ed37663cc5fbef691ddfecd080dff42f7e7e350d
+  version: unknown
+  virtual_path: skills/engineering/implement
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/implement
+  - .agents/skills/implement/SKILL.md
+  - .agents/skills/implement/agents/openai.yaml
+  - .claude/skills/implement
+  - .claude/skills/implement/SKILL.md
+  - .claude/skills/implement/agents/openai.yaml
+  deployed_file_hashes:
+    .agents/skills/implement/SKILL.md: sha256:6d3fd9e83b8f36e5213854779db49b256a457a7ebb4a503e53fa7dcff696adc3
+    .agents/skills/implement/agents/openai.yaml: sha256:8970a8596ade0c28ab427f41a4ea242d6bdf6186c59ebf55e1238dbecaab79dc
+    .claude/skills/implement/SKILL.md: sha256:6d3fd9e83b8f36e5213854779db49b256a457a7ebb4a503e53fa7dcff696adc3
+    .claude/skills/implement/agents/openai.yaml: sha256:8970a8596ade0c28ab427f41a4ea242d6bdf6186c59ebf55e1238dbecaab79dc
+  content_hash: sha256:fd8b04afb043cfb7775e144f740cd28c4d823ce67a94a9125460785252b0b66f
+- repo_url: mattpocock/skills
+  name: tdd
+  host: github.com
+  resolved_commit: ed37663cc5fbef691ddfecd080dff42f7e7e350d
+  version: unknown
+  virtual_path: skills/engineering/tdd
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/tdd
+  - .agents/skills/tdd/SKILL.md
+  - .agents/skills/tdd/agents/openai.yaml
+  - .agents/skills/tdd/mocking.md
+  - .agents/skills/tdd/tests.md
+  - .claude/skills/tdd
+  - .claude/skills/tdd/SKILL.md
+  - .claude/skills/tdd/agents/openai.yaml
+  - .claude/skills/tdd/mocking.md
+  - .claude/skills/tdd/tests.md
+  deployed_file_hashes:
+    .agents/skills/tdd/SKILL.md: sha256:5363bb2775679fe9311fbb67947f95359169c6e7f1fac77c0f25e190bca6cf2f
+    .agents/skills/tdd/agents/openai.yaml: sha256:ea6f01cf1b8c06a4b0f5b649d74b1b8ce8685e72af1b38d70d877693e092af0b
+    .agents/skills/tdd/mocking.md: sha256:3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef
+    .agents/skills/tdd/tests.md: sha256:859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a
+    .claude/skills/tdd/SKILL.md: sha256:5363bb2775679fe9311fbb67947f95359169c6e7f1fac77c0f25e190bca6cf2f
+    .claude/skills/tdd/agents/openai.yaml: sha256:ea6f01cf1b8c06a4b0f5b649d74b1b8ce8685e72af1b38d70d877693e092af0b
+    .claude/skills/tdd/mocking.md: sha256:3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef
+    .claude/skills/tdd/tests.md: sha256:859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a
+  content_hash: sha256:f8a22902156d595540b198ee06c0ca793a67935eeb9b681df5dbdf0e193b286e
+- repo_url: mattpocock/skills
+  name: to-spec
+  host: github.com
+  resolved_commit: ed37663cc5fbef691ddfecd080dff42f7e7e350d
+  version: unknown
+  virtual_path: skills/engineering/to-spec
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/to-spec
+  - .agents/skills/to-spec/SKILL.md
+  - .agents/skills/to-spec/agents/openai.yaml
+  - .claude/skills/to-spec
+  - .claude/skills/to-spec/SKILL.md
+  - .claude/skills/to-spec/agents/openai.yaml
+  deployed_file_hashes:
+    .agents/skills/to-spec/SKILL.md: sha256:267638edd513b5918de626ad5605d261952abb7428cb308869c663ca924e93e7
+    .agents/skills/to-spec/agents/openai.yaml: sha256:1c5b4d1e3d8e52287ef19cc2742fdbbfae1914ac75d33af3e4c8174f08cc55bb
+    .claude/skills/to-spec/SKILL.md: sha256:267638edd513b5918de626ad5605d261952abb7428cb308869c663ca924e93e7
+    .claude/skills/to-spec/agents/openai.yaml: sha256:1c5b4d1e3d8e52287ef19cc2742fdbbfae1914ac75d33af3e4c8174f08cc55bb
+  content_hash: sha256:44ff1fdbedfb93fc6e4c27fbd9f87f18994c4ba0606f33d25efa5d68aaa04263
+- repo_url: mattpocock/skills
+  name: to-tickets
+  host: github.com
+  resolved_commit: ed37663cc5fbef691ddfecd080dff42f7e7e350d
+  version: unknown
+  virtual_path: skills/engineering/to-tickets
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/to-tickets
+  - .agents/skills/to-tickets/SKILL.md
+  - .agents/skills/to-tickets/agents/openai.yaml
+  - .claude/skills/to-tickets
+  - .claude/skills/to-tickets/SKILL.md
+  - .claude/skills/to-tickets/agents/openai.yaml
+  deployed_file_hashes:
+    .agents/skills/to-tickets/SKILL.md: sha256:5ecdf1d4df8a360ed39df21a2347f97ba177afd449a577da4f6b6ea8e1ebb808
+    .agents/skills/to-tickets/agents/openai.yaml: sha256:21bc6215fffcd7614e9f772bb1760e87cc5fc7dcc707e7d282bc9414267a6090
+    .claude/skills/to-tickets/SKILL.md: sha256:5ecdf1d4df8a360ed39df21a2347f97ba177afd449a577da4f6b6ea8e1ebb808
+    .claude/skills/to-tickets/agents/openai.yaml: sha256:21bc6215fffcd7614e9f772bb1760e87cc5fc7dcc707e7d282bc9414267a6090
+  content_hash: sha256:0b61ec48a671988a01e1afa74d432ba4307002feebf6a3bae8dc6f86502540fe
 deployments:
 - kind: project-relative
   target: claude
@@ -348,6 +608,15 @@ deployments:
   - .
   active_owner: .
   content_hash: sha256:56950f31dda4ff2e56fdabe6bdb97340f370079078c11c0a773f29dd6424e882
+- kind: project-relative
+  target: claude
+  value: .claude/rules/dotnet.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:a395a2ab7bea4f5e4a4c969dcd38a30a2510f15646991e6e9a5f30bf71d41069
 - kind: project-relative
   target: claude
   value: .claude/rules/project-overview.md
@@ -809,6 +1078,231 @@ deployments:
   content_hash: sha256:58add07899a60965da431922f722f7f479b8e9a1bfecc234cfdde8bf0db53fb4
 - kind: project-relative
   target: claude
+  value: .claude/skills/code-review
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/code-review
+  active_owner: mattpocock/skills/skills/engineering/code-review
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/code-review/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/code-review
+  active_owner: mattpocock/skills/skills/engineering/code-review
+  content_hash: sha256:6a65cc61114f96db07ec41e3920e67c9c5bf70dd6e0901eb9460ebcb2bdc209f
+- kind: project-relative
+  target: claude
+  value: .claude/skills/code-review/agents/openai.yaml
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/code-review
+  active_owner: mattpocock/skills/skills/engineering/code-review
+  content_hash: sha256:8229ca854e11dc8e6aef2131ee03f31fb1561cf905fab9ccc325180cf3331352
+- kind: project-relative
+  target: claude
+  value: .claude/skills/coverage-analysis
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/coverage-analysis/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  content_hash: sha256:9b7714ede78411831bc2a4f6cd0eeddd8f34512206a9cfc57267cc218464c27e
+- kind: project-relative
+  target: claude
+  value: .claude/skills/coverage-analysis/references/guidelines.md
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  content_hash: sha256:8e7bced5e4deb5e11b008f1d6f8ee69bd5f9a2bb743c9ccceb75f54a7f2790f1
+- kind: project-relative
+  target: claude
+  value: .claude/skills/coverage-analysis/references/output-format.md
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  content_hash: sha256:f2328f0250002c25276f51373ab3b935b15b41be09c161db02d3e22316ad78c4
+- kind: project-relative
+  target: claude
+  value: .claude/skills/coverage-analysis/scripts/Compute-CrapScores.ps1
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  content_hash: sha256:5c43c1dedbd464500eab3380cf142176bd288d8652ae0aeba45d7fedf830f526
+- kind: project-relative
+  target: claude
+  value: .claude/skills/coverage-analysis/scripts/Extract-MethodCoverage.ps1
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  content_hash: sha256:37b3c6377dd5f654f2a0b88ceaeb4c77d8798134cbb0c9584532e7b2835f6f5b
+- kind: project-relative
+  target: claude
+  value: .claude/skills/dotnet-webapi
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-aspnetcore/skills/dotnet-webapi
+  active_owner: dotnet/skills/plugins/dotnet-aspnetcore/skills/dotnet-webapi
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/dotnet-webapi/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-aspnetcore/skills/dotnet-webapi
+  active_owner: dotnet/skills/plugins/dotnet-aspnetcore/skills/dotnet-webapi
+  content_hash: sha256:70e10d74aa367ee63060b64edc397c5998c03da0fbdaf120f5aa8c94d373b77d
+- kind: project-relative
+  target: claude
+  value: .claude/skills/find-untested-sources
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/find-untested-sources
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/find-untested-sources
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/find-untested-sources/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/find-untested-sources
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/find-untested-sources
+  content_hash: sha256:b9e8d509604469418d998e18eecdadda3ee7e9afec612f6e11770053a9eef445
+- kind: project-relative
+  target: claude
+  value: .claude/skills/find-untested-sources/scripts/Find-UntestedSources.cs
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/find-untested-sources
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/find-untested-sources
+  content_hash: sha256:b6f01c528bcfbeae5f4a88c5953ece8274850c902b90f9a591b4e62ed6161e70
+- kind: project-relative
+  target: claude
+  value: .claude/skills/find-untested-sources/scripts/find_untested_sources.py
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/find-untested-sources
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/find-untested-sources
+  content_hash: sha256:231dc55cd7558f54d09b292396370cb25f2430501bfb063266c62609ae55715f
+- kind: project-relative
+  target: claude
+  value: .claude/skills/generate-testability-wrappers
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/generate-testability-wrappers
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/generate-testability-wrappers
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/generate-testability-wrappers/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/generate-testability-wrappers
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/generate-testability-wrappers
+  content_hash: sha256:f7c2c3b9dc320bbe702e5c91ff9b0aa06a59285be0bc0c38cf4083bd538acabb
+- kind: project-relative
+  target: claude
+  value: .claude/skills/grade-tests
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/grade-tests
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/grade-tests
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/grade-tests/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/grade-tests
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/grade-tests
+  content_hash: sha256:1e14e1ae7749017b5183406a4e4369fed0eb662494e6774ac59e5007357fa03a
+- kind: project-relative
+  target: claude
+  value: .claude/skills/grill-with-docs
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/grill-with-docs
+  active_owner: mattpocock/skills/skills/engineering/grill-with-docs
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/grill-with-docs/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/grill-with-docs
+  active_owner: mattpocock/skills/skills/engineering/grill-with-docs
+  content_hash: sha256:610d091047bcfb9db0f75c057d15538481a721111579fc5ec7f83ad9131a2165
+- kind: project-relative
+  target: claude
+  value: .claude/skills/grill-with-docs/agents/openai.yaml
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/grill-with-docs
+  active_owner: mattpocock/skills/skills/engineering/grill-with-docs
+  content_hash: sha256:94cd0ab161fb468a836349f5ed482ba58ce8e709a05c57ce533d739dbd35cca9
+- kind: project-relative
+  target: claude
+  value: .claude/skills/implement
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/implement
+  active_owner: mattpocock/skills/skills/engineering/implement
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/implement/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/implement
+  active_owner: mattpocock/skills/skills/engineering/implement
+  content_hash: sha256:6d3fd9e83b8f36e5213854779db49b256a457a7ebb4a503e53fa7dcff696adc3
+- kind: project-relative
+  target: claude
+  value: .claude/skills/implement/agents/openai.yaml
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/implement
+  active_owner: mattpocock/skills/skills/engineering/implement
+  content_hash: sha256:8970a8596ade0c28ab427f41a4ea242d6bdf6186c59ebf55e1238dbecaab79dc
+- kind: project-relative
+  target: claude
   value: .claude/skills/ngrx-signals
   runtime: null
   scope: project
@@ -888,6 +1382,123 @@ deployments:
   - danielsogl/skills/skills/ngrx-signals
   active_owner: danielsogl/skills/skills/ngrx-signals
   content_hash: sha256:d42999e00704ce58fdee70bd9cf1877300bb81cae14a19369fe655ca516377f0
+- kind: project-relative
+  target: claude
+  value: .claude/skills/tdd
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/tdd
+  active_owner: mattpocock/skills/skills/engineering/tdd
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/tdd/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/tdd
+  active_owner: mattpocock/skills/skills/engineering/tdd
+  content_hash: sha256:5363bb2775679fe9311fbb67947f95359169c6e7f1fac77c0f25e190bca6cf2f
+- kind: project-relative
+  target: claude
+  value: .claude/skills/tdd/agents/openai.yaml
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/tdd
+  active_owner: mattpocock/skills/skills/engineering/tdd
+  content_hash: sha256:ea6f01cf1b8c06a4b0f5b649d74b1b8ce8685e72af1b38d70d877693e092af0b
+- kind: project-relative
+  target: claude
+  value: .claude/skills/tdd/mocking.md
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/tdd
+  active_owner: mattpocock/skills/skills/engineering/tdd
+  content_hash: sha256:3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef
+- kind: project-relative
+  target: claude
+  value: .claude/skills/tdd/tests.md
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/tdd
+  active_owner: mattpocock/skills/skills/engineering/tdd
+  content_hash: sha256:859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a
+- kind: project-relative
+  target: claude
+  value: .claude/skills/test-anti-patterns
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/test-anti-patterns
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/test-anti-patterns
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/test-anti-patterns/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/test-anti-patterns
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/test-anti-patterns
+  content_hash: sha256:7f2742ee23ca9c91d5c68fdd81e4e6b0bc21aaa4c570b4538454e0899a1b16ec
+- kind: project-relative
+  target: claude
+  value: .claude/skills/to-spec
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/to-spec
+  active_owner: mattpocock/skills/skills/engineering/to-spec
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/to-spec/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/to-spec
+  active_owner: mattpocock/skills/skills/engineering/to-spec
+  content_hash: sha256:267638edd513b5918de626ad5605d261952abb7428cb308869c663ca924e93e7
+- kind: project-relative
+  target: claude
+  value: .claude/skills/to-spec/agents/openai.yaml
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/to-spec
+  active_owner: mattpocock/skills/skills/engineering/to-spec
+  content_hash: sha256:1c5b4d1e3d8e52287ef19cc2742fdbbfae1914ac75d33af3e4c8174f08cc55bb
+- kind: project-relative
+  target: claude
+  value: .claude/skills/to-tickets
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/to-tickets
+  active_owner: mattpocock/skills/skills/engineering/to-tickets
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/to-tickets/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/to-tickets
+  active_owner: mattpocock/skills/skills/engineering/to-tickets
+  content_hash: sha256:5ecdf1d4df8a360ed39df21a2347f97ba177afd449a577da4f6b6ea8e1ebb808
+- kind: project-relative
+  target: claude
+  value: .claude/skills/to-tickets/agents/openai.yaml
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/to-tickets
+  active_owner: mattpocock/skills/skills/engineering/to-tickets
+  content_hash: sha256:21bc6215fffcd7614e9f772bb1760e87cc5fc7dcc707e7d282bc9414267a6090
 - kind: project-relative
   target: copilot
   value: .agents/skills/angular-developer
@@ -1322,6 +1933,231 @@ deployments:
   content_hash: sha256:58add07899a60965da431922f722f7f479b8e9a1bfecc234cfdde8bf0db53fb4
 - kind: project-relative
   target: copilot
+  value: .agents/skills/code-review
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/code-review
+  active_owner: mattpocock/skills/skills/engineering/code-review
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/code-review/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/code-review
+  active_owner: mattpocock/skills/skills/engineering/code-review
+  content_hash: sha256:6a65cc61114f96db07ec41e3920e67c9c5bf70dd6e0901eb9460ebcb2bdc209f
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/code-review/agents/openai.yaml
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/code-review
+  active_owner: mattpocock/skills/skills/engineering/code-review
+  content_hash: sha256:8229ca854e11dc8e6aef2131ee03f31fb1561cf905fab9ccc325180cf3331352
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/coverage-analysis
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/coverage-analysis/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  content_hash: sha256:9b7714ede78411831bc2a4f6cd0eeddd8f34512206a9cfc57267cc218464c27e
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/coverage-analysis/references/guidelines.md
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  content_hash: sha256:8e7bced5e4deb5e11b008f1d6f8ee69bd5f9a2bb743c9ccceb75f54a7f2790f1
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/coverage-analysis/references/output-format.md
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  content_hash: sha256:f2328f0250002c25276f51373ab3b935b15b41be09c161db02d3e22316ad78c4
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/coverage-analysis/scripts/Compute-CrapScores.ps1
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  content_hash: sha256:5c43c1dedbd464500eab3380cf142176bd288d8652ae0aeba45d7fedf830f526
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/coverage-analysis/scripts/Extract-MethodCoverage.ps1
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/coverage-analysis
+  content_hash: sha256:37b3c6377dd5f654f2a0b88ceaeb4c77d8798134cbb0c9584532e7b2835f6f5b
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/dotnet-webapi
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-aspnetcore/skills/dotnet-webapi
+  active_owner: dotnet/skills/plugins/dotnet-aspnetcore/skills/dotnet-webapi
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/dotnet-webapi/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-aspnetcore/skills/dotnet-webapi
+  active_owner: dotnet/skills/plugins/dotnet-aspnetcore/skills/dotnet-webapi
+  content_hash: sha256:70e10d74aa367ee63060b64edc397c5998c03da0fbdaf120f5aa8c94d373b77d
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/find-untested-sources
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/find-untested-sources
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/find-untested-sources
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/find-untested-sources/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/find-untested-sources
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/find-untested-sources
+  content_hash: sha256:b9e8d509604469418d998e18eecdadda3ee7e9afec612f6e11770053a9eef445
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/find-untested-sources/scripts/Find-UntestedSources.cs
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/find-untested-sources
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/find-untested-sources
+  content_hash: sha256:b6f01c528bcfbeae5f4a88c5953ece8274850c902b90f9a591b4e62ed6161e70
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/find-untested-sources/scripts/find_untested_sources.py
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/find-untested-sources
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/find-untested-sources
+  content_hash: sha256:231dc55cd7558f54d09b292396370cb25f2430501bfb063266c62609ae55715f
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/generate-testability-wrappers
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/generate-testability-wrappers
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/generate-testability-wrappers
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/generate-testability-wrappers/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/generate-testability-wrappers
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/generate-testability-wrappers
+  content_hash: sha256:f7c2c3b9dc320bbe702e5c91ff9b0aa06a59285be0bc0c38cf4083bd538acabb
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/grade-tests
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/grade-tests
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/grade-tests
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/grade-tests/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/grade-tests
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/grade-tests
+  content_hash: sha256:1e14e1ae7749017b5183406a4e4369fed0eb662494e6774ac59e5007357fa03a
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/grill-with-docs
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/grill-with-docs
+  active_owner: mattpocock/skills/skills/engineering/grill-with-docs
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/grill-with-docs/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/grill-with-docs
+  active_owner: mattpocock/skills/skills/engineering/grill-with-docs
+  content_hash: sha256:610d091047bcfb9db0f75c057d15538481a721111579fc5ec7f83ad9131a2165
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/grill-with-docs/agents/openai.yaml
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/grill-with-docs
+  active_owner: mattpocock/skills/skills/engineering/grill-with-docs
+  content_hash: sha256:94cd0ab161fb468a836349f5ed482ba58ce8e709a05c57ce533d739dbd35cca9
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/implement
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/implement
+  active_owner: mattpocock/skills/skills/engineering/implement
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/implement/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/implement
+  active_owner: mattpocock/skills/skills/engineering/implement
+  content_hash: sha256:6d3fd9e83b8f36e5213854779db49b256a457a7ebb4a503e53fa7dcff696adc3
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/implement/agents/openai.yaml
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/implement
+  active_owner: mattpocock/skills/skills/engineering/implement
+  content_hash: sha256:8970a8596ade0c28ab427f41a4ea242d6bdf6186c59ebf55e1238dbecaab79dc
+- kind: project-relative
+  target: copilot
   value: .agents/skills/ngrx-signals
   runtime: null
   scope: project
@@ -1401,6 +2237,123 @@ deployments:
   - danielsogl/skills/skills/ngrx-signals
   active_owner: danielsogl/skills/skills/ngrx-signals
   content_hash: sha256:d42999e00704ce58fdee70bd9cf1877300bb81cae14a19369fe655ca516377f0
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/tdd
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/tdd
+  active_owner: mattpocock/skills/skills/engineering/tdd
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/tdd/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/tdd
+  active_owner: mattpocock/skills/skills/engineering/tdd
+  content_hash: sha256:5363bb2775679fe9311fbb67947f95359169c6e7f1fac77c0f25e190bca6cf2f
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/tdd/agents/openai.yaml
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/tdd
+  active_owner: mattpocock/skills/skills/engineering/tdd
+  content_hash: sha256:ea6f01cf1b8c06a4b0f5b649d74b1b8ce8685e72af1b38d70d877693e092af0b
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/tdd/mocking.md
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/tdd
+  active_owner: mattpocock/skills/skills/engineering/tdd
+  content_hash: sha256:3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/tdd/tests.md
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/tdd
+  active_owner: mattpocock/skills/skills/engineering/tdd
+  content_hash: sha256:859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/test-anti-patterns
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/test-anti-patterns
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/test-anti-patterns
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/test-anti-patterns/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - dotnet/skills/plugins/dotnet-test/skills/test-anti-patterns
+  active_owner: dotnet/skills/plugins/dotnet-test/skills/test-anti-patterns
+  content_hash: sha256:7f2742ee23ca9c91d5c68fdd81e4e6b0bc21aaa4c570b4538454e0899a1b16ec
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/to-spec
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/to-spec
+  active_owner: mattpocock/skills/skills/engineering/to-spec
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/to-spec/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/to-spec
+  active_owner: mattpocock/skills/skills/engineering/to-spec
+  content_hash: sha256:267638edd513b5918de626ad5605d261952abb7428cb308869c663ca924e93e7
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/to-spec/agents/openai.yaml
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/to-spec
+  active_owner: mattpocock/skills/skills/engineering/to-spec
+  content_hash: sha256:1c5b4d1e3d8e52287ef19cc2742fdbbfae1914ac75d33af3e4c8174f08cc55bb
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/to-tickets
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/to-tickets
+  active_owner: mattpocock/skills/skills/engineering/to-tickets
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/to-tickets/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/to-tickets
+  active_owner: mattpocock/skills/skills/engineering/to-tickets
+  content_hash: sha256:5ecdf1d4df8a360ed39df21a2347f97ba177afd449a577da4f6b6ea8e1ebb808
+- kind: project-relative
+  target: copilot
+  value: .agents/skills/to-tickets/agents/openai.yaml
+  runtime: null
+  scope: project
+  owners:
+  - mattpocock/skills/skills/engineering/to-tickets
+  active_owner: mattpocock/skills/skills/engineering/to-tickets
+  content_hash: sha256:21bc6215fffcd7614e9f772bb1760e87cc5fc7dcc707e7d282bc9414267a6090
 - kind: project-relative
   target: copilot
   value: .github/agents/playwright-test-generator.agent.md
@@ -1491,6 +2444,15 @@ deployments:
   - .
   active_owner: .
   content_hash: sha256:b29d123d50f476fa3e41cb87be79adb8ea6ba84307758c706c6206a1403f92c4
+- kind: project-relative
+  target: copilot
+  value: .github/instructions/dotnet.instructions.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:9ef188be212d2493e4c865807a1348ca38942d3310e7a614ba57837dcbf6aae1
 - kind: project-relative
   target: copilot
   value: .github/instructions/project-overview.instructions.md
@@ -1733,6 +2695,7 @@ local_deployed_files:
 - .claude/rules/angular-components.md
 - .claude/rules/architecture.md
 - .claude/rules/commands.md
+- .claude/rules/dotnet.md
 - .claude/rules/project-overview.md
 - .claude/rules/styling.md
 - .claude/rules/typescript.md
@@ -1746,6 +2709,7 @@ local_deployed_files:
 - .github/instructions/angular-components.instructions.md
 - .github/instructions/architecture.instructions.md
 - .github/instructions/commands.instructions.md
+- .github/instructions/dotnet.instructions.md
 - .github/instructions/project-overview.instructions.md
 - .github/instructions/styling.instructions.md
 - .github/instructions/typescript.instructions.md
@@ -1764,6 +2728,7 @@ local_deployed_file_hashes:
   .claude/rules/angular-components.md: sha256:b2566675d1faaced2cee4ed326cc954a44bbce37dbfc2f001e5867ecf79c381f
   .claude/rules/architecture.md: sha256:d7dc3a97f28226d53188c053c5a19787293a5c541e955b85f7d46c7058dede36
   .claude/rules/commands.md: sha256:56950f31dda4ff2e56fdabe6bdb97340f370079078c11c0a773f29dd6424e882
+  .claude/rules/dotnet.md: sha256:a395a2ab7bea4f5e4a4c969dcd38a30a2510f15646991e6e9a5f30bf71d41069
   .claude/rules/project-overview.md: sha256:b5fe7daa502a4779873049905704aed18f7ff70d0cbb3c70fa6d571e0e247e61
   .claude/rules/styling.md: sha256:ddf96af3963bfaeb33953cd5e372457d3b1710ac843fde91fa992a22a506c883
   .claude/rules/typescript.md: sha256:53c33ac832aee9870c95fc5eceecafb291a1c5530b184dabc122b45c8d58ea9c
@@ -1777,6 +2742,7 @@ local_deployed_file_hashes:
   .github/instructions/angular-components.instructions.md: sha256:558967aaea58257a615e49abeef2bd7cd0ce0558d78e87a4fa445d95dc3ed9f8
   .github/instructions/architecture.instructions.md: sha256:ef8e299d823e21a4e2197b2c437247d31bce4d979a52c7577c7402dcb5fa7160
   .github/instructions/commands.instructions.md: sha256:b29d123d50f476fa3e41cb87be79adb8ea6ba84307758c706c6206a1403f92c4
+  .github/instructions/dotnet.instructions.md: sha256:9ef188be212d2493e4c865807a1348ca38942d3310e7a614ba57837dcbf6aae1
   .github/instructions/project-overview.instructions.md: sha256:c242484cf7fd70eac77168071e31bb0764c3a0855793d42d722bde27b3d58dd7
   .github/instructions/styling.instructions.md: sha256:8a3478b9d440566bfe8e39f2bd072ff069f6592c6354e5d1a3ef3ed48007c4f9
   .github/instructions/typescript.instructions.md: sha256:25ee789aae5bf131fc19d7dff38469b90f65abc0ed2cb25f8bcb0b93c6554d96
