@@ -49,7 +49,9 @@ Skills are installed with `gh skill install <owner>/<repo> <skill> --agent githu
 | `migrate-xunit-to-xunit-v3` | Moving a suite onto xUnit v3 / the Microsoft Testing Platform    |
 | `run-tests`         | Running and filtering `dotnet test` correctly                            |
 | `grill-with-docs` → `to-spec` → `to-tickets` → `implement` | The spec-driven chain, in that order |
+| `grilling` · `grill-me` · `domain-modeling` | Interview machinery `grill-with-docs` delegates to  |
 | `tdd` · `code-review` | Red-green-refactor, and reviewing a diff                               |
+| `setup-matt-pocock-skills` | One-time per repo: tracker, triage labels, domain-doc layout      |
 
 The .NET skills come from `dotnet/skills` (official, Microsoft-owned) at
 release tag `v1.0.0`; the spec chain from `mattpocock/skills`. There is no

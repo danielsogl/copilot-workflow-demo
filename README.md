@@ -64,20 +64,23 @@ gh skill preview dotnet/skills crap-score    # read it before you trust it
 gh skill update --all                        # refresh against upstream
 ```
 
-| Skill                                                                              | Source              | When it fires                                                                                    |
-| ---------------------------------------------------------------------------------- | ------------------- | ------------------------------------------------------------------------------------------------ |
-| `angular-developer`                                                                | `angular/skills`    | General Angular 22 guidance (DI, routing, styling)                                               |
-| `angular-new-app`                                                                  | `angular/skills`    | Creating a new Angular workspace                                                                 |
-| `ngrx-signals`                                                                     | `danielsogl/skills` | Authoring or testing a NgRx Signal Store                                                         |
-| `bdd`                                                                              | `danielsogl/skills` | Gherkin/Cucumber specs, Playwright BDD                                                           |
-| `skill-creator`                                                                    | `anthropics/skills` | Authoring or improving a skill                                                                   |
-| `test-anti-patterns`                                                               | `dotnet/skills`     | Auditing a suite for tests that pass but verify nothing — language-agnostic, works on Vitest too |
-| `exp-test-gap-analysis`                                                            | `dotnet/skills`     | Pseudo-mutation analysis: would these tests catch the bug?                                       |
-| `crap-score` · `coverage-analysis`                                                 | `dotnet/skills`     | Where complex code meets thin tests                                                              |
-| `generate-testability-wrappers`                                                    | `dotnet/skills`     | Cutting a seam into code that has none                                                           |
-| `migrate-xunit-to-xunit-v3`                                                        | `dotnet/skills`     | Moving a suite onto xUnit v3 / the Microsoft Testing Platform                                    |
-| `run-tests`                                                                        | `dotnet/skills`     | Running and filtering `dotnet test` correctly                                                    |
-| `to-spec` · `to-tickets` · `implement` · `grill-with-docs` · `tdd` · `code-review` | `mattpocock/skills` | The spec-driven chain: vague request → spec → tickets → implementation                           |
+| Skill                                                      | Source              | When it fires                                                                                    |
+| ---------------------------------------------------------- | ------------------- | ------------------------------------------------------------------------------------------------ |
+| `angular-developer`                                        | `angular/skills`    | General Angular 22 guidance (DI, routing, styling)                                               |
+| `angular-new-app`                                          | `angular/skills`    | Creating a new Angular workspace                                                                 |
+| `ngrx-signals`                                             | `danielsogl/skills` | Authoring or testing a NgRx Signal Store                                                         |
+| `bdd`                                                      | `danielsogl/skills` | Gherkin/Cucumber specs, Playwright BDD                                                           |
+| `skill-creator`                                            | `anthropics/skills` | Authoring or improving a skill                                                                   |
+| `test-anti-patterns`                                       | `dotnet/skills`     | Auditing a suite for tests that pass but verify nothing — language-agnostic, works on Vitest too |
+| `exp-test-gap-analysis`                                    | `dotnet/skills`     | Pseudo-mutation analysis: would these tests catch the bug?                                       |
+| `crap-score` · `coverage-analysis`                         | `dotnet/skills`     | Where complex code meets thin tests                                                              |
+| `generate-testability-wrappers`                            | `dotnet/skills`     | Cutting a seam into code that has none                                                           |
+| `migrate-xunit-to-xunit-v3`                                | `dotnet/skills`     | Moving a suite onto xUnit v3 / the Microsoft Testing Platform                                    |
+| `run-tests`                                                | `dotnet/skills`     | Running and filtering `dotnet test` correctly                                                    |
+| `grill-with-docs` · `to-spec` · `to-tickets` · `implement` | `mattpocock/skills` | The spec-driven chain: vague request → spec → tickets → implementation                           |
+| `grilling` · `grill-me` · `domain-modeling`                | `mattpocock/skills` | Interview machinery — `grill-with-docs` delegates to these, it does not work without them        |
+| `tdd` · `code-review`                                      | `mattpocock/skills` | Red-green-refactor, and reviewing a diff                                                         |
+| `setup-matt-pocock-skills`                                 | `mattpocock/skills` | One-time per repo: issue tracker, triage labels, domain-doc layout                               |
 
 Two consequences of how `gh skill` works:
 
