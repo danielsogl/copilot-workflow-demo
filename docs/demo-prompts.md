@@ -218,10 +218,26 @@ jemand hingesehen hat.
 
 ## Wenn etwas nicht anspringt
 
-| Symptom                                    | Ursache                                                                             |
-| ------------------------------------------ | ----------------------------------------------------------------------------------- |
-| Skill reagiert nicht auf eine Beschreibung | `disable-model-invocation: true` — nur per `/name` aufrufbar                        |
-| `/grill-me` tut nichts                     | Delegiert an `/grilling`; fehlt der, passiert nichts                                |
-| `/to-spec` fragt, wohin es schreiben soll  | `docs/agents/issue-tracker.md` fehlt → `/setup-matt-pocock-skills` einmal ausführen |
-| Claude Code fragt bei jedem Tool nach      | Workspace einmal interaktiv öffnen und den Trust-Dialog bestätigen                  |
-| `codegraph_*` meldet „not initialized"     | `codegraph init` einmal ausführen                                                   |
+| Symptom                                    | Ursache                                                                                                                    |
+| ------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| Skill reagiert nicht auf eine Beschreibung | `disable-model-invocation: true` — nur per `/name` aufrufbar                                                               |
+| `/grill-me` tut nichts                     | Delegiert an `/grilling`; fehlt der, passiert nichts                                                                       |
+| `/to-spec` fragt, wohin es schreiben soll  | `docs/agents/issue-tracker.md` fehlt → `/setup-matt-pocock-skills` einmal ausführen                                        |
+| Claude Code fragt bei jedem Tool nach      | Workspace einmal interaktiv öffnen und den Trust-Dialog bestätigen                                                         |
+| `codegraph_*` meldet „not initialized"     | `codegraph init` einmal ausführen                                                                                          |
+| Hook meldet „No such file or directory"    | Relativer Pfad in der Hook-Konfiguration — er wird gegen das _aktuelle_ Verzeichnis aufgelöst, nicht gegen die Repo-Wurzel |
+
+### Die zwei Harnesses erwarten unterschiedliche Hook-Schemata
+
+Das ist der lehrreichste Stolperstein im Repo — dieselben drei Skripte, zwei
+Konfigurationen, die sich nicht ineinander kopieren lassen:
+
+|               | Claude Code (`.claude/settings.json`)     | Copilot (`.github/hooks/hooks.json`) |
+| ------------- | ----------------------------------------- | ------------------------------------ |
+| Event-Namen   | `SessionStart`, `PreToolUse`              | `sessionStart`, `preToolUse`         |
+| Aufbau        | `{ matcher, hooks: [ … ] }` verschachtelt | Einträge **flach** im Event-Array    |
+| Kommando-Feld | `command`                                 | `bash` (oder `powershell`/`command`) |
+| Timeout       | `timeout` (Sekunden)                      | `timeoutSec`                         |
+
+Beide zeigen hier auf `"$(git rev-parse --show-toplevel)/scripts/hooks/…"` —
+damit ist es egal, in welchem Unterverzeichnis der Agent gerade arbeitet.

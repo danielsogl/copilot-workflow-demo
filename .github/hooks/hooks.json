@@ -1,41 +1,26 @@
 {
+  "version": 1,
   "hooks": {
-    "SessionStart": [
+    "sessionStart": [
       {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "scripts/hooks/session-context.sh",
-            "timeout": 5
-          }
-        ]
+        "type": "command",
+        "bash": "\"$(git rev-parse --show-toplevel)/scripts/hooks/session-context.sh\"",
+        "timeoutSec": 5
       }
     ],
     "preToolUse": [
       {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "scripts/hooks/guard-destructive-bash.sh",
-            "timeout": 5
-          }
-        ]
+        "type": "command",
+        "bash": "\"$(git rev-parse --show-toplevel)/scripts/hooks/guard-destructive-bash.sh\"",
+        "timeoutSec": 5
       }
     ],
     "postToolUse": [
       {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "scripts/hooks/format-changed-files.sh",
-            "timeout": 30
-          }
-        ]
+        "type": "command",
+        "bash": "\"$(git rev-parse --show-toplevel)/scripts/hooks/format-changed-files.sh\"",
+        "timeoutSec": 30
       }
     ]
-  },
-  "version": 1
+  }
 }

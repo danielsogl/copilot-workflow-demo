@@ -63,3 +63,8 @@ bin/
 obj/
 [Bb]ackend/**/bin/
 [Bb]ackend/**/obj/
+
+# Coverage-Ausgabe (crap-score, dotnet-coverage)
+*.cobertura.xml
+coverage/
+TestResults/
