@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="xunit.v3" Version="3.2.2" />
+    <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.0.4" />
   </ItemGroup>
 
   <ItemGroup>
