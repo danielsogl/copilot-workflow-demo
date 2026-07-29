@@ -24,11 +24,11 @@ system-präferierte Aussehen zeigen, falls die gespeicherte Wahl davon abweicht
 
 ## Acceptance criteria
 
-- [ ] `provideAppInitializer` liest die gespeicherte Präferenz (bzw. ermittelt
+- [x] `provideAppInitializer` liest die gespeicherte Präferenz (bzw. ermittelt
       den System-Fallback) und wendet den `Effective Color Mode` auf das
       Dokument an, bevor die Root-Komponente erstmals gerendert wird
-- [ ] Ein Neuladen der Seite mit gespeicherter Light- oder Dark-Präferenz zeigt
+- [x] Ein Neuladen der Seite mit gespeicherter Light- oder Dark-Präferenz zeigt
       keinen sichtbaren Wechsel des Farbmodus innerhalb der Angular-Anwendung
       nach dem ersten Rendern der Root-Komponente
-- [ ] Der bereits bestehende `ColorModeService` wird wiederverwendet, keine
+- [x] Der bereits bestehende `ColorModeService` wird wiederverwendet, keine
       zweite, parallele Initialisierungslogik entsteht

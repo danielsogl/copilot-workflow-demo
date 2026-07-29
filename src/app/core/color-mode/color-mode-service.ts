@@ -97,6 +97,13 @@ export const ColorModeService = signalStore(
         writeStoredColorMode(store.colorMode());
       });
 
+      // Applied synchronously (not just via the effect below) so the
+      // document already reflects the resolved color mode as soon as the
+      // service is constructed — `provideAppInitializer` relies on this to
+      // avoid a flash before the root component's first render. Angular
+      // effects only flush asynchronously, which isn't early enough here.
+      document.documentElement.style.colorScheme = store.effectiveColorMode();
+
       effect(() => {
         document.documentElement.style.colorScheme = store.effectiveColorMode();
       });
