@@ -32,4 +32,15 @@
       <span class="nav-label">AI Assistant</span>
     </a>
   </nav>
+
+  <button
+    mat-icon-button
+    type="button"
+    class="color-mode-toggle"
+    (click)="colorMode.cycleColorMode()"
+    [matTooltip]="colorMode.toggleLabel()"
+    [attr.aria-label]="colorMode.toggleLabel()"
+  >
+    <mat-icon>{{ colorMode.effectiveColorModeIcon() }}</mat-icon>
+  </button>
 </mat-toolbar>

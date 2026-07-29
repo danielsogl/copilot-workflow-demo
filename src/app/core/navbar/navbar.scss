@@ -150,6 +150,10 @@
   }
 }
 
+.color-mode-toggle {
+  color: var(--mat-sys-on-surface-variant);
+}
+
 @media (max-width: 640px) {
   .app-toolbar-scrim {
     height: 80px;
