@@ -1,6 +1,6 @@
 # Color-Mode-Präferenz per localStorage persistieren
 
-Status: ready-for-agent
+Status: done
 Type: task
 Blocked by: 01
 
@@ -27,14 +27,14 @@ Frontend-/Browser-Zustand.
 
 ## Acceptance criteria
 
-- [ ] Eine über den Button gewählte Light- oder Dark-Einstellung bleibt nach
+- [x] Eine über den Button gewählte Light- oder Dark-Einstellung bleibt nach
       einem Neuladen der Seite erhalten
-- [ ] Ohne gespeicherten Wert startet die App weiterhin im Default System
-- [ ] Jede Änderung des `Color Mode` wird unmittelbar nach `localStorage`
+- [x] Ohne gespeicherten Wert startet die App weiterhin im Default System
+- [x] Jede Änderung des `Color Mode` wird unmittelbar nach `localStorage`
       geschrieben
-- [ ] Ein simulierter Fehler beim Zugriff auf `localStorage` (z. B. Exception
+- [x] Ein simulierter Fehler beim Zugriff auf `localStorage` (z. B. Exception
       beim Lesen/Schreiben) führt nicht dazu, dass der Service unbrauchbar wird
       oder die App abstürzt
-- [ ] Unit-Tests decken: gespeicherter Wert wird beim Start korrekt gelesen,
+- [x] Unit-Tests decken: gespeicherter Wert wird beim Start korrekt gelesen,
       jede Änderung wird geschrieben, und der Fehlerfall (`localStorage` wirft)
       wird abgefangen
