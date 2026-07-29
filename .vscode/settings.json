@@ -11,6 +11,10 @@
   "cucumber.glue": ["tests/bdd/steps/*.ts", "src/**/*.bdd.spec.ts"],
   "cucumber.features": ["tests/bdd/features/*.feature", "src/**/*.feature"],
 
+  // --- .NET: C# Dev Kit test explorer (xUnit v3 runs on Microsoft Testing Platform) ---
+  "dotnet.defaultSolution": "backend/Backend.slnx",
+  "dotnet.testWindow.useTestingPlatformProtocol": true,
+
   // --- Copilot: inline suggestions ---
   "github.copilot.nextEditSuggestions.enabled": true,
   "github.copilot.editor.enableCodeActions": true,
