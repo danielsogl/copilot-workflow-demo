@@ -58,6 +58,104 @@ public class TaskStoreTests
     }
 
     [Fact]
+    public void Add_hands_out_a_fresh_id_per_task()
+    {
+        var store = StoreWith();
+
+        var first = store.Add(new TaskItem { Title = "One" });
+        var second = store.Add(new TaskItem { Title = "Two" });
+
+        Assert.NotEqual(first.Id, second.Id);
+        Assert.Equal(11, first.Id.Length);
+        Assert.DoesNotContain(first.Id, ['+', '/']);
+    }
+
+    [Fact]
+    public void Find_returns_the_task_or_null()
+    {
+        var store = StoreWith(ATask());
+
+        Assert.Equal(ATask(), store.Find("abc"));
+        Assert.Null(store.Find("nope"));
+    }
+
+    [Fact]
+    public void Patch_applies_every_supported_property()
+    {
+        var store = StoreWith(ATask());
+
+        var patched = store.Patch(
+            "abc",
+            Patch(
+                """
+                {
+                  "title": "Renamed",
+                  "description": "Why",
+                  "status": "completed",
+                  "priority": "high",
+                  "dueDate": "2026-01-01",
+                  "createdAt": "2025-01-01",
+                  "completedAt": "2026-02-02",
+                  "order": 7
+                }
+                """
+            )
+        );
+
+        Assert.Equal(
+            new TaskItem
+            {
+                Id = "abc",
+                Title = "Renamed",
+                Description = "Why",
+                Status = "completed",
+                Priority = "high",
+                DueDate = "2026-01-01",
+                CreatedAt = "2025-01-01",
+                CompletedAt = "2026-02-02",
+                Order = 7,
+            },
+            patched
+        );
+    }
+
+    [Fact]
+    public void Patch_clears_nullable_dates_when_the_payload_says_null()
+    {
+        var store = StoreWith(ATask() with { DueDate = "2026-01-01", CompletedAt = "2026-02-02" });
+
+        var patched = store.Patch("abc", Patch("""{"dueDate":null,"completedAt":null}"""));
+
+        Assert.Null(patched!.DueDate);
+        Assert.Null(patched.CompletedAt);
+    }
+
+    [Fact]
+    public void FromSeedFile_reads_the_tasks_array_with_web_naming()
+    {
+        var path = Path.GetTempFileName();
+        File.WriteAllText(
+            path,
+            """{"tasks":[{"id":"seed-1","title":"Seeded","status":"todo","priority":"low","dueDate":"2026-03-03","order":2}]}"""
+        );
+
+        try
+        {
+            var store = TaskStore.FromSeedFile(path);
+
+            var seeded = Assert.Single(store.All());
+            Assert.Equal("seed-1", seeded.Id);
+            Assert.Equal("Seeded", seeded.Title);
+            Assert.Equal("2026-03-03", seeded.DueDate);
+            Assert.Equal(2, seeded.Order);
+        }
+        finally
+        {
+            File.Delete(path);
+        }
+    }
+
+    [Fact]
     public void Remove_reports_whether_it_removed_anything()
     {
         var store = StoreWith(ATask());
