@@ -16,3 +16,7 @@ The five canonical roles are used verbatim (`needs-triage`, `needs-info`, `ready
 ### Domain docs
 
 Single-context: one `CONTEXT.md` plus `docs/adr/` at the repo root. See `docs/agents/domain.md`.
+
+### Skills
+- always use the `playwright-cli` skill to test the running frontend
+- always use`context7-cli` skill when I need library/API documentation, code generation, setup or configuration steps without me having to explicitly ask.
