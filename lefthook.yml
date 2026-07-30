@@ -24,3 +24,15 @@ pre-commit:
       stage_fixed: true
       # Custom failure message
       fail_text: "ESLint failed. Please fix the issues before committing."
+
+    sonar-secrets:
+      # Scan staged files for hardcoded secrets (SonarQube CLI)
+      run: sonar analyze secrets {staged_files}
+      # No glob: secrets hide in .env, yaml, json, config — not just source
+      fail_text: "SonarQube found a hardcoded secret. Remove it before committing."
+
+commit-msg:
+  commands:
+    commitlint:
+      run: npx commitlint --edit {1}
+      fail_text: "Commit message must follow Conventional Commits (e.g. feat: add login)."
