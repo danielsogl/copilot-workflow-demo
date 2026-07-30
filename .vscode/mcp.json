@@ -19,7 +19,38 @@
       "type": "stdio",
       "command": "codegraph",
       "args": ["serve", "--mcp"]
+    },
+    "sonarqube": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "SONARQUBE_TOKEN",
+        "-e",
+        "SONARQUBE_ORG",
+        "sonarsource/sonarqube-mcp"
+      ],
+      "env": {
+        "SONARQUBE_TOKEN": "${input:SONARQUBE_TOKEN}",
+        "SONARQUBE_ORG": "${input:SONARQUBE_ORG}"
+      },
+      "type": "stdio"
     }
   },
-  "inputs": []
+  "inputs": [
+    {
+      "id": "SONARQUBE_TOKEN",
+      "type": "promptString",
+      "description": "SonarQube Cloud Token",
+      "password": true
+    },
+    {
+      "id": "SONARQUBE_ORG",
+      "type": "promptString",
+      "description": "SonarQube Cloud Organization Key",
+      "password": false
+    }
+  ]
 }
