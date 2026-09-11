@@ -1,8 +1,6 @@
 ---
 description: A reusable prompt for generating Angular Signal Forms with complete validation and dynamic field management for a specified entity.
-name: angular-signal-forms-generator
 argument-hint: "Entity name and target feature folder (e.g. Task src/app/features/tasks)"
-agent: agent
 tools: ['edit', 'search', 'execute/runInTerminal', 'execute/getTerminalOutput', 'execute/runTests', 'search/usages', 'read/problems', 'todo', 'context7/*', 'angular-cli/*']
 ---
 

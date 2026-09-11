@@ -1,8 +1,6 @@
 ---
 description: A reusable prompt for generating NgRx Signal stores with complete CRUD operations for a specified entity.
-name: ngrx-signals-store-crud-generator
 argument-hint: "Entity name and target feature folder (e.g. Task src/app/features/tasks)"
-agent: agent
 tools: ['edit', 'search', 'execute/runInTerminal', 'execute/getTerminalOutput', 'read/terminalLastCommand', 'execute/runTests', 'read/problems', 'read/readFile', 'search/usages', 'todo', 'eslint/*', 'context7/*', 'angular-cli/*']
 ---
 

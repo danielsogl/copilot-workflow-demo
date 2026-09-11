@@ -1,5 +1,4 @@
 ---
-name: Analyze Codebase For Bugs
 description: "Run a structured bug-focused code review for selected files, folders, or the whole workspace"
 argument-hint: "Target scope, feature, or file paths to analyze"
 agent: "agent"

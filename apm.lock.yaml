@@ -1,5 +1,5 @@
 lockfile_version: '1'
-generated_at: '2026-09-11T10:31:09.074385+00:00'
+generated_at: '2026-09-11T10:33:56.564075+00:00'
 apm_version: 0.30.0
 dependencies:
 - repo_url: angular/skills
@@ -1619,7 +1619,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:ab145527784e8af6de8cd6d268d40d08c59e26802636f9acb4821c813e11aab2
+  content_hash: sha256:a1631f63a09dad43ed02e352160ad95af3b4cb5d03c7cd7ddfd140841898b2f2
 - kind: project-relative
   target: copilot
   value: .github/prompts/angular-signal-forms.prompt.md
@@ -1628,7 +1628,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:e57e3031e5caf76082cb6eeabfbc91e4f72cd31d35e3f832033a553c243c7f12
+  content_hash: sha256:1bb5304b2275a347f87c35b315edb650d97bf08f04a318ffd1719c9add2a96fd
 - kind: project-relative
   target: copilot
   value: .github/prompts/code-review.prompt.md
@@ -1637,7 +1637,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:00ee34df4f7f39b30b808207651237afba2d0a0df4dd74780b1012ae4df07170
+  content_hash: sha256:7e816bf3eabea7c6e03dbe96369c737179204bd1fb8465f42050a15208a967d4
 - kind: project-relative
   target: copilot
   value: .github/prompts/ngrx-signals-store-crud.prompt.md
@@ -1646,7 +1646,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:2dbd4c8e95e68325ae77345d5641198033714be15437ce8b344990880c0f70ef
+  content_hash: sha256:460efba5e08d30d10e45fe77b5020df5ce74bb1f147d2ab51a173643056c7eef
 - kind: uri
   target: lsp
   value: angular
@@ -1998,7 +1998,7 @@ local_deployed_file_hashes:
   .github/instructions/project-overview.instructions.md: sha256:d23f679a1624cf55c79cd4642deaf1c0fe5743f7486692fcfa0d4c1fe027aa29
   .github/instructions/styling.instructions.md: sha256:8a3478b9d440566bfe8e39f2bd072ff069f6592c6354e5d1a3ef3ed48007c4f9
   .github/instructions/typescript.instructions.md: sha256:25ee789aae5bf131fc19d7dff38469b90f65abc0ed2cb25f8bcb0b93c6554d96
-  .github/prompts/analyze-codebase-bugs.prompt.md: sha256:ab145527784e8af6de8cd6d268d40d08c59e26802636f9acb4821c813e11aab2
-  .github/prompts/angular-signal-forms.prompt.md: sha256:e57e3031e5caf76082cb6eeabfbc91e4f72cd31d35e3f832033a553c243c7f12
-  .github/prompts/code-review.prompt.md: sha256:00ee34df4f7f39b30b808207651237afba2d0a0df4dd74780b1012ae4df07170
-  .github/prompts/ngrx-signals-store-crud.prompt.md: sha256:2dbd4c8e95e68325ae77345d5641198033714be15437ce8b344990880c0f70ef
+  .github/prompts/analyze-codebase-bugs.prompt.md: sha256:a1631f63a09dad43ed02e352160ad95af3b4cb5d03c7cd7ddfd140841898b2f2
+  .github/prompts/angular-signal-forms.prompt.md: sha256:1bb5304b2275a347f87c35b315edb650d97bf08f04a318ffd1719c9add2a96fd
+  .github/prompts/code-review.prompt.md: sha256:7e816bf3eabea7c6e03dbe96369c737179204bd1fb8465f42050a15208a967d4
+  .github/prompts/ngrx-signals-store-crud.prompt.md: sha256:460efba5e08d30d10e45fe77b5020df5ce74bb1f147d2ab51a173643056c7eef
