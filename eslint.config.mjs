@@ -17,7 +17,6 @@ export default defineConfig([
       tseslint.configs.recommended,
       tseslint.configs.stylistic,
       angular.configs.tsRecommended,
-      ngrx.configs.signals,
       ngrx.configs.operators,
       eslintConfigPrettier,
     ],
@@ -40,6 +39,16 @@ export default defineConfig([
         },
       ],
     },
+  },
+  {
+    files: ["src/**/*.ts"],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    extends: [ngrx.configs.signalsTypeChecked],
   },
   {
     files: ["**/*.html"],
