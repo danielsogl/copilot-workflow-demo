@@ -9,7 +9,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:e2e": "bddgen && playwright test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "format:check": "prettier --check ."
   },
   "private": true,
   "dependencies": {

@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    name: Lint, test, build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm test
+      - run: npm run build
+
+  agent-config:
+    name: APM drift check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      # setup-only: this repo commits its deployed files, so `apm install` must not
+      # rewrite them before the audit gets to compare the checked-out bytes.
+      - uses: microsoft/apm-action@v1
+        with:
+          setup-only: true
+      - run: apm audit --ci

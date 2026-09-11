@@ -34,8 +34,7 @@ export class ChatPanel implements AfterViewChecked {
 
   private scrollToBottom(): void {
     const container = this.messagesContainer()?.nativeElement as
-      | HTMLElement
-      | undefined;
+      HTMLElement | undefined;
     if (container) {
       container.scrollTop = container.scrollHeight;
     }
