@@ -2,20 +2,17 @@ import { inject, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Task, TaskFormData } from "../models/task.model";
+import { API_CONFIG } from "../../../../core/api-config";
 
 @Injectable({
   providedIn: "root",
 })
 export class TaskApi {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = "http://localhost:3000/tasks";
+  private readonly apiUrl = inject(API_CONFIG).tasksUrl;
 
   getTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(this.apiUrl);
-  }
-
-  getTaskById(id: string): Observable<Task> {
-    return this.http.get<Task>(`${this.apiUrl}/${id}`);
   }
 
   createTask(taskData: TaskFormData, order: number): Observable<Task> {

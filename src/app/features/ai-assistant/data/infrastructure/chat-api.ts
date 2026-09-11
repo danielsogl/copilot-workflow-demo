@@ -1,7 +1,6 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-
-const ASSISTANT_API_URL = "http://localhost:3001/api/assistant/chat";
+import { API_CONFIG } from "../../../../core/api-config";
 
 export interface ChatStreamEvent {
   type: "delta" | "done" | "error";
@@ -10,11 +9,13 @@ export interface ChatStreamEvent {
 
 @Injectable({ providedIn: "root" })
 export class ChatApi {
+  private readonly url = inject(API_CONFIG).assistantUrl;
+
   sendMessage(message: string): Observable<ChatStreamEvent> {
     return new Observable((subscriber) => {
       const controller = new AbortController();
 
-      fetch(ASSISTANT_API_URL, {
+      fetch(this.url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message }),
