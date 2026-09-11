@@ -1,4 +1,5 @@
 ---
+argument-hint: Entity name and target feature folder (e.g. Task src/app/features/tasks)
 description: A reusable prompt for generating Angular Signal Forms with complete validation
   and dynamic field management for a specified entity.
 ---
@@ -9,7 +10,7 @@ description: A reusable prompt for generating Angular Signal Forms with complete
 
 Generate a complete Angular Signal Form with schema validation, error handling, and dynamic field management for a specified entity, following the project's architecture patterns and modern Angular Signal Forms API with built-in schema validation.
 
-> **Important**: This prompt follows the patterns defined in `angular-signal-forms.instructions.md`. Review that file for comprehensive Signal Forms patterns, schema validation approaches, and best practices before generating forms.
+> **Important**: Read the `angular-developer` skill's `references/signal-forms.md` for comprehensive Signal Forms patterns, schema validation approaches, and best practices before generating forms. Project-wide conventions live in the generated rules (`.claude/rules/` for Claude, `.github/instructions/` for Copilot).
 
 ## Prerequisites
 

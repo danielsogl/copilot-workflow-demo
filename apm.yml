@@ -7,29 +7,48 @@ author: Daniel Sogl
 # root CLAUDE.md — every instruction lives in the deterministic, path-scoped native files:
 #   Claude  → .claude/rules/*.md  (global rules load always; `paths:` rules load on matching files)
 #   Copilot → .github/copilot-instructions.md (global) + .github/instructions/*.instructions.md (applyTo)
-# Rationale: APM's root AGENTS.md is all-or-nothing (full inline incl. "## Files matching" or absent);
-# it cannot be trimmed to globals-only (microsoft/apm issue #1678). Non-deterministic "Files matching"
-# prose is exactly what we don't want, so we drop the root files entirely and rely on native rules.
+# Rationale (re-verified against APM 0.30): CLAUDE.md now dedups (it omits the instructions section
+# when .claude/rules/ is populated), but root AGENTS.md is still all-or-nothing — a combined
+# `apm compile --target copilot,claude` emits the full inline body incl. "## Files matching"
+# (microsoft/apm issue #1678). Non-deterministic "Files matching" prose is exactly what we don't
+# want, so we drop the root files entirely and rely on native rules.
 #
 # Regenerate after editing any .apm/ primitive or this file (per-target compile is REQUIRED — a bare
 # `apm compile`/`--target copilot,claude` keeps a full AGENTS.md; only single-target compiles dedup it):
-#   apm install                           # deps + MCP mirrors (.mcp.json + .vscode/mcp.json) + LSP (.github/lsp.json) — non-destructive in 0.26+
+#   apm install                           # deps + MCP mirrors + LSP config — non-destructive
 #   apm compile --target copilot          # .github/instructions/ + copilot-instructions.md (AGENTS.md stays absent)
 #   apm compile --target claude           # .claude/rules/ (CLAUDE.md stays absent)
 # Do NOT pass --clean with these per-target compiles: with a single target it deletes the OTHER target's
 # deployed files (e.g. Claude's hook scripts under .claude/hooks/). Root AGENTS.md/CLAUDE.md are already
 # removed and single-target compiles never regenerate them; if a stale one ever reappears, delete it once
 # by hand (`rm -f AGENTS.md CLAUDE.md`), not with --clean.
+#
+# What `apm install` writes (APM 0.30 — all committed, all generated, never hand-edit):
+#   .mcp.json                                 MCP servers for Claude Code
+#   .vscode/mcp.json                          MCP servers for Copilot in VS Code
+#   .github/mcp.json                          MCP servers for the Copilot coding agent (new in 0.30)
+#   .github/lsp.json                          LSP servers for Copilot CLI
+#   .claude/skills/apm-lsp/.claude-plugin/…   LSP servers for Claude Code, as a plugin (new in 0.30)
+#   .agents/skills/ + .claude/skills/         dependency skills, deployed to both locations
 # Gotchas:
 #   - `apm install` also tries to write the global ~/.copilot/mcp-config.json (Copilot CLI's user-level
 #     MCP list). On this machine that path is a read-only nix/home-manager symlink, so install prints
-#     `Permission denied` for it — HARMLESS: the committed project mirrors (.mcp.json / .vscode/mcp.json)
-#     are written fine and are authoritative. Manage the global copilot MCP list via nix if you need it.
-#   - `.claude/settings.json` is a MERGE target — APM (0.26+) manages only its own `matcher: "*"` hook
-#     blocks and never removes others. Author hooks ONCE in .apm/hooks/hooks.json; never hand-add hook
-#     blocks to settings.json (that is what caused the earlier double-firing).
+#     `Permission denied` for it — HARMLESS: the committed project mirrors are written fine and are
+#     authoritative. Manage the global copilot MCP list via nix if you need it.
+#   - `.claude/settings.json` is a MERGE target — APM manages only its own `matcher: "*"` hook
+#     blocks and never removes others (the `permissions` block below it is hand-owned). Author hooks
+#     ONCE in .apm/hooks/hooks.json; never hand-add hook blocks to settings.json (that is what caused
+#     the earlier double-firing).
+#   - `apm install` does NOT re-deploy an already-written hook script under .claude/hooks/ — not even
+#     with --force (the Copilot mirror under .github/hooks/scripts/ IS refreshed). After editing a
+#     script in .apm/hooks/scripts/, copy it over by hand:
+#       cp .apm/hooks/scripts/<name>.sh .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/<name>.sh
+#     Verify with: diff -r .apm/hooks/scripts .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts
+#   - Hook matchers stay `""` in .apm/hooks/hooks.json on purpose: one hooks.json feeds both harnesses,
+#     whose tool names differ (Bash vs runInTerminal, Edit/Write vs editFiles). Narrowing the matcher for
+#     one breaks the other — each script self-filters on tool name / file extension instead.
 #   - `.github/copilot/settings.json` (mergeStrategy) is the ONE hand-owned file APM cannot model — no
-#     apm.yml field exists for it (verified against APM 0.26 source). Everything else is single-sourced.
+#     apm.yml field exists for it. Everything else is single-sourced.
 #   - Trade-off: no universal AGENTS.md means non-Claude/Copilot tools (Codex, Cursor, Windsurf, …)
 #     get no instructions. Acceptable here — this repo targets Claude Code + Copilot only.
 # Which agent platforms this project supports (resolution order: --target flag > this field > auto-detect).

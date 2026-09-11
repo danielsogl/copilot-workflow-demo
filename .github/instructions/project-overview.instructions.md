@@ -2,7 +2,7 @@
 description: Project overview, stack summary, layout, and skill index for the Angular 22 + NgRx Signals workshop demo.
 ---
 
-This repo is an Angular 22 + NgRx Signals workshop demo. Agent configuration is managed by **APM** — author primitives under `.apm/`, run `apm install` to compile harness-specific output. Never hand-edit generated dirs (`.github/`, `.agents/skills/`, `.claude/`, `AGENTS.md`).
+This repo is an Angular 22 + NgRx Signals workshop demo. Agent configuration is managed by **APM** — author primitives under `.apm/`, run `apm install` to compile harness-specific output. Never hand-edit generated dirs (`.github/`, `.agents/skills/`, `.claude/`).
 
 **CodeGraph:** the `codegraph_*` MCP tools are backed by a tree-sitter index. `apm install` only writes the MCP server config — the index is **not** built automatically. If `.codegraph/` is missing (the server reports "not initialized"), run `apm run codegraph-setup` (= `codegraph init`) once; CodeGraph's daemon keeps it in sync afterwards.
 
@@ -10,10 +10,11 @@ This repo is an Angular 22 + NgRx Signals workshop demo. Agent configuration is 
 
 - **Angular 22** — standalone components, signals, `@if` / `@for` / `@switch` / `@let` control flow. No `NgModule`, no `*ngIf` / `*ngFor`.
 - **TypeScript 6.0** — strict mode. No `any`. Explicit return types on public APIs.
-- **NgRx Signals Store 21** — `signalStore`, `withEntities`, `rxMethod`, `signalMethod`, `withFeature`, `withLinkedState`.
+- **NgRx Signals Store 22** — `signalStore`, `withEntities`, `rxMethod`, `signalMethod`, `withFeature`, `withLinkedState`, `withEventHandlers`.
 - **Angular Material 22** — Material 3 via `mat.theme()` and `--mat-sys-*` tokens. Legacy palette/theme APIs are forbidden.
 - **Angular Signal Forms** — `form()`, `schema()`, `FormField`. Preferred over Reactive/Template-driven forms for new code.
-- **Vitest 4** (via `@angular/build:unit-test`) + Angular **TestBed** + **ng-mocks**.
+- **Vitest 4** (via `@angular/build:unit-test`) + Angular **TestBed** + **ng-mocks**. Pinned to 4.x — `@angular/build` peers `vitest ^4.0.8`.
+- **TypeScript pinned to 6.0.x** — `@angular/build` and `@angular/compiler-cli` peer `typescript >=6.0 <6.1`. Do not bump to 7.x.
 - **Playwright** for E2E.
 - **json-server** mock REST API on `http://localhost:3000`.
 - **ESLint** + **Prettier** + **Lefthook** pre-commit hooks — do not bypass with `--no-verify`.
@@ -37,12 +38,12 @@ src/app/
 
 ## Skills
 
-Skills come from external `apm` dependencies declared in `apm.yml`, deployed to `.agents/skills/` by `apm install` and auto-discovered by the harness.
+Skills come from external `apm` dependencies declared in `apm.yml`. `apm install` deploys each one
+twice — to `.agents/skills/` (shared, read by Copilot and other agents) and to `.claude/skills/`
+(Claude Code's native location). Both are generated; edit `apm.yml`, never the deployed copies.
 
-| Skill               | When to use                                                              |
-| ------------------- | ----------------------------------------------------------------------- |
-| `angular-developer` | Generic Angular 22 guidance (components, DI, routing, styling, ARIA)    |
-| `angular-new-app`   | Creating a new Angular workspace                                         |
-| `ngrx-signals`      | Authoring or testing any NgRx Signal Store (`*-store.ts`)               |
-| `bdd`               | Gherkin/Cucumber specs, Playwright BDD, executable acceptance criteria   |
-| `skill-creator`     | Authoring or improving a skill                                           |
+| Skill               | When to use                                                            |
+| ------------------- | ---------------------------------------------------------------------- |
+| `angular-developer` | Generic Angular 22 guidance (components, DI, routing, styling, ARIA)   |
+| `ngrx-signals`      | Authoring or testing any NgRx Signal Store (`*-store.ts`)              |
+| `bdd`               | Gherkin/Cucumber specs, Playwright BDD, executable acceptance criteria  |

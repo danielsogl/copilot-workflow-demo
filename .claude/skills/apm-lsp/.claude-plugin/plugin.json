@@ -1,0 +1,66 @@
+{
+  "name": "apm-lsp",
+  "lspServers": {
+    "typescript": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "typescript-language-server",
+        "--stdio"
+      ],
+      "extensionToLanguage": {
+        ".ts": "typescript",
+        ".tsx": "typescriptreact",
+        ".js": "javascript",
+        ".jsx": "javascriptreact",
+        ".mjs": "javascript",
+        ".cjs": "javascript"
+      }
+    },
+    "angular": {
+      "command": "./.github/scripts/ngserver-launch.sh",
+      "extensionToLanguage": {
+        ".html": "html",
+        ".ng.html": "html"
+      }
+    },
+    "css": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "--package=vscode-langservers-extracted",
+        "vscode-css-language-server",
+        "--stdio"
+      ],
+      "extensionToLanguage": {
+        ".css": "css",
+        ".scss": "scss"
+      }
+    },
+    "json": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "--package=vscode-langservers-extracted",
+        "vscode-json-language-server",
+        "--stdio"
+      ],
+      "extensionToLanguage": {
+        ".json": "json",
+        ".jsonc": "jsonc"
+      }
+    },
+    "yaml": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "yaml-language-server",
+        "--stdio"
+      ],
+      "extensionToLanguage": {
+        ".yaml": "yaml",
+        ".yml": "yaml"
+      }
+    }
+  }
+}

@@ -1,4 +1,5 @@
 ---
+argument-hint: Base branch to compare against (defaults to main)
 description: This prompt can be used to review code changes made on a given branch
 ---
 

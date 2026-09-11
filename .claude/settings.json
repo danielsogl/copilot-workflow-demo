@@ -49,9 +49,34 @@
       }
     ]
   },
+  "enabledMcpjsonServers": [
+    "codegraph",
+    "context7",
+    "angular-cli",
+    "playwright-test"
+  ],
   "permissions": {
     "allow": [
-      "mcp__codegraph__*"
+      "mcp__codegraph__*",
+      "mcp__context7__*",
+      "mcp__angular-cli__*",
+      "Bash(npm run lint)",
+      "Bash(npm run build)",
+      "Bash(npm test)",
+      "Bash(npm run test:e2e)",
+      "Bash(npm ci)",
+      "Bash(npm install)",
+      "Bash(npx ng generate:*)",
+      "Bash(apm install)",
+      "Bash(apm compile:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./**/*.pem)"
     ]
   }
 }

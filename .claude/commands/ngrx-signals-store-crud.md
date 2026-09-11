@@ -1,4 +1,5 @@
 ---
+argument-hint: Entity name and target feature folder (e.g. Task src/app/features/tasks)
 description: A reusable prompt for generating NgRx Signal stores with complete CRUD
   operations for a specified entity.
 ---
