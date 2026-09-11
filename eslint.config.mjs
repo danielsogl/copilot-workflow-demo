@@ -3,7 +3,7 @@ import eslint from "@eslint/js";
 import { defineConfig, globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
 import angular from "angular-eslint";
-import ngrx from "@ngrx/eslint-plugin/v9";
+import ngrx from "@ngrx/eslint-plugin";
 import eslintConfigPrettier from "eslint-config-prettier/flat";
 import playwright from "eslint-plugin-playwright";
 
