@@ -20,8 +20,9 @@ author: Daniel Sogl
 #     only, so making it an APM primitive would hand it to Copilot too.
 #   - Hook matchers stay "": one hooks.json feeds both harnesses and their tool names differ.
 #     Each script filters itself.
-#   - `apm install` warns that it drops `tools:` / `agent:` from the prompts. Leave them: they are
-#     live Copilot config with no Claude equivalent, and the warning is the documented cost.
+#   - Two `apm install` warnings are deliberate, do not 'fix' either. Dropped `tools:` / `agent:`
+#     on the prompts: live Copilot config with no Claude equivalent. Unpinned deps: apm.lock.yaml
+#     pins the SHAs and neither skill repo publishes usable tags, so a pin could only freeze them.
 #   - .github/copilot/settings.json is hand-owned — apm.yml has no field for it.
 #   - The generated .claude/skills/apm-lsp plugin needs /reload-plugins and a Claude started from
 #     the repo root, otherwise the LSP servers never come up.
