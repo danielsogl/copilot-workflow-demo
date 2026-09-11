@@ -38,9 +38,8 @@ src/app/
 
 ## Skills
 
-Skills come from external `apm` dependencies declared in `apm.yml`. `apm install` deploys each one
-twice — to `.agents/skills/` (shared, read by Copilot and other agents) and to `.claude/skills/`
-(Claude Code's native location). Both are generated; edit `apm.yml`, never the deployed copies.
+Skills are `apm` dependencies declared in `apm.yml` and deployed to `.agents/skills/` and
+`.claude/skills/`. Both copies are generated — edit `apm.yml`, never the deployed files.
 
 | Skill               | When to use                                                            |
 | ------------------- | ---------------------------------------------------------------------- |

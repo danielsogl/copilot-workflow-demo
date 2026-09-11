@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 # PostToolUse hook: format & lint files an agent just wrote/edited.
-# Reads the hook payload on stdin (JSON) and dispatches per file.
 set -u
 
 INPUT="$(cat)"
 
-# Extract file paths from the tool input. Supports:
-#   - editFiles / multi-file tools:  tool_input.files[]
-#   - single-file tools (Edit, Write, applyPatch, createFile): tool_input.file_path | path | filePath
+# Four spellings because the harnesses disagree: Copilot's editFiles passes files[],
+# Claude's Edit/Write pass file_path, others pass path or filePath.
 FILES="$(printf '%s' "$INPUT" | jq -r '
   (.tool_input.files // [])[]?,
   (.tool_input.file_path // empty),
@@ -24,7 +22,6 @@ ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 
 while IFS= read -r FILE; do
   [ -z "$FILE" ] && continue
-  # Resolve relative paths against repo root.
   case "$FILE" in
     /*) ABS="$FILE" ;;
     *)  ABS="$ROOT/$FILE" ;;

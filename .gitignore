@@ -61,5 +61,5 @@ apm_modules/
 # CodeGraph index (local, rebuild via `apm run codegraph-setup`)
 .codegraph/
 
-# Claude Code per-developer overrides (shared config lives in .claude/settings.json)
+# Claude Code per-developer overrides
 .claude/settings.local.json

@@ -1,16 +1,11 @@
 #!/usr/bin/env bash
-# PreToolUse hook: deny obviously destructive shell commands unless the agent invokes them explicitly with the user's say-so.
-# Pattern matches:
-#   rm -rf /        force delete from root
-#   git push --force / git push -f against main/master
-#   git reset --hard
-#   npm publish      (publishing should be a release-time human action)
+# PreToolUse hook: deny destructive shell commands outright. The deny list is the case block
+# below — keep it there rather than mirrored in a comment that drifts out of date.
 set -u
 
 INPUT="$(cat)"
 TOOL="$(printf '%s' "$INPUT" | jq -r '.tool_name // empty')"
 
-# Only Bash/Shell tools.
 case "$TOOL" in
   Bash|bash|run|runCommands|runInTerminal|shell|executeCommand) ;;
   *) printf '{"continue":true}\n'; exit 0 ;;
