@@ -1,5 +1,5 @@
 lockfile_version: '1'
-generated_at: '2026-09-11T10:13:19.790916+00:00'
+generated_at: '2026-09-11T10:25:57.445166+00:00'
 apm_version: 0.30.0
 dependencies:
 - repo_url: angular/skills
@@ -333,6 +333,33 @@ deployments:
   - .
   active_owner: .
   content_hash: sha256:43c3f6c79559048dbc58e0744e40325fbc0cbfc300e980eacf1e0b062ea07629
+- kind: project-relative
+  target: claude
+  value: .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:668a244fbc40b8b707e3835c255ae078e3ea9843e7b76ce1fd4cf153c406386a
+- kind: project-relative
+  target: claude
+  value: .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:2816c914b9981c6461cf965e7aca899148570ac0cedeb1ff784683eabe745fc2
+- kind: project-relative
+  target: claude
+  value: .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:7361afb8ea383efbb84d82676c186b2cec7c4554ebed078707b13665738e34b0
 - kind: project-relative
   target: claude
   value: .claude/rules/angular-components.md
@@ -1915,6 +1942,9 @@ local_deployed_files:
 - .claude/commands/angular-signal-forms.md
 - .claude/commands/code-review.md
 - .claude/commands/ngrx-signals-store-crud.md
+- .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh
+- .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh
+- .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh
 - .claude/rules/angular-components.md
 - .claude/rules/architecture.md
 - .claude/rules/commands.md
@@ -1946,6 +1976,9 @@ local_deployed_file_hashes:
   .claude/commands/angular-signal-forms.md: sha256:0f615a06fe89dc9db91e301c4942ea5c913c6bb9ba89a79cfcf9005544480359
   .claude/commands/code-review.md: sha256:82643779bee83619b204c24c91b0de05372468cce7607f5d3d6d21ebf11a6439
   .claude/commands/ngrx-signals-store-crud.md: sha256:43c3f6c79559048dbc58e0744e40325fbc0cbfc300e980eacf1e0b062ea07629
+  .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh: sha256:668a244fbc40b8b707e3835c255ae078e3ea9843e7b76ce1fd4cf153c406386a
+  .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh: sha256:2816c914b9981c6461cf965e7aca899148570ac0cedeb1ff784683eabe745fc2
+  .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh: sha256:7361afb8ea383efbb84d82676c186b2cec7c4554ebed078707b13665738e34b0
   .claude/rules/angular-components.md: sha256:b2566675d1faaced2cee4ed326cc954a44bbce37dbfc2f001e5867ecf79c381f
   .claude/rules/architecture.md: sha256:d7dc3a97f28226d53188c053c5a19787293a5c541e955b85f7d46c7058dede36
   .claude/rules/commands.md: sha256:56950f31dda4ff2e56fdabe6bdb97340f370079078c11c0a773f29dd6424e882

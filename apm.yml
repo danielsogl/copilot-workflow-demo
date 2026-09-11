@@ -28,22 +28,35 @@ author: Daniel Sogl
 #   .vscode/mcp.json                          MCP servers for Copilot in VS Code
 #   .github/mcp.json                          MCP servers for the Copilot coding agent (new in 0.30)
 #   .github/lsp.json                          LSP servers for Copilot CLI
-#   .claude/skills/apm-lsp/.claude-plugin/…   LSP servers for Claude Code, as a plugin (new in 0.30)
+#   .claude/skills/apm-lsp/.claude-plugin/…   LSP servers for Claude Code, as a plugin (new in 0.29.1)
+#     Activation is NOT automatic: needs Claude Code >= 2.1.157, an accepted workspace-trust prompt,
+#     Claude started from the repo root (project plugins do not walk up from a subdirectory), and a
+#     `/reload-plugins` or restart after each `apm install`. If two enabled servers claim the same
+#     extension, the first one registered wins and the others never start.
 #   .agents/skills/ + .claude/skills/         dependency skills, deployed to both locations
 # Gotchas:
 #   - `apm install` also tries to write the global ~/.copilot/mcp-config.json (Copilot CLI's user-level
 #     MCP list). On this machine that path is a read-only nix/home-manager symlink, so install prints
 #     `Permission denied` for it — HARMLESS: the committed project mirrors are written fine and are
 #     authoritative. Manage the global copilot MCP list via nix if you need it.
-#   - `.claude/settings.json` is a MERGE target — APM manages only its own `matcher: "*"` hook
-#     blocks and never removes others (the `permissions` block below it is hand-owned). Author hooks
-#     ONCE in .apm/hooks/hooks.json; never hand-add hook blocks to settings.json (that is what caused
-#     the earlier double-firing).
-#   - `apm install` does NOT re-deploy an already-written hook script under .claude/hooks/ — not even
-#     with --force (the Copilot mirror under .github/hooks/scripts/ IS refreshed). After editing a
-#     script in .apm/hooks/scripts/, copy it over by hand:
-#       cp .apm/hooks/scripts/<name>.sh .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/<name>.sh
-#     Verify with: diff -r .apm/hooks/scripts .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts
+#   - `.claude/settings.json` is a MERGE target. APM claims exactly the hook events listed in the
+#     sibling .claude/apm-hooks.json sidecar and rewrites only those; everything else in the file is
+#     preserved across installs (`enabledMcpjsonServers`, `permissions`, and any hook event the
+#     sidecar does not list). Author shared hooks ONCE in .apm/hooks/hooks.json — never hand-add a
+#     hook that APM also generates, that is what caused the earlier double-firing.
+#   - The `UserPromptSubmit` -> `codegraph prompt-hook` entry is deliberately USER-OWNED: it is in
+#     .claude/settings.json but NOT in the apm-hooks.json sidecar, so `apm install` leaves it alone.
+#     It must not become an APM primitive, because `codegraph prompt-hook` implements Claude's
+#     UserPromptSubmit contract only and a generic hooks.json would also hand it to Copilot.
+#     If you ever re-add it to the sidecar by hand, APM will start managing (and can remove) it.
+#   - NEVER use APM's hook filename routing (`*-<harness>-hooks.json`). It is deprecated in 0.30, and
+#     worse: a single `-claude-` suffixed file in this package silently suppressed the generic
+#     hooks.json for the Claude target entirely — a fresh `apm install` gave Copilot all three script
+#     hooks and Claude none, and the stale entries only survived because APM never removes what it
+#     did not just write. Keep ONE generic .apm/hooks/hooks.json. Per-file target restriction is not
+#     expressible for a local package that serves both harnesses; a Claude-only hook goes in
+#     .claude/settings.json as a user-owned entry instead (see the UserPromptSubmit gotcha above).
+#     Regression check: `apm audit` must report "No drift detected".
 #   - Hook matchers stay `""` in .apm/hooks/hooks.json on purpose: one hooks.json feeds both harnesses,
 #     whose tool names differ (Bash vs runInTerminal, Edit/Write vs editFiles). Narrowing the matcher for
 #     one breaks the other — each script self-filters on tool name / file extension instead.
