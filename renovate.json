@@ -87,6 +87,7 @@
         "/^@vitest/",
         "ng-mocks",
         "/^@playwright/",
+        "playwright",
         "jsdom"
       ]
     },
@@ -102,6 +103,18 @@
       "automerge": false,
       "allowedVersions": "<7",
       "description": "Angular 22 peer-caps TypeScript at <6.1; remove this cap once Angular certifies TS 7"
+    },
+    {
+      "matchPackageNames": ["/^vitest/", "/^@vitest/"],
+      "groupName": "testing frameworks",
+      "allowedVersions": "<5",
+      "description": "Angular 22 peer-caps Vitest at ^4 via @angular/build; remove this cap once it accepts Vitest 5"
+    },
+    {
+      "matchPackageNames": ["@amiceli/vitest-cucumber"],
+      "groupName": "testing frameworks",
+      "allowedVersions": "<8",
+      "description": "v8 requires Vitest ^5, which Angular 22 does not allow; lift together with the Vitest cap"
     },
     {
       "matchManagers": ["npm"],
@@ -124,7 +137,7 @@
   "prHourlyLimit": 2,
   "prConcurrentLimit": 5,
   "updatePinnedDependencies": false,
-  "enabledManagers": ["npm"],
+  "enabledManagers": ["npm", "github-actions"],
   "ignoreDeps": [],
   "ignorePaths": ["**/node_modules/**", "**/dist/**", "**/coverage/**"]
 }
