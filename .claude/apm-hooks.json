@@ -1,7 +1,7 @@
 {
   "SessionStart": [
     {
-      "matcher": "*",
+      "matcher": ".*",
       "hooks": [
         {
           "type": "command",
@@ -14,7 +14,7 @@
   ],
   "PreToolUse": [
     {
-      "matcher": "*",
+      "matcher": ".*",
       "hooks": [
         {
           "type": "command",
@@ -27,7 +27,7 @@
   ],
   "PostToolUse": [
     {
-      "matcher": "*",
+      "matcher": ".*",
       "hooks": [
         {
           "type": "command",

@@ -20,9 +20,12 @@ author: Daniel Sogl
 #   - The UserPromptSubmit -> `codegraph prompt-hook` entry in .claude/settings.json is user-owned:
 #     in the file, absent from the apm-hooks.json sidecar. It implements Claude's hook contract
 #     only, so making it an APM primitive would hand it to Copilot too.
-#   - Hook matchers stay "": one hooks.json feeds both harnesses and their tool names differ.
-#     Each script filters itself and reads both payload shapes: tool_name/tool_input (Claude,
-#     VS Code) and toolName/toolArgs (Copilot CLI on the camelCase events APM emits).
+#   - Hook matchers stay ".*": one hooks.json feeds every harness and their tool names differ, so
+#     each script filters itself. Not "" or "*": the Copilot CLI skips hooks with an empty matcher
+#     and rejects "*" as an invalid regex. Scripts read both payload shapes: tool_name/tool_input
+#     (Claude, VS Code) and toolName/toolArgs (Copilot CLI on the camelCase events APM emits).
+#   - The Copilot CLI also runs every hook in .claude/settings.json (CLAUDE_PROJECT_DIR is set).
+#     The .claude/hooks script copies exit early when COPILOT_CLI is set, so each hook runs once.
 #   - Every instruction carries applyTo; repo-wide ones use "**". Without it APM also folds the
 #     text into .github/copilot-instructions.md and the Copilot CLI loads it twice. Claude loads
 #     paths: ["**"] rules at session start, VS Code applies "**" to every request.

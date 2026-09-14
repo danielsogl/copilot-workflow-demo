@@ -2,7 +2,7 @@
   "hooks": {
     "SessionStart": [
       {
-        "matcher": "*",
+        "matcher": ".*",
         "hooks": [
           {
             "type": "command",
@@ -14,7 +14,7 @@
     ],
     "PreToolUse": [
       {
-        "matcher": "*",
+        "matcher": ".*",
         "hooks": [
           {
             "type": "command",
@@ -26,7 +26,7 @@
     ],
     "PostToolUse": [
       {
-        "matcher": "*",
+        "matcher": ".*",
         "hooks": [
           {
             "type": "command",
@@ -42,7 +42,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "codegraph prompt-hook",
+            "command": "[ -n \"${COPILOT_CLI:-}\" ] || codegraph prompt-hook",
             "timeout": 10
           }
         ]

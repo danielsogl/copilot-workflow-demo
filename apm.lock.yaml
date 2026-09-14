@@ -1,5 +1,5 @@
 lockfile_version: '1'
-generated_at: '2026-09-14T12:58:51.718062+00:00'
+generated_at: '2026-09-14T14:21:56.018795+00:00'
 apm_version: 0.30.0
 dependencies:
 - repo_url: angular/skills
@@ -305,7 +305,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:f0b51d96c7714d0106d9206cbd04e6a702358ec541c9c570b3ee3a9f4c540276
+  content_hash: sha256:266aabecc14f2151018ee3dc34f5c21e9b0c80fb974b1a099e08fa6ad38675b1
 - kind: project-relative
   target: claude
   value: .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh
@@ -314,7 +314,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:ca5360b0824a377dbd1feca250a29eae78d056a318a67ff4932b3342345d3447
+  content_hash: sha256:12cd5ab02cdfdaa2053f10e1f474c01a808a7cd444930767046abd0b00e4e543
 - kind: project-relative
   target: claude
   value: .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh
@@ -323,7 +323,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:4a04085878633605cf04466789f1d711fafd7a71f523b80f98e45473db7fe4b3
+  content_hash: sha256:b1365357c7ec91e4c92928cae82a3fa73a74176177ae04656e048d8901c88520
 - kind: project-relative
   target: claude
   value: .claude/rules/angular-components.md
@@ -1565,7 +1565,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:96bc6dfb5d18c9bc4236c2486ec4e694836e70bec39f9f2d051fc42316f3a5b1
+  content_hash: sha256:281c7fdd9ce8ab7a81e1650b5f3f300a97b7968879f5a797c690b407c14b2a65
 - kind: project-relative
   target: copilot
   value: .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh
@@ -1574,7 +1574,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:f0b51d96c7714d0106d9206cbd04e6a702358ec541c9c570b3ee3a9f4c540276
+  content_hash: sha256:266aabecc14f2151018ee3dc34f5c21e9b0c80fb974b1a099e08fa6ad38675b1
 - kind: project-relative
   target: copilot
   value: .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh
@@ -1583,7 +1583,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:ca5360b0824a377dbd1feca250a29eae78d056a318a67ff4932b3342345d3447
+  content_hash: sha256:12cd5ab02cdfdaa2053f10e1f474c01a808a7cd444930767046abd0b00e4e543
 - kind: project-relative
   target: copilot
   value: .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh
@@ -1592,7 +1592,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:4a04085878633605cf04466789f1d711fafd7a71f523b80f98e45473db7fe4b3
+  content_hash: sha256:b1365357c7ec91e4c92928cae82a3fa73a74176177ae04656e048d8901c88520
 - kind: project-relative
   target: copilot
   value: .github/instructions/angular-components.instructions.md
@@ -2056,9 +2056,9 @@ local_deployed_file_hashes:
   .claude/agents/playwright-test-generator.md: sha256:25e8c507960b1eb075dc68ade9f06a46eae6ba9ff0835a5555c41d79d9bcc38a
   .claude/agents/playwright-test-healer.md: sha256:d79ad60df5f1a770a31be8a12241d2fc0b0d4b2b23302c0463fdf39da293ace6
   .claude/agents/playwright-test-planner.md: sha256:707e3c32b141be3d51cd18da88b93c9a2d653f9d78a07f652d496a3b6a9dc0f7
-  .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh: sha256:f0b51d96c7714d0106d9206cbd04e6a702358ec541c9c570b3ee3a9f4c540276
-  .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh: sha256:ca5360b0824a377dbd1feca250a29eae78d056a318a67ff4932b3342345d3447
-  .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh: sha256:4a04085878633605cf04466789f1d711fafd7a71f523b80f98e45473db7fe4b3
+  .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh: sha256:266aabecc14f2151018ee3dc34f5c21e9b0c80fb974b1a099e08fa6ad38675b1
+  .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh: sha256:12cd5ab02cdfdaa2053f10e1f474c01a808a7cd444930767046abd0b00e4e543
+  .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh: sha256:b1365357c7ec91e4c92928cae82a3fa73a74176177ae04656e048d8901c88520
   .claude/rules/angular-components.md: sha256:b2566675d1faaced2cee4ed326cc954a44bbce37dbfc2f001e5867ecf79c381f
   .claude/rules/architecture.md: sha256:d7dc3a97f28226d53188c053c5a19787293a5c541e955b85f7d46c7058dede36
   .claude/rules/commands.md: sha256:827f798b8907a9c10a2eac11283f0351612ed8f67845ba0610efc1697f2afe50
@@ -2072,10 +2072,10 @@ local_deployed_file_hashes:
   .github/agents/playwright-test-generator.agent.md: sha256:25e8c507960b1eb075dc68ade9f06a46eae6ba9ff0835a5555c41d79d9bcc38a
   .github/agents/playwright-test-healer.agent.md: sha256:d79ad60df5f1a770a31be8a12241d2fc0b0d4b2b23302c0463fdf39da293ace6
   .github/agents/playwright-test-planner.agent.md: sha256:707e3c32b141be3d51cd18da88b93c9a2d653f9d78a07f652d496a3b6a9dc0f7
-  .github/hooks/copilot-workflow-demo-hooks.json: sha256:96bc6dfb5d18c9bc4236c2486ec4e694836e70bec39f9f2d051fc42316f3a5b1
-  .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh: sha256:f0b51d96c7714d0106d9206cbd04e6a702358ec541c9c570b3ee3a9f4c540276
-  .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh: sha256:ca5360b0824a377dbd1feca250a29eae78d056a318a67ff4932b3342345d3447
-  .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh: sha256:4a04085878633605cf04466789f1d711fafd7a71f523b80f98e45473db7fe4b3
+  .github/hooks/copilot-workflow-demo-hooks.json: sha256:281c7fdd9ce8ab7a81e1650b5f3f300a97b7968879f5a797c690b407c14b2a65
+  .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh: sha256:266aabecc14f2151018ee3dc34f5c21e9b0c80fb974b1a099e08fa6ad38675b1
+  .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh: sha256:12cd5ab02cdfdaa2053f10e1f474c01a808a7cd444930767046abd0b00e4e543
+  .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh: sha256:b1365357c7ec91e4c92928cae82a3fa73a74176177ae04656e048d8901c88520
   .github/instructions/angular-components.instructions.md: sha256:558967aaea58257a615e49abeef2bd7cd0ce0558d78e87a4fa445d95dc3ed9f8
   .github/instructions/architecture.instructions.md: sha256:ef8e299d823e21a4e2197b2c437247d31bce4d979a52c7577c7402dcb5fa7160
   .github/instructions/commands.instructions.md: sha256:245751dd4516147dbda65550c4893309d56ef7ca8f3c0912e2cad0715b623e8e

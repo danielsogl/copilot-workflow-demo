@@ -2,6 +2,10 @@
 # PostToolUse hook: format & lint files an agent just wrote/edited.
 set -u
 
+# The Copilot CLI also runs the .claude/settings.json copy of every hook; its .github/hooks copy
+# already covers the CLI, so the Claude copy steps aside there.
+case "$0" in *.claude/hooks/*) [ -n "${COPILOT_CLI:-}" ] && { printf '{"continue":true}\n'; exit 0; } ;; esac
+
 INPUT="$(cat)"
 
 # Args arrive as tool_input (Claude, VS Code, CLI PascalCase events) or as the JSON string

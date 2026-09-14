@@ -2,7 +2,7 @@
   "hooks": {
     "sessionStart": [
       {
-        "matcher": "",
+        "matcher": ".*",
         "hooks": [
           {
             "type": "command",
@@ -14,7 +14,7 @@
     ],
     "preToolUse": [
       {
-        "matcher": "",
+        "matcher": ".*",
         "hooks": [
           {
             "type": "command",
@@ -26,7 +26,7 @@
     ],
     "postToolUse": [
       {
-        "matcher": "",
+        "matcher": ".*",
         "hooks": [
           {
             "type": "command",

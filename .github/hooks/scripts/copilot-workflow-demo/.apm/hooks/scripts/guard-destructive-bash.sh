@@ -3,6 +3,10 @@
 # below — keep it there rather than mirrored in a comment that drifts out of date.
 set -u
 
+# The Copilot CLI also runs the .claude/settings.json copy of every hook; its .github/hooks copy
+# already covers the CLI, so the Claude copy steps aside there.
+case "$0" in *.claude/hooks/*) [ -n "${COPILOT_CLI:-}" ] && { printf '{"continue":true}\n'; exit 0; } ;; esac
+
 INPUT="$(cat)"
 
 # Two payload shapes: Claude, VS Code and Copilot CLI PascalCase events send tool_name/tool_input;

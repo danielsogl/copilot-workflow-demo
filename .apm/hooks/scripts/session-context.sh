@@ -2,6 +2,10 @@
 # SessionStart hook: emit a one-line project context banner into the agent's session.
 set -u
 
+# The Copilot CLI also runs the .claude/settings.json copy of every hook; its .github/hooks copy
+# already covers the CLI, so the Claude copy steps aside there.
+case "$0" in *.claude/hooks/*) [ -n "${COPILOT_CLI:-}" ] && { printf '{"continue":true}\n'; exit 0; } ;; esac
+
 ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 BRANCH="$(git -C "$ROOT" branch --show-current 2>/dev/null || echo unknown)"
 NODE_V="$(node --version 2>/dev/null || echo unknown)"
