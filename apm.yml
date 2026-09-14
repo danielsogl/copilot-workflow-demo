@@ -40,7 +40,7 @@ dependencies:
     - name: context7
       registry: false
       transport: http
-      url: https://mcp.context7.com/mcp/oauth
+      url: https://mcp.context7.com/mcp
     - name: angular-cli
       registry: false
       transport: stdio
