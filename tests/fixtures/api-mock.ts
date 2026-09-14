@@ -120,6 +120,30 @@ async function jsonFulfill(
   });
 }
 
+export const CHAT_API = "http://localhost:3001/api/assistant/chat";
+
+function sseResponse(chunks: string[]): string {
+  return chunks
+    .map((chunk) => `event: delta\ndata: ${JSON.stringify(chunk)}\n\n`)
+    .concat(['event: done\ndata: ""\n\n'])
+    .join("");
+}
+
+export async function mockChat(
+  route: Route,
+  responseText: string,
+): Promise<void> {
+  await route.fulfill({
+    status: 200,
+    headers: {
+      "Content-Type": "text/event-stream",
+      "Cache-Control": "no-cache",
+      Connection: "keep-alive",
+    },
+    body: sseResponse([responseText]),
+  });
+}
+
 export const test = base.extend<{ tasksApi: Task[] }>({
   tasksApi: [
     async ({ context }, use) => {

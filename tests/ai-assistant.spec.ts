@@ -1,26 +1,4 @@
-import { type Route } from "@playwright/test";
-import { test, expect } from "./fixtures/api-mock";
-
-const CHAT_API = "http://localhost:3001/api/assistant/chat";
-
-function sseResponse(chunks: string[]): string {
-  return chunks
-    .map((chunk) => `event: delta\ndata: ${JSON.stringify(chunk)}\n\n`)
-    .concat(['event: done\ndata: ""\n\n'])
-    .join("");
-}
-
-async function mockChat(route: Route, responseText: string) {
-  await route.fulfill({
-    status: 200,
-    headers: {
-      "Content-Type": "text/event-stream",
-      "Cache-Control": "no-cache",
-      Connection: "keep-alive",
-    },
-    body: sseResponse([responseText]),
-  });
-}
+import { test, expect, CHAT_API, mockChat } from "./fixtures/api-mock";
 
 test.describe("AI Assistant", () => {
   test.beforeEach(async ({ page }) => {

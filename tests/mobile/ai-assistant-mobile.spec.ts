@@ -1,11 +1,12 @@
 // spec: specs/mobile-view.plan.md
 
-import { test, expect } from "@playwright/test";
+import { test, expect, CHAT_API, mockChat } from "../fixtures/api-mock";
 
 test.describe("mobile-layout", () => {
   test.use({ viewport: { width: 390, height: 844 } });
 
   test("AI Assistant chat panel adapts to mobile", async ({ page }) => {
+    await page.route(CHAT_API, (route) => mockChat(route, "Hi from mobile!"));
     await page.goto("http://localhost:4200/board");
 
     // 1. Tap the 'AI Assistant' nav icon from /board on mobile viewport
