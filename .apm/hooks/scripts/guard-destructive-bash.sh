@@ -4,19 +4,28 @@
 set -u
 
 INPUT="$(cat)"
-TOOL="$(printf '%s' "$INPUT" | jq -r '.tool_name // empty')"
+
+# Two payload shapes: Claude, VS Code and Copilot CLI PascalCase events send tool_name/tool_input;
+# Copilot CLI camelCase events (what APM emits into .github/hooks) send toolName/toolArgs,
+# where toolArgs is a JSON string.
+TOOL="$(printf '%s' "$INPUT" | jq -r '.tool_name // .toolName // empty' 2>/dev/null)"
 
 case "$TOOL" in
-  Bash|bash|run|runCommands|runInTerminal|shell|executeCommand) ;;
+  Bash|bash|run|runCommands|runInTerminal|run_in_terminal|shell|executeCommand) ;;
   *) printf '{"continue":true}\n'; exit 0 ;;
 esac
 
-CMD="$(printf '%s' "$INPUT" | jq -r '.tool_input.command // .tool_input.cmd // empty')"
+CMD="$(printf '%s' "$INPUT" | jq -r '
+  (.tool_input // (.toolArgs | if type == "string" then (fromjson? // {}) else . end) // {})
+  | .command // .cmd // empty
+')"
 [ -z "$CMD" ] && { printf '{"continue":true}\n'; exit 0; }
 
 deny() {
   REASON="$1"
   jq -n --arg r "$REASON" '{
+    permissionDecision: "deny",
+    permissionDecisionReason: $r,
     hookSpecificOutput: {
       hookEventName: "PreToolUse",
       permissionDecision: "deny",

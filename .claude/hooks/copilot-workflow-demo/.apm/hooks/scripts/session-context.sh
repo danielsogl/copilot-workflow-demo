@@ -11,8 +11,10 @@ CONTEXT="Project: copilot-workflow-demo | Branch: ${BRANCH} | Node: ${NODE_V} | 
 
 ESCAPED="$(printf '%s' "$CONTEXT" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))' 2>/dev/null || printf '"%s"' "$CONTEXT")"
 
+# Copilot CLI reads top-level additionalContext; Claude and VS Code read hookSpecificOutput.
 cat <<EOF
 {
+  "additionalContext": ${ESCAPED},
   "hookSpecificOutput": {
     "hookEventName": "SessionStart",
     "additionalContext": ${ESCAPED}

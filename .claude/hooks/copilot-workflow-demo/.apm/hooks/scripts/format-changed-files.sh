@@ -4,13 +4,12 @@ set -u
 
 INPUT="$(cat)"
 
-# Four spellings because the harnesses disagree: Copilot's editFiles passes files[],
-# Claude's Edit/Write pass file_path, others pass path or filePath.
+# Args arrive as tool_input (Claude, VS Code, CLI PascalCase events) or as the JSON string
+# toolArgs (CLI camelCase events). Four path spellings because the harnesses disagree:
+# Copilot's editFiles passes files[], Claude's Edit/Write pass file_path, others path or filePath.
 FILES="$(printf '%s' "$INPUT" | jq -r '
-  (.tool_input.files // [])[]?,
-  (.tool_input.file_path // empty),
-  (.tool_input.path // empty),
-  (.tool_input.filePath // empty)
+  (.tool_input // (.toolArgs | if type == "string" then (fromjson? // {}) else . end) // {}) as $a
+  | ($a.files // [])[]?, ($a.file_path // empty), ($a.path // empty), ($a.filePath // empty)
 ' 2>/dev/null | sort -u)"
 
 if [ -z "$FILES" ]; then
