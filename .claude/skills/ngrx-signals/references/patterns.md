@@ -169,7 +169,7 @@ Allowed alternatives:
 2. **Compose via a custom feature** (`signalStoreFeature`) so both stores include the same slice.
 3. **Pull the shared logic into a service** that both stores inject. The service is the integration point, not another store.
 
-If two stores genuinely need to coordinate (e.g., user logout clears a cart), use the events plugin or expose a shared service that both react to.
+If two stores genuinely need to coordinate (e.g., user logout clears a cart), use the events plugin (`withReducer` / `withEventHandlers`, see `api-reference.md`) or expose a shared service that both react to.
 
 ## Loading + error UX
 

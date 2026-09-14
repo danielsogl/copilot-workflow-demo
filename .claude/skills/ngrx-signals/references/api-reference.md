@@ -1,29 +1,32 @@
 # @ngrx/signals — API Reference
 
-Idiomatic, runnable examples of every primitive in the library. Read the section that matches the task; you do not need to load this whole file unless you're new to the API.
+Idiomatic, runnable examples of every primitive in the library (verified against `@ngrx/signals` 22). Read the section that matches the task; you do not need to load this whole file unless you're new to the API.
 
 ## Table of contents
 
 - [signalStore](#signalstore)
 - [withState](#withstate)
 - [withComputed](#withcomputed)
+- [withLinkedState](#withlinkedstate)
 - [withMethods](#withmethods)
 - [withProps](#withprops)
 - [withHooks](#withhooks)
 - [patchState](#patchstate)
-- [getState](#getstate)
+- [getState / watchState](#getstate--watchstate)
 - [signalState (component-local)](#signalstate-component-local)
 - [rxMethod](#rxmethod)
 - [signalMethod](#signalmethod)
 - [Private members (`_` prefix)](#private-members-_-prefix)
 - [Provider configuration](#provider-configuration)
+- [Events plugin (`@ngrx/signals/events`)](#events-plugin-ngrxsignalsevents)
+- [Resource extensions (`@ngrx/signals/resource`)](#resource-extensions-ngrxsignalsresource)
 
 ## signalStore
 
 Factory that returns an injectable Angular service class assembled from the features you pass.
 
 ```typescript
-import { signalStore, withState, withComputed, withMethods } from '@ngrx/signals';
+import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 
 export const CounterStore = signalStore(
   { providedIn: 'root' },        // optional
@@ -72,11 +75,23 @@ const initialState: BookSearchState = {
 export const BookSearchStore = signalStore(withState(initialState));
 ```
 
-Nested state slices are exposed as deep signals (each key in the nested object becomes its own readable signal accessor where possible).
+Nested object literals are exposed as deep signals: `store.filter.query()` works. Since v22 this also applies to union members, so a `user: { name: string } | null` slice becomes `DeepSignal<{ name: string }> | Signal<null>`.
+
+`withState` also accepts a **factory**, which runs in an injection context. Use it when initial state comes from DI:
+
+```typescript
+const BOOK_SEARCH_STATE = new InjectionToken<BookSearchState>('BookSearchState', {
+  factory: () => initialState,
+});
+
+export const BookSearchStore = signalStore(
+  withState(() => inject(BOOK_SEARCH_STATE))
+);
+```
 
 ## withComputed
 
-Creates derived signals. The factory runs in an injection context, so you can `inject(...)` services here too.
+Creates derived signals. The factory runs in an injection context, so you can `inject(...)` services here too. It receives state, props, and methods declared above it.
 
 ```typescript
 import { computed } from '@angular/core';
@@ -88,17 +103,47 @@ export const BookSearchStore = signalStore(
     booksCount: computed(() => books().length),
     sortedBooks: computed(() => {
       const direction = filter.order() === 'asc' ? 1 : -1;
-      return books().toSorted((a, b) => direction * a.title.localeCompare(b.title));
+      return [...books()].sort((a, b) => direction * a.title.localeCompare(b.title)); // toSorted needs lib es2023; Angular CLI targets ES2022
     }),
   }))
 );
 ```
 
-Computed values are memoized and only recompute when the underlying signals change.
+A plain computation function (`booksCount: () => books().length`) is shorthand for `computed(...)`. Computed values are memoized and only recompute when the underlying signals change.
+
+## withLinkedState
+
+State that **resets when its source changes but stays writable** (Angular's `linkedSignal`, as store state). Use it instead of an `effect` or a method that re-syncs one slice when another changes. Linked slices are regular state: deep signals, updatable via `patchState`.
+
+```typescript
+import { linkedSignal } from '@angular/core';
+import { patchState, signalStore, withLinkedState, withMethods, withState } from '@ngrx/signals';
+
+type Option = { id: number; label: string };
+
+export const OptionsStore = signalStore(
+  withState({ options: [] as Option[] }),
+  withLinkedState(({ options }) => ({
+    // Computation function: resets to the first option whenever options change.
+    selectedOption: () => options()[0] ?? null,
+    // linkedSignal: keeps the previous selection if it still exists.
+    stickyOption: linkedSignal<Option[], Option | null>({
+      source: options,
+      computation: (next, prev) =>
+        next.find((o) => o.id === prev?.value?.id) ?? next[0] ?? null,
+    }),
+  })),
+  withMethods((store) => ({
+    select(selectedOption: Option): void {
+      patchState(store, { selectedOption });
+    },
+  }))
+);
+```
 
 ## withMethods
 
-Adds methods to the store. The factory receives the store instance (with state, computed, and any earlier props) and runs in an injection context.
+Adds methods to the store. The factory receives the store instance (with state, computed, and any earlier props/methods) and runs in an injection context.
 
 ```typescript
 import { inject } from '@angular/core';
@@ -125,11 +170,11 @@ Inject services as default parameters — this keeps the method body free of `in
 
 ## withProps
 
-Attaches non-reactive properties to the store. Useful for grouping injected dependencies that other features will use.
+Attaches non-reactive properties to the store. Useful for grouping injected dependencies that other features will use, or for exposing derived non-signal values (e.g. `toObservable(isLoading)`).
 
 ```typescript
 import { inject } from '@angular/core';
-import { signalStore, withProps, withState } from '@ngrx/signals';
+import { patchState, signalStore, withMethods, withProps, withState } from '@ngrx/signals';
 
 export const BooksStore = signalStore(
   withState<BooksState>({ books: [], isLoading: false }),
@@ -148,11 +193,14 @@ export const BooksStore = signalStore(
 );
 ```
 
+Prefix props with `_` (`_booksService`) if they should not be visible to store consumers.
+
 ## withHooks
 
 Lifecycle hooks called when the store is created/destroyed.
 
 ```typescript
+import { inject } from '@angular/core';
 import { signalStore, withHooks, withProps } from '@ngrx/signals';
 
 export const BooksStore = signalStore(
@@ -201,9 +249,11 @@ function setError(message: string): Partial<RequestStatusState> {
 
 Custom updaters are the right tool when the same state shape is patched in many places. Define them next to the feature that owns the state.
 
-## getState
+State is **protected** by default: `patchState(store, ...)` from outside the store (component, other service) is a compile error. Expose a method instead.
 
-Snapshot read of the entire state object — useful for capturing a "before" copy for rollback.
+## getState / watchState
+
+`getState` is a snapshot read of the entire state object — useful for capturing a "before" copy for rollback.
 
 ```typescript
 import { getState, patchState } from '@ngrx/signals';
@@ -216,6 +266,16 @@ try {
   patchState(store, { items: previous.items });
   throw e;
 }
+```
+
+`watchState` runs a watcher **synchronously on every state change** (unlike `effect`, which batches). Call it in an injection context (e.g. `onInit`); it is cleaned up with the store.
+
+```typescript
+withHooks({
+  onInit(store) {
+    watchState(store, (state) => console.log('[Books]', state));
+  },
+})
 ```
 
 ## signalState (component-local)
@@ -248,9 +308,9 @@ If you reach for a Signal Store for state used in exactly one component and neve
 
 Bridges RxJS into the store. Use when you need RxJS operators — `debounceTime`, `switchMap`, retry, cancellation. The argument can be:
 
-- A value (becomes a one-shot stream),
+- A static value (one-shot emission),
 - An `Observable<T>` (subscribed),
-- A `Signal<T>` (converted to an observable internally and re-emits on changes).
+- A `Signal<T>` or a computation function `() => T` (re-emits on changes).
 
 ```typescript
 import { inject } from '@angular/core';
@@ -286,12 +346,14 @@ export const BookSearchStore = signalStore(
 
 Use `tapResponse` from `@ngrx/operators` rather than a bare `subscribe` — it preserves error propagation and avoids breaking the outer stream.
 
+**Injection context:** passing a signal, computation function, or observable **outside** an injection context is deprecated (warns since v21.1, will throw). Call it in a constructor/field initializer, or pass the caller's injector: `store.loadByQuery(query, { injector })`. The subscription then lives as long as that injector.
+
 ## signalMethod
 
-Pure-signal alternative to `rxMethod` (v19+). Use when input is a value or signal and the body is synchronous (or just needs an `effect`-like reaction).
+Pure-signal alternative to `rxMethod`. Use when input is a value, signal, or computation function and the body is synchronous (or just needs an `effect`-like reaction).
 
 ```typescript
-import { signalStore, signalMethod, withMethods, withState, patchState } from '@ngrx/signals';
+import { patchState, signalMethod, signalStore, withMethods, withState } from '@ngrx/signals';
 
 export const CounterStore = signalStore(
   { providedIn: 'root' },
@@ -302,24 +364,32 @@ export const CounterStore = signalStore(
     }),
   }))
 );
+
+// In a component:
+store.incrementBy(5);                             // one-shot
+store.incrementBy(this.step);                     // re-runs when the signal changes
+store.incrementBy(() => this.a() + this.b());     // computation function
 ```
 
-When called with a signal, the method re-runs whenever the signal changes — so it's the right tool for "react to a signal" without dragging in RxJS.
+The same injection-context rule as `rxMethod` applies to signal / computation-function inputs (`{ injector }` config otherwise).
 
 ## Private members (`_` prefix)
 
-Prefix any state slice, computed signal, prop, or method with `_` to make it private to the store. Public callers cannot access it; other features inside the same store can.
+Prefix any state slice, computed signal, prop, or method with `_` to make it private to the store. Public callers cannot access it; features declared **after** it in the same store can.
 
 ```typescript
 export const CounterStore = signalStore(
   withState({ count: 0, _audit: [] as string[] }),
   withMethods((store) => ({
+    _record(event: string): void {
+      patchState(store, ({ _audit }) => ({ _audit: [..._audit, event] }));
+    },
+  })),
+  // A method can't call a sibling from the same withMethods factory — use a second one.
+  withMethods((store) => ({
     increment(): void {
       store._record('increment');
       patchState(store, ({ count }) => ({ count: count + 1 }));
-    },
-    _record(event: string): void {
-      patchState(store, ({ _audit }) => ({ _audit: [..._audit, event] }));
     },
   }))
 );
@@ -341,7 +411,9 @@ signalStore(
 Common shapes:
 
 - `{ providedIn: 'root' }` — singleton across the app.
+- `{ providedIn: 'platform' }` — shared across multiple Angular apps on the same page (micro-frontends). Rare.
 - Omit the config — the store is **not** providedIn anything; consumers must list it in `providers: [Store]` on a component or route. Use this for component- or route-scoped state that should be created/destroyed with its host.
+- `{ protectedState: false }` — allows `patchState` from outside the store. Avoid; in tests use `unprotected(store)` from `@ngrx/signals/testing` instead.
 
 Component-scoped example:
 
@@ -355,3 +427,68 @@ export class CartPageComponent {
   readonly cart = inject(CartStore);
 }
 ```
+
+## Events plugin (`@ngrx/signals/events`)
+
+Opt-in Flux-style layer (stable since v21). Reach for it when **several stores must react to the same thing** (logout clears cart + profile) or you want decoupled, traceable flows. For a single store, plain methods are simpler.
+
+```typescript
+import { inject } from '@angular/core';
+import { switchMap } from 'rxjs';
+import { signalStore, type, withState } from '@ngrx/signals';
+import { Events, eventGroup, injectDispatch, on, withEventHandlers, withReducer } from '@ngrx/signals/events';
+import { mapResponse } from '@ngrx/operators';
+
+export const bookSearchEvents = eventGroup({
+  source: 'Book Search Page',
+  events: { opened: type<void>(), queryChanged: type<string>() },
+});
+export const booksApiEvents = eventGroup({
+  source: 'Books API',
+  events: { loadedSuccess: type<Book[]>(), loadedFailure: type<string>() },
+});
+
+export const BookSearchStore = signalStore(
+  withState<SearchState>({ query: '', books: [], isLoading: false }),
+  withReducer(
+    on(bookSearchEvents.queryChanged, ({ payload: query }) => ({ query, isLoading: true })),
+    on(booksApiEvents.loadedSuccess, ({ payload: books }) => ({ books, isLoading: false })),
+    on(booksApiEvents.loadedFailure, () => ({ isLoading: false })),
+  ),
+  withEventHandlers((store, events = inject(Events), api = inject(BooksService)) => ({
+    loadBooks$: events.on(bookSearchEvents.opened, bookSearchEvents.queryChanged).pipe(
+      switchMap(() =>
+        api.getByQuery(store.query()).pipe(
+          mapResponse({
+            next: (books) => booksApiEvents.loadedSuccess(books),
+            error: (e: { message: string }) => booksApiEvents.loadedFailure(e.message),
+          })
+        )
+      )
+    ),
+  }))
+);
+
+// Component: const dispatch = injectDispatch(bookSearchEvents); dispatch.queryChanged('ngrx');
+```
+
+- `withEffects` was **renamed to `withEventHandlers`** in v21 (`ng update` migrates it).
+- Events returned from a handler stream are dispatched automatically.
+- Dispatch can be scoped: `dispatch({ scope: 'parent' }).opened()` / `'global'`; provide a local scope with `provideDispatcher()`.
+
+## Resource extensions (`@ngrx/signals/resource`)
+
+**Experimental (v22).** Wraps an Angular `resource`/`httpResource` to change what `value()` returns while loading or on error, keeping the resource type.
+
+```typescript
+import { httpResource } from '@angular/common/http';
+import { extendResource, withPreviousValueOnLoading, withValueOnError } from '@ngrx/signals/resource';
+
+readonly todosResource = extendResource(
+  httpResource<Todo[]>(() => `/api/todos?page=${this.page()}`),
+  withPreviousValueOnLoading(),   // no flicker while paginating
+  withValueOnError(undefined),    // value() doesn't throw on error
+);
+```
+
+Also: `withValueOnLoading(v)`, `withPreviousValueOnError()`, and `provideResourceExtensions(...)` to set defaults per app/route/component. Inside a store, create the resource in `withProps` (prefix `_` to keep it private) and derive signals in `withComputed`.

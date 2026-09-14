@@ -1,6 +1,6 @@
 # @ngrx/signals — Testing
 
-Stores are Angular providers. Test them via `TestBed.inject(Store)` and the store's public API only.
+Stores are Angular providers. Test them via `TestBed.inject(Store)` and the store's public API only. Examples use Vitest (Angular's default test runner); with Jest swap `vi.fn()` for `jest.fn()` and `expect.poll` for fake timers / `waitFor`.
 
 ## Guiding principle
 
@@ -43,6 +43,25 @@ describe('CounterStore', () => {
 });
 ```
 
+## Seeding protected state with `unprotected`
+
+State is protected, so `patchState(store, ...)` in a test is a compile error. To set up a scenario (e.g. test a computed) without calling a chain of methods, wrap the store with `unprotected` from `@ngrx/signals/testing`:
+
+```typescript
+import { patchState } from '@ngrx/signals';
+import { unprotected } from '@ngrx/signals/testing';
+
+it('recomputes doubleCount when count changes', () => {
+  const store = TestBed.inject(CounterStore);
+
+  patchState(unprotected(store), { count: 5 });
+
+  expect(store.doubleCount()).toBe(10);
+});
+```
+
+Use it for **arranging** state only; still assert through public signals. Don't set `protectedState: false` on the store just to make tests easier.
+
 ## Mocking injected services
 
 Provide the mock through `TestBed.configureTestingModule` — same as any Angular DI override.
@@ -82,7 +101,8 @@ Passing the dependency via a default parameter (`stepService = inject(StepServic
 it('loadAll fills entities and flips status', async () => {
   const fakeBooks = [{ id: '1', title: 'A' }, { id: '2', title: 'B' }];
   TestBed.configureTestingModule({
-    providers: [{ provide: BooksService, useValue: { getAll: () => Promise.resolve(fakeBooks) } }],
+    // BooksStore isn't providedIn: 'root', so the test module must provide it too.
+    providers: [BooksStore, { provide: BooksService, useValue: { getAll: () => Promise.resolve(fakeBooks) } }],
   });
 
   const store = TestBed.inject(BooksStore);
@@ -96,7 +116,7 @@ it('loadAll fills entities and flips status', async () => {
 
 ## Testing `signalMethod`
 
-`signalMethod` reacts inside an injection context. For value calls, just call. For signal-driven calls, wrap in `TestBed.runInInjectionContext` and use `expect.poll` or `TestBed.tick()`.
+For static values, just call. For signal-driven calls, call inside `TestBed.runInInjectionContext` (calling with a signal outside an injection context is deprecated) and flush with `expect.poll` or `TestBed.tick()`.
 
 ```typescript
 import { signal } from '@angular/core';
@@ -139,12 +159,14 @@ describe('CounterStore.increment (signalMethod)', () => {
 
 ## Testing `rxMethod`
 
-Same idea — `rxMethod` runs inside an injection context, you trigger it by calling, and use `expect.poll` (or marble tests) for async assertions.
+Same idea — trigger it by calling, and use `expect.poll` (or marble tests) for async assertions. Mock the API with the same return type the real service has (here an `Observable`).
 
 ```typescript
+import { of } from 'rxjs';
+
 it('loadByQuery debounces and stores results', async () => {
-  const api = { getByQuery: jest.fn().mockResolvedValue([{ id: '1', title: 'A' }]) };
-  TestBed.configureTestingModule({ providers: [{ provide: BooksService, useValue: api }] });
+  const api = { getByQuery: vi.fn().mockReturnValue(of([{ id: '1', title: 'A' }])) };
+  TestBed.configureTestingModule({ providers: [BookSearchStore, { provide: BooksService, useValue: api }] });
 
   const store = TestBed.inject(BookSearchStore);
   store.loadByQuery('ang');
@@ -190,6 +212,7 @@ describe('withCounter', () => {
 ## Things to avoid in tests
 
 - `(store as any)._privateSlice()` — if you need to assert private state, the API is wrong, not the test.
+- `protectedState: false` in production code just so tests can patch — use `unprotected(store)`.
 - Spying on internal `effect()` calls.
 - Relying on call order across `withComputed` slices — order is an implementation detail of the feature, not the contract.
 - Mocking `patchState`. It's a free function from `@ngrx/signals`; let it do its job.

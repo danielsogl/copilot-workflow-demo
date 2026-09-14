@@ -65,20 +65,17 @@ export const BooksStore = signalStore(
 
 ## Pattern: `withLogger`
 
-Logs every state change in dev. Good intro to `withHooks` + `effect`.
+Logs every state change in dev. Good intro to `withHooks` + `watchState`.
 
 ```typescript
-import { effect } from '@angular/core';
-import { getState, signalStoreFeature, withHooks } from '@ngrx/signals';
+import { signalStoreFeature, watchState, withHooks } from '@ngrx/signals';
 
 export function withLogger(name: string) {
   return signalStoreFeature(
     withHooks({
       onInit(store) {
-        effect(() => {
-          const state = getState(store);
-          console.log(`[${name}]`, state);
-        });
+        // watchState fires synchronously on every change; effect() would batch.
+        watchState(store, (state) => console.log(`[${name}]`, state));
       },
     })
   );
@@ -129,16 +126,36 @@ export const BooksStore = signalStore(
 
 Compile-time error if you put `withSelectedEntity` on a store without `withEntities`. That's the whole point of the typed declaration.
 
-## Pattern: `withFeature` (v19+) for outside inputs
-
-Sometimes a feature needs something computed from the store at composition time (e.g. an injected token configured by the caller). `withFeature(callback)` gives you a function that receives the store-so-far and returns a feature.
+A feature that needs another **custom** feature can reuse its type instead of redeclaring it, via `SignalStoreFeatureType` (v22):
 
 ```typescript
-import { withFeature } from '@ngrx/signals';
+import { signalStoreFeature, SignalStoreFeatureType, type, withComputed } from '@ngrx/signals';
 
-export const BooksStore = signalStore(
-  withState<BooksState>({ books: [] }),
-  withFeature((store) => withLogger(`Books(${store.books().length})`))
+type RequestStatusFeature = SignalStoreFeatureType<typeof withRequestStatus>;
+
+export function withLoadGuard() {
+  return signalStoreFeature(
+    type<RequestStatusFeature>(),
+    withComputed(({ isPending }) => ({ canLoad: () => !isPending() }))
+  );
+}
+```
+
+## Pattern: `withFeature` for passing store members into a feature
+
+A generic feature shouldn't know the host store's method names. `withFeature(factory)` gives the factory the store-so-far (state, props, methods), so you can hand specific members to the feature as plain arguments.
+
+```typescript
+import { signalStore, withFeature, withMethods } from '@ngrx/signals';
+
+export const UserStore = signalStore(
+  withMethods((store, api = inject(UsersApi)) => ({
+    loadById(id: number): Promise<User> {
+      return api.getById(id);
+    },
+  })),
+  // withEntityLoader(load: (id: number) => Promise<User>) stays store-agnostic.
+  withFeature((store) => withEntityLoader((id) => store.loadById(id)))
 );
 ```
 

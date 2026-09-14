@@ -1,6 +1,6 @@
 # Installing BDD for Playwright — 2026 Setup Guide
 
-Zero-to-running setup for **`playwright-bdd@8.x`** on **`@playwright/test ≥ 1.44`** (verified on 1.60.x). Follow these steps in order — empty directory to compiled-and-generated specs in three to four minutes (most of that is `npx playwright install` pulling browser binaries).
+Zero-to-running setup for **`playwright-bdd@9.x`** on **`@playwright/test ≥ 1.44`** (verified on `playwright-bdd@9.2.1` + `@playwright/test@1.63.0`, chromium, Node 24). Follow these steps in order — empty directory to compiled-and-generated specs in three to four minutes (most of that is `npx playwright install` pulling browser binaries).
 
 Once installed, see `references/playwright.md` for the actual writing-tests guide; this file is purely the install workflow.
 
@@ -8,7 +8,7 @@ Once installed, see `references/playwright.md` for the actual writing-tests guid
 
 | Tool        | Version    |
 |-------------|------------|
-| Node.js     | ≥ 18 LTS (Node 20 recommended; **Node 20+ required for playwright-bdd v9 beta**) |
+| Node.js     | ≥ 20 (required by both `playwright-bdd@9` and `@playwright/test`; Node 24 recommended) |
 | Package mgr | npm 10+, pnpm 9+, or yarn 4+ |
 | TypeScript  | ≥ 5.4 |
 | Disk        | ~700 MB free for browser binaries (chromium + firefox + webkit) |
@@ -25,8 +25,8 @@ node --version && npm --version
 # 2a. Bootstrap Playwright (adds @playwright/test + browsers + sample config)
 npm init playwright@latest
 
-# 2b. Add the BDD layer
-npm install -D playwright-bdd
+# 2b. Add the BDD layer (+ TypeScript, which the `typecheck` script needs)
+npm install -D playwright-bdd typescript
 
 # 2c. Make sure browsers are installed (the init step usually does this; CI needs it explicitly)
 npx playwright install --with-deps
@@ -35,8 +35,8 @@ npx playwright install --with-deps
 For pnpm / yarn:
 
 ```bash
-pnpm create playwright    # then: pnpm add -D playwright-bdd
-yarn create playwright    # then: yarn add -D playwright-bdd
+pnpm create playwright    # then: pnpm add -D playwright-bdd typescript
+yarn create playwright    # then: yarn add -D playwright-bdd typescript
 ```
 
 Skip step 2a if Playwright is already installed in this project — just run 2b + 2c.
@@ -60,7 +60,7 @@ Skip step 2a if Playwright is already installed in this project — just run 2b 
 
 The canonical pair is **`bddgen && playwright test`**. `bddgen` compiles `.feature` files into Playwright `.spec.js` files under `.features-gen/`, then Playwright's runner executes them. Skipping `bddgen` runs whatever was generated *last time* — silent, hard-to-debug staleness.
 
-**Do not** set `"type": "module"` for the Playwright config — Playwright's config loader expects CJS or TS files. Conflicts here cause cryptic "Cannot find module" errors at startup.
+`"type": "module"` is not needed. If you add it, the run still works, but `tsc` with `module: "NodeNext"` then demands explicit extensions on relative imports (`from '../fixtures.js'`).
 
 ## 4. `playwright.config.ts`
 
@@ -102,7 +102,7 @@ export default defineConfig({
 
 Critical bits:
 
-- **`steps`** glob *must* include the file that exports your extended `test` (your `fixtures.ts`). Since v8 `importTestFrom` is deprecated — auto-detected from `steps`.
+- **`steps`** glob *must* include the file that exports your extended `test` (your `fixtures.ts`). Since v8 `importTestFrom` is not needed — auto-detected from `steps`.
 - **`testDir`** is set to the path `defineBddConfig` returns (under `.features-gen/`), NOT to `features/`.
 - **`fullyParallel: true`** runs scenarios concurrently. Turn it off per project only if scenarios in one feature share mutable backend state.
 
@@ -159,11 +159,14 @@ project/
 
 ```
 node_modules
-.features-gen/              # bddgen output — must be regenerated every run
+# bddgen output — must be regenerated every run
+# (gitignore only treats # as a comment at line start; a trailing comment breaks the pattern)
+.features-gen/
 test-results/
 playwright-report/
 blob-report/
-playwright/.cache/          # only if you use Playwright auth state caching
+# only if you use Playwright auth state caching
+playwright/.cache/
 ```
 
 **Never** commit `.features-gen/` — it's a build artifact and goes stale silently.
@@ -241,7 +244,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: 20, cache: npm }
+        with: { node-version: 24, cache: npm }
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npx bddgen
@@ -259,7 +262,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: 20, cache: npm }
+        with: { node-version: 24, cache: npm }
       - run: npm ci
       - uses: actions/download-artifact@v4
         with: { path: all-blob, pattern: blob-* }
@@ -279,7 +282,9 @@ Browser binaries get cached by `actions/setup-node` via the `~/.cache/ms-playwri
 | `bddgen: command not found`                                                        | `node_modules/.bin` not on PATH. Use `npx bddgen` or run via npm script (`npm run bdd:gen`).     |
 | Running `playwright test` shows 0 tests                                            | `bddgen` wasn't run first; `.features-gen/` is empty or stale. Always pair: `bddgen && playwright test`. |
 | `testDir not found: .features-gen/...`                                             | Same — run `bddgen` once, or wire it into a `pretest` script.                                    |
-| `importTestFrom is deprecated`                                                     | Old (pre-v8) config. Remove `importTestFrom` and add the file that exports `test` to `steps`.    |
+| `WARNING: Option "importTestFrom" in defineBddConfig() is not needed anymore.`     | Old (pre-v8) config. Remove `importTestFrom` and add the file that exports `test` to `steps`.    |
+| `Error: createBdd() should use 'test' extended from "playwright-bdd"`              | `fixtures.ts` imports `test as base` from `@playwright/test`. Import it from `playwright-bdd`.   |
+| `Error: Found step definitions with incorrect arguments` / `Function has 1 argument, but expected 2.` | v9 arity check: the step function must declare every Cucumber Expression capture after the fixtures object. |
 | Step `expect(...)` errors with "expect is not a function"                          | Import `expect` from `@playwright/test`, not from `'expect'` or `'vitest'`.                      |
 | Tests can't see custom fixtures (`Cannot read properties of undefined (reading 'loginPage')`) | Step file imports `Given/When/Then` from `'playwright-bdd'` directly. Import them from your own `fixtures.ts` instead. |
 | Browser binaries time-out during install in CI                                     | Add `npx playwright install --with-deps chromium` (single-browser install) instead of the full set, if firefox/webkit aren't needed. |
@@ -298,8 +303,8 @@ No — works identically on npm/pnpm/yarn/bun. The one wrinkle: `npm init playwr
 
 ## 13. Upgrading
 
-- **v8 (current stable):** `importTestFrom` deprecated; auto-detected from `steps` glob. Requires `@playwright/test >= 1.44`, Node >= 18.
-- **v9 (beta):** Drops `enrichReporterData` option; switch to JUnit `nameFormat: 'cucumber'`. Requires `@playwright/test >= 1.60`, Node >= 20.
+- **v8:** `importTestFrom` no longer needed; auto-detected from `steps` glob. Requires `@playwright/test >= 1.44`, Node >= 18.
+- **v9 (current stable):** Requires Node >= 20 (`@playwright/test >= 1.44` unchanged). Strict Cucumber-compatible step arity checks at `bddgen` time (opt out with `arityCheck: false`, 9.2+). Drops `enrichReporterData` option; switch to JUnit `nameFormat: 'cucumber'`. Playwright 1.61 needs ≥ 9.1.0, Playwright 1.63 needs ≥ 9.2.1.
 
 Pin a known-good combination if you depend on a specific behavior — both `playwright-bdd` and `@playwright/test` move quickly.
 

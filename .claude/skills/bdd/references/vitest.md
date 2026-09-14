@@ -3,10 +3,11 @@
 This reference covers Gherkin-style BDD on top of [Vitest](https://vitest.dev),
 the Vite-native test runner. In 2026 the de-facto library is
 **[`@amiceli/vitest-cucumber`](https://github.com/amiceli/vitest-cucumber)**
-(`v6.x`). It requires **Vitest ≥ 2.0** (works through Vitest 4.x).
+(`v8.x`). v8 requires **Vitest 5** (peer `^5.0.0`); stay on v7.x if you are
+still on Vitest 4.
 
 > **Verified runnable:** the patterns below are taken from a real `npm test`
-> run against `@amiceli/vitest-cucumber@6.5.0` + `vitest@4.1.7`. The
+> run against `@amiceli/vitest-cucumber@8.0.0` + `vitest@5.0.0` (Vite 8.3). The
 > APIs ARE picky; following them literally is the difference between 21/21
 > green and zero-tests-found.
 
@@ -143,7 +144,14 @@ Each Background and each Scenario gets its OWN scenario-scoped context bag
 that is NOT shared between them. To share state across Background + Scenario
 steps (the normal World pattern), declare the type on `describeFeature<T>(...)`
 and use the feature-level `context: T` that's destructured from the feature
-callback. Reset it in `BeforeEachScenario` so scenarios stay independent.
+callback.
+
+**Hook order (verified on v8.0.0):** for every scenario the `Background` steps run
+*before* `BeforeEachScenario`, then the scenario's own steps. So create per-scenario
+state in the Background's first `Given`, not in the hook — a Background step that reads
+state the hook creates sees `undefined` on the first scenario and the previous
+scenario's leftovers after that. Use `BeforeEachScenario` only for state the
+Background never touches (e.g. `lastError`).
 
 ```ts
 type CartCtx = { cart: Cart; lastError?: unknown }
@@ -153,8 +161,7 @@ const feature = await loadFeature('src/cart/cart.feature')
 describeFeature(feature, ({ Background, Rule, BeforeEachScenario, context }: FeatureDescriibeCallbackParams<CartCtx>) => {
   // BeforeEachScenario takes NO arguments — close over the feature `context`.
   BeforeEachScenario(() => {
-    context.cart = new Cart()
-    context.lastError = undefined
+    context.lastError = undefined // runs AFTER the Background, which creates the cart
   })
 
   Background(({ Given, And }) => {
@@ -171,7 +178,7 @@ describeFeature(feature, ({ Background, Rule, BeforeEachScenario, context }: Fea
 ```
 
 Common mistake: trying to use `s.context` like a typed StepTest argument.
-The library used to expose that pattern; in v6 it doesn't — `BeforeEachScenario`
+The library used to expose that pattern; since v6 (still true in v8) it doesn't — `BeforeEachScenario`
 receives no args, and each Background/Scenario block has its own fresh
 `context: {}` that doesn't bridge.
 
@@ -228,6 +235,11 @@ inside quotes), so the binding must mirror that exactly. Mixed forms — e.g. a
 non-quoted Outline arg that needs `{string}` — would require dropping the
 placeholder syntax entirely; just match the literal feature text in the binding.
 
+Every `Examples` column must appear as `<column>` in at least one step, not just in
+the Outline title — otherwise the file throws
+`ScenarioOutlineVariableNotCalledInStepsError` before any test runs. Drop columns
+that only decorate the title.
+
 ## 5. The canonical, verified-to-run scaffold
 
 Drop this in as `cart.steps.ts` against the feature in §3 and `npm test` goes
@@ -253,8 +265,7 @@ describeFeature(feature, ({
   context,
 }: FeatureDescriibeCallbackParams<CartCtx>) => {
   BeforeEachScenario(() => {
-    context.cart = new Cart()
-    context.lastError = undefined
+    context.lastError = undefined // runs AFTER the Background, which creates the cart
   })
 
   Background(({ Given, And }) => {
@@ -344,6 +355,11 @@ domain-specific captures like `{customer}` or `{money}`.
 Use Vitest's `vi.*` API as in plain tests. Place mock setup in `Given` or
 `BeforeEachScenario` so the "arrange" phase stays visible.
 
+Each step is its own Vitest `test`, and Vitest 5 defaults `clearMocks` to
+`true` — a spy set up in `Given` has its call history wiped before `Then`
+asserts on it. Set `clearMocks: false` in `vitest.config.ts` if mocks must
+span a scenario (reset them yourself in `BeforeEachScenario`).
+
 ```ts
 import { vi } from 'vitest'
 
@@ -383,9 +399,12 @@ RuleScenario('Submit empty form', ({ Given, When, Then }) => {
 | `FeatureUknowScenarioError: Scenario X does not exist`             | Scenario is under a `Rule:` block — wrap binding in `Rule(...)` + `RuleScenario(...)`.           |
 | `StepAbleUnknowStepError: Then X does not exist`                    | Feature uses `And`/`But` but binding uses `Then`/`Given` — match the actual keyword.            |
 | `StepAbleStepExpressionError: No step match` in an Outline          | `{int}`/`{string}` does not substitute `<var>`. Use `<var>` literally in the binding.            |
-| Assertion fails with `expected NaN to be 40`                         | Step callback missing `_ctx` first arg — your Cucumber captures are shifted by one.              |
+| `StepAbleStepExpressionError: No step match` on `$45` / `${int}`     | `$` before a parameter breaks matching. Quote the amount (`"$45"`) and bind `{string}`, or drop the symbol. |
+| `ScenarioOutlineVariableNotCalledInStepsError`                       | Every `Examples` column must appear as `<var>` in some step. Remove or use the unused column.    |
+| Assertion fails with `expected [Function context] to be 40`          | Step callback missing `_ctx` first arg — your Cucumber captures are shifted by one.              |
 | `Cannot read properties of undefined (reading 'context')`            | `BeforeEachScenario(s => ...)` — hook takes NO args. Close over the feature-level `context`.    |
-| Test passes but assertion clearly wrong                              | Same as above — `_ctx` missing makes assertions silently compare wrong types.                    |
+| `TypeError: Cannot read properties of undefined` in a `Background` step | The Background runs BEFORE `BeforeEachScenario`. Create the state in the Background's first `Given`, not in the hook. |
+| `expected "spy" to be called 1 times, but got 0 times` in a `Then`   | Vitest 5 `clearMocks: true` default clears mocks between steps. Set `clearMocks: false`.         |
 | `.feature` files get executed as tests                               | `include: ['**/*.feature']` in `vitest.config.ts`. Use `['src/**/*.steps.ts']` instead.          |
 
 For Vitest reporters (`junit`, `github-actions`, etc.) and the Vitest UI

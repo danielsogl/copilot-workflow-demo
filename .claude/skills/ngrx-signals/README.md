@@ -36,6 +36,21 @@ Benchmarked on 5 substantive tasks (41 assertions total) against the same model 
 
 Cost per invocation: ~+14 seconds wall time, ~+12,000 tokens (~$0.04 at Sonnet 4.6 input pricing).
 
+### Update check (September 2026, `@ngrx/signals` 22)
+
+After refreshing the skill for v22, the refreshed and the previous version ran the same 5 tasks 3 times each. Grading was blind, and every run's `.ts` files went through `evals/checks/tsc.sh` against the real v22 packages.
+
+| Eval | refreshed | previous |
+|---|---:|---:|
+| Cart store with optimistic updates + rollback | 100% | 97% |
+| Refactor `BehaviorSubject` service to Signal Store | 100% | 96% |
+| Typed `withSelectedEntity<T>()` custom feature | 96% | 93% |
+| `rxMethod` typeahead with debounce + cancellation | 100% | 100% |
+| `TodosStore` with `@ngrx/signals/entities` updaters | 100% | 100% |
+| **Aggregate** | **99%** | **97%** |
+
+No regression; the gap is within run-to-run noise. The refresh mostly fixes correctness the assertions can't see: three documented examples no longer compiled on v22 (`idKey`, a private-method call, `jest.fn` with `expect.poll`), and the new APIs (`withLinkedState`, `watchState`, events plugin, `unprotected`) are covered.
+
 Triggering accuracy on a 20-query test set (10 should-trigger, 10 should-NOT-trigger): precision **100%**, recall **~46%**. The recall gap is a known model-side under-triggering pattern, not a description flaw. See the article for the optimizer trace.
 
 ## Install
@@ -63,7 +78,8 @@ ngrx-signals/
 │   ├── custom-features.md            # signalStoreFeature, typed prerequisites
 │   └── testing.md                    # TestBed, mocks, signalMethod tests
 └── evals/
-    └── evals.json                    # 5 tasks, 41 assertions
+    ├── evals.json                    # 5 tasks, 46 assertions
+    └── checks/tsc.sh                 # type-checks a run's output against @ngrx/signals 22
 ```
 
 ## Re-running the benchmark

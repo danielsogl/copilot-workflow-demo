@@ -13,7 +13,7 @@ type Todo = { id: number; text: string; completed: boolean };
 export const TodosStore = signalStore(withEntities<Todo>());
 ```
 
-Default contract: each entity needs an `id: string | number` (a `EntityId`). For domain types whose identifier has another name, use the `idKey` config.
+Default contract: each entity needs an `id: string | number` (a `EntityId`). For domain types whose identifier has another name, use a `selectId` function (see [Custom id](#custom-id-selectid)).
 
 What you get on the store:
 
@@ -39,6 +39,8 @@ patchState(store, prependEntities([t1, t2]));
 ```
 
 `addEntity` is a no-op if the ID already exists (no error, no override).
+
+Passing an inline object literal infers a narrower entity type (`completed: false`, a template-literal `id` from `crypto.randomUUID()`) and `patchState` fails to compile. Pass a typed value or the type argument: `addEntity<Todo>({ id: crypto.randomUUID(), text, completed: false })`. Same for `setEntity`/`upsertEntity`/`prependEntity`.
 
 ### Set / replace
 
@@ -70,7 +72,7 @@ patchState(store, updateEntities({
   changes: { text: '' },
 }));
 
-patchState(store, updateAllEntities({ archived: true }));
+patchState(store, updateAllEntities({ completed: false }));
 ```
 
 `updateEntity` / `updateEntities` are no-ops for missing IDs — no error.
@@ -93,24 +95,32 @@ patchState(store, removeEntities((todo) => todo.completed));
 patchState(store, removeAllEntities());
 ```
 
-## Custom `id` key
+## Custom id (`selectId`)
 
-If your entity uses something other than `id`:
+If your entity uses something other than `id`, declare a `selectId` function with `entityConfig` and pass the same config to `withEntities` and to every updater that needs the id (add/set/upsert/prepend/update):
 
 ```typescript
+import { patchState, signalStore, type, withMethods } from '@ngrx/signals';
+import { addEntity, entityConfig, withEntities } from '@ngrx/signals/entities';
+
 type User = { uuid: string; name: string };
 
-const idKey = (u: User) => u.uuid;
+const userConfig = entityConfig({
+  entity: type<User>(),
+  selectId: (user) => user.uuid,
+});
 
 export const UsersStore = signalStore(
-  withEntities({ entity: type<User>(), idKey })
+  withEntities(userConfig),
+  withMethods((store) => ({
+    addUser(user: User): void {
+      patchState(store, addEntity(user, userConfig));
+    },
+  }))
 );
-
-// Updaters require the same idKey when adding:
-patchState(store, addEntity(user, { idKey }));
 ```
 
-Stick the `idKey` in a constant in the same file so calls stay terse.
+`entityConfig` can also carry `collection`, so one constant covers both options. (There is no `idKey` option — that was an old API.)
 
 ## Named collections (multiple entities in one store)
 
@@ -144,7 +154,7 @@ export const LibraryStore = signalStore(
 //   store.authorIds(), store.authorEntityMap(), store.authorEntities()
 ```
 
-Always pass the `collection` option on every updater — forgetting it operates on the unnamed default and silently does nothing (or compiles wrong).
+Always pass the `collection` option on every updater — forgetting it targets the unnamed `entityMap`/`ids` slices, which a named-only store doesn't have, so `patchState` fails to compile.
 
 ## Loading a list from a service
 

@@ -1,6 +1,6 @@
 ---
 name: ngrx-signals
-description: Build, refactor, and architect Angular state with the @ngrx/signals Signal Store. Use whenever the user mentions signalStore, withState, withMethods, withComputed, withHooks, signalStoreFeature, withEntities, rxMethod, signalMethod, patchState, or wants to refactor BehaviorSubject/service-based state to Signal Store. Also use for designing custom store features, request status, optimistic updates, entity collections, and the store/service split in Angular. Do NOT use for @ngrx/store (classic Redux), createReducer/createEffect, or generic RxJS questions unrelated to Signal Store.
+description: Build, refactor, and architect Angular state with the @ngrx/signals Signal Store. Use whenever the user mentions signalStore, withState, withMethods, withComputed, withHooks, withLinkedState, withFeature, signalStoreFeature, withEntities, rxMethod, signalMethod, patchState, the SignalStore events plugin (withReducer, withEventHandlers), or wants to refactor BehaviorSubject/service-based state to Signal Store. Also use for designing custom store features, request status, optimistic updates, entity collections, and the store/service split in Angular. Do NOT use for @ngrx/store (classic Redux), createReducer/createEffect, or generic RxJS questions unrelated to Signal Store.
 ---
 
 # NgRx Signal Store
@@ -11,7 +11,7 @@ Modern, lightweight, signal-based state management for Angular. This skill produ
 
 Trigger on any of these signals:
 
-- The user names the API: `signalStore`, `signalStoreFeature`, `withState`, `withMethods`, `withComputed`, `withHooks`, `withProps`, `withEntities`, `rxMethod`, `signalMethod`, `patchState`, `getState`, `signalState`.
+- The user names the API: `signalStore`, `signalStoreFeature`, `withState`, `withMethods`, `withComputed`, `withLinkedState`, `withHooks`, `withProps`, `withFeature`, `withEntities`, `rxMethod`, `signalMethod`, `patchState`, `getState`, `watchState`, `signalState`, or `@ngrx/signals/events` / `@ngrx/signals/testing`.
 - The user wants to **refactor** a service that uses `BehaviorSubject`/`Subject` or a class with mutable fields into a Signal Store.
 - The user asks for **feature/page state** in Angular and either mentions Angular Signals or asks for a "modern" approach.
 - The user wants a **custom store feature** (`withRequestStatus`, `withSelectedEntity`, `withLogger`, etc.) or asks how to compose features.
@@ -49,7 +49,7 @@ import { computed, inject } from '@angular/core';
 import {
   patchState, signalStore, withComputed, withMethods, withState,
 } from '@ngrx/signals';
-import { FooApi } from './foo.api';
+import { Foo, FooApi } from './foo.api';
 import {
   setError, setFulfilled, setPending, withRequestStatus,
 } from './with-request-status';
@@ -102,8 +102,9 @@ For collections with stable IDs, swap `items: T[]` in state for `withEntities<T>
 5. **Pick the right async tool.**
    - **`async` method** for a single awaited call.
    - **`rxMethod<Input>(pipe(...))`** when you need RxJS operators (`debounceTime`, `switchMap`, retry, cancellation).
-   - **`signalMethod<Input>((value) => ...)`** (v19+) when input is a signal/value and the body is synchronous — no RxJS overhead.
-6. **Test through the public API only.** `TestBed.inject(Store)`, mock injected services with `provide:`, assert on signals + method effects.
+   - **`signalMethod<Input>((value) => ...)`** when input is a signal/value and the body is synchronous — no RxJS overhead.
+   - Passing a signal or computation function to either? Call it in an injection context or pass `{ injector }` — calling outside one is deprecated.
+6. **Test through the public API only.** `TestBed.inject(Store)`, mock injected services with `provide:`, assert on signals + method effects. Seed protected state with `patchState(unprotected(store), ...)` from `@ngrx/signals/testing`.
 
 ## Wrong → Right (the corrections that matter most)
 
@@ -224,6 +225,7 @@ Read the **one** reference file that matches the task. Most tasks need only one.
 | ------------------------------------------- | --------------------------------- |
 | Plain feature store, computed, methods      | `references/api-reference.md`     |
 | `rxMethod` / `signalMethod` / RxJS bridge   | `references/api-reference.md`     |
+| `withLinkedState`, `watchState`, events plugin, resource extensions | `references/api-reference.md` |
 | Entity collection (CRUD with IDs)           | `references/entities.md`          |
 | Custom reusable feature (`withXxx`)         | `references/custom-features.md`   |
 | Architecture: scoping, optimistic, BS-refactor | `references/patterns.md`        |
@@ -240,5 +242,7 @@ If the request or existing code shows any of these, point it out:
 - **Cross-store imports.** Stores never inject other stores. Lift state up, compose via a feature, or share a service.
 - **Hand-rolled `T[]` arrays for entity data.** With stable IDs, use `withEntities<T>()`.
 - **Direct signal mutation from outside.** `store.count.set(...)` breaks encapsulation. Expose a method.
-- **`rxMethod` for trivial sync logic.** Use `signalMethod` (v19+) or a plain method.
+- **`rxMethod` for trivial sync logic.** Use `signalMethod` or a plain method.
+- **Re-syncing one slice when another changes** (an `effect` or method that resets `selectedId` when `items` change). Use `withLinkedState`.
 - **Untyped state.** `withState({ count: 0 })` works; `withState<CounterState>({ count: 0 })` makes future patches type-safe.
+- **Outdated API names.** `withEffects` (events plugin) is now `withEventHandlers`; entity `idKey` is now `selectId` via `entityConfig`; `rxMethod(...).unsubscribe()` is now `.destroy()`.

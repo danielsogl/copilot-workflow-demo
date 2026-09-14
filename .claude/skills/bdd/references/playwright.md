@@ -2,8 +2,8 @@
 
 End-to-end behavior-driven testing in Playwright. The 2026 recommended approach is **`playwright-bdd`** by Vitaly Slobodin (`vitalets/playwright-bdd`), which converts `.feature` files into Playwright test files at build time and runs them through Playwright's native runner. This preserves fixtures, tracing, parallel workers, sharding, and visual regression — all features that are lost when using `@cucumber/cucumber` as the runner.
 
-- **Current stable:** `playwright-bdd@8.5.x` (May 2026); `9.0.0-beta` available.
-- **Required:** Playwright `>= 1.44` (8.x) or `>= 1.60` (9.x beta); Node.js `>= 18` (8.x) or `>= 20` (9.x).
+- **Current stable:** `playwright-bdd@9.2.x` (Sep 2026). Verified on `playwright-bdd@9.2.1` + `@playwright/test@1.63.0`.
+- **Required:** Playwright `>= 1.44` (use `playwright-bdd >= 9.2.1` with Playwright 1.63); Node.js `>= 20`.
 - **Verdict:** Still the recommended choice in 2026. `@cucumber/cucumber` + Playwright-as-library remains valid only when you must share Gherkin across languages or you have a large legacy Cucumber estate.
 
 ## 1. When to use Playwright BDD
@@ -48,7 +48,11 @@ export default defineConfig({
   testDir,
   fullyParallel: true,
   reporter: [['html', { open: 'never' }], ['list']],
-  use: { trace: 'on-first-retry', screenshot: 'only-on-failure' },
+  use: {
+    baseURL: process.env.BASE_URL ?? 'http://localhost:3000',   // lets steps call page.goto('/')
+    trace: 'on-first-retry',
+    screenshot: 'only-on-failure',
+  },
   projects: [
     { name: 'chromium', use: devices['Desktop Chrome'] },
   ],
@@ -59,7 +63,7 @@ Recommended layout: `features/` for `.feature`, `pages/` for POMs,
 `steps/` for step bindings, and `fixtures.ts` at the root exporting the
 extended `test`. `.features-gen/` is build output and goes in `.gitignore`.
 
-`importTestFrom` is **deprecated** as of v8 — auto-detected from `steps`.
+`importTestFrom` is **not needed** since v8 — auto-detected from `steps` (`bddgen` warns if you still set it).
 
 ## 3. Writing a feature file
 
@@ -76,62 +80,67 @@ Feature: Guest checkout
     Given the storefront is online
     And the catalog contains a "Bluetooth Speaker" priced at "$59.00"
 
-  @smoke
-  Scenario: Single-item happy path
-    Given I open the homepage
-    When  I search for "Bluetooth Speaker"
-    And   I add the first result to my cart
-    And   I proceed to checkout as a guest
-    And   I enter shipping details for "Ada Lovelace" in "London"
-    And   I pay with test card "4242 4242 4242 4242"
-    Then  I see an order confirmation
-    And   the order total reads "$59.00"
+  Rule: Visitors can buy without an account
+    @smoke
+    Example: A guest buys a single item
+      Given Patty has a "Bluetooth Speaker" in her cart
+      When  she checks out as a guest
+      Then  her order is confirmed
 
-  @regression
-  Scenario Outline: Tax is applied per region
-    Given I open the homepage
-    When  I add "Bluetooth Speaker" to my cart
-    And   I check out shipping to "<region>"
-    Then  the displayed tax rate is "<rate>"
+  Rule: Tax is applied per region
+    Scenario Outline: Tax for an order shipped to <region>
+      Given Patty has a "Bluetooth Speaker" in her cart
+      When  she checks out shipping to "<region>"
+      Then  the displayed tax rate is "<rate>"
 
-    Examples:
-      | region          | rate  |
-      | California, US  | 8.5%  |
-      | Berlin, DE      | 19%   |
-      | Tokyo, JP       | 10%   |
+      Examples:
+        | region         | rate |
+        | California, US | 8.5% |
+        | Berlin, DE     | 19%  |
+        | Tokyo, JP      | 10%  |
 ```
+
+Third-person, declarative, one `When` per scenario. Searching, clicking and card numbers live in the page object, not the spec.
 
 ## 4. Step definitions with Playwright fixtures
 
 `steps/checkout.steps.ts`:
 
 ```ts
-import { expect } from '@playwright/test';
 import { Given, When, Then } from '../fixtures';
 
-Given('I open the homepage', async ({ page }) => {
-  await page.goto('/');
+Given('the storefront is online', async ({ checkoutPage }) => {
+  await checkoutPage.open();
 });
 
-When('I search for {string}', async ({ page }, query: string) => {
-  await page.getByRole('searchbox').fill(query);
-  await page.getByRole('searchbox').press('Enter');
+Given('the catalog contains a {string} priced at {string}',
+  async ({ checkoutPage }, product: string, price: string) => {
+    await checkoutPage.stubCatalog(product, price);
 });
 
-When('I add the first result to my cart', async ({ page }) => {
-  await page
-    .getByTestId('product-card')
-    .first()
-    .getByRole('button', { name: /add to cart/i })
-    .click();
+Given('Patty has a {string} in her cart', async ({ checkoutPage }, product: string) => {
+  await checkoutPage.addToCart(product);
 });
 
-Then('the order total reads {string}', async ({ page }, total: string) => {
-  await expect(page.getByTestId('order-total')).toHaveText(total);
+When('she checks out as a guest', async ({ checkoutPage }) => {
+  await checkoutPage.shipTo('Patty Smith', 'Berlin, DE');
+  await checkoutPage.payWithCard('4242 4242 4242 4242');
+});
+
+When('she checks out shipping to {string}', async ({ checkoutPage }, region: string) => {
+  await checkoutPage.shipTo('Patty Smith', region);
+});
+
+Then('her order is confirmed', async ({ checkoutPage }) => {
+  await checkoutPage.expectOrderConfirmed();
+});
+
+Then('the displayed tax rate is {string}', async ({ checkoutPage }, rate: string) => {
+  await checkoutPage.expectTaxRate(rate);
 });
 ```
 
-Step parameters are typed positionally; the **first argument is always the fixtures object**. Always import `Given/When/Then` from your own `fixtures.ts`, never from `playwright-bdd` directly — otherwise custom fixtures aren't visible.
+Every step is thin glue: no locators, no `expect`, just a call into the `checkoutPage` fixture (§5, §6). Step parameters are typed positionally; the **first argument is always the fixtures object**. Always import `Given/When/Then` from your own `fixtures.ts`, never from `playwright-bdd` directly — otherwise custom fixtures aren't visible.
 
 ## 5. Custom fixtures / World pattern
 
@@ -197,21 +206,80 @@ export class LoginPage {
 }
 ```
 
+`pages/CheckoutPage.ts` (used by §4):
+
+```ts
+import { Page, Locator, expect } from '@playwright/test';
+
+export class CheckoutPage {
+  private readonly search: Locator;
+  private readonly productCards: Locator;
+  private readonly guestCheckout: Locator;
+  private readonly fullName: Locator;
+  private readonly region: Locator;
+  private readonly cardNumber: Locator;
+  private readonly pay: Locator;
+  private readonly taxRate: Locator;
+  private readonly confirmation: Locator;
+
+  constructor(public readonly page: Page) {
+    this.search        = page.getByRole('searchbox');
+    this.productCards  = page.getByTestId('product-card');
+    this.guestCheckout = page.getByRole('button', { name: 'Check out as guest' });
+    this.fullName      = page.getByLabel('Full name');
+    this.region        = page.getByLabel('Region');
+    this.cardNumber    = page.getByLabel('Card number');
+    this.pay           = page.getByRole('button', { name: 'Pay' });
+    this.taxRate       = page.getByTestId('tax-rate');
+    this.confirmation  = page.getByRole('heading', { name: 'Order confirmed' });
+  }
+
+  async open() { await this.page.goto('/'); }
+
+  // Stubs the catalog API; swap for a real seeding call if your backend has one.
+  async stubCatalog(name: string, price: string) {
+    await this.page.route('**/api/products*', (route) => route.fulfill({ json: [{ name, price }] }));
+  }
+
+  async addToCart(product: string) {
+    await this.search.fill(product);
+    await this.search.press('Enter');
+    await this.productCards.filter({ hasText: product })
+      .getByRole('button', { name: 'Add to cart' }).click();
+  }
+
+  async shipTo(fullName: string, region: string) {
+    await this.guestCheckout.click();
+    await this.fullName.fill(fullName);
+    await this.region.fill(region);
+  }
+
+  async payWithCard(cardNumber: string) {
+    await this.cardNumber.fill(cardNumber);
+    await this.pay.click();
+  }
+
+  async expectOrderConfirmed() { await expect(this.confirmation).toBeVisible(); }
+
+  async expectTaxRate(rate: string) { await expect(this.taxRate).toHaveText(rate); }
+}
+```
+
 `steps/auth.steps.ts`:
 
 ```ts
 import { Given, When, Then } from '../fixtures';
 
-Given('I am on the login page', async ({ loginPage }) => {
+Given('Jane is on the sign-in page', async ({ loginPage }) => {
   await loginPage.goto();
 });
 
-When('I sign in as {string} with password {string}',
+When('she signs in as {string} with password {string}',
   async ({ loginPage }, email: string, password: string) => {
     await loginPage.signIn(email, password);
 });
 
-Then('I see my account dashboard', async ({ loginPage }) => {
+Then('she sees her account dashboard', async ({ loginPage }) => {
   await loginPage.expectSignedIn();
 });
 ```
@@ -309,6 +377,7 @@ wiring required.
 - **Selectors buried inside step definitions**. Selectors live in **page objects only**. A step that calls `page.locator('div.x > span:nth-child(2)')` is unmaintainable.
 - **Over-decomposing into 12 tiny steps**. A scenario should read like a user story, not an API trace. Three to seven steps is the sweet spot.
 - **Stale `bddgen` output**. After editing a `.feature`, running `playwright test` alone may execute the previous spec. Always `bddgen && playwright test`.
+- **Step function arity doesn't match the pattern** (v9+). `Then('the total reads {string}', async ({ page }) => ...)` makes `bddgen` fail with `Function has 1 argument, but expected 2.` Declare every capture after the fixtures object; `arityCheck: false` in `defineBddConfig` is the escape hatch.
 - **Importing `Given/When/Then` from `playwright-bdd` directly**. Strips custom fixtures. Always import from your `fixtures.ts`.
 - **One giant Background block**. Long backgrounds slow every scenario and hide real setup; move infra setup to `BeforeAll`.
 - **Sharing mutable test data between scenarios**. Each scenario must be independent. Use worker-scoped fixtures + per-scenario IDs (e.g. `testUserEmail` above).

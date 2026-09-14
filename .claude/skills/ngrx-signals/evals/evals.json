@@ -4,12 +4,12 @@
     {
       "id": 1,
       "name": "cart-store-optimistic-with-request-status",
-      "prompt": "I'm building an Angular 19 e-commerce frontend. I need a CartStore using @ngrx/signals that holds the user's cart items, exposes a total and item count, supports add/remove/clear, and uses optimistic updates with rollback when calling our CartApiService (it has add(item), remove(id), clear() — all returning Promises that may reject). The store should be app-wide (providedIn root). Also surface request status so the UI can show 'saving…' and error states. Generate the full TypeScript implementation: CartStore, the CartApiService interface, and the with-request-status custom feature. Also add a small Vitest/Jest test that verifies optimistic add works and that a rejected add rolls back the cart.",
+      "prompt": "I'm building an Angular 22 e-commerce frontend. I need a CartStore using @ngrx/signals that holds the user's cart items, exposes a total and item count, supports add/remove/clear, and uses optimistic updates with rollback when calling our CartApiService (it has add(item), remove(id), clear() — all returning Promises that may reject). The store should be app-wide (providedIn root). Also surface request status so the UI can show 'saving…' and error states. Generate the full TypeScript implementation: CartStore, the CartApiService interface, and the with-request-status custom feature. Also add a small Vitest/Jest test that verifies optimistic add works and that a rejected add rolls back the cart.",
       "expected_output": "A CartStore using signalStore with withState (CartState typed), withComputed (total + count), withMethods that call inject(CartApiService), uses patchState with getState snapshot for rollback, includes withRequestStatus custom feature with setPending/setFulfilled/setError standalone updaters. Tests use TestBed.inject and a mocked service.",
       "files": [],
       "expectations": [
         "Imports come from '@ngrx/signals' (not '@ngrx/store')",
-        "Declares an explicit CartState type passed to withState<CartState>",
+        "State is explicitly typed: withState<CartState>(...) or withEntities<CartItem>() over a typed item type — no inferred-only state",
         "Uses signalStore with { providedIn: 'root' } config",
         "Uses patchState (never direct .set on signals from outside)",
         "HTTP / persistence is in a separate service injected via inject(), NOT inlined in withMethods using HttpClient",
@@ -17,7 +17,8 @@
         "Exposes a withRequestStatus custom feature defined via signalStoreFeature with setPending/setFulfilled/setError standalone updater functions",
         "Computed total and count are defined inside withComputed (not as plain methods)",
         "Test file uses TestBed.inject(CartStore) and overrides CartApiService via { provide: CartApiService, useValue: ... }",
-        "Test asserts that an add followed by a rejected promise restores the previous cart contents"
+        "Test asserts that an add followed by a rejected promise restores the previous cart contents",
+        "`evals/checks/tsc.sh <outputs>` passes: every generated .ts file (store, features, services, specs) type-checks with strict tsc against @ngrx/signals 22 / Angular 22. The script stubs relative modules the run never wrote as `any`; a remaining error that only exists because a stubbed module is untyped (e.g. RxJS inferring `unknown` from an `any` service) does not count"
       ]
     },
     {
@@ -34,7 +35,8 @@
         "loadAll uses patchState for both the loading flag and the result, and calls the injected ProductsApiService",
         "Add method uses patchState with a function-form updater (not direct mutation)",
         "Component snippet calls store.products() and store.inStockProducts() as signals (no | async pipe)",
-        "ProductsStore does NOT import HttpClient directly"
+        "ProductsStore does NOT import HttpClient directly",
+        "`evals/checks/tsc.sh <outputs>` passes: every generated .ts file (store, features, services, specs) type-checks with strict tsc against @ngrx/signals 22 / Angular 22. The script stubs relative modules the run never wrote as `any`; a remaining error that only exists because a stubbed module is untyped (e.g. RxJS inferring `unknown` from an `any` service) does not count"
       ]
     },
     {
@@ -51,7 +53,8 @@
         "Provides select(id) and clearSelection() methods that use patchState",
         "BooksStore composes withEntities<Book>() BEFORE withSelectedEntity<Book>() (order matters)",
         "Test wraps the feature in a fresh signalStore (not the real BooksStore) and uses TestBed.inject",
-        "Test verifies select() updates selectedEntity and clearSelection() resets it to null"
+        "Test verifies select() updates selectedEntity and clearSelection() resets it to null",
+        "`evals/checks/tsc.sh <outputs>` passes: every generated .ts file (store, features, services, specs) type-checks with strict tsc against @ngrx/signals 22 / Angular 22. The script stubs relative modules the run never wrote as `any`; a remaining error that only exists because a stubbed module is untyped (e.g. RxJS inferring `unknown` from an `any` service) does not count"
       ]
     },
     {
@@ -67,7 +70,8 @@
         "patchState updates isLoading before the HTTP call and resets it on both success and error paths",
         "Does not use signalMethod for this case (RxJS operators required)",
         "Includes a brief comment justifying the rxMethod choice over signalMethod / plain async",
-        "Test uses TestBed.inject(BookSearchStore), mocks BooksApi via providers, and asserts results after a wait/poll for the debounce"
+        "Test uses TestBed.inject(BookSearchStore), mocks BooksApi via providers, and asserts results after a wait/poll for the debounce",
+        "`evals/checks/tsc.sh <outputs>` passes: every generated .ts file (store, features, services, specs) type-checks with strict tsc against @ngrx/signals 22 / Angular 22. The script stubs relative modules the run never wrote as `any`; a remaining error that only exists because a stubbed module is untyped (e.g. RxJS inferring `unknown` from an `any` service) does not count"
       ]
     },
     {
@@ -84,7 +88,8 @@
         "loadAll uses setAllEntities together with setFulfilled / setPending request-status updaters",
         "Computed counts use the entities() signal (or ids().length where appropriate) inside withComputed",
         "withRequestStatus is implemented as signalStoreFeature in a separate function (reusable)",
-        "Test uses TestBed.inject(TodosStore), exercises addTodo + toggleCompleted, and asserts both the entities and the computed counts"
+        "Test uses TestBed.inject(TodosStore), exercises addTodo + toggleCompleted, and asserts both the entities and the computed counts",
+        "`evals/checks/tsc.sh <outputs>` passes: every generated .ts file (store, features, services, specs) type-checks with strict tsc against @ngrx/signals 22 / Angular 22. The script stubs relative modules the run never wrote as `any`; a remaining error that only exists because a stubbed module is untyped (e.g. RxJS inferring `unknown` from an `any` service) does not count"
       ]
     }
   ]

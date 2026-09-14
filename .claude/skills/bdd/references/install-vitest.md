@@ -1,6 +1,6 @@
 # Installing BDD for Vitest — 2026 Setup Guide
 
-Zero-to-running setup for **`@amiceli/vitest-cucumber@6.x`** on **Vitest ≥ 2.0** (verified on 4.1.x). Follow these steps in order — the project goes from empty directory to green tests in under two minutes.
+Zero-to-running setup for **`@amiceli/vitest-cucumber@8.x`** on **Vitest 5** (verified on `@amiceli/vitest-cucumber@8.0.0` + `vitest@5.0.0` + `vite@8.3.0`, Node 24). Follow these steps in order — the project goes from empty directory to green tests in under two minutes.
 
 Once installed, see `references/vitest.md` for the actual writing-tests guide; this file is purely the install workflow.
 
@@ -8,7 +8,7 @@ Once installed, see `references/vitest.md` for the actual writing-tests guide; t
 
 | Tool        | Version    |
 |-------------|------------|
-| Node.js     | ≥ 18 LTS (Node 20 or 24 recommended) |
+| Node.js     | ≥ 22.12 (Vitest 5 engines: `^22.12.0 \|\| ^24.0.0 \|\| >=26.0.0`) |
 | Package mgr | npm 10+, pnpm 9+, or yarn 4+ |
 | TypeScript  | ≥ 5.4 (only if your code is TS) |
 
@@ -18,7 +18,7 @@ Check what you have:
 node --version && npm --version
 ```
 
-If Node is older than 18, upgrade first — Vitest 4 + ESM don't work cleanly below.
+If Node is older than 22.12, upgrade first — Vitest 5 does not support it.
 
 ## 2. Install
 
@@ -41,7 +41,7 @@ If your project is TypeScript and you want strict types:
 npm install -D typescript @types/node
 ```
 
-That's all the BDD-specific install. No browser binaries, no peer-dependency dance.
+That's all the BDD-specific install. No browser binaries. The one peer constraint: v8 needs `vitest@^5` — a project already on Vitest 4 must upgrade Vitest (or install `@amiceli/vitest-cucumber@7`).
 
 ## 3. `package.json` — minimum required
 
@@ -69,6 +69,7 @@ export default defineConfig({
   test: {
     include: ['src/**/*.steps.ts'],              // run step files; NEVER include *.feature
     exclude: ['**/*.feature', '**/node_modules/**', '**/dist/**'],
+    clearMocks: false,                           // Vitest 5 default `true` clears mocks between steps
     reporters: process.env.CI
       ? ['default', 'junit', 'github-actions']
       : ['default'],
@@ -77,10 +78,11 @@ export default defineConfig({
 })
 ```
 
-The two critical bits:
+The critical bits:
 
 - **`include`** must target `*.steps.ts`. If you point it at `*.feature`, Vitest will try to *execute* the Gherkin file as a test and fail.
 - **`exclude`** must explicitly exclude `**/*.feature` so it doesn't get picked up by any other glob.
+- **`clearMocks: false`** — every step is a separate Vitest `test`; with Vitest 5's default a `vi.spyOn` from `Given` has no recorded calls by the time `Then` asserts.
 
 ## 5. `tsconfig.json` (TypeScript projects)
 
@@ -214,7 +216,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: 20, cache: npm }
+        with: { node-version: 24, cache: npm }
       - run: npm ci
       - run: npm run typecheck
       - run: npm test
@@ -231,6 +233,7 @@ The JUnit reporter you configured in §4 writes to `./reports/junit.xml` — pic
 | Tests pass but reporter shows `0 tests found`                         | `include` glob doesn't match your step files. Verify `src/**/*.steps.ts` resolves under the project root. |
 | Vitest tries to run a `.feature` file                                 | `.feature` is in `include` or not in `exclude`. Add `'**/*.feature'` to `exclude`.           |
 | `FeatureUknowScenarioError: Scenario X does not exist`               | The scenario is nested under `Rule:` in the feature. Wrap the binding in `Rule(...)` + `RuleScenario(...)`. See `references/vitest.md` §4.2. |
+| `npm error ERESOLVE ... peer vitest@"^5.0.0" from @amiceli/vitest-cucumber@8.0.0` | Project is on Vitest 4. `npm i -D vitest@5`, or pin `@amiceli/vitest-cucumber@7` (peer `vitest@^4`). |
 | Cannot find module `'@amiceli/vitest-cucumber'`                      | Did you install it with `-D` in the *correct* package.json (e.g. inside a monorepo workspace)? |
 | `Cannot find name 'process'`                                         | `tsconfig.json` `types` is missing `"node"` (and `@types/node` is uninstalled).             |
 
@@ -247,7 +250,11 @@ No — the install works identically on npm, pnpm, yarn, and bun. Use whichever 
 
 ## 13. Upgrading
 
-When updating across major versions of `@amiceli/vitest-cucumber`, check the [CHANGELOG](https://github.com/amiceli/vitest-cucumber/releases). v6 introduced `defineStep` with parameter expressions and the typed `FeatureDescriibeCallbackParams<T>` shape this guide uses; older v3-v5 patterns (untyped `context`, no `Rule` keyword support) will not work as written here.
+When updating across major versions of `@amiceli/vitest-cucumber`, check the [release notes](https://github.com/amiceli/vitest-cucumber/releases). The step/hook/`Rule`/`context` API this guide uses is unchanged from v6 through v8; the majors are about packaging and Vitest:
+
+- **v6:** requires Vitest 4.
+- **v7:** ESM-only build; `VitestCucumberPlugin` moved from the root export to `@amiceli/vitest-cucumber/plugin`; new `@amiceli/vitest-cucumber/load-feature` subpath. Still Vitest 4.
+- **v8:** requires Vitest 5 (Node ≥ 22.12). Vitest 5 defaults `clearMocks: true`, which clears mocks between steps — set `clearMocks: false` (§4).
 
 ## References
 
