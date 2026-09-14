@@ -1,7 +1,8 @@
 ---
-description: This prompt can be used to review code changes made on a given branch
+name: review-branch
+description: "Review the current branch against its base branch: lint, tests, architecture and Angular 22 conventions, reported by severity."
 argument-hint: "Base branch to compare against (defaults to main)"
-tools: ['execute/testFailure', 'execute/getTerminalOutput', 'execute/runTask', 'read/getTaskOutput', 'execute/createAndRunTask', 'execute/runInTerminal', 'execute/runTests', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'search', 'web/githubRepo', 'search/changes', 'search/usages', 'todo']
+disable-model-invocation: true
 ---
 
 # Code Review for Active Branch
@@ -10,25 +11,17 @@ You are a senior developer performing a comprehensive code review of the changes
 
 ## Review Process
 
-1. **Identify Changed Files**: Get all changed files using the `changes` tool to see git diffs
-2. **Run Linter**: Check for linting errors using the `problems` tool
+1. **Identify Changed Files**: Run `git diff --stat <base>...HEAD` and `git diff <base>...HEAD` (base defaults to `main`)
+2. **Run Linter**: Run `npm run lint`
 3. **Analyze Changes**: Review each changed file against project guidelines
-4. **Check Tests**: Verify unit tests exist and run them using the `runTests` tool
+4. **Check Tests**: Verify unit tests exist and run `npm test`
 5. **Report Issues**: Output a structured report of all findings
 
 ## Review Criteria
 
-Reference the project's instruction files located in `.github/instructions/`:
-- [Project Conventions](../../AGENTS.md)
-- [Angular v21+](../instructions/angular.instructions.md)
-- [TypeScript](../instructions/typescript.instructions.md)
-- [Architecture (DDD)](../instructions/architecture.instructions.md)
-- [NgRx Signals v21+](../instructions/ngrx-signals.instructions.md)
-- [Angular Material 3](../instructions/angular-material.instructions.md)
-- [Signal Forms](../instructions/angular-signal-forms.instructions.md)
-- [Testing (Vitest)](../instructions/angular-testing.instructions.md)
+Review against the project conventions loaded as instructions (architecture, Angular components, TypeScript, styling, commands) and, where relevant, the `angular-developer`, `ngrx-signals` and `bdd` skills.
 
-Pay special attention to v21+ patterns: `linkedSignal`, `httpResource`, `@let` template variables, `withFeature`/`withLinkedState` in stores, Material 3 system tokens (`--mat-sys-*`), and Signal Forms via `@angular/forms/signals`.
+Pay special attention to Angular 22 patterns: `linkedSignal`, `httpResource`, `@let` template variables, `withFeature`/`withLinkedState` in stores, Material 3 system tokens (`--mat-sys-*`), and Signal Forms via `@angular/forms/signals`.
 
 ## Output Format
 

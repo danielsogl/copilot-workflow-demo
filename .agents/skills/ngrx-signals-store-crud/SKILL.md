@@ -1,7 +1,8 @@
 ---
-description: A reusable prompt for generating NgRx Signal stores with complete CRUD operations for a specified entity.
+name: ngrx-signals-store-crud
+description: "Generate an NgRx Signal Store with complete CRUD operations (API service, store, tests) for a given entity."
 argument-hint: "Entity name and target feature folder (e.g. Task src/app/features/tasks)"
-tools: ['edit', 'search', 'execute/runInTerminal', 'execute/getTerminalOutput', 'read/terminalLastCommand', 'execute/runTests', 'read/problems', 'read/readFile', 'search/usages', 'todo', 'eslint/*', 'context7/*', 'angular-cli/*']
+disable-model-invocation: true
 ---
 
 # NgRx Signal Store CRUD Generator
@@ -12,7 +13,7 @@ Generate a complete NgRx Signal Store with CRUD operations for a specified entit
 
 ## Prerequisites
 
-Before running this prompt, ensure you have:
+Before running this skill, ensure you have:
 
 1. **Entity Definition**: The target entity model must be defined and linked in the chat context
 2. **Store Name**: Specify the desired store name (e.g., `UserStore`, `TaskStore`)
@@ -130,5 +131,5 @@ src/app/features/[domain]/
 
 ## References
 
-- [NgRx Signals Patterns](../instructions/ngrx-signals.instructions.md) - Complete NgRx Signals v21+ architecture and patterns including `withFeature`, `withLinkedState`, `withProps`, `withHooks`
-- [Architecture (DDD)](../../.apm/instructions/architecture.instructions.md) - DDD folder structure with `features/` wrapper
+- `ngrx-signals` skill — Signal Store patterns (`withEntities`, `withFeature`, `withLinkedState`, `rxMethod`) and store testing
+- Architecture conventions (DDD layering under `src/app/features/<domain>/`) from the project instructions

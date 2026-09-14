@@ -1,7 +1,8 @@
 ---
-argument-hint: Entity name and target feature folder (e.g. Task src/app/features/tasks)
-description: A reusable prompt for generating Angular Signal Forms with complete validation
-  and dynamic field management for a specified entity.
+name: angular-signal-forms
+description: "Generate an Angular Signal Forms component with schema validation and dynamic field management for a given entity."
+argument-hint: "Entity name and target feature folder (e.g. Task src/app/features/tasks)"
+disable-model-invocation: true
 ---
 
 # Angular Signal Forms Generator
@@ -14,7 +15,7 @@ Generate a complete Angular Signal Form with schema validation, error handling, 
 
 ## Prerequisites
 
-Before running this prompt, ensure you have:
+Before running this skill, ensure you have:
 
 1. **Entity Definition**: The target entity model must be defined and linked in the chat context
 2. **Form Purpose**: Specify the form's purpose (e.g., "User Registration", "Task Creation", "Profile Update")
@@ -381,7 +382,7 @@ src/app/[domain]/
 
 ## Best Practices
 
-1. **Schema-Based Validation**: Always use Angular's built-in `schema()` function for declarative validation following `angular-signal-forms.instructions.md`. Define schemas at module level (not inside the class) for memoization and reusability.
+1. **Schema-Based Validation**: Always use Angular's built-in `schema()` function for declarative validation following the `angular-developer` skill (`references/signal-forms.md`). Define schemas at module level (not inside the class) for memoization and reusability.
 2. **Modern Angular Patterns**: Use standalone components, function-based DI with `inject()`, and modern control flow (`@if`, `@for`)
 3. **Signal-First Approach**: Leverage signals for all reactive state management
 4. **Material Design**: Use Angular Material components for consistent UI and built-in accessibility
@@ -394,9 +395,5 @@ src/app/[domain]/
 
 ## Key References
 
-> **Primary Reference**: [Angular Signal Forms Instructions](../instructions/angular-signal-forms.instructions.md) - Comprehensive guide for Signal Forms with schema validation
-
-### Supporting References
-- [Angular Instructions](../instructions/angular.instructions.md) - Core Angular patterns and best practices
-- [Angular Material Instructions](../instructions/angular-material.instructions.md) - Material Design component usage
-- [TypeScript Instructions](../../.apm/instructions/typescript.instructions.md) - TypeScript conventions and typing
+- `angular-developer` skill — `references/signal-forms.md` for `form()`, `schema()`, validators and `FormField`
+- Styling and TypeScript conventions from the project instructions

@@ -1,13 +1,13 @@
 ---
-argument-hint: Target scope, feature, or file paths to analyze
-description: Run a structured bug-focused code review for selected files, folders,
-  or the whole workspace
+name: analyze-codebase-bugs
+description: "Run a structured bug-focused code review for selected files, folders, or the whole workspace."
+argument-hint: "Target scope, feature, or file paths to analyze"
+disable-model-invocation: true
 ---
-
 Analyze the codebase for real defects and regression risks.
 
 Input:
-- Treat the prompt argument as scope (for example: a feature folder, changed files, or a specific flow).
+- Treat the skill argument as scope (for example: a feature folder, changed files, or a specific flow).
 - If no scope is provided, analyze the most relevant production code paths in the workspace.
 
 Primary objective:
