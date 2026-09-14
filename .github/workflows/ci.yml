@@ -11,7 +11,7 @@ jobs:
     name: Lint, test, build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with:
           node-version-file: ".nvmrc"
@@ -26,7 +26,7 @@ jobs:
     name: APM drift check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       # setup-only: this repo commits its deployed files, so `apm install` must not
       # rewrite them before the audit gets to compare the checked-out bytes.
       - uses: microsoft/apm-action@v1
