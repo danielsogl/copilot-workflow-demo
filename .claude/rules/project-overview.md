@@ -1,6 +1,11 @@
+---
+paths:
+  - "**"
+---
+
 This repo is an Angular 22 + NgRx Signals workshop demo. Agent configuration is managed by **APM** — author primitives under `.apm/`, run `apm install` to compile harness-specific output. Never hand-edit generated dirs (`.github/`, `.agents/skills/`, `.claude/`).
 
-**CodeGraph:** the `codegraph_*` MCP tools are backed by a tree-sitter index. `apm install` only writes the MCP server config — the index is **not** built automatically. If `.codegraph/` is missing (the server reports "not initialized"), run `apm run codegraph-setup` (= `codegraph init`) once; CodeGraph's daemon keeps it in sync afterwards.
+**CodeGraph:** when `.codegraph/` exists, reach for `codegraph_explore` (MCP) or `codegraph explore "<symbols or question>"` (shell) before grep or reading files — one call returns the relevant source plus its call paths. The index is **not** built by `apm install`; if `.codegraph/` is missing (the server reports "not initialized"), run `apm run codegraph-setup` (= `codegraph init`) once — CodeGraph's daemon keeps it in sync afterwards.
 
 ## Stack
 
@@ -34,11 +39,16 @@ src/app/
 
 ## Skills
 
-Skills are `apm` dependencies declared in `apm.yml` and deployed to `.agents/skills/` and
-`.claude/skills/`. Both copies are generated — edit `apm.yml`, never the deployed files.
+Skills are deployed to `.agents/skills/` and `.claude/skills/` — both copies are generated. Knowledge
+skills are `apm` dependencies in `apm.yml`; workflow skills live in `.apm/skills/` and are invoked as
+slash commands (identical in Claude Code, Copilot in VS Code and Copilot CLI).
 
-| Skill               | When to use                                                            |
-| ------------------- | ---------------------------------------------------------------------- |
-| `angular-developer` | Generic Angular 22 guidance (components, DI, routing, styling, ARIA)   |
-| `ngrx-signals`      | Authoring or testing any NgRx Signal Store (`*-store.ts`)              |
-| `bdd`               | Gherkin/Cucumber specs, Playwright BDD, executable acceptance criteria  |
+| Skill                      | When to use                                                           |
+| -------------------------- | --------------------------------------------------------------------- |
+| `angular-developer`        | Generic Angular 22 guidance (components, DI, routing, styling, ARIA)  |
+| `ngrx-signals`             | Authoring or testing any NgRx Signal Store (`*-store.ts`)             |
+| `bdd`                      | Gherkin/Cucumber specs, Playwright BDD, executable acceptance criteria |
+| `/review-branch`           | Severity-ranked review of the current branch against `main`           |
+| `/analyze-codebase-bugs`   | Bug hunt in a given scope                                             |
+| `/ngrx-signals-store-crud` | Scaffold API service + CRUD Signal Store + tests for an entity        |
+| `/angular-signal-forms`    | Scaffold a Signal Forms component with validation for an entity       |

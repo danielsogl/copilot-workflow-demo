@@ -1,5 +1,6 @@
 ---
 description: Build/test/lint commands and global project rules (npm-only, no bypassing hooks).
+applyTo: "**"
 ---
 
 ## Commands
