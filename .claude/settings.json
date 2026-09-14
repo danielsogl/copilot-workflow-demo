@@ -74,6 +74,9 @@
       "Bash(git log:*)"
     ],
     "deny": [
+      "Bash(git push:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(npm publish:*)",
       "Read(./.env)",
       "Read(./.env.*)",
       "Read(./**/*.pem)"
