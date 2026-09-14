@@ -1,11 +1,11 @@
 lockfile_version: '1'
-generated_at: '2026-09-11T10:33:56.564075+00:00'
+generated_at: '2026-09-14T12:58:51.718062+00:00'
 apm_version: 0.30.0
 dependencies:
 - repo_url: angular/skills
   name: angular-developer
   host: github.com
-  resolved_commit: 235f174e70b27a375175bdfdcf0390ae7489ca8a
+  resolved_commit: a7f825692db669dc97e2059fe2220cc4a3dc34a7
   version: unknown
   virtual_path: angular-developer
   is_virtual: true
@@ -278,7 +278,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:cb8085c33bc06540574f47e84c92f96dea97b585e3c50aa90d2739664e3ccac6
+  content_hash: sha256:25e8c507960b1eb075dc68ade9f06a46eae6ba9ff0835a5555c41d79d9bcc38a
 - kind: project-relative
   target: claude
   value: .claude/agents/playwright-test-healer.md
@@ -287,7 +287,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:01d102381a51b327b28849dc90d8190460ba006347bc808b530a5c952541487c
+  content_hash: sha256:d79ad60df5f1a770a31be8a12241d2fc0b0d4b2b23302c0463fdf39da293ace6
 - kind: project-relative
   target: claude
   value: .claude/agents/playwright-test-planner.md
@@ -296,43 +296,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:3cdfd1dcd6626fda6db602c3c67f597b06e7bafe5765bec3519397d823c66873
-- kind: project-relative
-  target: claude
-  value: .claude/commands/analyze-codebase-bugs.md
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:8be10386f4099e3e8bf06d029be400439a2f295574a6b372df5e23269849db0f
-- kind: project-relative
-  target: claude
-  value: .claude/commands/angular-signal-forms.md
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:0f615a06fe89dc9db91e301c4942ea5c913c6bb9ba89a79cfcf9005544480359
-- kind: project-relative
-  target: claude
-  value: .claude/commands/code-review.md
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:82643779bee83619b204c24c91b0de05372468cce7607f5d3d6d21ebf11a6439
-- kind: project-relative
-  target: claude
-  value: .claude/commands/ngrx-signals-store-crud.md
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:43c3f6c79559048dbc58e0744e40325fbc0cbfc300e980eacf1e0b062ea07629
+  content_hash: sha256:707e3c32b141be3d51cd18da88b93c9a2d653f9d78a07f652d496a3b6a9dc0f7
 - kind: project-relative
   target: claude
   value: .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh
@@ -341,7 +305,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:afcddbf65320c5d07861bee35810e930f980f0899386e9ed5945bc2b824a4975
+  content_hash: sha256:f0b51d96c7714d0106d9206cbd04e6a702358ec541c9c570b3ee3a9f4c540276
 - kind: project-relative
   target: claude
   value: .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh
@@ -350,7 +314,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:022133073fc9904da33f3cc102397c5b0b4cf5e3272e3d186bfdcea5da5b23d7
+  content_hash: sha256:ca5360b0824a377dbd1feca250a29eae78d056a318a67ff4932b3342345d3447
 - kind: project-relative
   target: claude
   value: .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh
@@ -359,7 +323,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:14a476ec1bd40cb09d51296c63b5b2a2f7b9abd12a2c29f922c8cc88c566f443
+  content_hash: sha256:4a04085878633605cf04466789f1d711fafd7a71f523b80f98e45473db7fe4b3
 - kind: project-relative
   target: claude
   value: .claude/rules/angular-components.md
@@ -386,7 +350,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:56950f31dda4ff2e56fdabe6bdb97340f370079078c11c0a773f29dd6424e882
+  content_hash: sha256:827f798b8907a9c10a2eac11283f0351612ed8f67845ba0610efc1697f2afe50
 - kind: project-relative
   target: claude
   value: .claude/rules/project-overview.md
@@ -395,7 +359,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:d0f0b4a1f60262ad35f056ff7d13baa8189d087ed8838f51897eaecdb3bdc114
+  content_hash: sha256:2ae327f7450a1f53479e4c04ce6391cb994d57ff0e12f53ae4d9071a15ef713a
 - kind: project-relative
   target: claude
   value: .claude/rules/styling.md
@@ -414,6 +378,24 @@ deployments:
   - .
   active_owner: .
   content_hash: sha256:53c33ac832aee9870c95fc5eceecafb291a1c5530b184dabc122b45c8d58ea9c
+- kind: project-relative
+  target: claude
+  value: .claude/skills/analyze-codebase-bugs
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/analyze-codebase-bugs/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:c9d652cda3165771dd4bc02fa41bfa9864a078161b6af7a7b65c059bef5dc46e
 - kind: project-relative
   target: claude
   value: .claude/skills/angular-developer
@@ -794,6 +776,24 @@ deployments:
   content_hash: sha256:8f48c2392d99487934edf977c0d1b87a4e83ff9761db493bbcccc10f574bcb5a
 - kind: project-relative
   target: claude
+  value: .claude/skills/angular-signal-forms
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/angular-signal-forms/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:09f80b60d607cc5cbc4e5d42920445eae62ad129dff0029f69dbd46eaaa96e76
+- kind: project-relative
+  target: claude
   value: .claude/skills/bdd
   runtime: null
   scope: project
@@ -884,6 +884,24 @@ deployments:
   content_hash: null
 - kind: project-relative
   target: claude
+  value: .claude/skills/ngrx-signals-store-crud
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/ngrx-signals-store-crud/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:59b8fc2c7d476bb5686d4783b3fe119177515c5eb0fcb6bca955560f52247320
+- kind: project-relative
+  target: claude
   value: .claude/skills/ngrx-signals/README.md
   runtime: null
   scope: project
@@ -954,6 +972,24 @@ deployments:
   - danielsogl/skills/skills/ngrx-signals
   active_owner: danielsogl/skills/skills/ngrx-signals
   content_hash: sha256:d42999e00704ce58fdee70bd9cf1877300bb81cae14a19369fe655ca516377f0
+- kind: project-relative
+  target: claude
+  value: .claude/skills/review-branch
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/review-branch/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:7d7f855c0de001d736bd543a37e15b76bdace99c8afdd356df88b1dc435d04da
 - kind: project-relative
   target: copilot
   value: .agents/skills/angular-developer
@@ -1502,7 +1538,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:cb8085c33bc06540574f47e84c92f96dea97b585e3c50aa90d2739664e3ccac6
+  content_hash: sha256:25e8c507960b1eb075dc68ade9f06a46eae6ba9ff0835a5555c41d79d9bcc38a
 - kind: project-relative
   target: copilot
   value: .github/agents/playwright-test-healer.agent.md
@@ -1511,7 +1547,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:01d102381a51b327b28849dc90d8190460ba006347bc808b530a5c952541487c
+  content_hash: sha256:d79ad60df5f1a770a31be8a12241d2fc0b0d4b2b23302c0463fdf39da293ace6
 - kind: project-relative
   target: copilot
   value: .github/agents/playwright-test-planner.agent.md
@@ -1520,7 +1556,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:3cdfd1dcd6626fda6db602c3c67f597b06e7bafe5765bec3519397d823c66873
+  content_hash: sha256:707e3c32b141be3d51cd18da88b93c9a2d653f9d78a07f652d496a3b6a9dc0f7
 - kind: project-relative
   target: copilot
   value: .github/hooks/copilot-workflow-demo-hooks.json
@@ -1538,7 +1574,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:afcddbf65320c5d07861bee35810e930f980f0899386e9ed5945bc2b824a4975
+  content_hash: sha256:f0b51d96c7714d0106d9206cbd04e6a702358ec541c9c570b3ee3a9f4c540276
 - kind: project-relative
   target: copilot
   value: .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh
@@ -1547,7 +1583,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:022133073fc9904da33f3cc102397c5b0b4cf5e3272e3d186bfdcea5da5b23d7
+  content_hash: sha256:ca5360b0824a377dbd1feca250a29eae78d056a318a67ff4932b3342345d3447
 - kind: project-relative
   target: copilot
   value: .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh
@@ -1556,7 +1592,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:14a476ec1bd40cb09d51296c63b5b2a2f7b9abd12a2c29f922c8cc88c566f443
+  content_hash: sha256:4a04085878633605cf04466789f1d711fafd7a71f523b80f98e45473db7fe4b3
 - kind: project-relative
   target: copilot
   value: .github/instructions/angular-components.instructions.md
@@ -1583,7 +1619,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:b29d123d50f476fa3e41cb87be79adb8ea6ba84307758c706c6206a1403f92c4
+  content_hash: sha256:245751dd4516147dbda65550c4893309d56ef7ca8f3c0912e2cad0715b623e8e
 - kind: project-relative
   target: copilot
   value: .github/instructions/project-overview.instructions.md
@@ -1592,7 +1628,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:d23f679a1624cf55c79cd4642deaf1c0fe5743f7486692fcfa0d4c1fe027aa29
+  content_hash: sha256:2249b38a633f35e92edd6deca8df8c19640925145fe00e19b41f7a33dead0b8c
 - kind: project-relative
   target: copilot
   value: .github/instructions/styling.instructions.md
@@ -1612,41 +1648,77 @@ deployments:
   active_owner: .
   content_hash: sha256:25ee789aae5bf131fc19d7dff38469b90f65abc0ed2cb25f8bcb0b93c6554d96
 - kind: project-relative
-  target: copilot
-  value: .github/prompts/analyze-codebase-bugs.prompt.md
+  target: legacy
+  value: .agents/skills/analyze-codebase-bugs
   runtime: null
   scope: project
   owners:
   - .
   active_owner: .
-  content_hash: sha256:a1631f63a09dad43ed02e352160ad95af3b4cb5d03c7cd7ddfd140841898b2f2
+  content_hash: null
 - kind: project-relative
-  target: copilot
-  value: .github/prompts/angular-signal-forms.prompt.md
+  target: legacy
+  value: .agents/skills/analyze-codebase-bugs/SKILL.md
   runtime: null
   scope: project
   owners:
   - .
   active_owner: .
-  content_hash: sha256:1bb5304b2275a347f87c35b315edb650d97bf08f04a318ffd1719c9add2a96fd
+  content_hash: sha256:c9d652cda3165771dd4bc02fa41bfa9864a078161b6af7a7b65c059bef5dc46e
 - kind: project-relative
-  target: copilot
-  value: .github/prompts/code-review.prompt.md
+  target: legacy
+  value: .agents/skills/angular-signal-forms
   runtime: null
   scope: project
   owners:
   - .
   active_owner: .
-  content_hash: sha256:7e816bf3eabea7c6e03dbe96369c737179204bd1fb8465f42050a15208a967d4
+  content_hash: null
 - kind: project-relative
-  target: copilot
-  value: .github/prompts/ngrx-signals-store-crud.prompt.md
+  target: legacy
+  value: .agents/skills/angular-signal-forms/SKILL.md
   runtime: null
   scope: project
   owners:
   - .
   active_owner: .
-  content_hash: sha256:460efba5e08d30d10e45fe77b5020df5ce74bb1f147d2ab51a173643056c7eef
+  content_hash: sha256:09f80b60d607cc5cbc4e5d42920445eae62ad129dff0029f69dbd46eaaa96e76
+- kind: project-relative
+  target: legacy
+  value: .agents/skills/ngrx-signals-store-crud
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
+- kind: project-relative
+  target: legacy
+  value: .agents/skills/ngrx-signals-store-crud/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:59b8fc2c7d476bb5686d4783b3fe119177515c5eb0fcb6bca955560f52247320
+- kind: project-relative
+  target: legacy
+  value: .agents/skills/review-branch
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
+- kind: project-relative
+  target: legacy
+  value: .agents/skills/review-branch/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:7d7f855c0de001d736bd543a37e15b76bdace99c8afdd356df88b1dc435d04da
 - kind: uri
   target: lsp
   value: angular
@@ -1836,7 +1908,7 @@ mcp_configs:
     name: context7
     transport: http
     registry: false
-    url: https://mcp.context7.com/mcp/oauth
+    url: https://mcp.context7.com/mcp
   playwright-test:
     name: playwright-test
     transport: stdio
@@ -1935,13 +2007,17 @@ lsp_config_provenance:
   typescript: project:.
   yaml: project:.
 local_deployed_files:
+- .agents/skills/analyze-codebase-bugs
+- .agents/skills/analyze-codebase-bugs/SKILL.md
+- .agents/skills/angular-signal-forms
+- .agents/skills/angular-signal-forms/SKILL.md
+- .agents/skills/ngrx-signals-store-crud
+- .agents/skills/ngrx-signals-store-crud/SKILL.md
+- .agents/skills/review-branch
+- .agents/skills/review-branch/SKILL.md
 - .claude/agents/playwright-test-generator.md
 - .claude/agents/playwright-test-healer.md
 - .claude/agents/playwright-test-planner.md
-- .claude/commands/analyze-codebase-bugs.md
-- .claude/commands/angular-signal-forms.md
-- .claude/commands/code-review.md
-- .claude/commands/ngrx-signals-store-crud.md
 - .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh
 - .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh
 - .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh
@@ -1951,6 +2027,14 @@ local_deployed_files:
 - .claude/rules/project-overview.md
 - .claude/rules/styling.md
 - .claude/rules/typescript.md
+- .claude/skills/analyze-codebase-bugs
+- .claude/skills/analyze-codebase-bugs/SKILL.md
+- .claude/skills/angular-signal-forms
+- .claude/skills/angular-signal-forms/SKILL.md
+- .claude/skills/ngrx-signals-store-crud
+- .claude/skills/ngrx-signals-store-crud/SKILL.md
+- .claude/skills/review-branch
+- .claude/skills/review-branch/SKILL.md
 - .github/agents/playwright-test-generator.agent.md
 - .github/agents/playwright-test-healer.agent.md
 - .github/agents/playwright-test-planner.agent.md
@@ -1964,41 +2048,37 @@ local_deployed_files:
 - .github/instructions/project-overview.instructions.md
 - .github/instructions/styling.instructions.md
 - .github/instructions/typescript.instructions.md
-- .github/prompts/analyze-codebase-bugs.prompt.md
-- .github/prompts/angular-signal-forms.prompt.md
-- .github/prompts/code-review.prompt.md
-- .github/prompts/ngrx-signals-store-crud.prompt.md
 local_deployed_file_hashes:
-  .claude/agents/playwright-test-generator.md: sha256:cb8085c33bc06540574f47e84c92f96dea97b585e3c50aa90d2739664e3ccac6
-  .claude/agents/playwright-test-healer.md: sha256:01d102381a51b327b28849dc90d8190460ba006347bc808b530a5c952541487c
-  .claude/agents/playwright-test-planner.md: sha256:3cdfd1dcd6626fda6db602c3c67f597b06e7bafe5765bec3519397d823c66873
-  .claude/commands/analyze-codebase-bugs.md: sha256:8be10386f4099e3e8bf06d029be400439a2f295574a6b372df5e23269849db0f
-  .claude/commands/angular-signal-forms.md: sha256:0f615a06fe89dc9db91e301c4942ea5c913c6bb9ba89a79cfcf9005544480359
-  .claude/commands/code-review.md: sha256:82643779bee83619b204c24c91b0de05372468cce7607f5d3d6d21ebf11a6439
-  .claude/commands/ngrx-signals-store-crud.md: sha256:43c3f6c79559048dbc58e0744e40325fbc0cbfc300e980eacf1e0b062ea07629
-  .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh: sha256:afcddbf65320c5d07861bee35810e930f980f0899386e9ed5945bc2b824a4975
-  .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh: sha256:022133073fc9904da33f3cc102397c5b0b4cf5e3272e3d186bfdcea5da5b23d7
-  .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh: sha256:14a476ec1bd40cb09d51296c63b5b2a2f7b9abd12a2c29f922c8cc88c566f443
+  .agents/skills/analyze-codebase-bugs/SKILL.md: sha256:c9d652cda3165771dd4bc02fa41bfa9864a078161b6af7a7b65c059bef5dc46e
+  .agents/skills/angular-signal-forms/SKILL.md: sha256:09f80b60d607cc5cbc4e5d42920445eae62ad129dff0029f69dbd46eaaa96e76
+  .agents/skills/ngrx-signals-store-crud/SKILL.md: sha256:59b8fc2c7d476bb5686d4783b3fe119177515c5eb0fcb6bca955560f52247320
+  .agents/skills/review-branch/SKILL.md: sha256:7d7f855c0de001d736bd543a37e15b76bdace99c8afdd356df88b1dc435d04da
+  .claude/agents/playwright-test-generator.md: sha256:25e8c507960b1eb075dc68ade9f06a46eae6ba9ff0835a5555c41d79d9bcc38a
+  .claude/agents/playwright-test-healer.md: sha256:d79ad60df5f1a770a31be8a12241d2fc0b0d4b2b23302c0463fdf39da293ace6
+  .claude/agents/playwright-test-planner.md: sha256:707e3c32b141be3d51cd18da88b93c9a2d653f9d78a07f652d496a3b6a9dc0f7
+  .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh: sha256:f0b51d96c7714d0106d9206cbd04e6a702358ec541c9c570b3ee3a9f4c540276
+  .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh: sha256:ca5360b0824a377dbd1feca250a29eae78d056a318a67ff4932b3342345d3447
+  .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh: sha256:4a04085878633605cf04466789f1d711fafd7a71f523b80f98e45473db7fe4b3
   .claude/rules/angular-components.md: sha256:b2566675d1faaced2cee4ed326cc954a44bbce37dbfc2f001e5867ecf79c381f
   .claude/rules/architecture.md: sha256:d7dc3a97f28226d53188c053c5a19787293a5c541e955b85f7d46c7058dede36
-  .claude/rules/commands.md: sha256:56950f31dda4ff2e56fdabe6bdb97340f370079078c11c0a773f29dd6424e882
-  .claude/rules/project-overview.md: sha256:d0f0b4a1f60262ad35f056ff7d13baa8189d087ed8838f51897eaecdb3bdc114
+  .claude/rules/commands.md: sha256:827f798b8907a9c10a2eac11283f0351612ed8f67845ba0610efc1697f2afe50
+  .claude/rules/project-overview.md: sha256:2ae327f7450a1f53479e4c04ce6391cb994d57ff0e12f53ae4d9071a15ef713a
   .claude/rules/styling.md: sha256:ddf96af3963bfaeb33953cd5e372457d3b1710ac843fde91fa992a22a506c883
   .claude/rules/typescript.md: sha256:53c33ac832aee9870c95fc5eceecafb291a1c5530b184dabc122b45c8d58ea9c
-  .github/agents/playwright-test-generator.agent.md: sha256:cb8085c33bc06540574f47e84c92f96dea97b585e3c50aa90d2739664e3ccac6
-  .github/agents/playwright-test-healer.agent.md: sha256:01d102381a51b327b28849dc90d8190460ba006347bc808b530a5c952541487c
-  .github/agents/playwright-test-planner.agent.md: sha256:3cdfd1dcd6626fda6db602c3c67f597b06e7bafe5765bec3519397d823c66873
+  .claude/skills/analyze-codebase-bugs/SKILL.md: sha256:c9d652cda3165771dd4bc02fa41bfa9864a078161b6af7a7b65c059bef5dc46e
+  .claude/skills/angular-signal-forms/SKILL.md: sha256:09f80b60d607cc5cbc4e5d42920445eae62ad129dff0029f69dbd46eaaa96e76
+  .claude/skills/ngrx-signals-store-crud/SKILL.md: sha256:59b8fc2c7d476bb5686d4783b3fe119177515c5eb0fcb6bca955560f52247320
+  .claude/skills/review-branch/SKILL.md: sha256:7d7f855c0de001d736bd543a37e15b76bdace99c8afdd356df88b1dc435d04da
+  .github/agents/playwright-test-generator.agent.md: sha256:25e8c507960b1eb075dc68ade9f06a46eae6ba9ff0835a5555c41d79d9bcc38a
+  .github/agents/playwright-test-healer.agent.md: sha256:d79ad60df5f1a770a31be8a12241d2fc0b0d4b2b23302c0463fdf39da293ace6
+  .github/agents/playwright-test-planner.agent.md: sha256:707e3c32b141be3d51cd18da88b93c9a2d653f9d78a07f652d496a3b6a9dc0f7
   .github/hooks/copilot-workflow-demo-hooks.json: sha256:96bc6dfb5d18c9bc4236c2486ec4e694836e70bec39f9f2d051fc42316f3a5b1
-  .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh: sha256:afcddbf65320c5d07861bee35810e930f980f0899386e9ed5945bc2b824a4975
-  .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh: sha256:022133073fc9904da33f3cc102397c5b0b4cf5e3272e3d186bfdcea5da5b23d7
-  .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh: sha256:14a476ec1bd40cb09d51296c63b5b2a2f7b9abd12a2c29f922c8cc88c566f443
+  .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh: sha256:f0b51d96c7714d0106d9206cbd04e6a702358ec541c9c570b3ee3a9f4c540276
+  .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh: sha256:ca5360b0824a377dbd1feca250a29eae78d056a318a67ff4932b3342345d3447
+  .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh: sha256:4a04085878633605cf04466789f1d711fafd7a71f523b80f98e45473db7fe4b3
   .github/instructions/angular-components.instructions.md: sha256:558967aaea58257a615e49abeef2bd7cd0ce0558d78e87a4fa445d95dc3ed9f8
   .github/instructions/architecture.instructions.md: sha256:ef8e299d823e21a4e2197b2c437247d31bce4d979a52c7577c7402dcb5fa7160
-  .github/instructions/commands.instructions.md: sha256:b29d123d50f476fa3e41cb87be79adb8ea6ba84307758c706c6206a1403f92c4
-  .github/instructions/project-overview.instructions.md: sha256:d23f679a1624cf55c79cd4642deaf1c0fe5743f7486692fcfa0d4c1fe027aa29
+  .github/instructions/commands.instructions.md: sha256:245751dd4516147dbda65550c4893309d56ef7ca8f3c0912e2cad0715b623e8e
+  .github/instructions/project-overview.instructions.md: sha256:2249b38a633f35e92edd6deca8df8c19640925145fe00e19b41f7a33dead0b8c
   .github/instructions/styling.instructions.md: sha256:8a3478b9d440566bfe8e39f2bd072ff069f6592c6354e5d1a3ef3ed48007c4f9
   .github/instructions/typescript.instructions.md: sha256:25ee789aae5bf131fc19d7dff38469b90f65abc0ed2cb25f8bcb0b93c6554d96
-  .github/prompts/analyze-codebase-bugs.prompt.md: sha256:a1631f63a09dad43ed02e352160ad95af3b4cb5d03c7cd7ddfd140841898b2f2
-  .github/prompts/angular-signal-forms.prompt.md: sha256:1bb5304b2275a347f87c35b315edb650d97bf08f04a318ffd1719c9add2a96fd
-  .github/prompts/code-review.prompt.md: sha256:7e816bf3eabea7c6e03dbe96369c737179204bd1fb8465f42050a15208a967d4
-  .github/prompts/ngrx-signals-store-crud.prompt.md: sha256:460efba5e08d30d10e45fe77b5020df5ce74bb1f147d2ab51a173643056c7eef
