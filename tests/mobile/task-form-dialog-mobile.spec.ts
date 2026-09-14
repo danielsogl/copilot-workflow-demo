@@ -26,6 +26,7 @@ test.describe("mobile-layout", () => {
     await expect(page.getByRole("textbox", { name: "Due Date" })).toBeVisible();
 
     // 2. Fill in 'Mobile smoke test task' as title and 'Created from mobile viewport' as description
+    await expect(page.getByRole("textbox", { name: "Title" })).toBeFocused();
     await page
       .getByRole("textbox", { name: "Title" })
       .fill("Mobile smoke test task");
