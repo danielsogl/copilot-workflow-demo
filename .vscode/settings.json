@@ -22,7 +22,6 @@
   "github.copilot.chat.agent.autoFix": true,
   "github.copilot.chat.reviewSelection.enabled": true,
   "github.copilot.chat.agentDebugLog.fileLogging.enabled": true,
-  "github.copilot.chat.tools.memory.enabled": true,
   "github.copilot.chat.commitMessageGeneration.instructions": [
     { "file": ".github/guidelines/commit-convention.md" }
   ],
@@ -35,7 +34,6 @@
   // .agents/skills — the same set the CLI loads.
   // The overrides below only switch off the Claude locations VS Code reads but the CLI
   // does not (or that would load every primitive a second time).
-  "chat.customAgentInSubagent.enabled": true,
   "chat.agent.thinkingStyle": "fixedScrolling",
   "chat.useClaudeMdFile": false,
   "chat.instructionsFilesLocations": {
@@ -71,7 +69,6 @@
   },
 
   // --- UX ---
-  "chat.sendElementsToChat.enabled": true,
   "chat.viewSessions.enabled": true,
   "chat.checkpoints.enabled": true,
   "chat.detectParticipant.enabled": true,
