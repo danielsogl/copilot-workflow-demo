@@ -1,5 +1,4 @@
 lockfile_version: '1'
-generated_at: '2026-09-14T14:21:56.018795+00:00'
 apm_version: 0.30.0
 dependencies:
 - repo_url: angular/skills
@@ -11,48 +10,6 @@ dependencies:
   is_virtual: true
   package_type: claude_skill
   deployed_files:
-  - .agents/skills/angular-developer
-  - .agents/skills/angular-developer/SKILL.md
-  - .agents/skills/angular-developer/references/angular-animations.md
-  - .agents/skills/angular-developer/references/angular-aria.md
-  - .agents/skills/angular-developer/references/cli.md
-  - .agents/skills/angular-developer/references/component-harnesses.md
-  - .agents/skills/angular-developer/references/component-styling.md
-  - .agents/skills/angular-developer/references/components.md
-  - .agents/skills/angular-developer/references/creating-services.md
-  - .agents/skills/angular-developer/references/data-resolvers.md
-  - .agents/skills/angular-developer/references/define-routes.md
-  - .agents/skills/angular-developer/references/defining-providers.md
-  - .agents/skills/angular-developer/references/di-fundamentals.md
-  - .agents/skills/angular-developer/references/e2e-testing.md
-  - .agents/skills/angular-developer/references/effects.md
-  - .agents/skills/angular-developer/references/environment-configuration.md
-  - .agents/skills/angular-developer/references/hierarchical-injectors.md
-  - .agents/skills/angular-developer/references/host-elements.md
-  - .agents/skills/angular-developer/references/http-client.md
-  - .agents/skills/angular-developer/references/injection-context.md
-  - .agents/skills/angular-developer/references/inputs.md
-  - .agents/skills/angular-developer/references/linked-signal.md
-  - .agents/skills/angular-developer/references/loading-strategies.md
-  - .agents/skills/angular-developer/references/mcp.md
-  - .agents/skills/angular-developer/references/migrations.md
-  - .agents/skills/angular-developer/references/naming-conventions.md
-  - .agents/skills/angular-developer/references/navigate-to-routes.md
-  - .agents/skills/angular-developer/references/outputs.md
-  - .agents/skills/angular-developer/references/pipes.md
-  - .agents/skills/angular-developer/references/reactive-forms.md
-  - .agents/skills/angular-developer/references/rendering-strategies.md
-  - .agents/skills/angular-developer/references/resource.md
-  - .agents/skills/angular-developer/references/route-animations.md
-  - .agents/skills/angular-developer/references/route-guards.md
-  - .agents/skills/angular-developer/references/router-lifecycle.md
-  - .agents/skills/angular-developer/references/router-testing.md
-  - .agents/skills/angular-developer/references/show-routes-with-outlets.md
-  - .agents/skills/angular-developer/references/signal-forms.md
-  - .agents/skills/angular-developer/references/signals-overview.md
-  - .agents/skills/angular-developer/references/tailwind-css.md
-  - .agents/skills/angular-developer/references/template-driven-forms.md
-  - .agents/skills/angular-developer/references/testing-fundamentals.md
   - .claude/skills/angular-developer
   - .claude/skills/angular-developer/SKILL.md
   - .claude/skills/angular-developer/references/angular-animations.md
@@ -96,47 +53,6 @@ dependencies:
   - .claude/skills/angular-developer/references/template-driven-forms.md
   - .claude/skills/angular-developer/references/testing-fundamentals.md
   deployed_file_hashes:
-    .agents/skills/angular-developer/SKILL.md: sha256:ec5e3a0b1ef218c0d7d40e35c40e5255e7319d7d595c5a6036d8bdac2532c782
-    .agents/skills/angular-developer/references/angular-animations.md: sha256:f21b798ed93e27318527ef7e74e63ef8c71cb74ff2b010d70dbb429883f0dbd0
-    .agents/skills/angular-developer/references/angular-aria.md: sha256:fff4cbdf3558beacfeb03a243d874cacb16a24b0c78962c4f9c760fc2cbe5ad8
-    .agents/skills/angular-developer/references/cli.md: sha256:39468f1be907a1abff746e79cb9fabd9675956df00c87d9b8bd1517855b9fd7d
-    .agents/skills/angular-developer/references/component-harnesses.md: sha256:1761d33a65ecde690ca0c57081ff9d5871cafb8ff724738ccd711b5018e2d894
-    .agents/skills/angular-developer/references/component-styling.md: sha256:de3351fdb72174361c6eee150940193f20d148afaceab0f22107758a3cb2d787
-    .agents/skills/angular-developer/references/components.md: sha256:35ffb62475d54d7d4ed434b2190882440a77ef76b14260128e6d7e3111122e3b
-    .agents/skills/angular-developer/references/creating-services.md: sha256:1fc1d46bd26568d07d1500d0b9ba1a2556ca4a11f4a3dc11036ae5b16dea80cc
-    .agents/skills/angular-developer/references/data-resolvers.md: sha256:6525d6f9b90d4ac6bbd58489d6bc57ab024c407673ed0e1e46364a90d0b9b5da
-    .agents/skills/angular-developer/references/define-routes.md: sha256:4e80613931ecf4da957f9ff45343869b1651331ff4c8b955f2698b9ac0afc921
-    .agents/skills/angular-developer/references/defining-providers.md: sha256:e654c23a080c642cf7031b5cc5de1101b8c75030c15256f7e3b81b0336953c6d
-    .agents/skills/angular-developer/references/di-fundamentals.md: sha256:ed5e4004aed214429de091d2b041cfd818c77a0ebfa24c23f01ec9bac7118a78
-    .agents/skills/angular-developer/references/e2e-testing.md: sha256:fd11d930ed081ca934fe83df06c9d965257ec817ebef59b918d4d814a65feca6
-    .agents/skills/angular-developer/references/effects.md: sha256:5df4759be70248a1f282aff3060b04b694f05ae78093a5caa4eaff455e35a6a3
-    .agents/skills/angular-developer/references/environment-configuration.md: sha256:788b62bf5e04d56343f598437f7e3fd7fdfc6efa8ec6727288dc73514b1b5a76
-    .agents/skills/angular-developer/references/hierarchical-injectors.md: sha256:967e472a1208c6e1f4b95bf7ee9162165904eb78ac6dab64643c67a9d1dac264
-    .agents/skills/angular-developer/references/host-elements.md: sha256:5c2eb324e7b84bd81334b6d262a61b873de208640aabe4be48b73600438bdaed
-    .agents/skills/angular-developer/references/http-client.md: sha256:b6a6c92ae71dc98b6cd0e2b840227c7743b3edf288769da3db070fa1815c1adc
-    .agents/skills/angular-developer/references/injection-context.md: sha256:4435dfcec91bd9fb68d6c318802cac1b37424d4e76452e6f0f52ed0d2b6536fb
-    .agents/skills/angular-developer/references/inputs.md: sha256:f5dcdd2a69e7e5c0aad503b4deaea5cedb682130cc699c669128b8fadcc65ba8
-    .agents/skills/angular-developer/references/linked-signal.md: sha256:01f5395e4be4be7c642f4dacd5312d6cc82e641f3ff177f9283b26b79dd07e95
-    .agents/skills/angular-developer/references/loading-strategies.md: sha256:4eb2e243425443426d28c6f68c823d501c7b2bf64e4587c96c4c6013d57e7c93
-    .agents/skills/angular-developer/references/mcp.md: sha256:e112ece9672d042144bc1aeb1245bd0325bab172398d7129a258be81f9db61aa
-    .agents/skills/angular-developer/references/migrations.md: sha256:47983ed2683dc10f692d254cdca9c97fc13dec9ad099b759f5d31886f3cbaa7a
-    .agents/skills/angular-developer/references/naming-conventions.md: sha256:f0751d75d12a76ff0415124948ead5ae1a67d14a84360e64526aa8bac7d6c5d3
-    .agents/skills/angular-developer/references/navigate-to-routes.md: sha256:ea3c3d53b5db47b4f8d8b05124330e72bea92fc908d42c06aa7edb9e652b425e
-    .agents/skills/angular-developer/references/outputs.md: sha256:4d6900ff9ab90168969c3d05b67d88f69bb6a46aa4b74a8a8290ba0643c6d8dd
-    .agents/skills/angular-developer/references/pipes.md: sha256:76bd0f2f3ac9096ee511427df6ea73cab75f06a3566ab4595ba4f2ec8c0c6fc9
-    .agents/skills/angular-developer/references/reactive-forms.md: sha256:edfc57c191d29a1549e9aa9b4ba0d1111a9792caa65918d62967920647717121
-    .agents/skills/angular-developer/references/rendering-strategies.md: sha256:329aa9aa35c85dd2048c899f26025439d3b0244067dbb508e724d291fdad7c97
-    .agents/skills/angular-developer/references/resource.md: sha256:2fad5a0aaf85b0b3193a492b706595962e247bc99aec1dcc1755d90d9c303545
-    .agents/skills/angular-developer/references/route-animations.md: sha256:eda1452f85ce05f3f28753cc77cd8c31c7a52515d7ccebbb35de0ec1e3beb374
-    .agents/skills/angular-developer/references/route-guards.md: sha256:491a93cb49fbcba04f7e8ffcd0f784fce7319ca3e2fe393c553f3d683a68424c
-    .agents/skills/angular-developer/references/router-lifecycle.md: sha256:4abc8cb8dfeb2e9f57dc11c117d5f4a5b756b39dc076910d9ced9da640effc2d
-    .agents/skills/angular-developer/references/router-testing.md: sha256:4d144577927d3ea93ae498cac7ebd2724873a2de225b75d345abb24759bd62d3
-    .agents/skills/angular-developer/references/show-routes-with-outlets.md: sha256:43a2ed62ea2edafa8569bf7045f20928110f8f844d5890bfb6a2f2dde45e754b
-    .agents/skills/angular-developer/references/signal-forms.md: sha256:5251585cadf72ab95e31377904db21a597b5e9b982c8e839dc098b48f69ac6b7
-    .agents/skills/angular-developer/references/signals-overview.md: sha256:da07c58fdea2ab7d82a28faf9f3d117ccb98ccaf3eec06f103b898f557791146
-    .agents/skills/angular-developer/references/tailwind-css.md: sha256:bdb952d0dd2d415560a796ecaf843cacff5ac20d8ef961eaaf75656fef9b9263
-    .agents/skills/angular-developer/references/template-driven-forms.md: sha256:52e83e576b0c6dc05f854e903c4cfda1222bcd55c50ddee07344d1e53d02c1df
-    .agents/skills/angular-developer/references/testing-fundamentals.md: sha256:8f48c2392d99487934edf977c0d1b87a4e83ff9761db493bbcccc10f574bcb5a
     .claude/skills/angular-developer/SKILL.md: sha256:ec5e3a0b1ef218c0d7d40e35c40e5255e7319d7d595c5a6036d8bdac2532c782
     .claude/skills/angular-developer/references/angular-animations.md: sha256:f21b798ed93e27318527ef7e74e63ef8c71cb74ff2b010d70dbb429883f0dbd0
     .claude/skills/angular-developer/references/angular-aria.md: sha256:fff4cbdf3558beacfeb03a243d874cacb16a24b0c78962c4f9c760fc2cbe5ad8
@@ -182,24 +98,17 @@ dependencies:
 - repo_url: danielsogl/skills
   name: bdd
   host: github.com
-  resolved_commit: 293165a68e98b74eff7357de0b4039e4287411a6
+  resolved_commit: 63095ae4bf894465f6c1279a07a5e226377f5502
   version: unknown
   virtual_path: skills/bdd
   is_virtual: true
   package_type: claude_skill
   deployed_files:
-  - .agents/skills/bdd
-  - .agents/skills/bdd/SKILL.md
-  - .agents/skills/bdd/bdd.skill
-  - .agents/skills/bdd/evals/evals.json
-  - .agents/skills/bdd/evals/trigger-eval.json
-  - .agents/skills/bdd/references/install-playwright.md
-  - .agents/skills/bdd/references/install-vitest.md
-  - .agents/skills/bdd/references/playwright.md
-  - .agents/skills/bdd/references/vitest.md
   - .claude/skills/bdd
   - .claude/skills/bdd/SKILL.md
   - .claude/skills/bdd/bdd.skill
+  - .claude/skills/bdd/evals/checks/playwright-bdd.sh
+  - .claude/skills/bdd/evals/checks/vitest-cucumber.sh
   - .claude/skills/bdd/evals/evals.json
   - .claude/skills/bdd/evals/trigger-eval.json
   - .claude/skills/bdd/references/install-playwright.md
@@ -207,44 +116,30 @@ dependencies:
   - .claude/skills/bdd/references/playwright.md
   - .claude/skills/bdd/references/vitest.md
   deployed_file_hashes:
-    .agents/skills/bdd/SKILL.md: sha256:f1182907bac8783d279eb92000fda417d59568faea99c6245b0450d913bae4a4
-    .agents/skills/bdd/bdd.skill: sha256:0db5844d9418460cf8a4b6b6d660939faaa4f00631ee519b4fb41e6d3e86a3ae
-    .agents/skills/bdd/evals/evals.json: sha256:3eeba01b2659b81b7db4185d62a3f3a7dfb84b67277846646acbfa815e2f2385
-    .agents/skills/bdd/evals/trigger-eval.json: sha256:7bf3220462ee1057eefe454736dd8d124dcce74e364b69155c5e8fc8333f2211
-    .agents/skills/bdd/references/install-playwright.md: sha256:fbf93481fc0ed57b258bfcb387fce69d1bfeafc9b59e89218e849b68831db040
-    .agents/skills/bdd/references/install-vitest.md: sha256:290bc1566c912cc6d8e4c6d727e8ab3c6f7822b9dc7956a074c018e41439141c
-    .agents/skills/bdd/references/playwright.md: sha256:a6e3d8f0508e1bd56b059e06a4e73757e47b799662ddaafaea4867745e1d49b6
-    .agents/skills/bdd/references/vitest.md: sha256:58add07899a60965da431922f722f7f479b8e9a1bfecc234cfdde8bf0db53fb4
     .claude/skills/bdd/SKILL.md: sha256:f1182907bac8783d279eb92000fda417d59568faea99c6245b0450d913bae4a4
-    .claude/skills/bdd/bdd.skill: sha256:0db5844d9418460cf8a4b6b6d660939faaa4f00631ee519b4fb41e6d3e86a3ae
-    .claude/skills/bdd/evals/evals.json: sha256:3eeba01b2659b81b7db4185d62a3f3a7dfb84b67277846646acbfa815e2f2385
+    .claude/skills/bdd/bdd.skill: sha256:e2f262ba9e4fe9c268a86ad5fe4689832c0553ba481711ad2e1c0acb8effccf2
+    .claude/skills/bdd/evals/checks/playwright-bdd.sh: sha256:069b7b9b8d0c996204e8950a805b89cfd8d1ef2d04897a918970b4cdd4afcef1
+    .claude/skills/bdd/evals/checks/vitest-cucumber.sh: sha256:5eba64a2d46237e00b1fe408cd2ba7b250c67f4eba582a2ad6dfc452755a6f85
+    .claude/skills/bdd/evals/evals.json: sha256:8dac9a1cba6b2e93fecdb61f058a1710454b0450145da1ebc2e5686aa17d7456
     .claude/skills/bdd/evals/trigger-eval.json: sha256:7bf3220462ee1057eefe454736dd8d124dcce74e364b69155c5e8fc8333f2211
-    .claude/skills/bdd/references/install-playwright.md: sha256:fbf93481fc0ed57b258bfcb387fce69d1bfeafc9b59e89218e849b68831db040
-    .claude/skills/bdd/references/install-vitest.md: sha256:290bc1566c912cc6d8e4c6d727e8ab3c6f7822b9dc7956a074c018e41439141c
-    .claude/skills/bdd/references/playwright.md: sha256:a6e3d8f0508e1bd56b059e06a4e73757e47b799662ddaafaea4867745e1d49b6
-    .claude/skills/bdd/references/vitest.md: sha256:58add07899a60965da431922f722f7f479b8e9a1bfecc234cfdde8bf0db53fb4
-  content_hash: sha256:3f1f43711cf95ba76816b630192cc6590e3a6175c546dc123117a8b3ee4909ac
+    .claude/skills/bdd/references/install-playwright.md: sha256:7fafd2ee2d8597abc0b181783a8ab708a05cf26ffb29302537b492db5d07acce
+    .claude/skills/bdd/references/install-vitest.md: sha256:02b1ebedc595cc19a931e3813af15d147f1defa7f27b1e055ac2c6183eca509f
+    .claude/skills/bdd/references/playwright.md: sha256:73b34bdafba5c6385203548e4e30cfd30d69b61cfb9f05032c9e0ec903de20ed
+    .claude/skills/bdd/references/vitest.md: sha256:5f06109dd050f522ac5e78836d3f1c5ad41d85e7d4f68b7933495631cdbe25d1
+  content_hash: sha256:b03e88c33b851dddaf25d40cb674d990a3c3ef86e7257e9ba6dfe4e1986bb34a
 - repo_url: danielsogl/skills
   name: ngrx-signals
   host: github.com
-  resolved_commit: 293165a68e98b74eff7357de0b4039e4287411a6
+  resolved_commit: 63095ae4bf894465f6c1279a07a5e226377f5502
   version: unknown
   virtual_path: skills/ngrx-signals
   is_virtual: true
   package_type: claude_skill
   deployed_files:
-  - .agents/skills/ngrx-signals
-  - .agents/skills/ngrx-signals/README.md
-  - .agents/skills/ngrx-signals/SKILL.md
-  - .agents/skills/ngrx-signals/evals/evals.json
-  - .agents/skills/ngrx-signals/references/api-reference.md
-  - .agents/skills/ngrx-signals/references/custom-features.md
-  - .agents/skills/ngrx-signals/references/entities.md
-  - .agents/skills/ngrx-signals/references/patterns.md
-  - .agents/skills/ngrx-signals/references/testing.md
   - .claude/skills/ngrx-signals
   - .claude/skills/ngrx-signals/README.md
   - .claude/skills/ngrx-signals/SKILL.md
+  - .claude/skills/ngrx-signals/evals/checks/tsc.sh
   - .claude/skills/ngrx-signals/evals/evals.json
   - .claude/skills/ngrx-signals/references/api-reference.md
   - .claude/skills/ngrx-signals/references/custom-features.md
@@ -252,23 +147,16 @@ dependencies:
   - .claude/skills/ngrx-signals/references/patterns.md
   - .claude/skills/ngrx-signals/references/testing.md
   deployed_file_hashes:
-    .agents/skills/ngrx-signals/README.md: sha256:4e0460ea794cba098f4744346fc08afaa885fa42f8b6cdb634653b1f4d6c23b3
-    .agents/skills/ngrx-signals/SKILL.md: sha256:8d8dbb23ff0b41624bd7c7eb8c1ebca56b119accfe741526800a0a8b29b0ec2c
-    .agents/skills/ngrx-signals/evals/evals.json: sha256:19ca9ae4bf38d0a95cbcb25d10022a9a504ed04bbda955c44bef191b2b921f51
-    .agents/skills/ngrx-signals/references/api-reference.md: sha256:81c48183805fe635ff034c14dae71baa52033555137ed43f98ccd36db06d69ed
-    .agents/skills/ngrx-signals/references/custom-features.md: sha256:accbbc4a3ee1cabd7830fc45bf521e4220da590ebf9cc3ba4c1785d156f02ed7
-    .agents/skills/ngrx-signals/references/entities.md: sha256:ff04323cc4cd4702b71c906119567f867635aa122b03f5778e17412a6e5e2c58
-    .agents/skills/ngrx-signals/references/patterns.md: sha256:6fe096dbc19673281f92f478e503ffeb9a7cf5a205b8e59a64d8262afde093b7
-    .agents/skills/ngrx-signals/references/testing.md: sha256:d42999e00704ce58fdee70bd9cf1877300bb81cae14a19369fe655ca516377f0
-    .claude/skills/ngrx-signals/README.md: sha256:4e0460ea794cba098f4744346fc08afaa885fa42f8b6cdb634653b1f4d6c23b3
-    .claude/skills/ngrx-signals/SKILL.md: sha256:8d8dbb23ff0b41624bd7c7eb8c1ebca56b119accfe741526800a0a8b29b0ec2c
-    .claude/skills/ngrx-signals/evals/evals.json: sha256:19ca9ae4bf38d0a95cbcb25d10022a9a504ed04bbda955c44bef191b2b921f51
-    .claude/skills/ngrx-signals/references/api-reference.md: sha256:81c48183805fe635ff034c14dae71baa52033555137ed43f98ccd36db06d69ed
-    .claude/skills/ngrx-signals/references/custom-features.md: sha256:accbbc4a3ee1cabd7830fc45bf521e4220da590ebf9cc3ba4c1785d156f02ed7
-    .claude/skills/ngrx-signals/references/entities.md: sha256:ff04323cc4cd4702b71c906119567f867635aa122b03f5778e17412a6e5e2c58
-    .claude/skills/ngrx-signals/references/patterns.md: sha256:6fe096dbc19673281f92f478e503ffeb9a7cf5a205b8e59a64d8262afde093b7
-    .claude/skills/ngrx-signals/references/testing.md: sha256:d42999e00704ce58fdee70bd9cf1877300bb81cae14a19369fe655ca516377f0
-  content_hash: sha256:fb790201d6dde15d9884cd9bbe6a6b3d9cc115736c232feb1ad5cf3594f4eff0
+    .claude/skills/ngrx-signals/README.md: sha256:6d0507e03311b910974628d9de574cd7878254ca83cb486b2d038f9675f7906c
+    .claude/skills/ngrx-signals/SKILL.md: sha256:2a98c87141e2ea9288d09761af9ef1a9cda70b0e57e6d17eca8b107738478f2d
+    .claude/skills/ngrx-signals/evals/checks/tsc.sh: sha256:ad2f43f960873a3039dbde71955a0ee11f4e208cedd49d658ba798a9e171f5fe
+    .claude/skills/ngrx-signals/evals/evals.json: sha256:2dc7234bc37d3a564a45da5cdad6cfc29ecf6ea8841dcf8545951923a74ab581
+    .claude/skills/ngrx-signals/references/api-reference.md: sha256:369c3c91799519c8a64ae555eccaefae9d9f0405eef5fcb596605d82e6690091
+    .claude/skills/ngrx-signals/references/custom-features.md: sha256:cdeda3475df52d671f4c8c8e929b078e53fbd21fe6f0a6b868201afa1835f6bf
+    .claude/skills/ngrx-signals/references/entities.md: sha256:a446109406352a5af952ec546d1e9f7b0d65ef59ae4552504e8d011f1a0b3033
+    .claude/skills/ngrx-signals/references/patterns.md: sha256:27cca13399a5fb26fadf03e7bd62b22bcc87ec2605c42bf6cfbfa42032a9eab9
+    .claude/skills/ngrx-signals/references/testing.md: sha256:ece3a3ba782a924757408d1fa1d0ce5cd17b71528a01513b83e704a569d826cd
+  content_hash: sha256:1fea1904d1534db382a42830610267975c9fd0b8172be36021ed375948f53f0c
 deployments:
 - kind: project-relative
   target: claude
@@ -297,33 +185,6 @@ deployments:
   - .
   active_owner: .
   content_hash: sha256:707e3c32b141be3d51cd18da88b93c9a2d653f9d78a07f652d496a3b6a9dc0f7
-- kind: project-relative
-  target: claude
-  value: .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:266aabecc14f2151018ee3dc34f5c21e9b0c80fb974b1a099e08fa6ad38675b1
-- kind: project-relative
-  target: claude
-  value: .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:12cd5ab02cdfdaa2053f10e1f474c01a808a7cd444930767046abd0b00e4e543
-- kind: project-relative
-  target: claude
-  value: .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:b1365357c7ec91e4c92928cae82a3fa73a74176177ae04656e048d8901c88520
 - kind: project-relative
   target: claude
   value: .claude/rules/angular-components.md
@@ -359,7 +220,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:2ae327f7450a1f53479e4c04ce6391cb994d57ff0e12f53ae4d9071a15ef713a
+  content_hash: sha256:0fd28eafc4772e4ce3663042233295cdd1af409446dfc602b167f5b9b80a485d
 - kind: project-relative
   target: claude
   value: .claude/rules/styling.md
@@ -818,7 +679,25 @@ deployments:
   owners:
   - danielsogl/skills/skills/bdd
   active_owner: danielsogl/skills/skills/bdd
-  content_hash: sha256:0db5844d9418460cf8a4b6b6d660939faaa4f00631ee519b4fb41e6d3e86a3ae
+  content_hash: sha256:e2f262ba9e4fe9c268a86ad5fe4689832c0553ba481711ad2e1c0acb8effccf2
+- kind: project-relative
+  target: claude
+  value: .claude/skills/bdd/evals/checks/playwright-bdd.sh
+  runtime: null
+  scope: project
+  owners:
+  - danielsogl/skills/skills/bdd
+  active_owner: danielsogl/skills/skills/bdd
+  content_hash: sha256:069b7b9b8d0c996204e8950a805b89cfd8d1ef2d04897a918970b4cdd4afcef1
+- kind: project-relative
+  target: claude
+  value: .claude/skills/bdd/evals/checks/vitest-cucumber.sh
+  runtime: null
+  scope: project
+  owners:
+  - danielsogl/skills/skills/bdd
+  active_owner: danielsogl/skills/skills/bdd
+  content_hash: sha256:5eba64a2d46237e00b1fe408cd2ba7b250c67f4eba582a2ad6dfc452755a6f85
 - kind: project-relative
   target: claude
   value: .claude/skills/bdd/evals/evals.json
@@ -827,7 +706,7 @@ deployments:
   owners:
   - danielsogl/skills/skills/bdd
   active_owner: danielsogl/skills/skills/bdd
-  content_hash: sha256:3eeba01b2659b81b7db4185d62a3f3a7dfb84b67277846646acbfa815e2f2385
+  content_hash: sha256:8dac9a1cba6b2e93fecdb61f058a1710454b0450145da1ebc2e5686aa17d7456
 - kind: project-relative
   target: claude
   value: .claude/skills/bdd/evals/trigger-eval.json
@@ -845,7 +724,7 @@ deployments:
   owners:
   - danielsogl/skills/skills/bdd
   active_owner: danielsogl/skills/skills/bdd
-  content_hash: sha256:fbf93481fc0ed57b258bfcb387fce69d1bfeafc9b59e89218e849b68831db040
+  content_hash: sha256:7fafd2ee2d8597abc0b181783a8ab708a05cf26ffb29302537b492db5d07acce
 - kind: project-relative
   target: claude
   value: .claude/skills/bdd/references/install-vitest.md
@@ -854,7 +733,7 @@ deployments:
   owners:
   - danielsogl/skills/skills/bdd
   active_owner: danielsogl/skills/skills/bdd
-  content_hash: sha256:290bc1566c912cc6d8e4c6d727e8ab3c6f7822b9dc7956a074c018e41439141c
+  content_hash: sha256:02b1ebedc595cc19a931e3813af15d147f1defa7f27b1e055ac2c6183eca509f
 - kind: project-relative
   target: claude
   value: .claude/skills/bdd/references/playwright.md
@@ -863,7 +742,7 @@ deployments:
   owners:
   - danielsogl/skills/skills/bdd
   active_owner: danielsogl/skills/skills/bdd
-  content_hash: sha256:a6e3d8f0508e1bd56b059e06a4e73757e47b799662ddaafaea4867745e1d49b6
+  content_hash: sha256:73b34bdafba5c6385203548e4e30cfd30d69b61cfb9f05032c9e0ec903de20ed
 - kind: project-relative
   target: claude
   value: .claude/skills/bdd/references/vitest.md
@@ -872,7 +751,7 @@ deployments:
   owners:
   - danielsogl/skills/skills/bdd
   active_owner: danielsogl/skills/skills/bdd
-  content_hash: sha256:58add07899a60965da431922f722f7f479b8e9a1bfecc234cfdde8bf0db53fb4
+  content_hash: sha256:5f06109dd050f522ac5e78836d3f1c5ad41d85e7d4f68b7933495631cdbe25d1
 - kind: project-relative
   target: claude
   value: .claude/skills/ngrx-signals
@@ -908,7 +787,7 @@ deployments:
   owners:
   - danielsogl/skills/skills/ngrx-signals
   active_owner: danielsogl/skills/skills/ngrx-signals
-  content_hash: sha256:4e0460ea794cba098f4744346fc08afaa885fa42f8b6cdb634653b1f4d6c23b3
+  content_hash: sha256:6d0507e03311b910974628d9de574cd7878254ca83cb486b2d038f9675f7906c
 - kind: project-relative
   target: claude
   value: .claude/skills/ngrx-signals/SKILL.md
@@ -917,7 +796,16 @@ deployments:
   owners:
   - danielsogl/skills/skills/ngrx-signals
   active_owner: danielsogl/skills/skills/ngrx-signals
-  content_hash: sha256:8d8dbb23ff0b41624bd7c7eb8c1ebca56b119accfe741526800a0a8b29b0ec2c
+  content_hash: sha256:2a98c87141e2ea9288d09761af9ef1a9cda70b0e57e6d17eca8b107738478f2d
+- kind: project-relative
+  target: claude
+  value: .claude/skills/ngrx-signals/evals/checks/tsc.sh
+  runtime: null
+  scope: project
+  owners:
+  - danielsogl/skills/skills/ngrx-signals
+  active_owner: danielsogl/skills/skills/ngrx-signals
+  content_hash: sha256:ad2f43f960873a3039dbde71955a0ee11f4e208cedd49d658ba798a9e171f5fe
 - kind: project-relative
   target: claude
   value: .claude/skills/ngrx-signals/evals/evals.json
@@ -926,7 +814,7 @@ deployments:
   owners:
   - danielsogl/skills/skills/ngrx-signals
   active_owner: danielsogl/skills/skills/ngrx-signals
-  content_hash: sha256:19ca9ae4bf38d0a95cbcb25d10022a9a504ed04bbda955c44bef191b2b921f51
+  content_hash: sha256:2dc7234bc37d3a564a45da5cdad6cfc29ecf6ea8841dcf8545951923a74ab581
 - kind: project-relative
   target: claude
   value: .claude/skills/ngrx-signals/references/api-reference.md
@@ -935,7 +823,7 @@ deployments:
   owners:
   - danielsogl/skills/skills/ngrx-signals
   active_owner: danielsogl/skills/skills/ngrx-signals
-  content_hash: sha256:81c48183805fe635ff034c14dae71baa52033555137ed43f98ccd36db06d69ed
+  content_hash: sha256:369c3c91799519c8a64ae555eccaefae9d9f0405eef5fcb596605d82e6690091
 - kind: project-relative
   target: claude
   value: .claude/skills/ngrx-signals/references/custom-features.md
@@ -944,7 +832,7 @@ deployments:
   owners:
   - danielsogl/skills/skills/ngrx-signals
   active_owner: danielsogl/skills/skills/ngrx-signals
-  content_hash: sha256:accbbc4a3ee1cabd7830fc45bf521e4220da590ebf9cc3ba4c1785d156f02ed7
+  content_hash: sha256:cdeda3475df52d671f4c8c8e929b078e53fbd21fe6f0a6b868201afa1835f6bf
 - kind: project-relative
   target: claude
   value: .claude/skills/ngrx-signals/references/entities.md
@@ -953,7 +841,7 @@ deployments:
   owners:
   - danielsogl/skills/skills/ngrx-signals
   active_owner: danielsogl/skills/skills/ngrx-signals
-  content_hash: sha256:ff04323cc4cd4702b71c906119567f867635aa122b03f5778e17412a6e5e2c58
+  content_hash: sha256:a446109406352a5af952ec546d1e9f7b0d65ef59ae4552504e8d011f1a0b3033
 - kind: project-relative
   target: claude
   value: .claude/skills/ngrx-signals/references/patterns.md
@@ -962,7 +850,7 @@ deployments:
   owners:
   - danielsogl/skills/skills/ngrx-signals
   active_owner: danielsogl/skills/skills/ngrx-signals
-  content_hash: sha256:6fe096dbc19673281f92f478e503ffeb9a7cf5a205b8e59a64d8262afde093b7
+  content_hash: sha256:27cca13399a5fb26fadf03e7bd62b22bcc87ec2605c42bf6cfbfa42032a9eab9
 - kind: project-relative
   target: claude
   value: .claude/skills/ngrx-signals/references/testing.md
@@ -971,7 +859,7 @@ deployments:
   owners:
   - danielsogl/skills/skills/ngrx-signals
   active_owner: danielsogl/skills/skills/ngrx-signals
-  content_hash: sha256:d42999e00704ce58fdee70bd9cf1877300bb81cae14a19369fe655ca516377f0
+  content_hash: sha256:ece3a3ba782a924757408d1fa1d0ce5cd17b71528a01513b83e704a569d826cd
 - kind: project-relative
   target: claude
   value: .claude/skills/review-branch
@@ -990,735 +878,6 @@ deployments:
   - .
   active_owner: .
   content_hash: sha256:7d7f855c0de001d736bd543a37e15b76bdace99c8afdd356df88b1dc435d04da
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: null
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/SKILL.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:ec5e3a0b1ef218c0d7d40e35c40e5255e7319d7d595c5a6036d8bdac2532c782
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/angular-animations.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:f21b798ed93e27318527ef7e74e63ef8c71cb74ff2b010d70dbb429883f0dbd0
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/angular-aria.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:fff4cbdf3558beacfeb03a243d874cacb16a24b0c78962c4f9c760fc2cbe5ad8
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/cli.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:39468f1be907a1abff746e79cb9fabd9675956df00c87d9b8bd1517855b9fd7d
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/component-harnesses.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:1761d33a65ecde690ca0c57081ff9d5871cafb8ff724738ccd711b5018e2d894
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/component-styling.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:de3351fdb72174361c6eee150940193f20d148afaceab0f22107758a3cb2d787
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/components.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:35ffb62475d54d7d4ed434b2190882440a77ef76b14260128e6d7e3111122e3b
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/creating-services.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:1fc1d46bd26568d07d1500d0b9ba1a2556ca4a11f4a3dc11036ae5b16dea80cc
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/data-resolvers.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:6525d6f9b90d4ac6bbd58489d6bc57ab024c407673ed0e1e46364a90d0b9b5da
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/define-routes.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:4e80613931ecf4da957f9ff45343869b1651331ff4c8b955f2698b9ac0afc921
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/defining-providers.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:e654c23a080c642cf7031b5cc5de1101b8c75030c15256f7e3b81b0336953c6d
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/di-fundamentals.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:ed5e4004aed214429de091d2b041cfd818c77a0ebfa24c23f01ec9bac7118a78
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/e2e-testing.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:fd11d930ed081ca934fe83df06c9d965257ec817ebef59b918d4d814a65feca6
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/effects.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:5df4759be70248a1f282aff3060b04b694f05ae78093a5caa4eaff455e35a6a3
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/environment-configuration.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:788b62bf5e04d56343f598437f7e3fd7fdfc6efa8ec6727288dc73514b1b5a76
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/hierarchical-injectors.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:967e472a1208c6e1f4b95bf7ee9162165904eb78ac6dab64643c67a9d1dac264
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/host-elements.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:5c2eb324e7b84bd81334b6d262a61b873de208640aabe4be48b73600438bdaed
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/http-client.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:b6a6c92ae71dc98b6cd0e2b840227c7743b3edf288769da3db070fa1815c1adc
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/injection-context.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:4435dfcec91bd9fb68d6c318802cac1b37424d4e76452e6f0f52ed0d2b6536fb
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/inputs.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:f5dcdd2a69e7e5c0aad503b4deaea5cedb682130cc699c669128b8fadcc65ba8
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/linked-signal.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:01f5395e4be4be7c642f4dacd5312d6cc82e641f3ff177f9283b26b79dd07e95
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/loading-strategies.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:4eb2e243425443426d28c6f68c823d501c7b2bf64e4587c96c4c6013d57e7c93
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/mcp.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:e112ece9672d042144bc1aeb1245bd0325bab172398d7129a258be81f9db61aa
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/migrations.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:47983ed2683dc10f692d254cdca9c97fc13dec9ad099b759f5d31886f3cbaa7a
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/naming-conventions.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:f0751d75d12a76ff0415124948ead5ae1a67d14a84360e64526aa8bac7d6c5d3
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/navigate-to-routes.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:ea3c3d53b5db47b4f8d8b05124330e72bea92fc908d42c06aa7edb9e652b425e
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/outputs.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:4d6900ff9ab90168969c3d05b67d88f69bb6a46aa4b74a8a8290ba0643c6d8dd
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/pipes.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:76bd0f2f3ac9096ee511427df6ea73cab75f06a3566ab4595ba4f2ec8c0c6fc9
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/reactive-forms.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:edfc57c191d29a1549e9aa9b4ba0d1111a9792caa65918d62967920647717121
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/rendering-strategies.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:329aa9aa35c85dd2048c899f26025439d3b0244067dbb508e724d291fdad7c97
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/resource.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:2fad5a0aaf85b0b3193a492b706595962e247bc99aec1dcc1755d90d9c303545
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/route-animations.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:eda1452f85ce05f3f28753cc77cd8c31c7a52515d7ccebbb35de0ec1e3beb374
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/route-guards.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:491a93cb49fbcba04f7e8ffcd0f784fce7319ca3e2fe393c553f3d683a68424c
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/router-lifecycle.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:4abc8cb8dfeb2e9f57dc11c117d5f4a5b756b39dc076910d9ced9da640effc2d
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/router-testing.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:4d144577927d3ea93ae498cac7ebd2724873a2de225b75d345abb24759bd62d3
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/show-routes-with-outlets.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:43a2ed62ea2edafa8569bf7045f20928110f8f844d5890bfb6a2f2dde45e754b
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/signal-forms.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:5251585cadf72ab95e31377904db21a597b5e9b982c8e839dc098b48f69ac6b7
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/signals-overview.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:da07c58fdea2ab7d82a28faf9f3d117ccb98ccaf3eec06f103b898f557791146
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/tailwind-css.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:bdb952d0dd2d415560a796ecaf843cacff5ac20d8ef961eaaf75656fef9b9263
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/template-driven-forms.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:52e83e576b0c6dc05f854e903c4cfda1222bcd55c50ddee07344d1e53d02c1df
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/angular-developer/references/testing-fundamentals.md
-  runtime: null
-  scope: project
-  owners:
-  - angular/skills/angular-developer
-  active_owner: angular/skills/angular-developer
-  content_hash: sha256:8f48c2392d99487934edf977c0d1b87a4e83ff9761db493bbcccc10f574bcb5a
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/bdd
-  runtime: null
-  scope: project
-  owners:
-  - danielsogl/skills/skills/bdd
-  active_owner: danielsogl/skills/skills/bdd
-  content_hash: null
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/bdd/SKILL.md
-  runtime: null
-  scope: project
-  owners:
-  - danielsogl/skills/skills/bdd
-  active_owner: danielsogl/skills/skills/bdd
-  content_hash: sha256:f1182907bac8783d279eb92000fda417d59568faea99c6245b0450d913bae4a4
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/bdd/bdd.skill
-  runtime: null
-  scope: project
-  owners:
-  - danielsogl/skills/skills/bdd
-  active_owner: danielsogl/skills/skills/bdd
-  content_hash: sha256:0db5844d9418460cf8a4b6b6d660939faaa4f00631ee519b4fb41e6d3e86a3ae
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/bdd/evals/evals.json
-  runtime: null
-  scope: project
-  owners:
-  - danielsogl/skills/skills/bdd
-  active_owner: danielsogl/skills/skills/bdd
-  content_hash: sha256:3eeba01b2659b81b7db4185d62a3f3a7dfb84b67277846646acbfa815e2f2385
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/bdd/evals/trigger-eval.json
-  runtime: null
-  scope: project
-  owners:
-  - danielsogl/skills/skills/bdd
-  active_owner: danielsogl/skills/skills/bdd
-  content_hash: sha256:7bf3220462ee1057eefe454736dd8d124dcce74e364b69155c5e8fc8333f2211
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/bdd/references/install-playwright.md
-  runtime: null
-  scope: project
-  owners:
-  - danielsogl/skills/skills/bdd
-  active_owner: danielsogl/skills/skills/bdd
-  content_hash: sha256:fbf93481fc0ed57b258bfcb387fce69d1bfeafc9b59e89218e849b68831db040
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/bdd/references/install-vitest.md
-  runtime: null
-  scope: project
-  owners:
-  - danielsogl/skills/skills/bdd
-  active_owner: danielsogl/skills/skills/bdd
-  content_hash: sha256:290bc1566c912cc6d8e4c6d727e8ab3c6f7822b9dc7956a074c018e41439141c
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/bdd/references/playwright.md
-  runtime: null
-  scope: project
-  owners:
-  - danielsogl/skills/skills/bdd
-  active_owner: danielsogl/skills/skills/bdd
-  content_hash: sha256:a6e3d8f0508e1bd56b059e06a4e73757e47b799662ddaafaea4867745e1d49b6
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/bdd/references/vitest.md
-  runtime: null
-  scope: project
-  owners:
-  - danielsogl/skills/skills/bdd
-  active_owner: danielsogl/skills/skills/bdd
-  content_hash: sha256:58add07899a60965da431922f722f7f479b8e9a1bfecc234cfdde8bf0db53fb4
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/ngrx-signals
-  runtime: null
-  scope: project
-  owners:
-  - danielsogl/skills/skills/ngrx-signals
-  active_owner: danielsogl/skills/skills/ngrx-signals
-  content_hash: null
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/ngrx-signals/README.md
-  runtime: null
-  scope: project
-  owners:
-  - danielsogl/skills/skills/ngrx-signals
-  active_owner: danielsogl/skills/skills/ngrx-signals
-  content_hash: sha256:4e0460ea794cba098f4744346fc08afaa885fa42f8b6cdb634653b1f4d6c23b3
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/ngrx-signals/SKILL.md
-  runtime: null
-  scope: project
-  owners:
-  - danielsogl/skills/skills/ngrx-signals
-  active_owner: danielsogl/skills/skills/ngrx-signals
-  content_hash: sha256:8d8dbb23ff0b41624bd7c7eb8c1ebca56b119accfe741526800a0a8b29b0ec2c
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/ngrx-signals/evals/evals.json
-  runtime: null
-  scope: project
-  owners:
-  - danielsogl/skills/skills/ngrx-signals
-  active_owner: danielsogl/skills/skills/ngrx-signals
-  content_hash: sha256:19ca9ae4bf38d0a95cbcb25d10022a9a504ed04bbda955c44bef191b2b921f51
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/ngrx-signals/references/api-reference.md
-  runtime: null
-  scope: project
-  owners:
-  - danielsogl/skills/skills/ngrx-signals
-  active_owner: danielsogl/skills/skills/ngrx-signals
-  content_hash: sha256:81c48183805fe635ff034c14dae71baa52033555137ed43f98ccd36db06d69ed
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/ngrx-signals/references/custom-features.md
-  runtime: null
-  scope: project
-  owners:
-  - danielsogl/skills/skills/ngrx-signals
-  active_owner: danielsogl/skills/skills/ngrx-signals
-  content_hash: sha256:accbbc4a3ee1cabd7830fc45bf521e4220da590ebf9cc3ba4c1785d156f02ed7
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/ngrx-signals/references/entities.md
-  runtime: null
-  scope: project
-  owners:
-  - danielsogl/skills/skills/ngrx-signals
-  active_owner: danielsogl/skills/skills/ngrx-signals
-  content_hash: sha256:ff04323cc4cd4702b71c906119567f867635aa122b03f5778e17412a6e5e2c58
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/ngrx-signals/references/patterns.md
-  runtime: null
-  scope: project
-  owners:
-  - danielsogl/skills/skills/ngrx-signals
-  active_owner: danielsogl/skills/skills/ngrx-signals
-  content_hash: sha256:6fe096dbc19673281f92f478e503ffeb9a7cf5a205b8e59a64d8262afde093b7
-- kind: project-relative
-  target: copilot
-  value: .agents/skills/ngrx-signals/references/testing.md
-  runtime: null
-  scope: project
-  owners:
-  - danielsogl/skills/skills/ngrx-signals
-  active_owner: danielsogl/skills/skills/ngrx-signals
-  content_hash: sha256:d42999e00704ce58fdee70bd9cf1877300bb81cae14a19369fe655ca516377f0
-- kind: project-relative
-  target: copilot
-  value: .github/agents/playwright-test-generator.agent.md
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:25e8c507960b1eb075dc68ade9f06a46eae6ba9ff0835a5555c41d79d9bcc38a
-- kind: project-relative
-  target: copilot
-  value: .github/agents/playwright-test-healer.agent.md
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:d79ad60df5f1a770a31be8a12241d2fc0b0d4b2b23302c0463fdf39da293ace6
-- kind: project-relative
-  target: copilot
-  value: .github/agents/playwright-test-planner.agent.md
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:707e3c32b141be3d51cd18da88b93c9a2d653f9d78a07f652d496a3b6a9dc0f7
-- kind: project-relative
-  target: copilot
-  value: .github/hooks/copilot-workflow-demo-hooks.json
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:281c7fdd9ce8ab7a81e1650b5f3f300a97b7968879f5a797c690b407c14b2a65
-- kind: project-relative
-  target: copilot
-  value: .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:266aabecc14f2151018ee3dc34f5c21e9b0c80fb974b1a099e08fa6ad38675b1
-- kind: project-relative
-  target: copilot
-  value: .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:12cd5ab02cdfdaa2053f10e1f474c01a808a7cd444930767046abd0b00e4e543
-- kind: project-relative
-  target: copilot
-  value: .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:b1365357c7ec91e4c92928cae82a3fa73a74176177ae04656e048d8901c88520
-- kind: project-relative
-  target: copilot
-  value: .github/instructions/angular-components.instructions.md
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:558967aaea58257a615e49abeef2bd7cd0ce0558d78e87a4fa445d95dc3ed9f8
-- kind: project-relative
-  target: copilot
-  value: .github/instructions/architecture.instructions.md
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:ef8e299d823e21a4e2197b2c437247d31bce4d979a52c7577c7402dcb5fa7160
-- kind: project-relative
-  target: copilot
-  value: .github/instructions/commands.instructions.md
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:245751dd4516147dbda65550c4893309d56ef7ca8f3c0912e2cad0715b623e8e
-- kind: project-relative
-  target: copilot
-  value: .github/instructions/project-overview.instructions.md
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:2249b38a633f35e92edd6deca8df8c19640925145fe00e19b41f7a33dead0b8c
-- kind: project-relative
-  target: copilot
-  value: .github/instructions/styling.instructions.md
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:8a3478b9d440566bfe8e39f2bd072ff069f6592c6354e5d1a3ef3ed48007c4f9
-- kind: project-relative
-  target: copilot
-  value: .github/instructions/typescript.instructions.md
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:25ee789aae5bf131fc19d7dff38469b90f65abc0ed2cb25f8bcb0b93c6554d96
-- kind: project-relative
-  target: legacy
-  value: .agents/skills/analyze-codebase-bugs
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: null
-- kind: project-relative
-  target: legacy
-  value: .agents/skills/analyze-codebase-bugs/SKILL.md
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:c9d652cda3165771dd4bc02fa41bfa9864a078161b6af7a7b65c059bef5dc46e
-- kind: project-relative
-  target: legacy
-  value: .agents/skills/angular-signal-forms
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: null
-- kind: project-relative
-  target: legacy
-  value: .agents/skills/angular-signal-forms/SKILL.md
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:09f80b60d607cc5cbc4e5d42920445eae62ad129dff0029f69dbd46eaaa96e76
-- kind: project-relative
-  target: legacy
-  value: .agents/skills/ngrx-signals-store-crud
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: null
-- kind: project-relative
-  target: legacy
-  value: .agents/skills/ngrx-signals-store-crud/SKILL.md
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:59b8fc2c7d476bb5686d4783b3fe119177515c5eb0fcb6bca955560f52247320
-- kind: project-relative
-  target: legacy
-  value: .agents/skills/review-branch
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: null
-- kind: project-relative
-  target: legacy
-  value: .agents/skills/review-branch/SKILL.md
-  runtime: null
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: sha256:7d7f855c0de001d736bd543a37e15b76bdace99c8afdd356df88b1dc435d04da
 - kind: uri
   target: lsp
   value: angular
@@ -1759,123 +918,6 @@ deployments:
   target: lsp
   value: yaml
   runtime: claude
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: null
-- kind: uri
-  target: lsp
-  value: angular
-  runtime: copilot
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: null
-- kind: uri
-  target: lsp
-  value: css
-  runtime: copilot
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: null
-- kind: uri
-  target: lsp
-  value: json
-  runtime: copilot
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: null
-- kind: uri
-  target: lsp
-  value: typescript
-  runtime: copilot
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: null
-- kind: uri
-  target: lsp
-  value: yaml
-  runtime: copilot
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: null
-- kind: uri
-  target: mcp
-  value: angular-cli
-  runtime: claude
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: null
-- kind: uri
-  target: mcp
-  value: codegraph
-  runtime: claude
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: null
-- kind: uri
-  target: mcp
-  value: context7
-  runtime: claude
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: null
-- kind: uri
-  target: mcp
-  value: playwright-test
-  runtime: claude
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: null
-- kind: uri
-  target: mcp
-  value: angular-cli
-  runtime: copilot
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: null
-- kind: uri
-  target: mcp
-  value: codegraph
-  runtime: copilot
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: null
-- kind: uri
-  target: mcp
-  value: context7
-  runtime: copilot
-  scope: project
-  owners:
-  - .
-  active_owner: .
-  content_hash: null
-- kind: uri
-  target: mcp
-  value: playwright-test
-  runtime: copilot
   scope: project
   owners:
   - .
@@ -1917,17 +959,7 @@ mcp_configs:
     - run-test-mcp-server
     registry: false
     command: npx
-mcp_target_servers:
-  claude:
-  - angular-cli
-  - codegraph
-  - context7
-  - playwright-test
-  copilot:
-  - angular-cli
-  - codegraph
-  - context7
-  - playwright-test
+mcp_target_servers: {}
 lsp_servers:
 - angular
 - css
@@ -1994,12 +1026,6 @@ lsp_target_servers:
   - json
   - typescript
   - yaml
-  copilot:
-  - angular
-  - css
-  - json
-  - typescript
-  - yaml
 lsp_config_provenance:
   angular: project:.
   css: project:.
@@ -2007,20 +1033,9 @@ lsp_config_provenance:
   typescript: project:.
   yaml: project:.
 local_deployed_files:
-- .agents/skills/analyze-codebase-bugs
-- .agents/skills/analyze-codebase-bugs/SKILL.md
-- .agents/skills/angular-signal-forms
-- .agents/skills/angular-signal-forms/SKILL.md
-- .agents/skills/ngrx-signals-store-crud
-- .agents/skills/ngrx-signals-store-crud/SKILL.md
-- .agents/skills/review-branch
-- .agents/skills/review-branch/SKILL.md
 - .claude/agents/playwright-test-generator.md
 - .claude/agents/playwright-test-healer.md
 - .claude/agents/playwright-test-planner.md
-- .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh
-- .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh
-- .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh
 - .claude/rules/angular-components.md
 - .claude/rules/architecture.md
 - .claude/rules/commands.md
@@ -2035,50 +1050,17 @@ local_deployed_files:
 - .claude/skills/ngrx-signals-store-crud/SKILL.md
 - .claude/skills/review-branch
 - .claude/skills/review-branch/SKILL.md
-- .github/agents/playwright-test-generator.agent.md
-- .github/agents/playwright-test-healer.agent.md
-- .github/agents/playwright-test-planner.agent.md
-- .github/hooks/copilot-workflow-demo-hooks.json
-- .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh
-- .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh
-- .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh
-- .github/instructions/angular-components.instructions.md
-- .github/instructions/architecture.instructions.md
-- .github/instructions/commands.instructions.md
-- .github/instructions/project-overview.instructions.md
-- .github/instructions/styling.instructions.md
-- .github/instructions/typescript.instructions.md
 local_deployed_file_hashes:
-  .agents/skills/analyze-codebase-bugs/SKILL.md: sha256:c9d652cda3165771dd4bc02fa41bfa9864a078161b6af7a7b65c059bef5dc46e
-  .agents/skills/angular-signal-forms/SKILL.md: sha256:09f80b60d607cc5cbc4e5d42920445eae62ad129dff0029f69dbd46eaaa96e76
-  .agents/skills/ngrx-signals-store-crud/SKILL.md: sha256:59b8fc2c7d476bb5686d4783b3fe119177515c5eb0fcb6bca955560f52247320
-  .agents/skills/review-branch/SKILL.md: sha256:7d7f855c0de001d736bd543a37e15b76bdace99c8afdd356df88b1dc435d04da
   .claude/agents/playwright-test-generator.md: sha256:25e8c507960b1eb075dc68ade9f06a46eae6ba9ff0835a5555c41d79d9bcc38a
   .claude/agents/playwright-test-healer.md: sha256:d79ad60df5f1a770a31be8a12241d2fc0b0d4b2b23302c0463fdf39da293ace6
   .claude/agents/playwright-test-planner.md: sha256:707e3c32b141be3d51cd18da88b93c9a2d653f9d78a07f652d496a3b6a9dc0f7
-  .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh: sha256:266aabecc14f2151018ee3dc34f5c21e9b0c80fb974b1a099e08fa6ad38675b1
-  .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh: sha256:12cd5ab02cdfdaa2053f10e1f474c01a808a7cd444930767046abd0b00e4e543
-  .claude/hooks/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh: sha256:b1365357c7ec91e4c92928cae82a3fa73a74176177ae04656e048d8901c88520
   .claude/rules/angular-components.md: sha256:b2566675d1faaced2cee4ed326cc954a44bbce37dbfc2f001e5867ecf79c381f
   .claude/rules/architecture.md: sha256:d7dc3a97f28226d53188c053c5a19787293a5c541e955b85f7d46c7058dede36
   .claude/rules/commands.md: sha256:827f798b8907a9c10a2eac11283f0351612ed8f67845ba0610efc1697f2afe50
-  .claude/rules/project-overview.md: sha256:2ae327f7450a1f53479e4c04ce6391cb994d57ff0e12f53ae4d9071a15ef713a
+  .claude/rules/project-overview.md: sha256:0fd28eafc4772e4ce3663042233295cdd1af409446dfc602b167f5b9b80a485d
   .claude/rules/styling.md: sha256:ddf96af3963bfaeb33953cd5e372457d3b1710ac843fde91fa992a22a506c883
   .claude/rules/typescript.md: sha256:53c33ac832aee9870c95fc5eceecafb291a1c5530b184dabc122b45c8d58ea9c
   .claude/skills/analyze-codebase-bugs/SKILL.md: sha256:c9d652cda3165771dd4bc02fa41bfa9864a078161b6af7a7b65c059bef5dc46e
   .claude/skills/angular-signal-forms/SKILL.md: sha256:09f80b60d607cc5cbc4e5d42920445eae62ad129dff0029f69dbd46eaaa96e76
   .claude/skills/ngrx-signals-store-crud/SKILL.md: sha256:59b8fc2c7d476bb5686d4783b3fe119177515c5eb0fcb6bca955560f52247320
   .claude/skills/review-branch/SKILL.md: sha256:7d7f855c0de001d736bd543a37e15b76bdace99c8afdd356df88b1dc435d04da
-  .github/agents/playwright-test-generator.agent.md: sha256:25e8c507960b1eb075dc68ade9f06a46eae6ba9ff0835a5555c41d79d9bcc38a
-  .github/agents/playwright-test-healer.agent.md: sha256:d79ad60df5f1a770a31be8a12241d2fc0b0d4b2b23302c0463fdf39da293ace6
-  .github/agents/playwright-test-planner.agent.md: sha256:707e3c32b141be3d51cd18da88b93c9a2d653f9d78a07f652d496a3b6a9dc0f7
-  .github/hooks/copilot-workflow-demo-hooks.json: sha256:281c7fdd9ce8ab7a81e1650b5f3f300a97b7968879f5a797c690b407c14b2a65
-  .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/format-changed-files.sh: sha256:266aabecc14f2151018ee3dc34f5c21e9b0c80fb974b1a099e08fa6ad38675b1
-  .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/guard-destructive-bash.sh: sha256:12cd5ab02cdfdaa2053f10e1f474c01a808a7cd444930767046abd0b00e4e543
-  .github/hooks/scripts/copilot-workflow-demo/.apm/hooks/scripts/session-context.sh: sha256:b1365357c7ec91e4c92928cae82a3fa73a74176177ae04656e048d8901c88520
-  .github/instructions/angular-components.instructions.md: sha256:558967aaea58257a615e49abeef2bd7cd0ce0558d78e87a4fa445d95dc3ed9f8
-  .github/instructions/architecture.instructions.md: sha256:ef8e299d823e21a4e2197b2c437247d31bce4d979a52c7577c7402dcb5fa7160
-  .github/instructions/commands.instructions.md: sha256:245751dd4516147dbda65550c4893309d56ef7ca8f3c0912e2cad0715b623e8e
-  .github/instructions/project-overview.instructions.md: sha256:2249b38a633f35e92edd6deca8df8c19640925145fe00e19b41f7a33dead0b8c
-  .github/instructions/styling.instructions.md: sha256:8a3478b9d440566bfe8e39f2bd072ff069f6592c6354e5d1a3ef3ed48007c4f9
-  .github/instructions/typescript.instructions.md: sha256:25ee789aae5bf131fc19d7dff38469b90f65abc0ed2cb25f8bcb0b93c6554d96

@@ -3,7 +3,7 @@ paths:
   - "**"
 ---
 
-This repo is an Angular 22 + NgRx Signals workshop demo. Agent configuration is managed by **APM** — author primitives under `.apm/`, run `apm install` to compile harness-specific output. Never hand-edit generated dirs (`.github/`, `.agents/skills/`, `.claude/`).
+This repo is an Angular 22 + NgRx Signals workshop demo. Agent configuration is managed by **APM** — author primitives under `.apm/`, then run `apm install && apm compile --target codex`. Never hand-edit the generated files (`.claude/rules`, `.claude/agents`, `.claude/skills`, `.mcp.json`, `AGENTS.md`).
 
 **CodeGraph:** when `.codegraph/` exists, reach for `codegraph_explore` (MCP) or `codegraph explore "<symbols or question>"` (shell) before grep or reading files — one call returns the relevant source plus its call paths. The index is **not** built by `apm install`; if `.codegraph/` is missing (the server reports "not initialized"), run `apm run codegraph-setup` (= `codegraph init`) once — CodeGraph's daemon keeps it in sync afterwards.
 
@@ -39,9 +39,9 @@ src/app/
 
 ## Skills
 
-Skills are deployed to `.agents/skills/` and `.claude/skills/` — both copies are generated. Knowledge
-skills are `apm` dependencies in `apm.yml`; workflow skills live in `.apm/skills/` and are invoked as
-slash commands (identical in Claude Code, Copilot in VS Code and Copilot CLI).
+Skills are deployed to `.claude/skills/`, which Claude Code, Copilot in VS Code and the Copilot CLI all
+read. Knowledge skills are `apm` dependencies in `apm.yml`; workflow skills live in `.apm/skills/` and
+are invoked as slash commands.
 
 | Skill                      | When to use                                                           |
 | -------------------------- | --------------------------------------------------------------------- |

@@ -3,42 +3,41 @@ version: 1.0.0
 description: Angular 22 + NgRx Signals workshop demo — agent config managed via APM
 author: Daniel Sogl
 
-# One branch serves Claude Code and Copilot (VS Code + CLI) from the same .apm/ sources. Everything
-# under .github/, .claude/, .agents/ and .vscode/mcp.json is generated — edit .apm/ and this file.
-# Hand-owned: .vscode/settings.json (keeps VS Code on the same file set the Copilot CLI loads) and
-# the permissions / enabledMcpjsonServers / UserPromptSubmit parts of .claude/settings.json.
+# One source for Claude Code and Copilot (VS Code + CLI). APM deploys only the claude target, because
+# every harness reads the Claude layout: .claude/agents, .claude/skills and the hooks in
+# .claude/settings.json. VS Code also reads .claude/rules; the Copilot CLI does not, so it gets the same
+# instructions from AGENTS.md, which VS Code skips (chat.useAgentsMdFile: false).
+#   apm install && apm compile --target codex        # the codex compile writes only AGENTS.md
 #
-# No root AGENTS.md / CLAUDE.md on purpose: instructions live only in the path-scoped native rules.
-# Compile one target at a time — a combined compile re-creates a full AGENTS.md (microsoft/apm#1678).
-# Never with --clean: on a single target it deletes the other target's deployed files.
-#   apm install && apm compile --target copilot && apm compile --target claude
+# Generated: .claude/rules, .claude/agents, .claude/skills, the hooks in .claude/settings.json,
+# .mcp.json and AGENTS.md. Hand-owned: .vscode/settings.json, .vscode/mcp.json (VS Code's Local agent
+# does not read .mcp.json), .github/lsp.json (the Copilot CLI reads repo LSP servers only from there —
+# keep it in sync with dependencies.lsp) and the permissions / enabledMcpjsonServers /
+# UserPromptSubmit parts of .claude/settings.json.
+# No copilot target: VS Code would load .github/instructions and .github/agents on top of the .claude
+# copies, and the only settings that prevented that (chat.*FilesLocations) are deprecated. The cloud
+# agent therefore sees AGENTS.md and .claude/skills, but no hooks or custom agents.
 #
 # Rules that the generated output does not reveal:
-#   - Never name a hook file *-<harness>-hooks.json. That routing is deprecated, and one such file
-#     silently strips the generic hooks.json of the other harness. Keep one .apm/hooks/hooks.json
-#     and treat "No drift detected" from `apm audit` as the regression check.
 #   - The UserPromptSubmit -> `codegraph prompt-hook` entry in .claude/settings.json is user-owned:
-#     in the file, absent from the apm-hooks.json sidecar. It implements Claude's hook contract
-#     only, so making it an APM primitive would hand it to Copilot too.
-#   - Hook matchers stay ".*": one hooks.json feeds every harness and their tool names differ, so
-#     each script filters itself. Not "" or "*": the Copilot CLI skips hooks with an empty matcher
-#     and rejects "*" as an invalid regex. Scripts read both payload shapes: tool_name/tool_input
-#     (Claude, VS Code) and toolName/toolArgs (Copilot CLI on the camelCase events APM emits).
-#   - The Copilot CLI also runs every hook in .claude/settings.json (CLAUDE_PROJECT_DIR is set).
-#     The .claude/hooks script copies exit early when COPILOT_CLI is set, so each hook runs once.
-#   - Every instruction carries applyTo; repo-wide ones use "**". Without it APM also folds the
-#     text into .github/copilot-instructions.md and the Copilot CLI loads it twice. Claude loads
-#     paths: ["**"] rules at session start, VS Code applies "**" to every request.
+#     in the file, absent from the apm-hooks.json sidecar. It implements Claude's hook contract, so
+#     it steps aside when COPILOT_CLI is set.
+#   - Hook commands resolve scripts from the git root, not ${PLUGIN_ROOT}: APM rewrites that to
+#     ${CLAUDE_PROJECT_DIR}, which VS Code does not set.
+#   - Hook matchers stay ".*": the Copilot CLI skips hooks with an empty matcher and rejects "*" as an
+#     invalid regex. Tool names differ per harness, so each script filters itself and reads both
+#     payload shapes (tool_name/tool_input and toolName/toolArgs).
+#   - Every instruction carries applyTo; repo-wide ones use "**", which Claude and VS Code load for
+#     every request.
 #   - No prompts: .prompt.md files do not exist in the Copilot CLI. Slash-command workflows are
-#     skills in .apm/skills/ with disable-model-invocation, so every harness gets the same file.
-#     Keep tool names out of skills and agents — each harness spells them differently.
+#     skills in .apm/skills/ with disable-model-invocation. Keep tool names out of skills and agents —
+#     each harness spells them differently.
 #   - The unpinned-deps `apm install` warning is deliberate: apm.lock.yaml pins the SHAs and
 #     neither skill repo publishes usable tags, so a pin could only freeze them.
 #   - The generated .claude/skills/apm-lsp plugin needs /reload-plugins and a Claude started from
 #     the repo root, otherwise the LSP servers never come up.
 
 targets:
-  - copilot
   - claude
 includes: auto
 dependencies:

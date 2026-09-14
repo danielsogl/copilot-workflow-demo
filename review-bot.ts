@@ -57,7 +57,7 @@ async function main() {
       model: "gpt-4.1",
       streaming: true,
       tools: [getPullRequest],
-      skillDirectories: [".agents/skills"],
+      skillDirectories: [".claude/skills"],
       enableConfigDiscovery: true,
       systemMessage: {
         content: `You are an expert code reviewer specializing in Angular 21, TypeScript, and NgRx Signals.
