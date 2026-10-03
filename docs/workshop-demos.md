@@ -30,20 +30,19 @@ Add a Notes page at /notes: a form to add a note (title required, max 80 charact
 code), so the difference is in conventions that only the rules know. Headless run on 2026-10-03,
 Claude Code + Sonnet, one run each:
 
-|                      | bare (`demo/bare`)                           | harness (`chore/workshop-2026-10`)              |
-| -------------------- | -------------------------------------------- | ----------------------------------------------- |
-| Form API             | Reactive Forms (`FormBuilder`, `Validators`) | Signal Forms (`form()` + schema) — project rule |
-| Code comments        | yes (`// Newest first`)                      | none — project rule                             |
-| Specs                | store only                                   | store + `note-api.spec.ts`                      |
-| Format/lint on write | no                                           | PostToolUse hook ran Prettier/ESLint            |
+|               | bare (`demo/bare`)                           | harness (`chore/workshop-2026-10`)              |
+| ------------- | -------------------------------------------- | ----------------------------------------------- |
+| Form API      | Reactive Forms (`FormBuilder`, `Validators`) | Signal Forms (`form()` + schema) — project rule |
+| Code comments | yes (`// Newest first`)                      | none — project rule                             |
+| Specs         | store only                                   | store + `note-api.spec.ts`                      |
 
 Point at the form API and the comments; the folder tree looks the same. Results vary per run — if
 the difference is weak live, use the fallback.
 
 **Reset:** `git stash drop` (bare result) and the general reset.
 
-**Fallback:** show the recorded diff: `git diff demo/bare..chore/workshop-2026-10 --stat` for what the
-harness consists of, and the comparison notes above.
+**Fallback:** the recorded runs are on `demo/d1-result-bare` and `demo/d1-result-harness`:
+`git diff demo/d1-result-bare demo/d1-result-harness -- src/app/features/notes`.
 
 ## D2 — `/context`
 
