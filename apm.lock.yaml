@@ -220,7 +220,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:0fd28eafc4772e4ce3663042233295cdd1af409446dfc602b167f5b9b80a485d
+  content_hash: sha256:b66a91199cb9fc3387c698a0285b806c920d48a915620d685fbeedd04b2cdc82
 - kind: project-relative
   target: claude
   value: .claude/rules/styling.md
@@ -1057,7 +1057,7 @@ local_deployed_file_hashes:
   .claude/rules/angular-components.md: sha256:b2566675d1faaced2cee4ed326cc954a44bbce37dbfc2f001e5867ecf79c381f
   .claude/rules/architecture.md: sha256:d7dc3a97f28226d53188c053c5a19787293a5c541e955b85f7d46c7058dede36
   .claude/rules/commands.md: sha256:827f798b8907a9c10a2eac11283f0351612ed8f67845ba0610efc1697f2afe50
-  .claude/rules/project-overview.md: sha256:0fd28eafc4772e4ce3663042233295cdd1af409446dfc602b167f5b9b80a485d
+  .claude/rules/project-overview.md: sha256:b66a91199cb9fc3387c698a0285b806c920d48a915620d685fbeedd04b2cdc82
   .claude/rules/styling.md: sha256:ddf96af3963bfaeb33953cd5e372457d3b1710ac843fde91fa992a22a506c883
   .claude/rules/typescript.md: sha256:53c33ac832aee9870c95fc5eceecafb291a1c5530b184dabc122b45c8d58ea9c
   .claude/skills/analyze-codebase-bugs/SKILL.md: sha256:c9d652cda3165771dd4bc02fa41bfa9864a078161b6af7a7b65c059bef5dc46e

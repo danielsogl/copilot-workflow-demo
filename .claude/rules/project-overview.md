@@ -14,7 +14,7 @@ This repo is an Angular 22 + NgRx Signals workshop demo. Agent configuration is 
 - **NgRx Signals Store 22** — `signalStore`, `withEntities`, `rxMethod`, `signalMethod`, `withFeature`, `withLinkedState`, `withEventHandlers`.
 - **Angular Material 22** — Material 3 via `mat.theme()` and `--mat-sys-*` tokens. Legacy palette/theme APIs are forbidden.
 - **Angular Signal Forms** — `form()`, `schema()`, `FormField`. Preferred over Reactive/Template-driven forms for new code.
-- **Vitest 4** (via `@angular/build:unit-test`) + Angular **TestBed** + **ng-mocks**. Pinned to 4.x — `@angular/build` peers `vitest ^4.0.8`.
+- **Vitest 5** (via `@angular/build:unit-test`) + Angular **TestBed** + **ng-mocks**.
 - **TypeScript pinned to 6.0.x** — `@angular/build` and `@angular/compiler-cli` peer `typescript >=6.0 <6.1`. Do not bump to 7.x.
 - **Playwright** for E2E.
 - **json-server** mock REST API on `http://localhost:3000`.

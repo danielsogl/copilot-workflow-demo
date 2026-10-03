@@ -121,7 +121,7 @@ src/app/
 | **NgRx Signals**         | 22      | State management (`signalStore`, `withEntities`, `rxMethod`)       |
 | **Angular Material**     | 22      | UI — Material 3 via `mat.theme()` mixin                            |
 | **Angular Signal Forms** | 22      | `form()`, `schema()`, `FormField` directive                        |
-| **Vitest**               | 4       | Unit testing via `@angular/build:unit-test`                        |
+| **Vitest**               | 5       | Unit testing via `@angular/build:unit-test`                        |
 | **Playwright**           | 1.63    | E2E testing                                                        |
 | **json-server**          | —       | Local mock REST API on `http://localhost:3000`                     |
 | **ESLint**               | 10      | Flat config with `angular-eslint`, `@ngrx/eslint-plugin`           |
