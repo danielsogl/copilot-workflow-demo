@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  effect,
-  inject,
-  untracked,
-} from "@angular/core";
+import { Component, effect, inject, untracked } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatIconButton } from "@angular/material/button";
 import { MatIcon } from "@angular/material/icon";
@@ -16,7 +10,6 @@ import { ChatPanel } from "../../ui/chat-panel/chat-panel";
   selector: "app-assistant-page",
   templateUrl: "./assistant-page.html",
   styleUrl: "./assistant-page.scss",
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ChatPanel, MatIconButton, MatIcon, MatTooltip],
 })
 export class AssistantPage {

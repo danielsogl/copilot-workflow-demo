@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { provideZonelessChangeDetection, ComponentRef } from "@angular/core";
+import { ComponentRef } from "@angular/core";
 import { DashboardStats } from "./dashboard-stats";
 
 describe("DashboardStats", () => {
@@ -10,7 +10,6 @@ describe("DashboardStats", () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [DashboardStats],
-      providers: [provideZonelessChangeDetection()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardStats);

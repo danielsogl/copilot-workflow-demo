@@ -29,7 +29,7 @@ src/app/
   theme/theme.scss                     # global mat.theme()
   features/<domain>/
     feature/<container>/<container>.ts # smart, route-level
-    ui/<component>/<component>.ts      # presentational, OnPush
+    ui/<component>/<component>.ts      # presentational
     data/
       models/<thing>.model.ts
       infrastructure/<thing>-api.ts

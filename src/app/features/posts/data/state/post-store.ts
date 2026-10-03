@@ -17,7 +17,7 @@ import {
 } from "@ngrx/signals/entities";
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
 import { tapResponse } from "@ngrx/operators";
-import { pipe, switchMap, tap } from "rxjs";
+import { concatMap, pipe, switchMap, tap } from "rxjs";
 import { PostApi } from "../infrastructure/post-api";
 import {
   CreatePostRequest,
@@ -108,7 +108,7 @@ export const PostStore = signalStore(
     createPost: rxMethod<CreatePostRequest>(
       pipe(
         tap(() => patchState(store, { loading: true, error: null })),
-        switchMap((post) =>
+        concatMap((post) =>
           postApi.createPost(post).pipe(
             tapResponse({
               next: (createdPost) =>
@@ -129,7 +129,7 @@ export const PostStore = signalStore(
     updatePost: rxMethod<{ id: number; updates: UpdatePostRequest }>(
       pipe(
         tap(() => patchState(store, { loading: true, error: null })),
-        switchMap(({ id, updates }) =>
+        concatMap(({ id, updates }) =>
           postApi.updatePost(id, updates).pipe(
             tapResponse({
               next: (post) =>
@@ -152,7 +152,7 @@ export const PostStore = signalStore(
     deletePost: rxMethod<number>(
       pipe(
         tap(() => patchState(store, { loading: true, error: null })),
-        switchMap((id) =>
+        concatMap((id) =>
           postApi.deletePost(id).pipe(
             tapResponse({
               next: () =>

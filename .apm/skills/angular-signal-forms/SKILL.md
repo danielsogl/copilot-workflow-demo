@@ -38,11 +38,12 @@ Generate a complete Angular Signal Form component with schema validation:
 
 #### Core Imports and Dependencies
 ```typescript
-import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import {
   form,
   schema,
   FormField,
+  FormRoot,
   required,
   email,
   minLength,
@@ -102,11 +103,11 @@ const EMPTY_[ENTITY_NAME]: [EntityType] = {
     MatCheckbox,
     MatDatepicker, MatDatepickerInput, MatDatepickerToggle,
     FormField,
+    FormRoot,
     JsonPipe,
   ],
   templateUrl: './[entity-name]-form.html',
   styleUrl: './[entity-name]-form.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class [EntityName]Form {
   // Signal-backed form model
@@ -132,8 +133,10 @@ export class [EntityName]Form {
     });
   });
 
-  // Form with schema
-  protected readonly [entityName]Form = form(this.[entityName]Model, this.[entityName]Schema);
+  // Form with schema; `submission.action` runs on submit when the form is valid
+  protected readonly [entityName]Form = form(this.[entityName]Model, this.[entityName]Schema, {
+    submission: { action: async () => this.onSubmit() },
+  });
 
   // Computed form state — dirty check at field level, not form level
   protected readonly canSubmit = computed(() =>
@@ -141,8 +144,7 @@ export class [EntityName]Form {
     (this.[entityName]Form.name().dirty() || this.[entityName]Form.email().dirty()),
   );
 
-  protected onSubmit(): void {
-    if (!this.canSubmit()) return;
+  private onSubmit(): void {
     const value = this.[entityName]Model();
     // ... call store / API
   }
@@ -161,8 +163,10 @@ Create a comprehensive template with modern Angular patterns:
   </mat-card-header>
 
   <mat-card-content>
-    <form (ngSubmit)="onSubmit()">
+    <!-- [formRoot] submits via Enter and type="submit" buttons; no (ngSubmit), no FormsModule -->
+    <form [formRoot]="[entityName]Form">
       <!-- Form fields based on entity structure -->
+      <button mat-flat-button type="submit" [disabled]="!canSubmit()">Save</button>
     </form>
   </mat-card-content>
 </mat-card>
@@ -208,7 +212,7 @@ For each entity field, generate appropriate input with validation:
   @for (item of [entityName]Form.[arrayField]; track item; let i = $index) {
     <mat-card class="mb-4">
       <!-- Array item fields -->
-      <button mat-icon-button color="warn" type="button" (click)="remove[ArrayItem](i)">
+      <button mat-icon-button class="remove-button" type="button" aria-label="Remove [item]" (click)="remove[ArrayItem](i)">
         <mat-icon>delete</mat-icon>
       </button>
     </mat-card>
@@ -246,29 +250,16 @@ remove[ArrayItem](index: number): void {
 ```
 
 #### Form Submission
+`[formRoot]` calls `submit()` on the form: it marks every field as touched (so errors show), then runs
+`submission.action` only if the form is valid. No manual valid check or "mark all touched" helper.
+
 ```typescript
-onSubmit(): void {
-  if (this.[entityName]Form().valid()) {
-    const formData = this.[entityName]();
-    console.log('Form submitted with valid data:', formData);
-
-    // Handle form submission (emit event, call service, etc.)
-    this.handleFormSubmit(formData);
-  } else {
-    // Mark all fields as touched to show validation errors
-    this.markAllFieldsTouched();
-  }
-}
-
-private handleFormSubmit(data: [EntityType]): void {
-  // Emit to parent component or call service
-  this.formSubmit.emit(data);
-}
-
-private markAllFieldsTouched(): void {
-  // Implementation to mark all fields as touched for validation display
-  // This will trigger error display for all invalid fields
-}
+protected readonly [entityName]Form = form(this.[entityName]Model, this.[entityName]Schema, {
+  submission: {
+    action: async () => this.formSubmit.emit(this.[entityName]Model()),
+    onInvalid: () => { /* optional: focus the first invalid field */ },
+  },
+});
 ```
 
 ### Step 5: Styling and Accessibility
@@ -292,6 +283,7 @@ Create responsive and accessible styles:
     position: relative;
 
     .remove-button {
+      color: var(--mat-sys-error); // `color="warn"` has no effect in Material 22
       position: absolute;
       top: 8px;
       right: 8px;
@@ -390,7 +382,7 @@ src/app/[domain]/
 6. **Dirty Check at Field Level**: Use `field().dirty()` on individual fields — the form-level `form()` object only exposes `valid()`, not `dirty()`
 7. **Responsive Design**: Ensure forms work well on all device sizes
 8. **Error Handling**: Provide clear, user-friendly error messages with custom messages in validators
-9. **Performance**: Use OnPush change detection and efficient signal updates with computed signals
+9. **Performance**: OnPush and zoneless are Angular 22 defaults — don't set `changeDetection`; derive state with `computed`
 10. **Built-in Validators**: Use Angular's built-in validators (`required`, `email`, `minLength`, etc.) for common validation needs
 
 ## Key References

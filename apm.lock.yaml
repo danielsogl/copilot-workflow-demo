@@ -193,7 +193,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:b2566675d1faaced2cee4ed326cc954a44bbce37dbfc2f001e5867ecf79c381f
+  content_hash: sha256:e88883c94cfef5fa004ea59eedbb373eee12cdad7e6f22c2a3c9fc88779d302e
 - kind: project-relative
   target: claude
   value: .claude/rules/architecture.md
@@ -202,7 +202,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:d7dc3a97f28226d53188c053c5a19787293a5c541e955b85f7d46c7058dede36
+  content_hash: sha256:68394bfbce9d011e722eb30be1e21d47150e04ed776ffb84d007685ed53c4096
 - kind: project-relative
   target: claude
   value: .claude/rules/commands.md
@@ -220,7 +220,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:5576f77d3f4b1f8323a9cdcc997e313abbb76199c22316ae45b4c680c7945dbe
+  content_hash: sha256:8ab7dbb554a9c65086ccf3f704ea59eac8923390a3644a2d90c413c0e8778ad8
 - kind: project-relative
   target: claude
   value: .claude/rules/styling.md
@@ -652,7 +652,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:09f80b60d607cc5cbc4e5d42920445eae62ad129dff0029f69dbd46eaaa96e76
+  content_hash: sha256:5107c9162ad8d95f9e4f1beefa36f3cfc427e5a8da114a0ae684b409e14e3b8d
 - kind: project-relative
   target: claude
   value: .claude/skills/bdd
@@ -769,7 +769,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:b27c1fa18ba289b2eb81ae8a97d1725ee307fe42b5f7f46e25af4f7593f9896d
+  content_hash: sha256:4bceffbebc150bc09966b701a7165999cb5fed25856b951b95dd995f33120a0b
 - kind: project-relative
   target: claude
   value: .claude/skills/ngrx-signals
@@ -796,7 +796,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:59b8fc2c7d476bb5686d4783b3fe119177515c5eb0fcb6bca955560f52247320
+  content_hash: sha256:391b363cd18e6fb4514bd76bc371a372ce8ae176b62321685b95f522d76bd042
 - kind: project-relative
   target: claude
   value: .claude/skills/ngrx-signals/README.md
@@ -1074,14 +1074,14 @@ local_deployed_file_hashes:
   .claude/agents/playwright-test-generator.md: sha256:25e8c507960b1eb075dc68ade9f06a46eae6ba9ff0835a5555c41d79d9bcc38a
   .claude/agents/playwright-test-healer.md: sha256:d79ad60df5f1a770a31be8a12241d2fc0b0d4b2b23302c0463fdf39da293ace6
   .claude/agents/playwright-test-planner.md: sha256:707e3c32b141be3d51cd18da88b93c9a2d653f9d78a07f652d496a3b6a9dc0f7
-  .claude/rules/angular-components.md: sha256:b2566675d1faaced2cee4ed326cc954a44bbce37dbfc2f001e5867ecf79c381f
-  .claude/rules/architecture.md: sha256:d7dc3a97f28226d53188c053c5a19787293a5c541e955b85f7d46c7058dede36
+  .claude/rules/angular-components.md: sha256:e88883c94cfef5fa004ea59eedbb373eee12cdad7e6f22c2a3c9fc88779d302e
+  .claude/rules/architecture.md: sha256:68394bfbce9d011e722eb30be1e21d47150e04ed776ffb84d007685ed53c4096
   .claude/rules/commands.md: sha256:827f798b8907a9c10a2eac11283f0351612ed8f67845ba0610efc1697f2afe50
-  .claude/rules/project-overview.md: sha256:5576f77d3f4b1f8323a9cdcc997e313abbb76199c22316ae45b4c680c7945dbe
+  .claude/rules/project-overview.md: sha256:8ab7dbb554a9c65086ccf3f704ea59eac8923390a3644a2d90c413c0e8778ad8
   .claude/rules/styling.md: sha256:ddf96af3963bfaeb33953cd5e372457d3b1710ac843fde91fa992a22a506c883
   .claude/rules/typescript.md: sha256:53c33ac832aee9870c95fc5eceecafb291a1c5530b184dabc122b45c8d58ea9c
   .claude/skills/analyze-codebase-bugs/SKILL.md: sha256:c9d652cda3165771dd4bc02fa41bfa9864a078161b6af7a7b65c059bef5dc46e
-  .claude/skills/angular-signal-forms/SKILL.md: sha256:09f80b60d607cc5cbc4e5d42920445eae62ad129dff0029f69dbd46eaaa96e76
-  .claude/skills/entity-crud/SKILL.md: sha256:b27c1fa18ba289b2eb81ae8a97d1725ee307fe42b5f7f46e25af4f7593f9896d
-  .claude/skills/ngrx-signals-store-crud/SKILL.md: sha256:59b8fc2c7d476bb5686d4783b3fe119177515c5eb0fcb6bca955560f52247320
+  .claude/skills/angular-signal-forms/SKILL.md: sha256:5107c9162ad8d95f9e4f1beefa36f3cfc427e5a8da114a0ae684b409e14e3b8d
+  .claude/skills/entity-crud/SKILL.md: sha256:4bceffbebc150bc09966b701a7165999cb5fed25856b951b95dd995f33120a0b
+  .claude/skills/ngrx-signals-store-crud/SKILL.md: sha256:391b363cd18e6fb4514bd76bc371a372ce8ae176b62321685b95f522d76bd042
   .claude/skills/review-branch/SKILL.md: sha256:7d7f855c0de001d736bd543a37e15b76bdace99c8afdd356df88b1dc435d04da

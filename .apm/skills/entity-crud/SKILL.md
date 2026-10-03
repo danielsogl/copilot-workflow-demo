@@ -102,6 +102,8 @@ Include these computed signals:
 #### Service Integration
 - Inject the service using `inject()` within `withMethods`
 - Use `rxMethod` for all Observable-based operations
+- Flattening operator: `switchMap` for loads (a newer request supersedes the old one), `concatMap` for create/update/delete (`switchMap` would cancel an in-flight write)
+- `HttpClient` is provided in root in Angular 22 — no `provideHttpClient()`; API specs use `provideHttpClientTesting()` only
 - Never convert Observables to Promises in store methods
 
 ### Step 4: Integration Guide
