@@ -1,0 +1,39 @@
+.notes-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.note-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.error {
+  color: var(--mat-sys-error);
+}
+
+.note-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.note {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+
+  h2 {
+    margin: 0 0 4px;
+    font-size: 1.1rem;
+  }
+
+  p {
+    margin: 0 0 4px;
+    white-space: pre-wrap;
+  }
+}

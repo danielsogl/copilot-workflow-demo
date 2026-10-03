@@ -1,0 +1,55 @@
+<section class="notes-page">
+  <h1>Notes</h1>
+
+  <form class="note-form" [formGroup]="form" (ngSubmit)="submit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" [maxlength]="titleMaxLength" />
+      <mat-hint align="end">
+        {{ form.controls.title.value.length }}/{{ titleMaxLength }}
+      </mat-hint>
+      @if (form.controls.title.hasError("required")) {
+        <mat-error>Title is required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Body (optional)</mat-label>
+      <textarea matInput rows="3" formControlName="body"></textarea>
+    </mat-form-field>
+
+    <button mat-flat-button type="submit">Add note</button>
+  </form>
+
+  @if (store.error(); as error) {
+    <p class="error" role="alert">{{ error }}</p>
+  }
+
+  @if (store.loading()) {
+    <p>Loading…</p>
+  } @else if (store.count() === 0) {
+    <p class="empty">No notes yet.</p>
+  } @else {
+    <ul class="note-list">
+      @for (note of store.sortedNotes(); track note.id) {
+        <li class="note">
+          <div class="note-content">
+            <h2>{{ note.title }}</h2>
+            @if (note.body) {
+              <p>{{ note.body }}</p>
+            }
+            <small>{{ note.createdAt | date: "medium" }}</small>
+          </div>
+          <button
+            mat-icon-button
+            type="button"
+            [attr.aria-label]="'Delete note ' + note.title"
+            (click)="remove(note.id)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </li>
+      }
+    </ul>
+  }
+</section>

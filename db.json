@@ -84,5 +84,6 @@
       "order": 0
     }
   ],
+  "notes": [],
   "$schema": "./node_modules/json-server/schema.json"
 }

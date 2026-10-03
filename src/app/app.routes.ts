@@ -16,5 +16,12 @@ export const routes: Routes = [
         (m) => m.AssistantPage,
       ),
   },
+  {
+    path: "notes",
+    loadComponent: () =>
+      import("./features/notes/feature/notes-page/notes-page").then(
+        (m) => m.NotesPage,
+      ),
+  },
   { path: "**", redirectTo: "/board" },
 ];
