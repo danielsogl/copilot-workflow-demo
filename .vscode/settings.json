@@ -31,7 +31,7 @@
 
   // --- Parity with Copilot CLI ---
   // Every harness reads the Claude layout (.claude/rules, agents, skills, settings.json hooks).
-  // AGENTS.md is the Copilot CLI's copy of .claude/rules, so VS Code skips it; CLAUDE.md stays
+  // AGENTS.md duplicates .claude/rules for the Copilot CLI and cloud agent, so VS Code skips it; CLAUDE.md stays
   // off because the CLI never reads ~/.claude.
   "chat.agent.thinkingStyle": "fixedScrolling",
   "chat.useClaudeHooks": true,

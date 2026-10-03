@@ -5,8 +5,9 @@ author: Daniel Sogl
 
 # One source for Claude Code and Copilot (VS Code + CLI). APM deploys only the claude target, because
 # every harness reads the Claude layout: .claude/agents, .claude/skills and the hooks in
-# .claude/settings.json. VS Code also reads .claude/rules; the Copilot CLI does not, so it gets the same
-# instructions from AGENTS.md, which VS Code skips (chat.useAgentsMdFile: false).
+# .claude/settings.json. VS Code and the Copilot CLI (1.0.91+) also read .claude/rules. AGENTS.md carries the
+# same instructions for the Copilot cloud agent; VS Code skips it (chat.useAgentsMdFile: false), the CLI
+# loads it on top of .claude/rules (duplicate, kept until the cloud agent is confirmed to read .claude/rules).
 #   apm install && apm compile --target codex        # the codex compile writes only AGENTS.md
 #
 # Generated: .claude/rules, .claude/agents, .claude/skills, the hooks in .claude/settings.json,

@@ -7,7 +7,7 @@ BRANCH="$(git -C "$ROOT" branch --show-current 2>/dev/null || echo unknown)"
 NODE_V="$(node --version 2>/dev/null || echo unknown)"
 NG_V="$(node -p "require('$ROOT/package.json').dependencies['@angular/core']" 2>/dev/null || echo unknown)"
 
-CONTEXT="Project: copilot-workflow-demo | Branch: ${BRANCH} | Node: ${NODE_V} | Angular: ${NG_V}. Conventions live in .claude/rules/ (Claude Code, VS Code) and AGENTS.md (Copilot CLI), both generated from .apm/instructions/; deep guidance lives in skills under .claude/skills/. All agent config is managed by APM — edit sources in .apm/, never the generated files."
+CONTEXT="Project: copilot-workflow-demo | Branch: ${BRANCH} | Node: ${NODE_V} | Angular: ${NG_V}. Conventions live in .claude/rules/ (all harnesses) and AGENTS.md (Copilot CLI, cloud agent), both generated from .apm/instructions/; deep guidance lives in skills under .claude/skills/. All agent config is managed by APM — edit sources in .apm/, never the generated files."
 
 ESCAPED="$(printf '%s' "$CONTEXT" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))' 2>/dev/null || printf '"%s"' "$CONTEXT")"
 
