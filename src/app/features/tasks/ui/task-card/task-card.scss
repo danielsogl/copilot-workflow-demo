@@ -91,6 +91,10 @@ mat-card-header {
   }
 }
 
+.mat-mdc-menu-item .delete-icon {
+  color: var(--mat-sys-error);
+}
+
 mat-card-content {
   padding: 10px 16px 4px;
 }

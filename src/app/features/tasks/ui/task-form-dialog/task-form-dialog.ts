@@ -2,6 +2,7 @@ import { Component, computed, inject, signal } from "@angular/core";
 import { TitleCasePipe } from "@angular/common";
 import {
   FormField,
+  FormRoot,
   form,
   maxLength,
   minLength,
@@ -54,6 +55,7 @@ const taskFormSchema = schema<TaskFormModel>((f) => {
   styleUrl: "./task-form-dialog.scss",
   imports: [
     FormField,
+    FormRoot,
     MatDialogTitle,
     MatDialogContent,
     MatDialogActions,
@@ -91,13 +93,13 @@ export class TaskFormDialog {
       : null,
   });
 
-  protected readonly taskForm = form(this.model, taskFormSchema);
+  protected readonly taskForm = form(this.model, taskFormSchema, {
+    submission: { action: async () => this.save() },
+  });
 
   protected readonly canSubmit = computed(() => this.taskForm().valid());
 
-  protected save(): void {
-    if (!this.canSubmit()) return;
-
+  private save(): void {
     const value = this.model();
     const formData: TaskFormData = {
       title: value.title.trim(),
