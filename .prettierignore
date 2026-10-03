@@ -7,8 +7,7 @@ coverage
 .angular
 .codegraph
 
-# APM: source primitives (managed verbatim) + generated lockfile/cache + generated AGENTS.md
+# APM: source primitives (managed verbatim) + generated lockfile/cache
 .apm
 apm.lock.yaml
 apm_modules
-AGENTS.md

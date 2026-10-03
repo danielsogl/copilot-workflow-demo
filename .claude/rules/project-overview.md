@@ -3,7 +3,7 @@ paths:
   - "**"
 ---
 
-This repo is an Angular 22 + NgRx Signals workshop demo. Agent configuration is managed by **APM** — author primitives under `.apm/`, then run `apm install && apm compile --target codex`. Never hand-edit the generated files (`.claude/rules`, `.claude/agents`, `.claude/skills`, `.mcp.json`, `AGENTS.md`).
+This repo is an Angular 22 + NgRx Signals workshop demo. Agent configuration is managed by **APM** — author primitives under `.apm/`, then run `apm install`. Never hand-edit the generated files (`.claude/rules`, `.claude/agents`, `.claude/skills`, `.mcp.json`).
 
 **CodeGraph:** when `.codegraph/` exists, reach for `codegraph_explore` (MCP) or `codegraph explore "<symbols or question>"` (shell) before grep or reading files — one call returns the relevant source plus its call paths. The index is **not** built by `apm install`; if `.codegraph/` is missing (the server reports "not initialized"), run `apm run codegraph-setup` (= `codegraph init`) once — CodeGraph's daemon keeps it in sync afterwards.
 
