@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>{{ dialogTitle }}</h2>
 
 <mat-dialog-content>
-  <form novalidate class="form-fields" (ngSubmit)="save()">
+  <form id="task-form" class="form-fields" [formRoot]="taskForm">
     <mat-form-field appearance="outline">
       <mat-label>Title</mat-label>
       <input matInput [formField]="taskForm.title" autocomplete="off" />
@@ -58,9 +58,9 @@
   <button mat-button type="button" (click)="cancel()">Cancel</button>
   <button
     mat-flat-button
-    type="button"
+    type="submit"
+    form="task-form"
     [disabled]="!canSubmit()"
-    (click)="save()"
   >
     {{ isEdit ? "Update" : "Create" }}
   </button>

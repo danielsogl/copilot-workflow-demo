@@ -18,7 +18,7 @@ import {
 } from "@ngrx/signals/entities";
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
 import { tapResponse } from "@ngrx/operators";
-import { EMPTY, forkJoin, pipe, switchMap, tap } from "rxjs";
+import { EMPTY, concatMap, forkJoin, pipe, switchMap, tap } from "rxjs";
 import { TaskApi } from "../infrastructure/task-api";
 import {
   Task,
@@ -131,7 +131,7 @@ export const TaskStore = signalStore(
     createTask: rxMethod<TaskFormData>(
       pipe(
         tap(() => patchState(store, { loading: true, error: null })),
-        switchMap((taskData) => {
+        concatMap((taskData) => {
           const maxOrder = store
             .tasksEntities()
             .filter((t) => t.status === "todo")
@@ -156,7 +156,7 @@ export const TaskStore = signalStore(
     updateTask: rxMethod<{ id: string; updates: Partial<Task> }>(
       pipe(
         tap(() => patchState(store, { loading: true, error: null })),
-        switchMap(({ id, updates }) =>
+        concatMap(({ id, updates }) =>
           taskApi.updateTask(id, updates).pipe(
             tapResponse({
               next: (task) =>
@@ -218,7 +218,7 @@ export const TaskStore = signalStore(
             ),
           );
         }),
-        switchMap(({ taskId, newStatus }) => {
+        concatMap(({ taskId, newStatus }) => {
           const targetTasks = store
             .tasksEntities()
             .filter((t) => t.status === newStatus)
@@ -280,7 +280,7 @@ export const TaskStore = signalStore(
             ),
           );
         }),
-        switchMap(({ status }) => {
+        concatMap(({ status }) => {
           const columnTasks = store
             .tasksEntities()
             .filter((t) => t.status === status)
@@ -308,7 +308,7 @@ export const TaskStore = signalStore(
     deleteTask: rxMethod<string>(
       pipe(
         tap(() => patchState(store, { loading: true, error: null })),
-        switchMap((id) =>
+        concatMap((id) =>
           taskApi.deleteTask(id).pipe(
             tapResponse({
               next: () =>

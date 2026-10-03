@@ -1,4 +1,4 @@
-import { execSync } from "child_process";
+import { execFileSync } from "node:child_process";
 import { CopilotClient, approveAll, defineTool } from "@github/copilot-sdk";
 
 const prNumber = process.argv[2];
@@ -26,12 +26,19 @@ const getPullRequest = defineTool<GetPullRequestParams>("get_pull_request", {
   },
   skipPermission: true,
   handler: async ({ pr }) => {
-    const rawDiff = execSync(`gh pr diff ${pr}`, {
+    const rawDiff = execFileSync("gh", ["pr", "diff", pr], {
       encoding: "utf-8",
       maxBuffer: 500_000,
     });
-    const meta = execSync(
-      `gh pr view ${pr} --json title,body,author,additions,deletions,changedFiles`,
+    const meta = execFileSync(
+      "gh",
+      [
+        "pr",
+        "view",
+        pr,
+        "--json",
+        "title,body,author,additions,deletions,changedFiles",
+      ],
       { encoding: "utf-8" },
     );
 
@@ -54,13 +61,12 @@ async function main() {
 
   try {
     const session = await client.createSession({
-      model: "gpt-4.1",
       streaming: true,
       tools: [getPullRequest],
       skillDirectories: [".claude/skills"],
       enableConfigDiscovery: true,
       systemMessage: {
-        content: `You are an expert code reviewer specializing in Angular 21, TypeScript, and NgRx Signals.
+        content: `You are an expert code reviewer specializing in Angular 22, TypeScript, and NgRx Signals.
 When reviewing a pull request:
 1. Start with a short summary of what the PR does
 2. List concrete issues (bugs, anti-patterns, missing error handling)

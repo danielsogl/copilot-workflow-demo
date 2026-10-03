@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  input,
-  output,
-} from "@angular/core";
+import { Component, computed, input, output } from "@angular/core";
 import {
   MatCard,
   MatCardContent,
@@ -23,7 +17,6 @@ import { formatDueDate, isOverdue } from "../../util/task-helpers/task-helpers";
   selector: "app-task-card",
   templateUrl: "./task-card.html",
   styleUrl: "./task-card.scss",
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatCard,
     MatCardHeader,

@@ -2,7 +2,12 @@
   <mat-card-header>
     <app-priority-badge [priority]="task().priority" />
     <span class="spacer"></span>
-    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-btn">
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      class="menu-btn"
+      aria-label="Task actions"
+    >
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
@@ -11,7 +16,7 @@
         <span>Edit</span>
       </button>
       <button mat-menu-item (click)="delete.emit(task())">
-        <mat-icon color="warn">delete</mat-icon>
+        <mat-icon class="delete-icon">delete</mat-icon>
         <span>Delete</span>
       </button>
     </mat-menu>

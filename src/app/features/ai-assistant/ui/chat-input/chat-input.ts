@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  input,
-  output,
-  signal,
-} from "@angular/core";
+import { Component, input, output, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatIconButton } from "@angular/material/button";
 import {
@@ -20,7 +14,6 @@ import { MatProgressSpinner } from "@angular/material/progress-spinner";
   selector: "app-chat-input",
   templateUrl: "./chat-input.html",
   styleUrl: "./chat-input.scss",
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     FormsModule,
     MatFormField,

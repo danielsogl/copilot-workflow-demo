@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  model,
-  output,
-  signal,
-} from "@angular/core";
+import { Component, model, output, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import {
   MatFormField,
@@ -22,7 +16,6 @@ import { TaskPriority } from "../../data/models/task.model";
   selector: "app-task-filters",
   templateUrl: "./task-filters.html",
   styleUrl: "./task-filters.scss",
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     FormsModule,
     MatFormField,

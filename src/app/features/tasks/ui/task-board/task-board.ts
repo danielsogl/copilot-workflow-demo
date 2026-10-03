@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  input,
-  output,
-} from "@angular/core";
+import { Component, input, output } from "@angular/core";
 import { CdkDragDrop, CdkDropListGroup } from "@angular/cdk/drag-drop";
 import { Task, TaskStatus } from "../../data/models/task.model";
 import { TaskColumn } from "../task-column/task-column";
@@ -12,7 +7,6 @@ import { TaskColumn } from "../task-column/task-column";
   selector: "app-task-board",
   templateUrl: "./task-board.html",
   styleUrl: "./task-board.scss",
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CdkDropListGroup, TaskColumn],
 })
 export class TaskBoard {

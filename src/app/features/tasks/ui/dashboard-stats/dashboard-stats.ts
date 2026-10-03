@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, input } from "@angular/core";
+import { Component, input } from "@angular/core";
 import { MatIcon } from "@angular/material/icon";
 
 @Component({
   selector: "app-dashboard-stats",
   templateUrl: "./dashboard-stats.html",
   styleUrl: "./dashboard-stats.scss",
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatIcon],
 })
 export class DashboardStats {

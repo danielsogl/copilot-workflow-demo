@@ -1,8 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { provideZonelessChangeDetection, ComponentRef } from "@angular/core";
+import { ComponentRef } from "@angular/core";
 import { TaskCard } from "./task-card";
 import { Task } from "../../data/models/task.model";
-import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
 
 describe("TaskCard", () => {
   let component: TaskCard;
@@ -23,7 +22,6 @@ describe("TaskCard", () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TaskCard],
-      providers: [provideZonelessChangeDetection(), provideAnimationsAsync()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TaskCard);
