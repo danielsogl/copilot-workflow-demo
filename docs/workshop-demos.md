@@ -109,7 +109,11 @@ commands like `sed -i`; say so if someone asks.
 VS Code: needs `chat.useClaudeHooks: true` (set in `.vscode/settings.json`; Preview, default off) and a
 window reload after changing it. VS Code ignores the `matcher`, so every PreToolUse hook runs for every
 tool — the script filters by tool name (`*edit*|*write*|*create*|*replace*|*patch*|*insert*`) and path
-itself. Not verified live in VS Code; try it once before the workshop, and if it does not fire, check
+itself. It reads every path VS Code's edit tools send (`filePath`, `replacements[].filePath` of
+`multi_replace_string_in_file`, the `Add/Update/Delete File` and `Move to` headers of `apply_patch`).
+VS Code runs the tool on any exit code other than 2, so while the marker is set the script denies when jq
+is missing or the payload does not parse. JetBrains is not wired up here (it reads `.github/hooks`, which
+this repo leaves out so hooks never run twice). Not verified live in VS Code; try it once before the workshop, and if it does not fire, check
 the tool name in the agent debug log (`github.copilot.chat.agentDebugLog.fileLogging.enabled`).
 
 **Reset:** `rm .protect-tests`, general reset.
