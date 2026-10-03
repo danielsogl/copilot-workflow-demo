@@ -1,5 +1,4 @@
 import { TestBed } from "@angular/core/testing";
-import { provideZonelessChangeDetection } from "@angular/core";
 import { Observable, of, throwError } from "rxjs";
 import { MockProvider } from "ng-mocks";
 import { TaskApi } from "../infrastructure/task-api";
@@ -68,7 +67,6 @@ describe("TaskStore", () => {
     TestBed.configureTestingModule({
       providers: [
         TaskStore,
-        provideZonelessChangeDetection(),
         MockProvider(TaskApi, taskApi as Partial<TaskApi>),
       ],
     });

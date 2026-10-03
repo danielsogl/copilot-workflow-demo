@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  effect,
-  inject,
-  untracked,
-} from "@angular/core";
+import { Component, effect, inject, untracked } from "@angular/core";
 import { MatFabButton } from "@angular/material/button";
 import { MatIcon } from "@angular/material/icon";
 import { MatDialog } from "@angular/material/dialog";
@@ -33,7 +27,6 @@ import {
   selector: "app-task-dashboard",
   templateUrl: "./task-dashboard.html",
   styleUrl: "./task-dashboard.scss",
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatFabButton,
     MatIcon,

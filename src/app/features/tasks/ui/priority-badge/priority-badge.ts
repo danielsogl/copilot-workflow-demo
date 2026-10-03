@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from "@angular/core";
+import { Component, input } from "@angular/core";
 import { TaskPriority } from "../../data/models/task.model";
 
 @Component({
@@ -9,7 +9,6 @@ import { TaskPriority } from "../../data/models/task.model";
       {{ priority() }}
     </span>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: `
     .badge {
       display: inline-flex;

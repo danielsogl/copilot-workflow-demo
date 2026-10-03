@@ -1,5 +1,4 @@
 import { TestBed } from "@angular/core/testing";
-import { provideZonelessChangeDetection } from "@angular/core";
 import { Observable, of, throwError } from "rxjs";
 import { MockProvider } from "ng-mocks";
 import { ChatApi, ChatStreamEvent } from "../infrastructure/chat-api";
@@ -25,7 +24,6 @@ describe("ChatStore", () => {
     TestBed.configureTestingModule({
       providers: [
         ChatStore,
-        provideZonelessChangeDetection(),
         MockProvider(ChatApi, chatApi as Partial<ChatApi>),
       ],
     });

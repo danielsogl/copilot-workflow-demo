@@ -1,5 +1,4 @@
 import { TestBed } from "@angular/core/testing";
-import { provideZonelessChangeDetection } from "@angular/core";
 import {
   HttpTestingController,
   provideHttpClientTesting,
@@ -26,7 +25,7 @@ describe("TaskApi", () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideZonelessChangeDetection(), provideHttpClientTesting()],
+      providers: [provideHttpClientTesting()],
     });
     service = TestBed.inject(TaskApi);
     httpTesting = TestBed.inject(HttpTestingController);

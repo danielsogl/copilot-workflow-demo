@@ -1,5 +1,4 @@
 import { TestBed } from "@angular/core/testing";
-import { provideZonelessChangeDetection } from "@angular/core";
 import { patchState } from "@ngrx/signals";
 import { unprotected } from "@ngrx/signals/testing";
 import { Observable, of, throwError } from "rxjs";
@@ -60,7 +59,6 @@ describe("PostStore", () => {
     TestBed.configureTestingModule({
       providers: [
         PostStore,
-        provideZonelessChangeDetection(),
         MockProvider(PostApi, postApi as Partial<PostApi>),
       ],
     });

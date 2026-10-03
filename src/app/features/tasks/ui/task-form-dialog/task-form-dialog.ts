@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  signal,
-} from "@angular/core";
+import { Component, computed, inject, signal } from "@angular/core";
 import { TitleCasePipe } from "@angular/common";
 import {
   FormField,
@@ -58,7 +52,6 @@ const taskFormSchema = schema<TaskFormModel>((f) => {
   selector: "app-task-form-dialog",
   templateUrl: "./task-form-dialog.html",
   styleUrl: "./task-form-dialog.scss",
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     FormField,
     MatDialogTitle,

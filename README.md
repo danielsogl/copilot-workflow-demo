@@ -60,14 +60,14 @@ Specialized agents authored in `.apm/agents/` and deployed to `.claude/agents/`:
 
 This project follows **Domain-Driven Design (DDD)**. Each domain under `src/app/features/<domain>/` is split into four layers:
 
-| Layer                  | Purpose                                                      |
-| ---------------------- | ------------------------------------------------------------ |
-| `feature/`             | Smart container components (route-level, inject stores)      |
-| `ui/`                  | Presentational components (dumb, OnPush, no store injection) |
-| `data/models/`         | TypeScript interfaces and types                              |
-| `data/infrastructure/` | HTTP services (`*-api.ts`)                                   |
-| `data/state/`          | NgRx Signal Stores (`*-store.ts`)                            |
-| `util/`                | Pure helper functions                                        |
+| Layer                  | Purpose                                                 |
+| ---------------------- | ------------------------------------------------------- |
+| `feature/`             | Smart container components (route-level, inject stores) |
+| `ui/`                  | Presentational components (dumb, no store injection)    |
+| `data/models/`         | TypeScript interfaces and types                         |
+| `data/infrastructure/` | HTTP services (`*-api.ts`)                              |
+| `data/state/`          | NgRx Signal Stores (`*-store.ts`)                       |
+| `util/`                | Pure helper functions                                   |
 
 ### Example Folder Structure
 

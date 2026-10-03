@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { provideZonelessChangeDetection } from "@angular/core";
 import { PriorityBadge } from "./priority-badge";
 import { ComponentRef } from "@angular/core";
 
@@ -11,7 +10,6 @@ describe("PriorityBadge", () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [PriorityBadge],
-      providers: [provideZonelessChangeDetection()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PriorityBadge);

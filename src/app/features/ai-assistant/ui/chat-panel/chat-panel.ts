@@ -1,6 +1,5 @@
 import {
   AfterViewChecked,
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   input,
@@ -16,7 +15,6 @@ import { ChatInput } from "../chat-input/chat-input";
   selector: "app-chat-panel",
   templateUrl: "./chat-panel.html",
   styleUrl: "./chat-panel.scss",
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ChatMessage, ChatInput, MatIcon],
 })
 export class ChatPanel implements AfterViewChecked {
