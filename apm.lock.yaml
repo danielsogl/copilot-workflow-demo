@@ -1,10 +1,10 @@
 lockfile_version: '1'
-apm_version: 0.30.0
+apm_version: 0.33.0
 dependencies:
 - repo_url: angular/skills
   name: angular-developer
   host: github.com
-  resolved_commit: a7f825692db669dc97e2059fe2220cc4a3dc34a7
+  resolved_commit: cfb0e3603dfacdda1cafd66d98a071459fa2187a
   version: unknown
   virtual_path: angular-developer
   is_virtual: true
@@ -76,7 +76,7 @@ dependencies:
     .claude/skills/angular-developer/references/linked-signal.md: sha256:01f5395e4be4be7c642f4dacd5312d6cc82e641f3ff177f9283b26b79dd07e95
     .claude/skills/angular-developer/references/loading-strategies.md: sha256:4eb2e243425443426d28c6f68c823d501c7b2bf64e4587c96c4c6013d57e7c93
     .claude/skills/angular-developer/references/mcp.md: sha256:e112ece9672d042144bc1aeb1245bd0325bab172398d7129a258be81f9db61aa
-    .claude/skills/angular-developer/references/migrations.md: sha256:47983ed2683dc10f692d254cdca9c97fc13dec9ad099b759f5d31886f3cbaa7a
+    .claude/skills/angular-developer/references/migrations.md: sha256:9e6906ae22b59871e4c2381d1a7175214bbe7117c042731a5db46ea214b1b6d0
     .claude/skills/angular-developer/references/naming-conventions.md: sha256:f0751d75d12a76ff0415124948ead5ae1a67d14a84360e64526aa8bac7d6c5d3
     .claude/skills/angular-developer/references/navigate-to-routes.md: sha256:ea3c3d53b5db47b4f8d8b05124330e72bea92fc908d42c06aa7edb9e652b425e
     .claude/skills/angular-developer/references/outputs.md: sha256:4d6900ff9ab90168969c3d05b67d88f69bb6a46aa4b74a8a8290ba0643c6d8dd
@@ -89,12 +89,12 @@ dependencies:
     .claude/skills/angular-developer/references/router-lifecycle.md: sha256:4abc8cb8dfeb2e9f57dc11c117d5f4a5b756b39dc076910d9ced9da640effc2d
     .claude/skills/angular-developer/references/router-testing.md: sha256:4d144577927d3ea93ae498cac7ebd2724873a2de225b75d345abb24759bd62d3
     .claude/skills/angular-developer/references/show-routes-with-outlets.md: sha256:43a2ed62ea2edafa8569bf7045f20928110f8f844d5890bfb6a2f2dde45e754b
-    .claude/skills/angular-developer/references/signal-forms.md: sha256:5251585cadf72ab95e31377904db21a597b5e9b982c8e839dc098b48f69ac6b7
+    .claude/skills/angular-developer/references/signal-forms.md: sha256:5848ddd75d2e1474321f688b6c1fd14242493a07b7a1180adafc04504e5304e0
     .claude/skills/angular-developer/references/signals-overview.md: sha256:da07c58fdea2ab7d82a28faf9f3d117ccb98ccaf3eec06f103b898f557791146
     .claude/skills/angular-developer/references/tailwind-css.md: sha256:bdb952d0dd2d415560a796ecaf843cacff5ac20d8ef961eaaf75656fef9b9263
     .claude/skills/angular-developer/references/template-driven-forms.md: sha256:52e83e576b0c6dc05f854e903c4cfda1222bcd55c50ddee07344d1e53d02c1df
     .claude/skills/angular-developer/references/testing-fundamentals.md: sha256:8f48c2392d99487934edf977c0d1b87a4e83ff9761db493bbcccc10f574bcb5a
-  content_hash: sha256:70dcf82240a74fd81ddb723954a8b26f0f60adf8a4f449caa9e5677d2f184b25
+  content_hash: sha256:217040b5ae809f8d54d50090bca2323d147bae6a4eb38d1037fa21e874c2d8d9
 - repo_url: danielsogl/skills
   name: bdd
   host: github.com
@@ -481,7 +481,7 @@ deployments:
   owners:
   - angular/skills/angular-developer
   active_owner: angular/skills/angular-developer
-  content_hash: sha256:47983ed2683dc10f692d254cdca9c97fc13dec9ad099b759f5d31886f3cbaa7a
+  content_hash: sha256:9e6906ae22b59871e4c2381d1a7175214bbe7117c042731a5db46ea214b1b6d0
 - kind: project-relative
   target: claude
   value: .claude/skills/angular-developer/references/naming-conventions.md
@@ -598,7 +598,7 @@ deployments:
   owners:
   - angular/skills/angular-developer
   active_owner: angular/skills/angular-developer
-  content_hash: sha256:5251585cadf72ab95e31377904db21a597b5e9b982c8e839dc098b48f69ac6b7
+  content_hash: sha256:5848ddd75d2e1474321f688b6c1fd14242493a07b7a1180adafc04504e5304e0
 - kind: project-relative
   target: claude
   value: .claude/skills/angular-developer/references/signals-overview.md

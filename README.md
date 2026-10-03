@@ -127,7 +127,7 @@ src/app/
 | **ESLint**               | 10      | Flat config with `angular-eslint`, `@ngrx/eslint-plugin`           |
 | **Prettier**             | 3       | Code formatting                                                    |
 | **Lefthook**             | 2       | Git hooks — auto-format & auto-lint on commit                      |
-| **APM**                  | 0.30    | Agent Package Manager — compiles `.apm/` → `.claude/`, `AGENTS.md` |
+| **APM**                  | 0.33    | Agent Package Manager — compiles `.apm/` → `.claude/`, `AGENTS.md` |
 
 ## ✨ Demo Application
 
