@@ -63,3 +63,6 @@ apm_modules/
 
 # Claude Code per-developer overrides
 .claude/settings.local.json
+
+# Toggle for the protect-tests hook (workshop demo)
+/.protect-tests

@@ -20,6 +20,11 @@
             "type": "command",
             "command": "\"$(git rev-parse --show-toplevel)\"/.apm/hooks/scripts/guard-destructive-bash.sh",
             "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "\"$(git rev-parse --show-toplevel)\"/.apm/hooks/scripts/protect-tests.sh",
+            "timeout": 5
           }
         ]
       }
