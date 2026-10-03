@@ -106,6 +106,12 @@ Claude Code and VS Code get exit 2 + stderr; the Copilot CLI gets a `permissionD
 Copilot CLI 1.0.91. Blocks `*.spec.ts` and `*.feature` via edit/write/create/patch tools — not shell
 commands like `sed -i`; say so if someone asks.
 
+VS Code: needs `chat.useClaudeHooks: true` (set in `.vscode/settings.json`; Preview, default off) and a
+window reload after changing it. VS Code ignores the `matcher`, so every PreToolUse hook runs for every
+tool — the script filters by tool name (`*edit*|*write*|*create*|*replace*|*patch*|*insert*`) and path
+itself. Not verified live in VS Code; try it once before the workshop, and if it does not fire, check
+the tool name in the agent debug log (`github.copilot.chat.agentDebugLog.fileLogging.enabled`).
+
 **Reset:** `rm .protect-tests`, general reset.
 **Fallback:** `echo '{"tool_name":"Edit","tool_input":{"file_path":"a.spec.ts"}}' | .apm/hooks/scripts/protect-tests.sh; echo $?`
 (with the marker present: prints the reason, exit 2).
