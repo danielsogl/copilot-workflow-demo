@@ -1,24 +1,24 @@
 # Workshop Demos
 
 Five live demos for the AI coding workshop. Run each from a clean tree (`git status` empty) on
-`chore/workshop-2026-10` unless a demo says otherwise. Start a **new** agent session per run — rules,
+`main` unless a demo says otherwise. Start a **new** agent session per run — rules,
 skills and hooks load at session start.
 
 General reset after any demo:
 
 ```bash
-git restore . && git clean -fd src tests && git switch chore/workshop-2026-10
+git restore . && git clean -fd src tests && git switch main
 ```
 
 ## D1 — Same model, different harness
 
-**Prep:** two terminals (or VS Code windows), same model in both. `demo/bare` is the workshop branch
+**Prep:** two terminals (or VS Code windows), same model in both. `demo/bare` is `main`
 with every agent file removed (`.claude/`, `.apm/`, `apm.yml`, `AGENTS.md`, `.mcp.json`,
 `.vscode/mcp.json`, `.github/lsp.json`). App code is identical. Your user-level config (`~/.claude`,
 `~/.copilot`) still applies; for a clean run use `claude --setting-sources project,local`.
 
 1. `git switch demo/bare`, new session, prompt below.
-2. `git stash -u && git switch chore/workshop-2026-10`, new session, same prompt.
+2. `git stash -u && git switch main`, new session, same prompt.
 
 **Prompt:**
 
@@ -30,7 +30,7 @@ Add a Notes page at /notes: a form to add a note (title required, max 80 charact
 code), so the difference is in conventions that only the rules know. Headless run on 2026-10-03,
 Claude Code + Sonnet, one run each:
 
-|               | bare (`demo/bare`)                           | harness (`chore/workshop-2026-10`)              |
+|               | bare (`demo/bare`)                           | harness (`main`)                                |
 | ------------- | -------------------------------------------- | ----------------------------------------------- |
 | Form API      | Reactive Forms (`FormBuilder`, `Validators`) | Signal Forms (`form()` + schema) — project rule |
 | Code comments | yes (`// Newest first`)                      | none — project rule                             |
@@ -142,6 +142,6 @@ description: "Scaffold the CRUD data layer for a new entity: model, *-api.ts HTT
 run `apm install`, start a new session, same prompt: `Skill(entity-crud)` fires. Verified headless with
 Claude Code (Sonnet): 0 of 2 runs fired with the bad description, 1 of 1 with the good one.
 
-**Reset:** `git restore . && git switch chore/workshop-2026-10`.
+**Reset:** `git restore . && git switch main`.
 **Fallback:** show both descriptions side by side and the skill listing in `/context` (only name +
 description are in context until the skill is invoked).
