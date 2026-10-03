@@ -1,0 +1,57 @@
+<section class="notes-page">
+  <h1>Notes</h1>
+
+  <form novalidate class="note-form" (submit)="$event.preventDefault(); add()">
+    <mat-form-field appearance="outline">
+      <mat-label>Title</mat-label>
+      <input matInput [formField]="noteForm.title" autocomplete="off" />
+      @let titleField = noteForm.title();
+      @if (titleField.touched() && titleField.invalid()) {
+        @for (error of titleField.errors(); track error.kind) {
+          <mat-error>{{ error.message }}</mat-error>
+        }
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Body</mat-label>
+      <textarea matInput rows="3" [formField]="noteForm.body"></textarea>
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-flat-button type="submit" [disabled]="!canSubmit()">
+        Add note
+      </button>
+    </div>
+  </form>
+
+  @if (store.error(); as error) {
+    <p class="error" role="alert">{{ error }}</p>
+  }
+
+  @if (store.noteCount() === 0 && !store.loading()) {
+    <p class="empty">No notes yet.</p>
+  }
+
+  <ul class="note-list">
+    @for (note of store.sortedNotes(); track note.id) {
+      <li class="note">
+        <div class="note-content">
+          <h2>{{ note.title }}</h2>
+          @if (note.body) {
+            <p>{{ note.body }}</p>
+          }
+          <small>{{ note.createdAt | date: "medium" }}</small>
+        </div>
+        <button
+          mat-icon-button
+          type="button"
+          [attr.aria-label]="'Delete note ' + note.title"
+          (click)="remove(note.id)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </li>
+    }
+  </ul>
+</section>
