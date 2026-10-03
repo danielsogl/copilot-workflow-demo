@@ -5,19 +5,21 @@ author: Daniel Sogl
 
 # One source for Claude Code and Copilot (VS Code + CLI). APM deploys only the claude target, because
 # every harness reads the Claude layout: .claude/agents, .claude/skills and the hooks in
-# .claude/settings.json. VS Code and the Copilot CLI (1.0.91+) also read .claude/rules. AGENTS.md carries the
-# same instructions for the Copilot cloud agent; VS Code skips it (chat.useAgentsMdFile: false), the CLI
-# loads it on top of .claude/rules (duplicate, kept until the cloud agent is confirmed to read .claude/rules).
-#   apm install && apm compile --target codex        # the codex compile writes only AGENTS.md
+# .claude/settings.json. VS Code and the Copilot CLI (1.0.89+) also read .claude/rules.
+#   apm install
+# No `apm compile --target codex`: a full AGENTS.md doubled the rules in the Copilot CLI, which reads
+# AGENTS.md and .claude/rules alike and has no switch to skip one. The cloud agent and code review do not
+# read .claude/rules (only copilot-instructions.md, .github/instructions, AGENTS.md/CLAUDE.md/GEMINI.md),
+# so the hand-owned AGENTS.md is a short index that sends them to .claude/rules.
 #
-# Generated: .claude/rules, .claude/agents, .claude/skills, the hooks in .claude/settings.json,
-# .mcp.json and AGENTS.md. Hand-owned: .vscode/settings.json, .vscode/mcp.json (VS Code's Local agent
+# Generated: .claude/rules, .claude/agents, .claude/skills, the hooks in .claude/settings.json and
+# .mcp.json. Hand-owned: AGENTS.md (keep its rule table in sync with .apm/instructions), .vscode/settings.json, .vscode/mcp.json (VS Code's Local agent
 # does not read .mcp.json), .github/lsp.json (the Copilot CLI reads repo LSP servers only from there —
 # keep it in sync with dependencies.lsp) and the permissions / enabledMcpjsonServers /
 # UserPromptSubmit parts of .claude/settings.json.
 # No copilot target: VS Code would load .github/instructions and .github/agents on top of the .claude
 # copies, and the only settings that prevented that (chat.*FilesLocations) are deprecated. The cloud
-# agent therefore sees AGENTS.md and .claude/skills, but no hooks or custom agents.
+# agent therefore sees the AGENTS.md index and .claude/skills, but no hooks or custom agents.
 #
 # Rules that the generated output does not reveal:
 #   - The UserPromptSubmit -> `codegraph prompt-hook` entry in .claude/settings.json is user-owned:
