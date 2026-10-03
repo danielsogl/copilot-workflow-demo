@@ -754,6 +754,24 @@ deployments:
   content_hash: sha256:5f06109dd050f522ac5e78836d3f1c5ad41d85e7d4f68b7933495631cdbe25d1
 - kind: project-relative
   target: claude
+  value: .claude/skills/entity-crud
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/entity-crud/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:b27c1fa18ba289b2eb81ae8a97d1725ee307fe42b5f7f46e25af4f7593f9896d
+- kind: project-relative
+  target: claude
   value: .claude/skills/ngrx-signals
   runtime: null
   scope: project
@@ -1046,6 +1064,8 @@ local_deployed_files:
 - .claude/skills/analyze-codebase-bugs/SKILL.md
 - .claude/skills/angular-signal-forms
 - .claude/skills/angular-signal-forms/SKILL.md
+- .claude/skills/entity-crud
+- .claude/skills/entity-crud/SKILL.md
 - .claude/skills/ngrx-signals-store-crud
 - .claude/skills/ngrx-signals-store-crud/SKILL.md
 - .claude/skills/review-branch
@@ -1062,5 +1082,6 @@ local_deployed_file_hashes:
   .claude/rules/typescript.md: sha256:53c33ac832aee9870c95fc5eceecafb291a1c5530b184dabc122b45c8d58ea9c
   .claude/skills/analyze-codebase-bugs/SKILL.md: sha256:c9d652cda3165771dd4bc02fa41bfa9864a078161b6af7a7b65c059bef5dc46e
   .claude/skills/angular-signal-forms/SKILL.md: sha256:09f80b60d607cc5cbc4e5d42920445eae62ad129dff0029f69dbd46eaaa96e76
+  .claude/skills/entity-crud/SKILL.md: sha256:b27c1fa18ba289b2eb81ae8a97d1725ee307fe42b5f7f46e25af4f7593f9896d
   .claude/skills/ngrx-signals-store-crud/SKILL.md: sha256:59b8fc2c7d476bb5686d4783b3fe119177515c5eb0fcb6bca955560f52247320
   .claude/skills/review-branch/SKILL.md: sha256:7d7f855c0de001d736bd543a37e15b76bdace99c8afdd356df88b1dc435d04da
