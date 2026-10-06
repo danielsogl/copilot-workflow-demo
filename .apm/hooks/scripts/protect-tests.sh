@@ -34,10 +34,20 @@ FILES="$(printf '%s' "$INPUT" | jq -r '
     (($a.input // "") | scan("\\*\\*\\* (?:(?:Add|Update|Delete) File|Move to): (.+)") | .[0])
 ' 2>/dev/null)"
 
-BLOCKED="$(printf '%s\n' "$FILES" | grep -E '\.(spec\.ts|feature)$' | head -1)"
+# Only committed, unchanged tests are frozen: new tests and uncommitted test edits stay writable,
+# so the agent can still write RED tests. Committing them is the human sign-off that freezes them.
+BLOCKED=""
+while IFS= read -r f; do
+  [ -z "$f" ] && continue
+  git -C "$ROOT" ls-files --error-unmatch -- "$f" >/dev/null 2>&1 || continue
+  git -C "$ROOT" diff --quiet HEAD -- "$f" 2>/dev/null || continue
+  BLOCKED="$f"; break
+done <<EOF_FILES
+$(printf '%s\n' "$FILES" | grep -E '\.(spec\.ts|feature)$')
+EOF_FILES
 [ -z "$BLOCKED" ] && { printf '{"continue":true}\n'; exit 0; }
 
-REASON="Test files are protected (.protect-tests is set): refusing to edit $BLOCKED. Fix the implementation so the existing tests pass; do not change the tests."
+REASON="Committed tests are frozen (.protect-tests is set): refusing to edit $BLOCKED. Fix the implementation so the existing tests pass; do not change the tests. New test files are fine."
 
 # camelCase payloads (Copilot CLI): exit 2 blocks but drops the reason, so deny() answers with the
 # permissionDecision JSON. Claude Code and VS Code: exit 2, reason on stderr.
