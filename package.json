@@ -22,7 +22,7 @@
     "@angular/material": "^22.2.1",
     "@angular/platform-browser": "^22.2.1",
     "@angular/router": "^22.2.1",
-    "@github/copilot-sdk": "^1.0.22",
+    "@github/copilot-sdk": "^1.0.26",
     "@ngrx/operators": "^22.0.1",
     "@ngrx/signals": "^22.0.1",
     "cors": "^2.8.6",
