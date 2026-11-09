@@ -51,7 +51,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-playwright": "^2.12.2",
     "eslint-plugin-prettier": "^5.5.7",
-    "jsdom": "^30.1.3",
+    "jsdom": "^31.0.0",
     "lefthook": "^2.2.2",
     "ng-mocks": "^14.18.6",
     "playwright": "^1.65.0",
